@@ -1,0 +1,21 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionalProperties": false,
+    "properties": {
+        "disabled": {
+            "type": "boolean"
+        },
+        "resource": {
+            "format": "frmdb-resource-name",
+            "type": "string"
+        },
+        "resourceId": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "resource"
+    ],
+    "type": "object"
+}
+

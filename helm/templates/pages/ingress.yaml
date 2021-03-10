@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: formuladb-ui-pages
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /formuladb-ui-pages(/|$)(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service: 
+            name: ui-pages
+            port: 
+              number: 3000  
+    {{ if .Values.ingress.host}}host: {{ .Release.Namespace }}.{{ .Values.ingress.host }}{{end}}
+

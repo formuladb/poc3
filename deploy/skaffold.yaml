@@ -1,0 +1,101 @@
+apiVersion: skaffold/v2beta11
+kind: Config
+build:
+  tagPolicy:
+    gitCommit: {}
+  cluster:
+    randomPullSecret: true
+    randomDockerConfigSecret: true
+    pullSecretName: regcred
+    dockerConfig:
+      path: ../ci/docker-config.json
+  artifacts:
+  - image: registry.formuladb.io/formuladb/febe/formuladb-objstore
+    context: ../objstore
+    sync:
+      manual:
+      - src: index.js
+        dest: /
+    kaniko:
+      dockerfile: Dockerfile
+      cache: {}
+  - image: registry.formuladb.io/formuladb/febe/formuladb-ui_pages
+    context: ../ui-pages
+    sync:
+      manual:
+      - src: '**/*'
+        dest: /
+    kaniko:
+      dockerfile: Dockerfile
+      cache: {}
+  - image: registry.formuladb.io/formuladb/febe/formuladb-deploy_server
+    context: ../deploy-server
+    kaniko:
+      dockerfile: Dockerfile
+      cache: {}
+  - image: registry.formuladb.io/formuladb/febe/formuladb-deploy_frmdb
+    context: ../frmdb
+    kaniko:
+      dockerfile: Dockerfile
+      cache: {}
+  - image: registry.formuladb.io/formuladb/febe/formuladb-deploy_app
+    context: ../../formuladb-apps
+    kaniko:
+      dockerfile: Dockerfile
+      cache: {}
+deploy:
+  helm:
+    releases:
+    - name: formuladb
+      chartPath: ../helm
+      artifactOverrides:
+        image_objstore: registry.formuladb.io/formuladb/febe/formuladb-objstore
+        image_ui_pages: registry.formuladb.io/formuladb/febe/formuladb-ui_pages
+        image_deploy_server: registry.formuladb.io/formuladb/febe/formuladb-deploy_server
+        image_deploy_frmdb: registry.formuladb.io/formuladb/febe/formuladb-deploy_frmdb
+        image_deploy_app: registry.formuladb.io/formuladb/febe/formuladb-deploy_app
+        image_deploy_bakdb: registry.formuladb.io/formuladb/febe/formuladb-deploy_bakdb
+        # image_deploy_bakobj: registry.formuladb.io/formuladb/febe/formuladb-deploy_bakobj
+      setValues: 
+        ingress.host: frmdb.localhost
+        envtype: dev
+profiles:
+- name: production
+  patches:
+  - op: replace
+    path: /deploy/helm/releases/0/setValues/envtype
+    value: production
+- name: localdev
+  patches:
+  - op: remove
+    path: /build/cluster
+  - op: remove
+    path: /build/artifacts/0/kaniko
+  - op: add
+    path: /build/artifacts/0/docker
+    value:
+      dockerfile: Dockerfile
+  - op: remove
+    path: /build/artifacts/1/kaniko
+  - op: add
+    path: /build/artifacts/1/docker
+    value:
+      dockerfile: Dockerfile.dev
+  - op: remove
+    path: /build/artifacts/2/kaniko
+  - op: add
+    path: /build/artifacts/2/docker
+    value:
+      dockerfile: Dockerfile
+  - op: remove
+    path: /build/artifacts/3/kaniko
+  - op: add
+    path: /build/artifacts/3/docker
+    value:
+      dockerfile: Dockerfile
+  - op: remove
+    path: /build/artifacts/4/kaniko
+  - op: add
+    path: /build/artifacts/4/docker
+    value:
+      dockerfile: Dockerfile

@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: objstore
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: objstore
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        service: objstore
+    spec:
+      containers:
+      - name: objstore
+        image: {{ .Values.image_objstore }}
+        ports:
+        - containerPort: 8080
+        env:
+        - { name: MINIO_ACCESS_KEY, value: "2VTDNqA7p9wlkNFgxB" }
+        - { name: MINIO_SECRET_KEY, value: "S8wavKlP7DRTo5hXyEsBaCVjpW5qEs0dvcUDlOBcaFJdSSS3zILfoK9rXjfBGlVn" }
+        #FIXME: replace with k8s secret
+        - { name: JWT_SECRET, value: "asd1238d140dhoicoiqhewodqhed81-312d" }
+      imagePullSecrets:
+        - name: regcred

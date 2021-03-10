@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: minio
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: minio
+  serviceName: minio
+  template:
+    metadata:
+      labels:
+        service: minio
+    spec:
+      containers:
+      - name: minio
+        image: minio/minio:RELEASE.2020-11-13T20-10-18Z
+        command: ["/bin/sh", "-ce", "/usr/bin/docker-entrypoint.sh minio server /data"]
+        env:
+        - { name: MINIO_ACCESS_KEY, value: "2VTDNqA7p9wlkNFgxB" }
+        - { name: MINIO_SECRET_KEY, value: "S8wavKlP7DRTo5hXyEsBaCVjpW5qEs0dvcUDlOBcaFJdSSS3zILfoK9rXjfBGlVn" }
+        ports:
+        - containerPort: 9000
+        resources: {}
+        volumeMounts:
+        - mountPath: /data
+          name: minio-persistence
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: regcred
+  volumeClaimTemplates:
+  - metadata:
+      name: minio-persistence
+    spec:
+      accessModes: [ ReadWriteOnce ]
+      resources:
+        requests:
+          storage: 10Gi

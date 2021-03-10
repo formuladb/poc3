@@ -1,0 +1,30 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Release.Name }}-minio-init-buckets-job
+  labels:
+    app: {{ .Release.Name }}-minio-init-buckets-job
+  annotations:
+    "helm.sh/hook": post-install,post-upgrade
+    "helm.sh/hook-delete-policy": hook-succeeded,before-hook-creation
+spec:
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-minio-init-buckets-job
+    spec:
+      containers:
+      - name: minio-mc
+        image: minio/mc:RELEASE.2020-11-17T00-39-14Z
+        env:
+        - { name: MINIO_ACCESS_KEY, value: "2VTDNqA7p9wlkNFgxB" }
+        - { name: MINIO_SECRET_KEY, value: "S8wavKlP7DRTo5hXyEsBaCVjpW5qEs0dvcUDlOBcaFJdSSS3zILfoK9rXjfBGlVn" }
+        command:
+          - /bin/sh
+          - -ec
+          - |
+            /usr/bin/mc config host add myminio http://minio:9000 $MINIO_ACCESS_KEY $MINIO_SECRET_KEY
+            /usr/bin/mc mb --ignore-existing myminio/frmdb-bucket;
+            /usr/bin/mc policy set download myminio/frmdb-bucket;
+      restartPolicy: Never
+  backoffLimit: 1

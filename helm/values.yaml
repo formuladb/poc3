@@ -1,0 +1,14 @@
+ingress:
+  host: null
+envtype: production
+image_assets: registry.formuladb.io/formuladb/febe/formuladb-assets:b455a7c5@sha256:f79dac552f6c01f55bad0c74ba5e87ee072654a15bf0f1d8d577e65fb3a01609
+image_for_db: registry.formuladb.io/formuladb/febe/dbplv8:12.3-2.3.15-1
+image_for_clitools: registry.formuladb.io/formuladb/febe/formuladb-clitools:0.0.1
+image_objstore: registry.formuladb.io/formuladb/febe/formuladb-objstore:b5bdc51b@sha256:21e57baa13862181356b0c47691b0c1329a74c5123cf94f60661e6e13f7e3ecd
+image_ui_pages: registry.formuladb.io/formuladb/febe/formuladb-ui_pages:b5bdc51b-dirty@sha256:b0180c51255839678e591b097af0fbb0db71cdd9a8f80481c16be82db2704211
+image_deploy_server: registry.formuladb.io/formuladb/febe/formuladb-deploy_server:b5bdc51b@sha256:bfde9c82074df3bb5871976f5f90d493b83fd604feb48d5b7c928f05e57f7263
+image_deploy_frmdb: registry.formuladb.io/formuladb/febe/formuladb-deploy_frmdb:b5bdc51b@sha256:eaf29116fb67c6dbd8ae874c514529925bd43ebcfaa8cd7286c70338fa7b0ebd
+image_deploy_app: registry.formuladb.io/formuladb/febe/formuladb-deploy_app:f13e007-dirty@sha256:26b3198e3320c8fd100e904003ff577465be63332dd2c0caf21331ae02180cc5
+image_deploy_bakdb: registry.formuladb.io/formuladb/febe/formuladb-deploy_bakdb:latest@sha256:52519813f9e65c29601583471d1d08db47cd576bfd26bd4d47221708168cbf3b
+# image_deploy_bakobj: registry.formuladb.io/formuladb/febe/formuladb-deploy_bakobj:latest
+# image_auth: jboss/keycloak:11.0.3

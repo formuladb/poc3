@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: formuladb-dbrest
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      if ($cookie_dbrestauth) {
+        set $auth "Bearer $cookie_dbrestauth";
+      }
+      if ($http_authorization) {
+        set $auth $http_authorization;
+      }
+      if ($request_uri ~ /rpc/frmdb_login) {
+        set $auth "";
+      } 
+      proxy_set_header Authorization $auth;
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /formuladb-dbrest(/|$)(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: dbrest
+            port:
+              number: 3000  
+    {{ if .Values.ingress.host}}host: {{ .Release.Namespace }}.{{ .Values.ingress.host }}{{end}}

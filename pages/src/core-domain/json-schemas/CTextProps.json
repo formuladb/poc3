@@ -1,0 +1,34 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionalProperties": false,
+    "properties": {
+        "fontWeight": {
+            "enum": [
+                "bold",
+                "bolder",
+                "lighter"
+            ],
+            "type": "string"
+        },
+        "text": {
+            "type": "string"
+        },
+        "textAlign": {
+            "enum": [
+                "center",
+                "end",
+                "justify",
+                "left",
+                "match-parent",
+                "right",
+                "start"
+            ],
+            "type": "string"
+        }
+    },
+    "required": [
+        "text"
+    ],
+    "type": "object"
+}
+

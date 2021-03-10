@@ -1,0 +1,160 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "anyOf": [
+        {
+            "$ref": "#/definitions/CPageEditProps"
+        },
+        {
+            "$ref": "#/definitions/CPageCreateProps"
+        },
+        {
+            "$ref": "#/definitions/CPageListProps"
+        }
+    ],
+    "definitions": {
+        "ActionCREATE": {
+            "additionalProperties": false,
+            "properties": {
+                "actionType": {
+                    "enum": [
+                        "CREATE"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "actionType"
+            ],
+            "type": "object"
+        },
+        "ActionEXPORT": {
+            "additionalProperties": false,
+            "properties": {
+                "actionType": {
+                    "enum": [
+                        "EXPORT"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "actionType"
+            ],
+            "type": "object"
+        },
+        "ActionIMPORTDATA": {
+            "additionalProperties": false,
+            "properties": {
+                "actionType": {
+                    "enum": [
+                        "IMPORTDATA"
+                    ],
+                    "type": "string"
+                },
+                "fieldMappings": {
+                    "items": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "field": {
+                                "type": "string"
+                            },
+                            "importedField": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "field",
+                            "importedField"
+                        ],
+                        "type": "object"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "actionType",
+                "fieldMappings"
+            ],
+            "type": "object"
+        },
+        "CPageCreateProps": {
+            "additionalProperties": false,
+            "properties": {
+                "cPageType": {
+                    "enum": [
+                        "Create"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "cPageType"
+            ],
+            "type": "object"
+        },
+        "CPageEditProps": {
+            "additionalProperties": false,
+            "properties": {
+                "cPageType": {
+                    "enum": [
+                        "Edit"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "cPageType"
+            ],
+            "type": "object"
+        },
+        "CPageListProps": {
+            "additionalProperties": false,
+            "properties": {
+                "cPageType": {
+                    "enum": [
+                        "List"
+                    ],
+                    "type": "string"
+                },
+                "enabledActions": {
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/ActionCREATE"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionEXPORT"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionIMPORTDATA"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "filterTreeField": {
+                    "format": "frmdb-category-field-name",
+                    "type": "string"
+                },
+                "filterTreeResource": {
+                    "format": "frmdb-category-resource-name",
+                    "type": "string"
+                },
+                "largePages": {
+                    "type": "boolean"
+                },
+                "noFilters": {
+                    "type": "boolean"
+                },
+                "noPagination": {
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "cPageType"
+            ],
+            "type": "object"
+        }
+    }
+}
+

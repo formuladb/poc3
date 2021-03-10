@@ -1,0 +1,10 @@
+FROM node:lts-alpine
+
+RUN apk add --no-cache git curl less
+
+COPY package.json /package.json
+# COPY package-lock.json /package-lock.json
+RUN npm install --unsafe-perm
+
+ADD . /
+CMD npm start

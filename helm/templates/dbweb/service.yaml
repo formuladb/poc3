@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: dbweb
+spec:
+  ports:
+  - name: "dbweb"
+    port: 80
+    targetPort: 80
+  selector:
+    service: dbweb
+status:
+  loadBalancer: {}

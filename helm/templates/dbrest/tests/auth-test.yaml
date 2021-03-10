@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ .Release.Name }}-credentials-test"
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: auth-test
+      image: {{ .Values.image_for_clitools }}
+      imagePullPolicy: Always
+      command:
+        - /bin/bash
+        - -ec
+        - |
+          set -ex 
+
+          login_reply=`curl -s -XPOST  -H "Content-Type: application/json" \
+              'http://dacris.frmdb.localhost/formuladb-dbrest/rpc/frmdb_login' \
+              --data-binary '{ "username": "t", "pass": "p" }'`
+          echo "$login_reply"
+          token=`echo "$login_reply" | jq -r .[0].token`
+
+          curl -H "Authorization: Bearer $token" 'http://dacris.frmdb.localhost/formuladb-dbrest/technicians'
+
+          curl -H "Authorization: Bearer $token" 'http://dacris.frmdb.localhost/formuladb-dbrest/rpc/frmdb_refresh_token'
+  restartPolicy: Never

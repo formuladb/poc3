@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: db
+  serviceName: db
+  template:
+    metadata:
+      labels:
+        service: db
+    spec:
+      containers:
+      - name: db
+        image: {{ .Values.image_for_db }}
+        imagePullPolicy: IfNotPresent
+        command: ["docker-entrypoint.sh", "-c", "log_statement=all"]
+        env:
+        - name: POSTGRES_PASSWORD
+          value: postgres
+        ports:
+        - containerPort: 5432
+        resources: {}
+        volumeMounts:
+        - mountPath: /var/lib/postgresql/data
+          name: pg-persistence
+          subPath: postgres
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: regcred
+  volumeClaimTemplates:
+  - metadata:
+      name: pg-persistence
+    spec:
+      accessModes: [ ReadWriteOnce ]
+      resources:
+        requests:
+          storage: 10Gi
