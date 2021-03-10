@@ -17,6 +17,8 @@ import { JSONSchema7 } from 'json-schema';
 import { RawFormContext, RawFormContextData } from './useRawFormContext';
 import { groupByUniqProp } from '../utils';
 import { useValidators } from './useValidators';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
+import { PrintButton } from '../list/buttons/PrintButton';
 
 export function CForm({
     children = null as null | React.ReactNode,
@@ -35,9 +37,9 @@ export function CForm({
     console.log('FFFFF', resId);
     return <div ref={connect}>
         {resId &&
-            <EditForm resource={res} resourceId={resId} children={children} disabled={nP.disabled} />}
+            <EditForm resource={res} resourceId={resId} children={children} disabled={nP.disabled} enabledActions={nP.enabledActions} />}
         {!resId &&
-            <RawForm resource={res} children={children} disabled={nP.disabled} />}
+            <RawForm resource={res} children={children} disabled={nP.disabled} enabledActions={nP.enabledActions} />}
     </div>;
 };
 CForm.displayName = 'CForm';
@@ -47,6 +49,7 @@ export const EditForm = ({
     resourceId = 'cform_no_resource_id' as string,
     children = null as null | React.ReactNode,
     disabled = false as boolean,
+    enabledActions = undefined as CFormProps['enabledActions'],
 }) => {
     const notify = useNotify();
     const { data: record, loading, loaded } = useGetOne<Record>(
@@ -62,7 +65,8 @@ export const EditForm = ({
         }
     );
 
-    return <RawForm resource={resource} record={record} children={children} disabled={disabled} />;
+    return <RawForm resource={resource} record={record} children={children} disabled={disabled}
+        enabledActions={enabledActions} />;
 };
 
 export type RawFormProps = Parameters<typeof RawForm>[0];
@@ -73,6 +77,7 @@ export const RawForm = ({
     disabled = false as boolean,
     refToParentListFieldName = undefined as string | undefined,
     parentResourceId = undefined as string | undefined,
+    enabledActions = undefined as CFormProps['enabledActions'],
     onSave = undefined as undefined | ((data: Partial<Record>, saveOk: boolean) => void | Promise<void>)
 }) => {
 
@@ -106,12 +111,12 @@ export const RawForm = ({
             });
         }
     }
-    const formContext: RawFormContextData = { 
+    const formContext: RawFormContextData = {
         isCreate: record == undefined,
-        resource, 
-        fieldDefsByName, 
-        inputs, 
-        addInput 
+        resource,
+        fieldDefsByName,
+        inputs,
+        addInput
     };
 
     return (
@@ -138,6 +143,15 @@ export const RawForm = ({
                                         saving={formProps.saving}
                                         handleSubmitWithRedirect={formProps.handleSubmitWithRedirect}
                                     />
+                                    {enabledActions &&
+                                        <ButtonGroup color="primary" aria-label="outlined primary button group">
+                                            {enabledActions?.map(act => {
+                                                if (act.actionType === "PRINT") {
+                                                    return <PrintButton />;
+                                                }
+                                            })}
+                                        </ButtonGroup>
+                                    }
                                     <DeleteButton
                                         resource={resource}
                                         record={formProps.record}

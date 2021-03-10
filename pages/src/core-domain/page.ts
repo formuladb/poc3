@@ -27,7 +27,7 @@ export interface CPageListProps {
     filterTreeResource?: string;
     /**@TJS-format frmdb-category-field-name */
     filterTreeField?: string;
-    enabledActions?: Action[];
+    enabledActions?: ListAction[];
     noFilters?: boolean;
     noPagination?: boolean;
     largePages?: boolean;
@@ -61,7 +61,7 @@ export interface CListProps {
     refToParentListFieldName?: string;
 
     /**@TJS-format frmdb-multiple-choice */
-    enabledActions?: Action[];
+    enabledActions?: ListAction[];
 }
 
 interface ActionCREATE {
@@ -74,10 +74,21 @@ export interface ActionIMPORTDATA {
     actionType: 'IMPORTDATA';
     fieldMappings: {importedField: string, field: string}[];
 }
-export type Action = 
+
+export interface ActionPRINT {
+    actionType: 'PRINT';
+}
+
+
+export type ListAction = 
     | ActionCREATE
     | ActionEXPORT
     | ActionIMPORTDATA
+    | ActionPRINT
+;
+
+export type FormAction = 
+    | ActionPRINT
 ;
 
 export interface CListNode extends PageNodeBase, CListProps {
@@ -255,7 +266,10 @@ export interface CFormProps {
     resource: string;
     resourceId?: string;
     disabled?: boolean;
+
+    enabledActions?: FormAction[];
 }
+
 export interface CFormNode extends CFormProps, PageNodeBase {
     _tag: 'CForm';
     children?: PageNode[];

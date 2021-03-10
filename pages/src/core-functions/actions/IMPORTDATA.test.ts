@@ -25,10 +25,10 @@ test('should import data', async () => {
             { name: 'product_id', c_table_name: 'order_products', type: 'TextField', c_is_computed: false },
             { name: 'quantity', c_table_name: 'order_products', type: 'NumberField', c_is_computed: false },
         ]
-    }, {
-        'Item #': 'product_id',
-        'Quantity Shipped': 'quantity',
-    },
+    }, [
+        { importedField: 'Item #', field: 'product_id' },
+        { importedField: 'Quantity Shipped', field: 'quantity' }
+    ],
     inputData, 'order_id', 'ord1');
 
     expect(receivedData).toEqual([
