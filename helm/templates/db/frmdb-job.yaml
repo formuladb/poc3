@@ -4,6 +4,7 @@ metadata:
   name: {{ .Release.Name }}-frmdb-job
   labels:
     app: {{ .Release.Name }}-frmdb-job
+    appgroup: deploy-jobs
 #   annotations:
 #     "helm.sh/hook": post-install,post-upgrade
 #     "helm.sh/hook-delete-policy": hook-succeeded,before-hook-creation
