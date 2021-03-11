@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: ui-pages
+  name: pages
 spec:
   ports:
-  - name: "ui-pages"
+  - name: "pages"
     port: 3000
     targetPort: 3000
   selector:
-    service: ui-pages
+    service: pages
 status:
   loadBalancer: {}

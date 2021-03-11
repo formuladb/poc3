@@ -10,8 +10,8 @@ build:
     dockerConfig:
       path: ../ci/docker-config.json
   artifacts:
-  - image: registry.formuladb.io/formuladb/febe/formuladb-objstore
-    context: ../objstore
+  - image: registry.formuladb.io/formuladb/febe/formuladb-resources
+    context: ../resources
     sync:
       manual:
       - src: index.js
@@ -19,8 +19,8 @@ build:
     kaniko:
       dockerfile: Dockerfile
       cache: {}
-  - image: registry.formuladb.io/formuladb/febe/formuladb-ui_pages
-    context: ../ui-pages
+  - image: registry.formuladb.io/formuladb/febe/formuladb-pages
+    context: ../pages
     sync:
       manual:
       - src: '**/*'
@@ -28,18 +28,8 @@ build:
     kaniko:
       dockerfile: Dockerfile
       cache: {}
-  - image: registry.formuladb.io/formuladb/febe/formuladb-deploy_server
-    context: ../deploy-server
-    kaniko:
-      dockerfile: Dockerfile
-      cache: {}
   - image: registry.formuladb.io/formuladb/febe/formuladb-deploy_frmdb
     context: ../frmdb
-    kaniko:
-      dockerfile: Dockerfile
-      cache: {}
-  - image: registry.formuladb.io/formuladb/febe/formuladb-deploy_app
-    context: ../../formuladb-apps
     kaniko:
       dockerfile: Dockerfile
       cache: {}
@@ -49,13 +39,9 @@ deploy:
     - name: formuladb
       chartPath: ../helm
       artifactOverrides:
-        image_objstore: registry.formuladb.io/formuladb/febe/formuladb-objstore
-        image_ui_pages: registry.formuladb.io/formuladb/febe/formuladb-ui_pages
-        image_deploy_server: registry.formuladb.io/formuladb/febe/formuladb-deploy_server
+        image_server: registry.formuladb.io/formuladb/febe/formuladb-server
+        image_pages: registry.formuladb.io/formuladb/febe/formuladb-pages
         image_deploy_frmdb: registry.formuladb.io/formuladb/febe/formuladb-deploy_frmdb
-        image_deploy_app: registry.formuladb.io/formuladb/febe/formuladb-deploy_app
-        image_deploy_bakdb: registry.formuladb.io/formuladb/febe/formuladb-deploy_bakdb
-        # image_deploy_bakobj: registry.formuladb.io/formuladb/febe/formuladb-deploy_bakobj
       setValues: 
         ingress.host: frmdb.localhost
         envtype: dev
@@ -85,17 +71,5 @@ profiles:
     path: /build/artifacts/2/kaniko
   - op: add
     path: /build/artifacts/2/docker
-    value:
-      dockerfile: Dockerfile
-  - op: remove
-    path: /build/artifacts/3/kaniko
-  - op: add
-    path: /build/artifacts/3/docker
-    value:
-      dockerfile: Dockerfile
-  - op: remove
-    path: /build/artifacts/4/kaniko
-  - op: add
-    path: /build/artifacts/4/docker
     value:
       dockerfile: Dockerfile

@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: objstore
+  name: resources
 spec:
   replicas: 1
   selector:
     matchLabels:
-      service: objstore
+      service: resources
   strategy: {}
   template:
     metadata:
       labels:
-        service: objstore
+        service: resources
     spec:
       containers:
-      - name: objstore
-        image: {{ .Values.image_objstore }}
+      - name: resources
+        image: {{ .Values.image_resources }}
         ports:
         - containerPort: 8080
         env:

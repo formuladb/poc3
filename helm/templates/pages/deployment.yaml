@@ -1,28 +1,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ui-pages
+  name: pages
 spec:
   replicas: 1
   selector:
     matchLabels:
-      service: ui-pages
+      service: pages
   strategy: {}
   template:
     metadata:
       labels:
-        service: ui-pages
+        service: pages
     spec:
       containers:
-      - name: ui-pages
-        image: {{ .Values.image_ui_pages }}
+      - name: pages
+        image: {{ .Values.image_pages }}
         ports:
         - containerPort: 3000
         tty: true
         env:
           - { name: BROWSER, value: 'none' }
           # - { name: CI, value: 'true' }
-          - { name: PUBLIC_URL, value: '/formuladb-ui-pages' }
+          - { name: PUBLIC_URL, value: '/formuladb-pages' }
         resources: {}
       restartPolicy: Always
       imagePullSecrets:
