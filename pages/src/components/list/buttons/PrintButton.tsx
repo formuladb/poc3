@@ -4,7 +4,6 @@ import Button from '@material-ui/core/Button';
 import PrintIcon from '@material-ui/icons/Print';
 import { Form, Field } from 'react-final-form';
 
-
 export function PrintButton({
 
 }) {

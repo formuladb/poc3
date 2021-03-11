@@ -19,8 +19,11 @@ spec:
         image: postgres@sha256:05580d6c8f7bb0566793c7c45ab276458c53c9c31300c046ba6fcbc66598c7b9
         command: ['sh', '-c', 'until pg_isready -h db -p 5432 -t 1; do echo waiting for database; sleep 2; done;']
       containers:
-      - name: psql
+      - name: deploy-frmdb
         image: {{ .Values.image_deploy_frmdb }}
-        command: ["bash", "/create-frmdb-db.sh"]
+        command: ["sh", "/create-frmdb-db.sh"]
+        env:
+        - name: PGPASSWORD
+          value: postgres
       restartPolicy: Never
   backoffLimit: 1
