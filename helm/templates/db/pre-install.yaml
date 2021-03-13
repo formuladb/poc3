@@ -19,7 +19,14 @@ spec:
         command: [kubectl, get, pods]
       containers:
       - name: cleanup-jobs
-        image: bitnami/kubectl
-        command: [ kubectl, delete, jobs, "-l", "appgroup=deploy-jobs", "--field-selector=status.phase!=Running"]
+        image: {{ .Values.image_cliutils }}
+        command:
+          - /bin/sh
+          - -ec
+          - |
+            kubectl -n dacris get jobs -l appgroup=deploy-jobs | 
+            grep '1/1'|
+            awk '{print $1}' |
+            while read i; do kubectl delete job $i; done
       restartPolicy: Never
   backoffLimit: 1
