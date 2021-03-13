@@ -20,6 +20,6 @@ spec:
       containers:
       - name: cleanup-jobs
         image: bitnami/kubectl
-        command: [ kubectl, delete, jobs, "-l", "appgroup=deploy-jobs"]
+        command: [ kubectl, delete, jobs, "-l", "appgroup=deploy-jobs", "--field-selector=status.phase!=Running"]
       restartPolicy: Never
   backoffLimit: 1
