@@ -33,6 +33,7 @@ DO $migration$ BEGIN
         END LOOP;
 
         PERFORM frmdb_set_formula_statement_trigger_on_src(
+            '', --p_prefix
             'frmdb_generated_table_sync_src_strg'::regproc,     --p_trigger_function_name
             p_base_table::regclass,                     --p_src_table_name
             p_base_col_name,                            --p_src_col_name

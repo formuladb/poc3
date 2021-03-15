@@ -39,10 +39,11 @@ END;
 $fun$ language 'plpgsql';
 
 CREATE OR REPLACE FUNCTION frmdb_get_trigger_prefix(
+    p_prefix varchar,
     p_table_name regclass,
     p_col_name varchar
 ) RETURNS varchar AS $$
-    SELECT format('%I__%I__', $1, $2)
+    SELECT format('%I__%I__%I__', $1, $2, $3)
 $$ LANGUAGE SQL IMMUTABLE;
 
 CREATE OR REPLACE FUNCTION frmdb_get_complex_formulas(
@@ -54,10 +55,10 @@ DECLARE
     v_trigger_name varchar;
     v_complex_formulas varchar;
 BEGIN
-    v_trigger_name := frmdb_get_trigger_prefix(p_table_name, p_col_name);
+    v_trigger_name := frmdb_get_trigger_prefix('', p_table_name, p_col_name);
 
     SELECT string_agg(action_statement, '^^^') INTO v_complex_formulas
-        FROM information_schema.triggers WHERE trigger_name LIKE v_trigger_name || '%';
+        FROM information_schema.triggers WHERE trigger_name LIKE '%' || v_trigger_name || '%';
 
     RETURN v_complex_formulas;
 END; 

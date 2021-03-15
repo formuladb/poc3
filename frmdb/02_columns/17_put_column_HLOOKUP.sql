@@ -156,6 +156,7 @@ DO $migration$ BEGIN
 
         PERFORM frmdb_set_column(p_table_name, p_col_name, v_col_type);
         PERFORM frmdb_set_formula_row_trigger_on_dst(
+            '10', --p_prefix
             'BEFORE',
             'frmdb_hlookup_dst_rtrg'::regproc, --p_trigger_function_name
             v_ref_table_name::regclass,        --p_src_table_name
@@ -165,6 +166,7 @@ DO $migration$ BEGIN
             ARRAY[p_ref_col_name]              --p_args
         );
         PERFORM frmdb_set_formula_statement_trigger_on_src(
+            '', --p_prefix
             'frmdb_hlookup_src_strg'::regproc, --p_trigger_function_name
             v_ref_table_name::regclass,        --p_src_table_name
             p_target_col_name,                 --p_src_col_name

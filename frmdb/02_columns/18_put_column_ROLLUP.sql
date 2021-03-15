@@ -46,6 +46,7 @@ DO $migration$ BEGIN
         PERFORM frmdb_put_column(p_table_name, p_col_name, v_col_type, 
             format('is_not_null(%I)', p_col_name)::varchar, '0'::varchar);
         PERFORM frmdb_set_formula_row_trigger_on_dst(
+            '20', --p_prefix
             'BEFORE',
             'frmdb_rollup_dst_rtrg'::regproc,  --p_trigger_function_name
             p_src_table::regclass,             --p_src_table_name
@@ -55,6 +56,7 @@ DO $migration$ BEGIN
             ARRAY[p_rollup_type::varchar, p_src_ref_col_name, p_filter_expr] --p_args
         );
         PERFORM frmdb_set_formula_statement_trigger_on_src(
+            '', --p_prefix
             'frmdb_rollup_src_strg'::regproc, --p_trigger_function_name
             p_src_table::regclass,        --p_src_table_name
             p_src_rollup_col_name,                 --p_src_col_name

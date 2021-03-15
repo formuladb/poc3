@@ -1,4 +1,5 @@
 CREATE OR REPLACE FUNCTION frmdb_set_formula_statement_trigger_on_src(
+    p_prefix varchar,
     p_trigger_function_name regproc,
     p_src_table_name regclass, 
     p_src_col_name varchar,
@@ -18,7 +19,7 @@ BEGIN
         FROM unnest(ARRAY[p_src_table_name::varchar, p_src_col_name, 
             p_dst_table_name::varchar, p_dst_col_name] || p_args) as x;
 
-    v_trigger_name := frmdb_get_trigger_prefix(p_dst_table_name, p_dst_col_name) || 'sit';  
+    v_trigger_name := frmdb_get_trigger_prefix(p_prefix, p_dst_table_name, p_dst_col_name) || 'sit';  
     v_stm := format($$
         CREATE TRIGGER %I
             AFTER INSERT ON %I

@@ -62,6 +62,7 @@ DO $migration$ BEGIN
         END LOOP;
 
         PERFORM frmdb_set_formula_statement_trigger_on_src(
+            '', --p_prefix
             'frmdb_extends_sync_src_strg'::regproc,     --p_trigger_function_name
             p_extended_table_name::regclass,            --p_src_table_name
             'id',                                       --p_src_col_name
@@ -70,6 +71,7 @@ DO $migration$ BEGIN
             p_sync_cols                                 --p_args
         );
         PERFORM frmdb_set_formula_row_trigger_on_dst(
+            '', --p_prefix
             'BEFORE',
             'frmdb_extends_sync_dst_rtrg'::regproc,     --p_trigger_function_name
             p_extended_table_name::regclass,            --p_src_table_name

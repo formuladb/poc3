@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: {{ .Release.Name }}-frmdb-job
+  name: deploy-pages-{{ .Values.image_deploy_frmdb | regexFind "[^:]+$" | substr 0 10 }}
   labels:
     app: {{ .Release.Name }}-frmdb-job
     appgroup: deploy-jobs

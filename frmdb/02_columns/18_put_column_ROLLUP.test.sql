@@ -55,6 +55,9 @@ BEGIN;
         $$ VALUES ( 'a'::varchar, 0 ), ( 'b'::varchar, 0 ) $$
     );
 
+    --TODO: add test with ROLLUP with HLOOKUP fkey
+    --TODO: add test with ROLLUP with HLOOKUP value
+
     SELECT * FROM finish();
     SELECT * FROM frmdb_check_nb_failures();
 ROLLBACK;

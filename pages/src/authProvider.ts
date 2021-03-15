@@ -46,8 +46,11 @@ const authProvider: AuthProvider = {
 
     checkError: (error) => {
         const status = error.status;
-         /*|| status === 403, 403 means no permissions, it should not force the user to login again*/
-        if (status === 401) {
+        if (status === 401
+            || (status === 403 
+                //403 means no permissions, it should not force the user to login again, unless it has no permission on the resources table
+                && error.message.indexOf('permission denied for table frmdb_resources') >= 0)
+        ) {
             inMemoryJWT.ereaseToken();
             return Promise.reject();
         }
