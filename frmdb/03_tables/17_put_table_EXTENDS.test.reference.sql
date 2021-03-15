@@ -21,10 +21,10 @@ BEGIN;
     );
 
     SELECT tgname FROM pg_trigger;
-    SELECT has_trigger( 'src_tbl', 'dst_tbl__id__sdt', '' );
-    SELECT has_trigger( 'src_tbl', 'dst_tbl__id__sit', '' );
-    SELECT has_trigger( 'src_tbl', 'dst_tbl__id__sut', '' );
-    SELECT has_trigger( 'dst_tbl', 'dst_tbl__id__dt', '' );
+    SELECT has_trigger( 'src_tbl', '__dst_tbl__id__sdt', '' );
+    SELECT has_trigger( 'src_tbl', '__dst_tbl__id__sit', '' );
+    SELECT has_trigger( 'src_tbl', '__dst_tbl__id__sut', '' );
+    SELECT has_trigger( 'dst_tbl', '__dst_tbl__id__dt', '' );
 
     INSERT INTO ref_tbl (id) VALUES (1);
     INSERT INTO dst_tbl (ref) VALUES (1);

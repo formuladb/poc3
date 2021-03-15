@@ -14,10 +14,10 @@ BEGIN;
     SELECT has_column( 'dst_tbl'::name, 'created_at', '' );
 
     SELECT tgname FROM pg_trigger;
-    SELECT has_trigger( 'src_tbl', 'dst_tbl__id__sdt', '' );
-    SELECT has_trigger( 'src_tbl', 'dst_tbl__id__sit', '' );
-    SELECT has_trigger( 'src_tbl', 'dst_tbl__id__sut', '' );
-    SELECT has_trigger( 'dst_tbl', 'dst_tbl__id__dt', '' );
+    SELECT has_trigger( 'src_tbl', '__dst_tbl__id__sdt', '' );
+    SELECT has_trigger( 'src_tbl', '__dst_tbl__id__sit', '' );
+    SELECT has_trigger( 'src_tbl', '__dst_tbl__id__sut', '' );
+    SELECT has_trigger( 'dst_tbl', '__dst_tbl__id__dt', '' );
 
     INSERT INTO dst_tbl (src_col) VALUES ('a');
     SELECT * FROM dst_tbl;

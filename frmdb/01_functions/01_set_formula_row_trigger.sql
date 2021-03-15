@@ -7,8 +7,8 @@ BEGIN
 END$$;
 
 CREATE OR REPLACE FUNCTION frmdb_set_formula_row_trigger_on_dst(
-    p_when dst_row_trigger_when,
     p_prefix varchar,
+    p_when dst_row_trigger_when,
     p_trigger_function_name regproc,
     p_src_table_name regclass, 
     p_src_col_name varchar,

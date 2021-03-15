@@ -1,5 +1,7 @@
 set -ex
 
+sleep 4
+
 mkdir /tmp/migrate-db.lock
 trap 'rm -r /tmp/migrate-db.lock' EXIT
 

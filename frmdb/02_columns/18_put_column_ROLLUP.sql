@@ -32,6 +32,7 @@ DO $migration$ BEGIN
         RAISE NOTICE '%', v_ctx;
 
         --TODO: check that p_src_ref_col_name is a REFERNCE_TO v_dst_table_name, or that v_dst_table_name is GENERATED from p_src_ref_col_name
+        --TODO: compute bulk rollup for existing tables
 
         SELECT data_type::varchar INTO v_col_type
             FROM information_schema.columns

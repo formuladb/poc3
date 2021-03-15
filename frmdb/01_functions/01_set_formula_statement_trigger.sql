@@ -31,7 +31,7 @@ BEGIN
     );
     PERFORM frmdb_set_trigger(v_trigger_name, p_src_table_name, v_stm);
 
-    v_trigger_name := format('%I__%I__sut', p_dst_table_name, p_dst_col_name);  
+    v_trigger_name := frmdb_get_trigger_prefix(p_prefix, p_dst_table_name, p_dst_col_name) || 'sut';  
     v_stm := format($$
         CREATE TRIGGER %I
             AFTER UPDATE ON %I
@@ -43,7 +43,7 @@ BEGIN
     );
     PERFORM frmdb_set_trigger(v_trigger_name, p_src_table_name, v_stm);
 
-    v_trigger_name := format('%I__%I__sdt', p_dst_table_name, p_dst_col_name);  
+    v_trigger_name := frmdb_get_trigger_prefix(p_prefix, p_dst_table_name, p_dst_col_name) || 'sdt';  
     v_stm := format($$
         CREATE TRIGGER %I
             AFTER DELETE ON %I

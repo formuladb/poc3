@@ -56,6 +56,7 @@ BEGIN
         PERFORM frmdb_install_common_columns_trg(p_table_name);
 
         PERFORM frmdb_set_formula_row_trigger_on_dst(
+            '', --p_prefix
             'BEFORE',
             'frmdb_many2many_dst_rtrg'::regproc, --p_trigger_function_name
             p_table_name::regclass,              --p_src_table_name

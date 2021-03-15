@@ -16,14 +16,14 @@ BEGIN;
 
     SELECT trigger_name, action_statement FROM information_schema.triggers 
         WHERE event_object_table = 'src_tbl';
-    SELECT has_trigger( 'src_tbl', 'dst_tbl__dst_col__sdt', '' );
-    SELECT has_trigger( 'src_tbl', 'dst_tbl__dst_col__sit', '' );
-    SELECT has_trigger( 'src_tbl', 'dst_tbl__dst_col__sut', '' );
+    SELECT has_trigger( 'src_tbl', '__dst_tbl__dst_col__sdt', '' );
+    SELECT has_trigger( 'src_tbl', '__dst_tbl__dst_col__sit', '' );
+    SELECT has_trigger( 'src_tbl', '__dst_tbl__dst_col__sut', '' );
 
     SELECT trigger_name, action_statement FROM information_schema.triggers 
         WHERE event_object_table = 'dst_tbl';
 
-    SELECT has_trigger( 'dst_tbl', 'dst_tbl__dst_col__dt', '' );
+    SELECT has_trigger( 'dst_tbl', '10__dst_tbl__dst_col__dt', '' );
 
     INSERT INTO src_tbl VALUES (1, 'a');
     INSERT INTO src_tbl VALUES (2, 'b');
@@ -66,13 +66,14 @@ BEGIN;
 
     SELECT trigger_name, action_statement FROM information_schema.triggers 
         WHERE event_object_table = 'src_tbl';
-    SELECT has_trigger( 'src_tbl2', 'dst_tbl__dst_col__sdt', '' );
-    SELECT has_trigger( 'src_tbl2', 'dst_tbl__dst_col__sit', '' );
-    SELECT has_trigger( 'src_tbl2', 'dst_tbl__dst_col__sut', '' );
+    SELECT has_trigger( 'src_tbl2', '__dst_tbl__dst_col__sdt', '' );
+    SELECT has_trigger( 'src_tbl2', '__dst_tbl__dst_col__sit', '' );
+    SELECT has_trigger( 'src_tbl2', '__dst_tbl__dst_col__sut', '' );
+    
 
     SELECT trigger_name, action_statement FROM information_schema.triggers 
         WHERE event_object_table = 'dst_tbl';
-    SELECT has_trigger( 'dst_tbl', 'dst_tbl__dst_col__dt', '' );
+    SELECT has_trigger( 'dst_tbl', '10__dst_tbl__dst_col__dt', '' );
 
     UPDATE src_tbl2 SET src_col = 'bbb' WHERE id = 2;
     SELECT results_eq(
