@@ -50,7 +50,7 @@ BEGIN
         $$, p_table_name);
         EXECUTE v_stm;
 
-        PERFORM frmdb_put_column_REFERENCE_TO(p_table_name, v_col1_name, p_ref_table1_name);
+        PERFORM frmdb_put_column_REFERENCE_TO(p_table_name, v_col1_name, p_ref_table1_name, null, null, 'CASCADE');
         PERFORM frmdb_put_column_REFERENCE_TO(p_table_name, v_col2_name, p_ref_table2_name);
 
         PERFORM frmdb_install_common_columns_trg(p_table_name);

@@ -1,5 +1,5 @@
 SELECT current_database();
-CREATE TABLE frmdb_done ();
+CREATE TABLE IF NOT EXISTS frmdb_done ();
 \echo "#############################################################################"
 \echo "## Migrations ran successfully #########"
 \echo "#############################################################################"

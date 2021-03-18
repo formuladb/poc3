@@ -54,6 +54,7 @@ export default function EditablePageContent({
             await authProvider.checkAuth(null);
 
             let tmp = await dataProvider.getOne<FrmdbResourceWithFields>("frmdb_resource_with_fields", {id: resource});
+            if (! tmp?.data) { console.warn(`cannot get columns for ${resource}`, tmp); return };
             let resourceWithFields = tmp.data;
         
             let res = await dataProvider.getOne<FrmdbPage>('frmdb_pages', { id: pageData.pageId })

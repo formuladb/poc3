@@ -27,6 +27,13 @@ psql -h db -U postgres -c 'DROP DATABASE frmdb' || true
 psql -v ON_ERROR_STOP=1 -h db -U postgres -c 'CREATE DATABASE frmdb'
 
 for i in /frmdb/*/*.sql; do 
-    fctH2 "running $i"
+    fctH2 "running $i on frmdb"
     psql -v ON_ERROR_STOP=1 -e -h db -U postgres -d frmdb -f $i
 done
+fctH2 "frmdb done on frmdb db"
+
+for i in /frmdb/*/*.sql; do 
+    fctH2 "running $i on postgres"
+    psql -v ON_ERROR_STOP=1 -e -h db -U postgres -d postgres -f $i
+done
+fctH2 "frmdb done on postgres db"

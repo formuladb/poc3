@@ -22,7 +22,8 @@ BEGIN
         p_col_name varchar,
         p_ref_table_name regclass,
         p_col_check varchar DEFAULT NULL,
-        p_col_default varchar DEFAULT NULL
+        p_col_default varchar DEFAULT NULL,
+        p_on_delete varchar DEFAULT 'RESTRICT'
     ) RETURNS boolean AS $fun$ 
     DECLARE
         v_stm varchar;
@@ -84,12 +85,12 @@ BEGIN
 
         IF v_to_add THEN
             v_stm := format($$ ALTER TABLE %I ADD CONSTRAINT %I
-                FOREIGN KEY (%I) REFERENCES %I(id) ON UPDATE CASCADE ON DELETE RESTRICT
+                FOREIGN KEY (%I) REFERENCES %I(id) ON UPDATE CASCADE ON DELETE %s
             $$, p_table_name, v_constraint_name,
-                p_col_name, p_ref_table_name 
+                p_col_name, p_ref_table_name, p_on_delete
             );
             EXECUTE v_stm;
-            RAISE NOTICE 'frmdb_put_column_REFERENCE_TO: foreign key % added to table % (references %.id).', p_col_name, p_table_name, p_ref_table_name;
+            RAISE NOTICE 'frmdb_put_column_REFERENCE_TO: %', v_stm;
         END IF;		
         
         IF p_col_check IS NOT NULL THEN
@@ -101,6 +102,7 @@ BEGIN
         END IF;
 
         RETURN true;
+    
     END; $fun$ language 'plpgsql';
 END;
 $migration$;

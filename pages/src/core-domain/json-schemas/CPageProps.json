@@ -77,6 +77,21 @@
             ],
             "type": "object"
         },
+        "ActionPRINT": {
+            "additionalProperties": false,
+            "properties": {
+                "actionType": {
+                    "enum": [
+                        "PRINT"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "actionType"
+            ],
+            "type": "object"
+        },
         "CPageCreateProps": {
             "additionalProperties": false,
             "properties": {
@@ -127,6 +142,9 @@
                             },
                             {
                                 "$ref": "#/definitions/ActionIMPORTDATA"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionPRINT"
                             }
                         ]
                     },

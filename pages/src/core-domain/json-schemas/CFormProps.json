@@ -1,9 +1,32 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "additionalProperties": false,
+    "definitions": {
+        "ActionPRINT": {
+            "additionalProperties": false,
+            "properties": {
+                "actionType": {
+                    "enum": [
+                        "PRINT"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "actionType"
+            ],
+            "type": "object"
+        }
+    },
     "properties": {
         "disabled": {
             "type": "boolean"
+        },
+        "enabledActions": {
+            "items": {
+                "$ref": "#/definitions/ActionPRINT"
+            },
+            "type": "array"
         },
         "resource": {
             "format": "frmdb-resource-name",

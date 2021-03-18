@@ -136,6 +136,7 @@ export interface CInputChipFieldNode extends PageNodeBase, CInputChipFieldProps 
 export interface CInputDateFieldProps extends CInputPropsBase {
     cInputType: "DateField";
     initialValue?: Date;
+    defaultValue?: "CURRENT_DATE";
 }
 export interface CInputDateFieldNode extends PageNodeBase, CInputDateFieldProps {
     _tag: "CInput";
@@ -143,6 +144,7 @@ export interface CInputDateFieldNode extends PageNodeBase, CInputDateFieldProps 
 export interface CInputDateTimeFieldProps extends CInputPropsBase {
     cInputType: "DateTimeField";
     initialValue?: Date;
+    defaultValue?: "CURRENT_DATE_TIME";
 }
 export interface CInputDateTimeFieldNode extends PageNodeBase, CInputDateTimeFieldProps {
     _tag: "CInput";
@@ -209,6 +211,7 @@ export interface CInputReferenceProps extends CInputPropsBase {
     cInputType: "Reference";
     reference: string;
     referenceText?: string;
+    defaultValue?: "CURRENT_USER_ID" | "CURRENT_ROLE_ID";
 }
 export interface CInputReferenceNode extends PageNodeBase, CInputReferenceProps {
     _tag: 'CInput';

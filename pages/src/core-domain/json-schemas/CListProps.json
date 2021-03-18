@@ -67,6 +67,21 @@
             ],
             "type": "object"
         },
+        "ActionPRINT": {
+            "additionalProperties": false,
+            "properties": {
+                "actionType": {
+                    "enum": [
+                        "PRINT"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "actionType"
+            ],
+            "type": "object"
+        },
         "CInputBooleanFieldProps": {
             "additionalProperties": false,
             "properties": {
@@ -187,6 +202,12 @@
                     ],
                     "type": "string"
                 },
+                "defaultValue": {
+                    "enum": [
+                        "CURRENT_DATE"
+                    ],
+                    "type": "string"
+                },
                 "disabled": {
                     "type": "boolean"
                 },
@@ -243,6 +264,12 @@
                 "cInputType": {
                     "enum": [
                         "DateTimeField"
+                    ],
+                    "type": "string"
+                },
+                "defaultValue": {
+                    "enum": [
+                        "CURRENT_DATE_TIME"
                     ],
                     "type": "string"
                 },
@@ -694,6 +721,13 @@
                     ],
                     "type": "string"
                 },
+                "defaultValue": {
+                    "enum": [
+                        "CURRENT_ROLE_ID",
+                        "CURRENT_USER_ID"
+                    ],
+                    "type": "string"
+                },
                 "disabled": {
                     "type": "boolean"
                 },
@@ -1003,6 +1037,9 @@
                     },
                     {
                         "$ref": "#/definitions/ActionIMPORTDATA"
+                    },
+                    {
+                        "$ref": "#/definitions/ActionPRINT"
                     }
                 ]
             },

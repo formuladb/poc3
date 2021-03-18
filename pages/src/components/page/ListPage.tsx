@@ -34,8 +34,12 @@ function PageFilter(props: object) {
             if (resource) {
                 let res = await dataProvider.getOne<FrmdbResourceWithFields>(
                     "frmdb_resource_with_fields", { id: resource });
-                let refWithFields = res.data;
-                setColumns(refWithFields.field_defs);
+                if (res && res.data) {
+                    let refWithFields = res.data;
+                    setColumns(refWithFields.field_defs);
+                } else {
+                    console.warn(`cannot get columns for ${resource}`);
+                }
             }
         })();
     }, [resource]);
