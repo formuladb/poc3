@@ -23,6 +23,7 @@ spec:
           - /bin/sh
           - -ec
           - |
+            while ! nc -z minio 9000; do echo "waiting for minio..."; sleep 1; done;
             /usr/bin/mc config host add myminio http://minio:9000 $MINIO_ACCESS_KEY $MINIO_SECRET_KEY
             /usr/bin/mc mb --ignore-existing myminio/frmdb-bucket;
             /usr/bin/mc policy set download myminio/frmdb-bucket;

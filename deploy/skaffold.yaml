@@ -51,6 +51,7 @@ deploy:
       setValues: 
         ingress.host: frmdb.localhost
         envtype: dev
+      createNamespace: true
 profiles:
 - name: production
   patches:

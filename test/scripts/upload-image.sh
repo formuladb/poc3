@@ -5,8 +5,8 @@ curl --fail -c mycookie -s -XPOST -H "Content-Type: application/json" \
     --data-binary '{ "username": "t", "pass": "p" }'
 
 curl --fail -b mycookie -s -XGET \
-    'http://dacris.frmdb.localhost/formuladb-objstore/presignedUrl/test_table/test_column/upload-image.png'
+    'http://dacris.frmdb.localhost/formuladb-resources/presignedUrl/test_table/test_column/upload-image.png'
 
 curl -vv -b mycookie --data-binary @./ci/api-tests/upload-image.png -XPUT \
     -H "Content-Type: image/png" \
-    'http://dacris.frmdb.localhost/formuladb-objstore/upload/test_table/test_column/upload-image.png'
+    'http://dacris.frmdb.localhost/formuladb-resources/upload/test_table/test_column/upload-image.png'

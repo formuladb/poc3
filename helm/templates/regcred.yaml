@@ -4,5 +4,5 @@ metadata:
   name: regcred
 data:
   .dockerconfigjson: >-
-    ewogICAgImF1dGhzIjogewogICAgICAgICJyZWdpc3RyeS5mb3JtdWxhZGIuaW8iOiB7CiAgICAgICAgICAgICAgICAiYXV0aCI6ICJZV055YVhOMGRUbzVja3RNZVRsTGJVY3hUbk5uWmxWRmR6aE9UZ289IgogICAgICAgIH0KICAgIH0KfQo=
+    ewogICAgImF1dGhzIjogewogICAgICAgICJyZWdpc3RyeS5mb3JtdWxhZGIuaW8iOiB7CiAgICAgICAgICAgICAgICAiYXV0aCI6ICJZV055YVhOMGRUbzFaVEpaUkZka1FuaExaMUp5VXpoamFtNU1lUT09IgogICAgICAgIH0KICAgIH0KfQo=
 type: kubernetes.io/dockerconfigjson

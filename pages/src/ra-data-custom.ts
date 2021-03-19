@@ -63,7 +63,7 @@ export default cacheDataProviderProxy(
 );
 
 async function uploadFileToObjstore(file: { rawFile: File, resource: string, columNname: string }) {
-    let url: string = `/formuladb-objstore/upload/${file.resource}/${file.columNname}/${file.rawFile.name}`;
+    let url: string = `/formuladb-resources/upload/${file.resource}/${file.columNname}/${file.rawFile.name}`;
     await fetch(url, {
         method: 'PUT',
         body: file.rawFile
