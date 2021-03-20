@@ -7,3 +7,4 @@ RUN mkdir /frmdb
 ADD . /frmdb/
 
 COPY *.sh /bin/
+RUN chmod +x /bin/*sh

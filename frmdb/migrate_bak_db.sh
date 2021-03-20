@@ -1,5 +1,5 @@
 set -ex
-. `dirname $0`/migrate_utils.sh
+. `dirname $0`/fct_utils.sh
 
 fctCreate_bak_db() {
     until psql -h db -U postgres -lqt | cut -d \| -f 1 | grep -qw bak; do 
