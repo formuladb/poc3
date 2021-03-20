@@ -1,6 +1,6 @@
 FROM alpine:3.13.1
 
-RUN apk add --no-cache postgresql-client git vim openssh curl \
+RUN apk add --no-cache postgresql-client git vim openssh curl entr \
     netcat-openbsd less net-tools rsync jq bash
 
 RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"

@@ -22,7 +22,7 @@ spec:
       containers:
       - name: deploy-frmdb
         image: {{ .Values.image_deploy_frmdb }}
-        command: ["sh", "/create-frmdb-db.sh"]
+        command: ["sh", "/frmdb.sh"]
         env:
         - name: PGPASSWORD
           value: postgres
