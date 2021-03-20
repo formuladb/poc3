@@ -19,73 +19,57 @@ fctH2() {
 
 ###################################################################################
 ###################################################################################
-fctH1 "Creating frmdb db"
+# Creating frmdb db
 ###################################################################################
 ###################################################################################
 
+fctMigrate_frmdb() {
+    fctH2 "Migrating frmdb on ${dbname} "
 
-psql -h db -U postgres -c 'DROP DATABASE frmdb' || true
-psql -v ON_ERROR_STOP=1 -h db -U postgres -c 'CREATE DATABASE frmdb'
+    dbname=$1
+    for i in /frmdb/*/*.sql; do 
+        fctH2 "running $i on $dbname"
+        psql -v ON_ERROR_STOP=1 -e -h db -U postgres -d "$dbname" -f $i
+    done
+    fctH2 "SUCCESS migrate frmdb on ${dbname} "
+}
 
-for i in /frmdb/*/*.sql; do 
-    fctH2 "running $i on frmdb"
-    psql -v ON_ERROR_STOP=1 -e -h db -U postgres -d frmdb -f $i
-done
-psql -v ON_ERROR_STOP=1 -e -h db -U postgres -d frmdb -c "INSERT INTO frmdb_done VALUES ('frmdb', NOW()) ON CONFLICT (id) DO SET last_run = now()"
-fctH2 "frmdb done on frmdb db"
-
-for i in /frmdb/*/*.sql; do 
-    fctH2 "running $i on postgres"
-    psql -v ON_ERROR_STOP=1 -e -h db -U postgres -d postgres -f $i
-done
-fctH2 "frmdb done on postgres db"
-
-until psql -U postgres -h db -d frmdb -P pager=off  -c "select * from frmdb_done limit 0"; do echo "waiting for frmdb db"; sleep 2; done
-
-until psql -h db -U postgres -lqt | cut -d \| -f 1 | grep -qw bak; do 
-    psql -h db -U postgres -c 'DROP DATABASE bak' || true
-    psql -v ON_ERROR_STOP=1 -h db -U postgres -c 'CREATE DATABASE bak WITH TEMPLATE frmdb'
-    sleep 2; 
-done
-
-if [ -d "/00_pg_dump.dir" ]; then
-    time pg_restore -j3 -h db -U postgres -d bak --clean -Fd /00_pg_dump.dir || true
-elif [ -f "/00_pg_dump.sql.gz" ]; then
-    zcat /00_pg_dump.sql.gz | time psql -h db -U postgres -d bak
-fi
+fctCreate_frmdb_db() {
+    psql -h db -U postgres -c 'DROP DATABASE frmdb' || true
+    psql -v ON_ERROR_STOP=1 -h db -U postgres -c 'CREATE DATABASE frmdb'
+    fctMigrate_frmdb frmdb
+}
 
 ###################################################################################
 ###################################################################################
-fctH1 "Creating bak db"
+# Creating bak db
 ###################################################################################
 ###################################################################################
 
-until psql -h db -U postgres -lqt | cut -d \| -f 1 | grep -qw bak; do 
-    psql -h db -U postgres -c 'DROP DATABASE bak' || true
-    psql -v ON_ERROR_STOP=1 -h db -U postgres -c 'CREATE DATABASE bak WITH TEMPLATE frmdb'
-    sleep 2; 
-done
+fctCreate_bak_db() {
+    until psql -h db -U postgres -lqt | cut -d \| -f 1 | grep -qw bak; do 
+        psql -h db -U postgres -c 'DROP DATABASE bak' || true
+        psql -v ON_ERROR_STOP=1 -h db -U postgres -c 'CREATE DATABASE bak WITH TEMPLATE frmdb'
+        sleep 2; 
+    done
 
-if [ -d "/00_pg_dump.dir" ]; then
-    time pg_restore -j3 -h db -U postgres -d bak --clean -Fd /00_pg_dump.dir || true
-elif [ -f "/00_pg_dump.sql.gz" ]; then
-    zcat /00_pg_dump.sql.gz | time psql -h db -U postgres -d bak
-fi
-
-psql -v ON_ERROR_STOP=1 -h db -U postgres -d bak -c 'CREATE TABLE IF NOT EXISTS frmdb_bak_done()'
+    if [ -d "/deploy/00_pg_dump.dir" ]; then
+        time pg_restore -j3 -h db -U postgres -d bak --clean -Fd /deploy/00_pg_dump.dir || true
+    elif [ -f "/deploy/00_pg_dump.sql.gz" ]; then
+        zcat /deploy/00_pg_dump.sql.gz | time psql -h db -U postgres -d bak
+    fi
+}
 
 ###################################################################################
 ###################################################################################
-fctH1 "deploy resources"
+# deploy resources
 ###################################################################################
 ###################################################################################
 
-
-
-fctRunMigrations() {
+fctMigrate_resources() {
     dbname=$1
 
-    fctH1 "Migrating resources on ${dbname} "
+    fctH2 "Migrating resources on ${dbname} "
     
     for i in /deploy/apps-resources/*.sql; do 
         if [[ $i = *.test.sql ]]; then
@@ -108,23 +92,29 @@ fctRunMigrations() {
         fi
     done
 
-    fctH1 "SUCCESS migration on ${dbname} "
+    fctH2 "SUCCESS migrate resources on ${dbname} "
 }
 
-psql -h db -U postgres -c 'DROP DATABASE test' || true
-psql -v ON_ERROR_STOP=1 -h db -U postgres -c 'CREATE DATABASE test WITH TEMPLATE frmdb'
-fctRunMigrations test
+fctCreate_test_db() {
+    psql -h db -U postgres -c 'DROP DATABASE test' || true
+    psql -v ON_ERROR_STOP=1 -h db -U postgres -c 'CREATE DATABASE test WITH TEMPLATE frmdb'
+    fctMigrate_resources test
+}
 
-psql -h db -U postgres -c 'DROP DATABASE dev' || true
-psql -v ON_ERROR_STOP=1 -h db -U postgres -c 'CREATE DATABASE dev WITH TEMPLATE bak'
-fctRunMigrations dev
+fctCreate_dev_db() {
+    psql -h db -U postgres -c 'DROP DATABASE dev' || true
+    psql -v ON_ERROR_STOP=1 -h db -U postgres -c 'CREATE DATABASE dev WITH TEMPLATE bak'
+    fctMigrate_resources dev
+}
 
-fctRunMigrations postgres
-
+fctMigrate_postgres_db() {
+    fctMigrate_frmdb postgres
+    fctMigrate_resources postgres
+}
 
 ###################################################################################
 ###################################################################################
-fctH1 "deploy pages"
+# deploy pages
 ###################################################################################
 ###################################################################################
 
@@ -139,5 +129,11 @@ fctLoadPages() {
     done
 }
 
-fctH1 "Loading pages on postgres"
+###################################################################################
+###################################################################################
+# migrate
+###################################################################################
+###################################################################################
+
+
 fctLoadPages postgres

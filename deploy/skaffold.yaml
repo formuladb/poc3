@@ -33,6 +33,8 @@ build:
     kaniko:
       dockerfile: Dockerfile
       cache: {}
+    sync: 
+      infer: ["**/*"]
   - image: registry.formuladb.io/formuladb/febe/formuladb-cliutils
     context: ../deploy/cliutils
     kaniko:
