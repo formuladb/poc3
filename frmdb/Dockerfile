@@ -6,5 +6,4 @@ RUN apk add --no-cache postgresql-client git vim openssh curl entr \
 RUN mkdir /frmdb
 ADD . /frmdb/
 
-COPY migrate.sh /migrate.sh
-
+COPY *.sh /bin/
