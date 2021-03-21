@@ -1,6 +1,6 @@
 set -ex
 . `dirname $0`/fct_utils.sh
-. `dirname $0`/migrate_resources.sh
+. `dirname $0`/fctMigrate_resources.sh
 
 fctInit
 psql -h db -U postgres -c 'DROP DATABASE dev' || true

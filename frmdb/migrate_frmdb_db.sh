@@ -1,6 +1,6 @@
 set -ex
 . `dirname $0`/fct_utils.sh
-. `dirname $0`/migrate_frmdb.sh
+. `dirname $0`/fctMigrate_frmdb.sh
 
 fctInit
 psql -h db -U postgres -c 'DROP DATABASE frmdb' || true
