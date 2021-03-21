@@ -2,7 +2,7 @@ SELECT frmdb_put_table('frmdb_users');
 SELECT frmdb_put_column('frmdb_users', 'username', 'character varying', 'is_not_null(username)', null);
 SELECT frmdb_put_column('frmdb_users', 'pass', 'character varying', 'is_not_null(pass)', null);
 SELECT frmdb_put_column('frmdb_users', 'role', 'regrole', 'is_not_null(role)', null);
---
+----
 DO $migration$
 BEGIN
   IF NOT EXISTS(SELECT * FROM information_schema.triggers 
