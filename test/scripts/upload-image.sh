@@ -1,7 +1,7 @@
 set -ex 
 
 curl --fail -c mycookie -s -XPOST -H "Content-Type: application/json" \
-    'http://dacris.frmdb.localhost/formuladb-dbrest/rpc/frmdb_login' \
+    'http://dacris.frmdb.localhost/fdb-resources/rpc/frmdb_login' \
     --data-binary '{ "username": "t", "pass": "p" }'
 
 curl --fail -b mycookie -s -XGET \

@@ -9,7 +9,7 @@ import { frmdb_sp_table_columns } from './custom-api/frmdb_sp_table_columns';
 import { FrmdbResourceWithFields } from './core-domain/records';
 import { avoidDuplicatesDataProviderProxy } from './ra-data-avoid-duplicates-proxy';
 
-const postgrestUrl = '/formuladb-dbrest';
+const postgrestUrl = '/fdb-resources';
 const postgrestProvider = postgrestRestProvider(postgrestUrl, httpClient);
 const baseProvider = postgrestProvider; 
 let customProvidersFactory = (window as any).$FRMDB_UI_PAGES?.CUSTOM_PROVIDERS || function (defaultDataProvider: DataProvider) {
@@ -63,7 +63,7 @@ export default cacheDataProviderProxy(
 );
 
 async function uploadFileToObjstore(file: { rawFile: File, resource: string, columNname: string }) {
-    let url: string = `/formuladb-resources/upload/${file.resource}/${file.columNname}/${file.rawFile.name}`;
+    let url: string = `/fdb-resources/upload/${file.resource}/${file.columNname}/${file.rawFile.name}`;
     await fetch(url, {
         method: 'PUT',
         body: file.rawFile

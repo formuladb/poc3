@@ -28,6 +28,15 @@ spec:
         - mountPath: /var/lib/postgresql/data
           name: pg-persistence
           subPath: postgres
+      - name: dbrest
+        image: postgrest/postgrest:v7.0.1
+        ports:
+        - containerPort: 3000
+        env:
+        - { name: PGRST_DB_URI, value: 'postgres://postgres:postgres@localhost:5432' }
+        - { name: PGRST_DB_ANON_ROLE, value: 'anon' }
+        - { name: PGRST_JWT_SECRET, value: 'asd1238d140dhoicoiqhewodqhed81-312d' }
+        resources: {}
       restartPolicy: Always
       imagePullSecrets:
         - name: regcred

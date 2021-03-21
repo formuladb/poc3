@@ -10,7 +10,7 @@ export default (url, options) => {
         // options.headers.set('Authorization', `Bearer ${token}`);
         return fetchUtils.fetchJson(url, options);
     } else {
-        inMemoryJWT.setRefreshTokenEndpoint('/formuladb-dbrest/rpc/frmdb_refresh_token');
+        inMemoryJWT.setRefreshTokenEndpoint('/fdb-resources/rpc/frmdb_refresh_token');
         return inMemoryJWT.getRefreshedToken().then((gotFreshToken) => {
             if (gotFreshToken) {
                 options.headers.set('Authorization', `Bearer ${inMemoryJWT.getToken()}`);

@@ -31,7 +31,7 @@ function getDataType(colName: string, colType: string): FieldType {
 
 // const Cache = {} as {[p_table_name: string]: ResourceFieldDef[]};
 export async function frmdb_sp_table_columns(p_table_name: string): Promise<ResourceFieldDef[]> {
-    let res = await fetch(`/formuladb-dbrest/rpc/frmdb_sp_table_columns?p_table_name=${p_table_name}`)
+    let res = await fetch(`/fdb-resources/rpc/frmdb_sp_table_columns?p_table_name=${p_table_name}`)
         .then(response => response.json());
     return res.map((col: SpOut) => {
         let retCol: ResourceFieldDef = {

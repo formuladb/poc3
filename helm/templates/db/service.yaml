@@ -7,6 +7,9 @@ spec:
   - name: "postgres"
     port: 5432
     targetPort: 5432
+  - name: "dbrest"
+    port: 3000
+    targetPort: 3000
   selector:
     service: db
 status:

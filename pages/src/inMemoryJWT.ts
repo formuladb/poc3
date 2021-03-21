@@ -2,7 +2,7 @@ const inMemoryJWTManager = () => {
     let inMemoryJWT = null;
     let isRefreshing: Promise<boolean> | null = null;
     let logoutEventName = 'ra-logout';
-    let refreshEndpoint = '/formuladb-dbrest/rpc/frmdb_refresh_token';
+    let refreshEndpoint = '/fdb-resources/rpc/frmdb_refresh_token';
     let refreshTimeOutId;
 
     let refreshIntervalSec = 60;
