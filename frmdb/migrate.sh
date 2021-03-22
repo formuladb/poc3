@@ -23,7 +23,7 @@ echo "## migrate.sh ############################################################
 if [ $frmdbMigrTime -gt $migrate_frmdb_db_Time ]; then 
     migrate_frmdb_db.sh && touch migrate_frmdb_db.time
 fi
-if [ $frmdbMigrTime -gt $migrate_test_db_Time ]; then 
+if [ $frmdbMigrTime -gt $migrate_test_db_Time -o $resourcesMigrTime -gt $migrate_test_db_Time ]; then 
     migrate_test_db.sh
     [ $? -eq 0 ] && touch migrate_test_db.time
 fi

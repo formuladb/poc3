@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuthenticated } from 'react-admin';
 import { useDataProvider } from 'react-admin';
+import { ResourceFieldDef } from '../../core-domain/fields';
 import { FrmdbResourceWithFields } from '../../core-domain/records';
 
 export function useResourceWithFields(resource: string): FrmdbResourceWithFields {
@@ -19,11 +20,27 @@ export function useResourceWithFields(resource: string): FrmdbResourceWithFields
     const dataProvider = useDataProvider();
 
     useEffect(() => {
+        let resWithFields: FrmdbResourceWithFields | null = null;
         dataProvider.getOne<FrmdbResourceWithFields>("frmdb_resource_with_fields", { id: resource })
-            .then(res => {
+            .then(async (res) => {
                 console.debug('response', res);
-                setResourceWithFields(res.data);
+                resWithFields = res.data;
+
+                if (resWithFields != null) {
+
+                    for (let field of resWithFields.field_defs) {
+                        if (field.c_reference_to) {
+                            let referencedResWithFieldDefs = (await dataProvider.getOne<FrmdbResourceWithFields>("frmdb_resource_with_fields",
+                                { id: field.c_reference_to }))?.data;
+                            
+                            resWithFields.refedResWithFields = resWithFields.refedResWithFields || {};
+                            resWithFields.refedResWithFields[referencedResWithFieldDefs.id] = referencedResWithFieldDefs;
+                        }
+                    }
+                }
+                setResourceWithFields(resWithFields);
             });
+
     }, [resource]);
 
     console.debug('response return', resourceWithFields);

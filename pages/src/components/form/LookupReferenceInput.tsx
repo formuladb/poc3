@@ -117,14 +117,17 @@ export function FReferenceInput({
 }: CInputReferenceProps & {validate: Validator}) {
     const { propagateValueChange } = useLookupContext(nP);
 
+    const filterName = `${nP.referenceText}@ilike`;
+    const filterToQuery = new Function('searchText', `return { '${filterName}': searchText }`) as (filter: string) => any;
     return (
-        <ReferenceInput resource={nP.resource} source={nP.source}
+        <ReferenceInput key={filterName} resource={nP.resource} source={nP.source}
             reference={nP.reference}
             variant={nP.variant} disabled={nP.disabled} fullWidth={true}
-            filterToQuery={(searchText: any) => ({ [`${nP.referenceText}@ilike`]: searchText })}
+            filterToQuery={filterToQuery}
             validate={validate}
         >
-            <AutocompleteInput optionText={nP.referenceText} fullWidth={true} optionValue="id"
+            <AutocompleteInput optionText={choice => nP.referenceText ? choice[nP.referenceText] + '' : ''} 
+                fullWidth={true} optionValue="id"
                 onSelect={(selectedItem) => propagateValueChange(selectedItem)}
             />
         </ReferenceInput>

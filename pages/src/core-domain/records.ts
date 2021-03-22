@@ -17,6 +17,7 @@ export interface FrmdbResource {
 export interface FrmdbResourceWithFields {
     id: string;
     field_defs: ResourceFieldDef[];
+    refedResWithFields?: {[resource: string]: FrmdbResourceWithFields};
 }
 
 export interface FrmdbPage {

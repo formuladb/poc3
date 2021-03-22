@@ -81,7 +81,7 @@ export const RawForm = ({
     onSave = undefined as undefined | ((data: Partial<Record>, saveOk: boolean) => void | Promise<void>)
 }) => {
 
-    const { resourceCols, onUpsertRecord } = useUpsertRecord(resource);
+    const { resourceWithFields, onUpsertRecord } = useUpsertRecord(resource);
     const save: FormWithRedirectProps['save'] = (data, redirectTo, optional) => {
         if (refToParentListFieldName && parentResourceId) {
             data[refToParentListFieldName] = parentResourceId;
@@ -89,7 +89,7 @@ export const RawForm = ({
         onUpsertRecord(data);
         if (onSave) onSave(data, true);
     }
-    const fieldDefsByName = groupByUniqProp(resourceCols, 'name');
+    const fieldDefsByName = groupByUniqProp(resourceWithFields.field_defs, 'name');
     const validators = useValidators(resource, fieldDefsByName, record == undefined);
     const validateForm = (values) => {
         const errors = {};

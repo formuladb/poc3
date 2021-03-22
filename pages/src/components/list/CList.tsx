@@ -24,6 +24,7 @@ import { CInputProps, CListProps, CListTypes } from '../../core-domain/page';
 import CListPropsSchema from '../../core-domain/json-schemas/CListProps.json';
 import { ListActions } from './ListActions';
 import { useTraceUpdate } from '../../useTraceRenders';
+import { getCInputPropsFromFieldDef, getDefaultReferenceText } from '../defaultEditPageContent';
 
 export function CList(nP: CListProps & { children: null | React.ReactNode }) {
     // useTraceUpdate(CList.name, nP);
@@ -113,14 +114,26 @@ export function RawList({
 }: CListProps & { children: null | React.ReactNode } & { parentResourceId?: string }) {
     const { ids, data, resource: resourceFromContext, ...restProps } = useListContext();
 
-    const { resourceCols: fieldsDefs, onUpsertRecord } = useUpsertRecord(resource || resourceFromContext);
+    const { resourceWithFields, onUpsertRecord } = useUpsertRecord(resource || resourceFromContext);
 
     const displayedFields = fields && fields.length > 0 ? fields
-        : fieldsDefs
+        : resourceWithFields.field_defs
             .filter(fieldDef => !DEFAULT_COLS.includes(fieldDef.name))
-            .map(fieldDef => ({
-                cInputType: fieldDef.type, resource: resource, source: fieldDef.name
-            }));
+            .map(fieldDef => {
+                let c = getCInputPropsFromFieldDef(resourceFromContext, fieldDef);
+                if (c.cInputType === "Reference") {
+                    const refedRes = resourceWithFields.refedResWithFields?.[c.reference];
+                    if (refedRes) {
+                        let refText = getDefaultReferenceText({
+                            id: refedRes.id,
+                            field_defs: refedRes.field_defs,
+                        });
+                        c.referenceText = refText;
+                        console.log('XXXXXXX', resourceFromContext, resourceWithFields, refedRes.id, refText);
+                    }
+                }
+                return c;
+            });
 
     let haveActions = nP.enabledActions && nP.enabledActions.length > 0;
 
@@ -141,7 +154,7 @@ export function RawList({
         {ids && ids[0] && nP.cListType == 'Table' &&
             <ListTable editable={nP.editable}
                 resource={resource || resourceFromContext}
-                fields={displayedFields} resourceCols={fieldsDefs}
+                fields={displayedFields} resourceCols={resourceWithFields.field_defs}
                 onRecordEdited={onUpsertRecord}
                 isSubListOf={nP.isSubListOf}
                 {...(restProps as any)}
@@ -151,7 +164,7 @@ export function RawList({
             <ListDatagrid editable={nP.editable} fields={displayedFields}
                 resource={resource || resourceFromContext}
                 labelSource={nP.labelSource}
-                resourceCols={fieldsDefs}
+                resourceCols={resourceWithFields.field_defs}
                 onRecordEdited={onUpsertRecord}
             />
         }

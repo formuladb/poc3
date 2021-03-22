@@ -4,10 +4,11 @@ import { Record, useCreate, useDataProvider, useNotify, useRedirect, useTranslat
 import { useRouteMatch } from 'react-router-dom';
 import { cloneDeep } from 'lodash';
 import { useResourceWithFields } from './useResourceWithFields';
+import { FrmdbResourceWithFields } from '../../core-domain/records';
 
 export interface UseUpsertRecordRet {
     onUpsertRecord: (data: Partial<Record>) => Promise<void>,
-    resourceCols: ResourceFieldDef[],
+    resourceWithFields: FrmdbResourceWithFields,
 }
 export function useUpsertRecord(resource: string): UseUpsertRecordRet {
 
@@ -53,5 +54,5 @@ export function useUpsertRecord(resource: string): UseUpsertRecordRet {
         }
     };
 
-    return { onUpsertRecord, resourceCols };
+    return { onUpsertRecord, resourceWithFields };
 }
