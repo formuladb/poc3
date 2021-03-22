@@ -13,6 +13,8 @@ import {
     Validator,
     useDataProvider,
 } from 'react-admin';
+import RichTextInput from 'ra-input-rich-text';
+
 import { Node as CraftJsNode, useNode, useEditor } from '@craftjs/core';
 import { CmpSettings } from '../editor/CmpSettings';
 import { JSONSchema7, JSONSchema7Definition } from 'json-schema';
@@ -45,6 +47,9 @@ export const CInput = (nP: CInputProps) => {
     return <Grid item md={nP.width || 3} className="" ref={connect}>
         {nP.cInputType == 'TextField' && <TextInput size={nP.size} resource={nP.resource} source={nP.source} initialValue={nP.initialValue}
             variant={nP.variant} disabled={isDisabled} fullWidth={true} multiline={nP.multiline}
+            validate={validationFn} />}
+        {nP.cInputType == 'RichTextField' && <RichTextInput size={nP.size} resource={nP.resource} source={nP.source} initialValue={nP.initialValue}
+            variant={nP.variant} disabled={isDisabled} fullWidth={true}
             validate={validationFn} />}
         {nP.cInputType == 'NumberField' && <NumberInput size={nP.size} resource={nP.resource} source={nP.source} initialValue={nP.initialValue}
             variant={nP.variant} disabled={isDisabled} fullWidth={true}

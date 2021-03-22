@@ -120,6 +120,13 @@ export interface CInputTextFieldProps extends CInputPropsBase {
 export interface CInputTextFieldNode extends PageNodeBase, CInputTextFieldProps {
     _tag: "CInput";
 }
+export interface CInputRichTextFieldProps extends CInputPropsBase {
+    cInputType: "RichTextField";
+    initialValue?: string;
+}
+export interface CRichInputTextFieldNode extends PageNodeBase, CInputRichTextFieldProps {
+    _tag: "CInput";
+}
 export interface CInputBooleanFieldProps extends CInputPropsBase {
     cInputType: "BooleanField";
     initialValue?: boolean;

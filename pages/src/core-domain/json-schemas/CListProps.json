@@ -792,6 +792,9 @@
                 "disabled": {
                     "type": "boolean"
                 },
+                "initialValue": {
+                    "type": "string"
+                },
                 "resource": {
                     "format": "frmdb-resource-name",
                     "type": "string"
@@ -1052,6 +1055,9 @@
                         "$ref": "#/definitions/CInputTextFieldProps"
                     },
                     {
+                        "$ref": "#/definitions/CInputRichTextFieldProps"
+                    },
+                    {
                         "$ref": "#/definitions/CInputBooleanFieldProps"
                     },
                     {
@@ -1074,9 +1080,6 @@
                     },
                     {
                         "$ref": "#/definitions/CInputNumberFieldProps"
-                    },
-                    {
-                        "$ref": "#/definitions/CInputRichTextFieldProps"
                     },
                     {
                         "$ref": "#/definitions/CInputUrlFieldProps"
