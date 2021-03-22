@@ -2195,6 +2195,7 @@
                 "cListType": {
                     "enum": [
                         "Datagrid",
+                        "FormList",
                         "Table",
                         "Tabs"
                     ],

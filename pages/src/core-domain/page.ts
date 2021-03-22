@@ -44,6 +44,7 @@ export const CListTypes = {
     // SingleFieldList: 0,
     Table: 0,
     Datagrid: 0,
+    FormList: 0,
     // SimpleList: 0,
 }
 

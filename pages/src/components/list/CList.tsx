@@ -13,6 +13,7 @@ import { DEFAULT_COLS, FieldType, FieldTypes, ResourceFieldDef } from '../../cor
 import { ListDatagrid } from './ListDatagrid';
 import { ListTable } from './ListTable';
 import { ListTabs } from './ListTabs';
+import { ListFormList } from './ListFormList';
 import { CmpSettings } from '../editor/CmpSettings';
 import { JSONSchema7 } from 'json-schema';
 import { CmpCraftStatic } from '../utils';
@@ -168,6 +169,10 @@ export function RawList({
                 onRecordEdited={onUpsertRecord}
             />
         }
+        {ids && ids[0] && nP.cListType == 'FormList' &&
+            <ListFormList ids={ids} data={data}
+                resource={resource || resourceFromContext}
+                children={children} />}
         {(!ids || !ids[0]) && <span>Loading ...</span>}
     </>;
 }
