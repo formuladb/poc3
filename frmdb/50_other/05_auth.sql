@@ -132,6 +132,21 @@ $$ language plpgsql security definer;
 --#############################################################################
 
 create or replace function
+frmdb_sql_unit_test_login_anon() returns void as $fun$
+declare
+  v_stm varchar;
+begin
+  v_stm := format($$ SET ROLE anon $$);
+  EXECUTE v_stm;
+
+  PERFORM set_config('request.jwt.claim.user_id', NULL, true);
+  PERFORM set_config('request.jwt.claim.username', NULL, true);
+  PERFORM set_config('request.jwt.claim.role', 'anon', true);
+end;
+$fun$ language plpgsql;
+
+
+create or replace function
 frmdb_sql_unit_test_login(username text, pass text) returns void as $fun$
 declare
   _user frmdb_users;

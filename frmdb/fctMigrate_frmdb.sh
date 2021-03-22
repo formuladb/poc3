@@ -1,4 +1,5 @@
 fctMigrate_frmdb() {
+    dbname=$1
     fctH2 "Migrating frmdb on ${dbname} "
 
     dbname=$1
