@@ -2,6 +2,7 @@ import React, { useCallback, useContext, useState } from "react";
 import { useForm, useFormState } from 'react-final-form';
 import {
     AutocompleteInput,
+    RadioButtonGroupInput,
     ReferenceInput,
     TextInput,
     Validator,
@@ -65,11 +66,11 @@ function useLookupContext(nP: CInputLookupProps | CInputReferenceProps) {
 export function LookupInput({
     validate,
     ...nP
-}: CInputLookupProps & {validate: Validator | Validator[]}) {
+}: CInputLookupProps & { validate: Validator | Validator[] }) {
 
     const [enableEdit, setEnableEdit] = useState(false);
     const { reference, propagateValueChange } = useLookupContext(nP);
-    
+
     return (
         <>
             {enableEdit && reference && <span key="ref" style={{ display: enableEdit ? "inline-block" : "none" }}>
@@ -105,7 +106,7 @@ export function LookupInput({
 export function FReferenceInputAsync({
     validate,
     ...nP
-}: CInputReferenceProps & {validate: Validator}) {
+}: CInputReferenceProps & { validate: Validator }) {
     const referenceWithFields = useResourceWithFields(nP.reference);
     const referenceText = getDefaultReferenceText(referenceWithFields);
     return <FReferenceInput {...nP} referenceText={referenceText} validate={validate} />
@@ -114,7 +115,7 @@ export function FReferenceInputAsync({
 export function FReferenceInput({
     validate,
     ...nP
-}: CInputReferenceProps & {validate: Validator}) {
+}: CInputReferenceProps & { validate: Validator }) {
     const { propagateValueChange } = useLookupContext(nP);
 
     const filterName = `${nP.referenceText}@ilike`;
@@ -126,10 +127,17 @@ export function FReferenceInput({
             filterToQuery={filterToQuery}
             validate={validate}
         >
-            <AutocompleteInput optionText={choice => nP.referenceText ? choice[nP.referenceText] + '' : ''} 
-                fullWidth={true} optionValue="id"
-                onSelect={(selectedItem) => propagateValueChange(selectedItem)}
-            />
+            {nP.referenceInputType === "radio_button" ?
+                <RadioButtonGroupInput key="radio_button" optionText={choice => nP.referenceText ? choice[nP.referenceText] + '' : ''}
+                    fullWidth={true} optionValue="id"
+                    onSelect={(selectedItem) => propagateValueChange(selectedItem)}
+                />
+                :
+                <AutocompleteInput key="autocomplete" optionText={choice => nP.referenceText ? choice[nP.referenceText] + '' : ''}
+                    fullWidth={true} optionValue="id"
+                    onSelect={(selectedItem) => propagateValueChange(selectedItem)}
+                />
+            }
         </ReferenceInput>
     );
 }

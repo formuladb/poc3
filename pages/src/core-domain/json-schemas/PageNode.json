@@ -1536,6 +1536,13 @@
                 "reference": {
                     "type": "string"
                 },
+                "referenceInputType": {
+                    "enum": [
+                        "autocomplete",
+                        "radio_button"
+                    ],
+                    "type": "string"
+                },
                 "referenceText": {
                     "type": "string"
                 },
@@ -1604,6 +1611,13 @@
                     "type": "boolean"
                 },
                 "reference": {
+                    "type": "string"
+                },
+                "referenceInputType": {
+                    "enum": [
+                        "autocomplete",
+                        "radio_button"
+                    ],
                     "type": "string"
                 },
                 "referenceText": {

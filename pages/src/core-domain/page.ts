@@ -219,6 +219,7 @@ export interface CInputReferenceProps extends CInputPropsBase {
     reference: string;
     referenceText?: string;
     defaultValue?: "CURRENT_USER_ID" | "CURRENT_ROLE_ID";
+    referenceInputType?: "autocomplete" | "radio_button";
 }
 export interface CInputReferenceNode extends PageNodeBase, CInputReferenceProps {
     _tag: 'CInput';
