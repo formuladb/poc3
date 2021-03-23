@@ -42,7 +42,7 @@ export const ListFormList = ({
 
     return (<>
         {ids.map((id, idx) =>
-            <div style={{ margin: '20px' }}>
+            <div key={id} style={{ margin: '20px' }}>
                 <Paper key={id}>
                     <RawForm resource={resource} record={data[id]}>
                         {children}

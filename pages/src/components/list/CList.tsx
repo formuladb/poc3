@@ -26,6 +26,7 @@ import CListPropsSchema from '../../core-domain/json-schemas/CListProps.json';
 import { ListActions } from './ListActions';
 import { useTraceUpdate } from '../../useTraceRenders';
 import { getCInputPropsFromFieldDef, getDefaultReferenceText } from '../defaultEditPageContent';
+import { useRawFormContext } from '../form/useRawFormContext';
 
 export function CList(nP: CListProps & { children: null | React.ReactNode }) {
     // useTraceUpdate(CList.name, nP);
@@ -55,9 +56,11 @@ export function SubList({
     } = useNode((node) => ({ node }));
 
     const location = useLocation();
+    const rawFormContext = useRawFormContext();
+
     let pageData = parseLocation(location.pathname);
     let res: string;
-    let parentResourceId: string | undefined;
+    let parentResourceId: string | undefined = undefined;
     if (nP.isSubListOf) {
         res = nP.isSubListOf;
         for (let pathSegment of pageData.parsedPath) {
@@ -65,12 +68,15 @@ export function SubList({
                 parentResourceId = pathSegment.resourceId;
             }
         }
+        if (undefined === parentResourceId && rawFormContext.record && nP.refToParentListFieldName) {
+            parentResourceId = rawFormContext.record.id + '';
+        }
     } else {
         res = pageData.parsedPath[0]?.resourceName || 'cform_no_resource';
         parentResourceId = pageData.parsedPath[0]?.resourceId;
     }
 
-    console.debug('SubList for ', parentResourceId, nP);
+    console.debug('SubList for ', parentResourceId, nP, rawFormContext);
 
     return <Grid item className="" ref={connect}>
         {parentResourceId && <RefManyField parentResourceId={parentResourceId} {...nP} children={children} />}
@@ -114,7 +120,7 @@ export function RawList({
     ...nP
 }: CListProps & { children: null | React.ReactNode } & { parentResourceId?: string }) {
     const { ids, data, resource: resourceFromContext, ...restProps } = useListContext();
-
+    const translate = useTranslate();
     const { resourceWithFields, onUpsertRecord } = useUpsertRecord(resource || resourceFromContext);
 
     const displayedFields = fields && fields.length > 0 ? fields
@@ -172,7 +178,7 @@ export function RawList({
             <ListFormList ids={ids} data={data}
                 resource={resource || resourceFromContext}
                 children={children} />}
-        {(!ids || !ids[0]) && <span>Loading ...</span>}
+        {(!ids || !ids[0]) && <span>{translate('no elements yet')}</span>}
     </>;
 }
 RawList.displayName = 'RawList';

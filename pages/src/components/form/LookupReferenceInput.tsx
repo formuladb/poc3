@@ -131,6 +131,7 @@ export function FReferenceInput({
                 <RadioButtonGroupInput key="radio_button" optionText={choice => nP.referenceText ? choice[nP.referenceText] + '' : ''}
                     fullWidth={true} optionValue="id"
                     onSelect={(selectedItem) => propagateValueChange(selectedItem)}
+                    row={nP.layout === "single_row" ? true : false}
                 />
                 :
                 <AutocompleteInput key="autocomplete" optionText={choice => nP.referenceText ? choice[nP.referenceText] + '' : ''}

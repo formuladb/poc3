@@ -114,6 +114,7 @@ export const RawForm = ({
     const formContext: RawFormContextData = {
         isCreate: record == undefined,
         resource,
+        record,
         fieldDefsByName,
         inputs,
         addInput
