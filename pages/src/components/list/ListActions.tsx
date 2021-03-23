@@ -56,15 +56,15 @@ export function ListActions({
             {enabledActions?.map(act => {
                 if (act.actionType === 'CREATE') {
                     if (!isSubListOf) {
-                        return <CreateButton basePath={basePath} />;
+                        return <CreateButton key="EditButtonPopoverField" basePath={basePath} />;
                     } else {
-                        return <EditButtonPopoverField isCreate={true} resource={resource}
+                        return <EditButtonPopoverField key="EditButtonPopoverField" isCreate={true} resource={resource}
                             record={undefined} fields={fields}
                             refToParentListFieldName={refToParentListFieldName} parentResourceId={parentResourceId}
                         />;
                     }
                 } else if (act.actionType === "EXPORT") {
-                    return <ExportButton
+                    return <ExportButton key="ExportButton"
                         disabled={total === 0}
                         resource={resource}
                         sort={currentSort}
@@ -72,7 +72,7 @@ export function ListActions({
                         maxResults={maxResults}
                     />;
                 } else if (act.actionType === "IMPORTDATA") {
-                    return <ImportButton
+                    return <ImportButton key="ImportButton"
                         resource={resource}
                         refToParentListFieldName={refToParentListFieldName} parentResourceId={parentResourceId}
                         fieldMappings={act.fieldMappings}

@@ -63,13 +63,14 @@ export const ListFormList = ({
         };
     }
 
+    console.log('XXXXXXX', children);
     return (<>
         {ids.map((id, idx) =>
             <div style={{ margin: '20px' }}>
                 <Paper key={id}>
                     <RawForm resource={resource} record={data[id]}>
-                        {idx === 0 && children}
-                        {idx > 0 && children && React.cloneElement(React.Children.only(children))}
+                        {children}
+                        {/* {idx === 0 && children} for editor to work, we want just the first form to display the original childre, for the rest we want to clone the children */}
                     </RawForm>
                 </Paper>
             </div>

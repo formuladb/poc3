@@ -130,7 +130,6 @@ export function RawList({
                             field_defs: refedRes.field_defs,
                         });
                         c.referenceText = refText;
-                        console.log('XXXXXXX', resourceFromContext, resourceWithFields, refedRes.id, refText);
                     }
                 }
                 return c;
