@@ -217,11 +217,15 @@ export interface CInputSelectNode extends PageNodeBase, CInputSelectProps {
 }
 export interface CInputReferenceProps extends CInputPropsBase {
     cInputType: "Reference";
+    /**@TJS-format frmdb-reference-resource-name */
     reference: string;
+    /**@TJS-format frmdb-reference-field-name */
     referenceText?: string;
     defaultValue?: "CURRENT_USER_ID" | "CURRENT_ROLE_ID";
     referenceInputType?: "autocomplete" | "radio_button";
     layout?: "single_row";
+    /**@TJS-format frmdb-reference-matching-field-name */
+    matchingColumn?: string;
 }
 export interface CInputReferenceNode extends PageNodeBase, CInputReferenceProps {
     _tag: 'CInput';

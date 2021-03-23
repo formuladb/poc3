@@ -117,11 +117,22 @@ export function FReferenceInput({
     ...nP
 }: CInputReferenceProps & { validate: Validator }) {
     const { propagateValueChange } = useLookupContext(nP);
+    
+    let rawFormContext = useRawFormContext();
+    let extraFilter = {};
+    if (nP.matchingColumn && rawFormContext.record) {
+        const matchingValue = rawFormContext.record[nP.matchingColumn];
+        extraFilter = {
+            [nP.matchingColumn]: matchingValue
+        };
+    }
 
-    const filterName = `${nP.referenceText}@ilike`;
-    const filterToQuery = new Function('searchText', `return { '${filterName}': searchText }`) as (filter: string) => any;
+    const filterToQuery = searchText => ({ 
+        ...extraFilter,
+        [`${nP.referenceText}@ilike`]: searchText,
+    });
     return (
-        <ReferenceInput key={filterName} resource={nP.resource} source={nP.source}
+        <ReferenceInput key={nP.referenceText} resource={nP.resource} source={nP.source}
             reference={nP.reference}
             variant={nP.variant} disabled={nP.disabled} fullWidth={true}
             filterToQuery={filterToQuery}

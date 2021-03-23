@@ -700,7 +700,18 @@
                 "disabled": {
                     "type": "boolean"
                 },
+                "layout": {
+                    "enum": [
+                        "single_row"
+                    ],
+                    "type": "string"
+                },
+                "matchingColumn": {
+                    "format": "frmdb-reference-matching-field-name",
+                    "type": "string"
+                },
                 "reference": {
+                    "format": "frmdb-reference-resource-name",
                     "type": "string"
                 },
                 "referenceInputType": {
@@ -711,6 +722,7 @@
                     "type": "string"
                 },
                 "referenceText": {
+                    "format": "frmdb-reference-field-name",
                     "type": "string"
                 },
                 "resource": {

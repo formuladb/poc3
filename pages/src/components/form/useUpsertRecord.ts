@@ -43,6 +43,7 @@ export function useUpsertRecord(resource: string): UseUpsertRecordRet {
                 delete data[col.name];
             }
         }
+        console.log('XXXXXX', data);        
         if (undefined != data['id']) {
             dataProvider.update(resource, {
                 id: data['id'], 
