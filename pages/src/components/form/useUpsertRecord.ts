@@ -36,11 +36,13 @@ export function useUpsertRecord(resource: string): UseUpsertRecordRet {
     const onUpsertRecord = async (rec: Partial<Record>) => {
         let data = cloneDeep(rec);
         console.log('COLS', resourceCols);
-        for (let col of resourceCols) {
-            // id col is needed for Upsert functionality on the server, we must not delete it
-            let keepIdCol = col.name === "id" && undefined != data['id'];
-            if ((col.c_is_computed == true || col.c_formula) && !keepIdCol) {
-                delete data[col.name];
+        if (resource.indexOf('frmdbvw') < 0) {
+            for (let col of resourceCols) {
+                // id col is needed for Upsert functionality on the server, we must not delete it
+                let keepIdCol = col.name === "id" && undefined != data['id'];
+                if ((col.c_is_computed == true || col.c_formula) && !keepIdCol) {
+                    delete data[col.name];
+                }
             }
         }
         console.log('XXXXXX', data);        
