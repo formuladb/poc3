@@ -6,8 +6,6 @@ import { useTheme } from '@material-ui/core/styles';
 import {
     Link,
     useRouteMatch,
-    Switch,
-    Route,
     useLocation
 } from "react-router-dom";
 import { useRedirect, Record } from 'react-admin';
@@ -38,32 +36,10 @@ export const ListFormList = ({
     resource,
     children,
 }: ListFormListProps) => {
-    const redirect = useRedirect();
-    let { pathname } = useLocation();
-    let { url } = useRouteMatch();
-
-    useEffect(() => {
-        if (ids.length > 0 && !pathname.match(new RegExp(`/${resource}/[^/]+$`))) {
-            redirect(`${url}/${resource}/${ids[0]}`);
-        }
-    }, [ids, url]);
 
     const theme = useTheme();
     const mdScreen = useMediaQuery(theme.breakpoints.up('md'));
 
-    const [currentId, setCurrentId] = React.useState(ids[0]);
-    const onChange = (event: React.ChangeEvent<{}>, newValue: string) => {
-        setCurrentId(newValue);
-    };
-
-    const a11yProps = (id: any) => {
-        return {
-            id: `simple-tab-${id}`,
-            'aria-controls': `simple-tabpanel-${id}`,
-        };
-    }
-
-    console.log('XXXXXXX', children);
     return (<>
         {ids.map((id, idx) =>
             <div style={{ margin: '20px' }}>

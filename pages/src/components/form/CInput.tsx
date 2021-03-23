@@ -12,6 +12,7 @@ import {
     required,
     Validator,
     useDataProvider,
+    RichTextField,
 } from 'react-admin';
 import RichTextInput from 'ra-input-rich-text';
 
@@ -50,6 +51,9 @@ export const CInput = (nP: CInputProps) => {
             validate={validationFn} />}
         {nP.cInputType == 'RichTextField' && <RichTextInput size={nP.size} resource={nP.resource} source={nP.source} initialValue={nP.initialValue}
             variant={nP.variant} disabled={isDisabled} fullWidth={true}
+            options={nP.disabled ? {
+                modules: { toolbar: false }, readOnly: true,
+            } : undefined}
             validate={validationFn} />}
         {nP.cInputType == 'NumberField' && <NumberInput size={nP.size} resource={nP.resource} source={nP.source} initialValue={nP.initialValue}
             variant={nP.variant} disabled={isDisabled} fullWidth={true}
