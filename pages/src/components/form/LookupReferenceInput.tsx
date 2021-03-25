@@ -12,6 +12,7 @@ import { CInputLookupProps, CInputProps, CInputReferenceProps } from "../../core
 import { RawFormContext, RawFormContextData, useRawFormContext } from "./useRawFormContext";
 import { useResourceWithFields } from "./useResourceWithFields";
 import { getDefaultReferenceText } from "../defaultEditPageContent";
+import { useInitialValueResolver } from "./useInitialValueResolver";
 
 const DefaultRefState = {
     reference: undefined as undefined | string,
@@ -127,6 +128,10 @@ export function FReferenceInput({
         };
     }
 
+    
+    const initialValueResolver = useInitialValueResolver();
+    const initialValue = initialValueResolver(nP);
+
     const filterToQuery = searchText => ({ 
         ...extraFilter,
         [`${nP.referenceText}@ilike`]: searchText,
@@ -137,6 +142,7 @@ export function FReferenceInput({
             variant={nP.variant} disabled={nP.disabled} fullWidth={true}
             filterToQuery={filterToQuery}
             validate={validate}
+            initialValue={initialValue}
         >
             {nP.referenceInputType === "radio_button" ?
                 <RadioButtonGroupInput key="radio_button" optionText={choice => nP.referenceText ? choice[nP.referenceText] + '' : ''}

@@ -1,5 +1,6 @@
 import parse from 'csv-parse/lib/es5';
 import { DataProvider } from 'react-admin';
+import { FrmdbDataProvider } from '../../ra-data-postgrest';
 import { IMPORTDATA } from './IMPORTDATA';
 
 test('should import data', async () => {
@@ -13,12 +14,12 @@ test('should import data', async () => {
     });
     let receivedData = null;
     const dataProvider = {
-        create: (resource: string, params) => {
+        createMany: (resource: string, params) => {
             receivedData = params?.data;
         }
     }
 
-    await IMPORTDATA(dataProvider as DataProvider, {
+    await IMPORTDATA(dataProvider as FrmdbDataProvider, {
         id: 'order_product',
         field_defs: [
             { name: 'order_id', c_table_name: 'order_products', type: 'TextField', c_is_computed: false },

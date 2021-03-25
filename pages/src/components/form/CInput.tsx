@@ -29,6 +29,7 @@ import CInputPropsSchema from '../../core-domain/json-schemas/CInputProps.json';
 import { useRawFormContext } from './useRawFormContext';
 import { useValidators } from './useValidators';
 import { useTraceUpdate } from '../../useTraceRenders';
+import { useInitialValueResolver } from './useInitialValueResolver';
 
 export const CInput = (nP: CInputProps) => {
     useTraceUpdate(CInput.name, nP);

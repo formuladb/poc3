@@ -1,5 +1,5 @@
 import { fetchUtils } from 'react-admin';
-import inMemoryJWT from './inMemoryJWT';
+import { inMemoryJWT } from './inMemoryJWT';
 
 export default (url, options) => {
     const token = inMemoryJWT.getToken();

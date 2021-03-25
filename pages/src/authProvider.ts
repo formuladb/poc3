@@ -1,5 +1,6 @@
 import { AuthProvider } from 'ra-core';
-import inMemoryJWT from './inMemoryJWT';
+import { UserIdentity } from 'react-admin';
+import { inMemoryJWT } from './inMemoryJWT';
 
 const authProvider: AuthProvider = {
     init: () => {
@@ -62,6 +63,16 @@ const authProvider: AuthProvider = {
             return inMemoryJWT.getToken() ? Promise.resolve() : Promise.reject();
         });
     },
+
+    getIdentity: () => {
+        const tokenData = inMemoryJWT.getTokenData();
+        console.log("XXXXXX", tokenData);
+
+        return Promise.resolve({
+            id: tokenData?.user_id,
+            fullName: tokenData?.username,
+        } as UserIdentity);
+    }
 };
 
 export default authProvider; 

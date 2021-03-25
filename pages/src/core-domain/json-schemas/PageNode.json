@@ -386,19 +386,23 @@
                     ],
                     "type": "string"
                 },
-                "defaultValue": {
-                    "enum": [
-                        "CURRENT_DATE"
-                    ],
-                    "type": "string"
-                },
                 "disabled": {
                     "type": "boolean"
                 },
                 "initialValue": {
-                    "description": "Enables basic storage and retrieval of dates and times.",
-                    "format": "date-time",
-                    "type": "string"
+                    "anyOf": [
+                        {
+                            "description": "Enables basic storage and retrieval of dates and times.",
+                            "format": "date-time",
+                            "type": "string"
+                        },
+                        {
+                            "enum": [
+                                "CURRENT_DATE"
+                            ],
+                            "type": "string"
+                        }
+                    ]
                 },
                 "resource": {
                     "format": "frmdb-resource-name",
@@ -453,19 +457,23 @@
                     ],
                     "type": "string"
                 },
-                "defaultValue": {
-                    "enum": [
-                        "CURRENT_DATE"
-                    ],
-                    "type": "string"
-                },
                 "disabled": {
                     "type": "boolean"
                 },
                 "initialValue": {
-                    "description": "Enables basic storage and retrieval of dates and times.",
-                    "format": "date-time",
-                    "type": "string"
+                    "anyOf": [
+                        {
+                            "description": "Enables basic storage and retrieval of dates and times.",
+                            "format": "date-time",
+                            "type": "string"
+                        },
+                        {
+                            "enum": [
+                                "CURRENT_DATE"
+                            ],
+                            "type": "string"
+                        }
+                    ]
                 },
                 "resource": {
                     "format": "frmdb-resource-name",
@@ -527,19 +535,23 @@
                     ],
                     "type": "string"
                 },
-                "defaultValue": {
-                    "enum": [
-                        "CURRENT_DATE_TIME"
-                    ],
-                    "type": "string"
-                },
                 "disabled": {
                     "type": "boolean"
                 },
                 "initialValue": {
-                    "description": "Enables basic storage and retrieval of dates and times.",
-                    "format": "date-time",
-                    "type": "string"
+                    "anyOf": [
+                        {
+                            "description": "Enables basic storage and retrieval of dates and times.",
+                            "format": "date-time",
+                            "type": "string"
+                        },
+                        {
+                            "enum": [
+                                "CURRENT_DATE_TIME"
+                            ],
+                            "type": "string"
+                        }
+                    ]
                 },
                 "resource": {
                     "format": "frmdb-resource-name",
@@ -594,19 +606,23 @@
                     ],
                     "type": "string"
                 },
-                "defaultValue": {
-                    "enum": [
-                        "CURRENT_DATE_TIME"
-                    ],
-                    "type": "string"
-                },
                 "disabled": {
                     "type": "boolean"
                 },
                 "initialValue": {
-                    "description": "Enables basic storage and retrieval of dates and times.",
-                    "format": "date-time",
-                    "type": "string"
+                    "anyOf": [
+                        {
+                            "description": "Enables basic storage and retrieval of dates and times.",
+                            "format": "date-time",
+                            "type": "string"
+                        },
+                        {
+                            "enum": [
+                                "CURRENT_DATE_TIME"
+                            ],
+                            "type": "string"
+                        }
+                    ]
                 },
                 "resource": {
                     "format": "frmdb-resource-name",
@@ -1523,15 +1539,15 @@
                     ],
                     "type": "string"
                 },
-                "defaultValue": {
+                "disabled": {
+                    "type": "boolean"
+                },
+                "initialValue": {
                     "enum": [
                         "CURRENT_ROLE_ID",
                         "CURRENT_USER_ID"
                     ],
                     "type": "string"
-                },
-                "disabled": {
-                    "type": "boolean"
                 },
                 "layout": {
                     "enum": [
@@ -1612,15 +1628,15 @@
                     ],
                     "type": "string"
                 },
-                "defaultValue": {
+                "disabled": {
+                    "type": "boolean"
+                },
+                "initialValue": {
                     "enum": [
                         "CURRENT_ROLE_ID",
                         "CURRENT_USER_ID"
                     ],
                     "type": "string"
-                },
-                "disabled": {
-                    "type": "boolean"
                 },
                 "layout": {
                     "enum": [

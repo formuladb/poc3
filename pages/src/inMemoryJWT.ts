@@ -1,5 +1,12 @@
-const inMemoryJWTManager = () => {
-    let inMemoryJWT = null;
+export interface AuthToken {
+    role: string;
+    user_id: string;
+    username: string;
+    exp: number;
+}
+
+export const inMemoryJWTManager = () => {
+    let inMemoryJWT: string | null = null;
     let isRefreshing: Promise<boolean> | null = null;
     let logoutEventName = 'ra-logout';
     let refreshEndpoint = '/fdb-resources/rpc/frmdb_refresh_token';
@@ -71,6 +78,14 @@ const inMemoryJWTManager = () => {
 
 
     const getToken = () => inMemoryJWT;
+    const getTokenData = () => {
+        let ret: Partial<AuthToken> = {};
+        if (inMemoryJWT) {
+            const base64Data = inMemoryJWT.split('.')[1] || '{}';
+            ret = JSON.parse(atob(base64Data)) as Partial<AuthToken>;
+        }
+        return ret;
+    }
 
     const setToken = (token, delay) => {
         inMemoryJWT = token;
@@ -96,6 +111,7 @@ const inMemoryJWTManager = () => {
         ereaseToken,
         getRefreshedToken,
         getToken,
+        getTokenData,
         setLogoutEventName,
         setRefreshTokenEndpoint,
         setToken,
@@ -104,4 +120,4 @@ const inMemoryJWTManager = () => {
     }
 };
 
-export default inMemoryJWTManager();
+export const inMemoryJWT = inMemoryJWTManager();

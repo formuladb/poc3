@@ -143,16 +143,14 @@ export interface CInputChipFieldNode extends PageNodeBase, CInputChipFieldProps 
 }
 export interface CInputDateFieldProps extends CInputPropsBase {
     cInputType: "DateField";
-    initialValue?: Date;
-    defaultValue?: "CURRENT_DATE";
+    initialValue?: Date | "CURRENT_DATE";
 }
 export interface CInputDateFieldNode extends PageNodeBase, CInputDateFieldProps {
     _tag: "CInput";
 }
 export interface CInputDateTimeFieldProps extends CInputPropsBase {
     cInputType: "DateTimeField";
-    initialValue?: Date;
-    defaultValue?: "CURRENT_DATE_TIME";
+    initialValue?: Date | "CURRENT_DATE_TIME";
 }
 export interface CInputDateTimeFieldNode extends PageNodeBase, CInputDateTimeFieldProps {
     _tag: "CInput";
@@ -221,7 +219,7 @@ export interface CInputReferenceProps extends CInputPropsBase {
     reference: string;
     /**@TJS-format frmdb-reference-field-name */
     referenceText?: string;
-    defaultValue?: "CURRENT_USER_ID" | "CURRENT_ROLE_ID";
+    initialValue?: "CURRENT_USER_ID" | "CURRENT_ROLE_ID";
     referenceInputType?: "autocomplete" | "radio_button";
     layout?: "single_row";
     /**@TJS-format frmdb-reference-matching-field-name */
