@@ -69,7 +69,7 @@ const authProvider: AuthProvider = {
         console.log("XXXXXX", tokenData);
 
         return Promise.resolve({
-            id: tokenData?.user_id,
+            id: tokenData?.user_id ? parseInt(tokenData.user_id) : undefined,
             fullName: tokenData?.username,
         } as UserIdentity);
     }

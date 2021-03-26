@@ -4,6 +4,7 @@ import {
     AutocompleteInput,
     RadioButtonGroupInput,
     ReferenceInput,
+    SelectInput,
     TextInput,
     Validator,
 } from "react-admin";
@@ -144,18 +145,21 @@ export function FReferenceInput({
             validate={validate}
             initialValue={initialValue}
         >
-            {nP.referenceInputType === "radio_button" ?
-                <RadioButtonGroupInput key="radio_button" optionText={choice => nP.referenceText ? choice[nP.referenceText] + '' : ''}
+            <AutocompleteInput optionText="username" />
+            {/* {nP.referenceInputType === "radio_button" ?
+                <RadioButtonGroupInput key="radio_button" 
+                    optionText={choice => nP.referenceText ? (choice?.[nP.referenceText]||'') + '' : ''}
                     fullWidth={true} optionValue="id"
                     onSelect={(selectedItem) => propagateValueChange(selectedItem)}
                     row={nP.layout === "single_row" ? true : false}
                 />
                 :
-                <AutocompleteInput key="autocomplete" optionText={choice => nP.referenceText ? choice[nP.referenceText] + '' : ''}
+                <AutocompleteInput key="autocomplete" 
+                    optionText={choice => nP.referenceText ? (choice?.[nP.referenceText]||'') + '' : ''}
                     fullWidth={true} optionValue="id"
                     onSelect={(selectedItem) => propagateValueChange(selectedItem)}
                 />
-            }
+            } */}
         </ReferenceInput>
     );
 }
