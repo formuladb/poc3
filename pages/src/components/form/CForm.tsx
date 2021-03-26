@@ -138,7 +138,7 @@ export const RawForm = ({
                                     {children}
                                 </Grid>
                             </Box>
-                            <Toolbar>
+                            <Toolbar className="frmdb-form-actions-toolbar">
                                 <Box display="flex" justifyContent="space-between" width="100%" borderTop={1} pt={2} borderColor="grey.500" >
                                     <SaveButton
                                         saving={formProps.saving}

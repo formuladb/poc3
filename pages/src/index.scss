@@ -30,17 +30,22 @@ code {
         border: 0
     }
 
-    .MuiDrawer-root, .MuiAppBar-root > button, .MuiAppBar-root > div, .MuiButton-root 
+    .MuiDrawer-root, 
+    .MuiAppBar-root > .MuiToolbar-root > button, 
+    .MuiAppBar-root > .MuiToolbar-root > div, 
+    .MuiButton-root,
+    .frmdb-form-actions-toolbar,
+    #FrmdbTogglePageEditorBtn
     {
         display: none !important;
     }
 
-    .MuiFormControl-root {
-        page-break-inside: avoid;
+    .MuiAppBar-root > .MuiToolbar-root {
+        margin-left: 50px;
     }
 
-    #FrmdbTogglePageEditorBtn {
-        display: none !important;
+    .MuiFormControl-root {
+        page-break-inside: avoid;
     }
 
 }
