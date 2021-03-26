@@ -31,7 +31,7 @@ export function EditablePage({
 }: EditablePageProps) {
     console.log("render")
     return (
-        <div style={{ margin: '0 auto', width: '100%' }}>
+        <div className="frmdb-editable-page" style={{ margin: '0 auto', width: '100%' }}>
             <Editor enabled={false}
                 resolver={{
                     Card,

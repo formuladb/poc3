@@ -1,4 +1,4 @@
-@import "~bootstrap/scss/bootstrap";
+// @import "~bootstrap/scss/bootstrap";
 
 body {
     margin: 0;
@@ -16,6 +16,33 @@ code {
 
 .border.border-transparent {
     border-color: transparent !important;
+}
+
+@media print
+{
+    @page { 
+        margin: 0;
+        size: A4;
+    }
+
+    //FIXME: target selector better, overwrite page styles for printing inside component
+    .frmdb-editable-page > * > * > * > .MuiPaper-root {
+        border: 0
+    }
+
+    .MuiDrawer-root, .MuiAppBar-root > button, .MuiAppBar-root > div, .MuiButton-root 
+    {
+        display: none !important;
+    }
+
+    .MuiFormControl-root {
+        page-break-inside: avoid;
+    }
+
+    #FrmdbTogglePageEditorBtn {
+        display: none !important;
+    }
+
 }
 
 // form.rjsf button[type="submit"] {
