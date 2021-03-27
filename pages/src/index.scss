@@ -35,7 +35,7 @@ code {
     .MuiAppBar-root > .MuiToolbar-root > div, 
     .MuiButton-root,
     .frmdb-form-actions-toolbar,
-    #FrmdbTogglePageEditorBtn
+    [data-testid="FrmdbTogglePageEditorBtn"]
     {
         display: none !important;
     }

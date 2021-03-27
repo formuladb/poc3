@@ -1,7 +1,6 @@
 import React from 'react';
 import { useListContext, useTranslate } from "react-admin";
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { CInputProps } from '../../core-domain/page';
 import { FField } from '../form/FField';
@@ -36,7 +35,7 @@ export function MobileList({
     return (
         <div style={{ margin: '1em' }}>
             {ids.map(id =>
-                <Box key={id} borderColor="secondary.main" borderBottom={1}>
+                <div key={id} style={{borderBottom: "1px solid grey"}}>
                     <Grid container spacing={1} direction="column" >
                         {fields.map((field, idx) =>
                             <Grid key={field.source} item container direction="row" wrap="nowrap" justify="space-between">
@@ -54,7 +53,7 @@ export function MobileList({
                             </Grid>
                         )}
                     </Grid>
-                </Box>
+                </div>
             )}
         </div>
     );

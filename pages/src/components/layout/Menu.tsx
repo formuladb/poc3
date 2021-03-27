@@ -3,8 +3,7 @@ import { groupBy, sortBy } from 'lodash';
 import { FC, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import SettingsIcon from '@material-ui/icons/Settings';
-import LabelIcon from '@material-ui/icons/Label';
-import { useMediaQuery, Theme, Box } from '@material-ui/core';
+import { useMediaQuery, Theme } from '@material-ui/core';
 import {
     useTranslate,
     DashboardMenuItem,
@@ -55,7 +54,7 @@ const Menu: FC<MenuProps> = ({ onMenuClick, logout, dense = false }) => {
     // console.debug('resByParent', resByParent, 'resById', resById, 'resources', resources, 'menuResources', menuResources);
 
     return (
-        <Box mt={1}>
+        <div style={{marginTop: "10px"}}>
             {/* {' '} */}
             {/* <DashboardMenuItem onClick={onMenuClick} sidebarIsOpen={open} /> */}
             {resourceTree.map(({ parentRes, childRes, isOpen }) =>
@@ -95,7 +94,7 @@ const Menu: FC<MenuProps> = ({ onMenuClick, logout, dense = false }) => {
                 />
             )}
             {isXSmall && logout}
-        </Box>
+        </div>
     );
 };
 

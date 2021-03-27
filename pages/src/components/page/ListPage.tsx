@@ -10,7 +10,7 @@ import {
     useListContext,
     useDataProvider,
 } from 'react-admin';
-import { Card, CardContent, Box } from '@material-ui/core';
+import { Card, CardContent } from '@material-ui/core';
 import { makeStyles, Snackbar } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import CategoryIcon from '@material-ui/icons/AccountTree';
@@ -57,7 +57,7 @@ function PageFilter(props: object) {
 };
 
 const FilterSidebar = ({ filterTreeResource, filterTreeField }) => (
-    <Box mx={1}>
+    <div style={{margin: "10px"}}>
         <Card style={{ overflow: 'auto', height: "75vh", width: "220px" }}>
             <CardContent>
                 <FilterList label="i18nt.category" icon={<CategoryIcon />}>
@@ -65,7 +65,7 @@ const FilterSidebar = ({ filterTreeResource, filterTreeField }) => (
                 </FilterList>
             </CardContent>
         </Card>
-    </Box>
+    </div>
 );
 
 const useStyles = makeStyles({

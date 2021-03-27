@@ -6,15 +6,11 @@ import CancelIcon from '@material-ui/icons/Close';
 import OkIcon from '@material-ui/icons/Check';
 import Popper from '@material-ui/core/Popper';
 import Paper from '@material-ui/core/Paper';
-import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Tooltip from '@material-ui/core/Tooltip';
-import { Fab } from '@material-ui/core';
-import { RawForm, RawFormProps } from '../../form/CForm';
 import { ActionIMPORTDATA, CInputProps, CListProps } from '../../../core-domain/page';
 import { useResourceWithFields } from '../../form/useResourceWithFields';
 import { Form, Field } from 'react-final-form';
-import { FORM_ERROR } from 'final-form';
 import parse from 'csv-parse/lib/es5';
 import { IMPORTDATA } from '../../../core-functions/actions/IMPORTDATA';
 import { FrmdbDataProvider } from '../../../ra-data-postgrest';
@@ -95,7 +91,7 @@ export function ImportButton({
                 style={{ zIndex: 1, minWidth: "35vw", maxWidth: "90vw" }}
             >
                 <Paper elevation={3} >
-                    <Box padding={2}>
+                    <div style={{padding: "20px"}}>
                         <Form
                             onSubmit={onSubmit}
                             render={({ handleSubmit }) => (
@@ -111,7 +107,7 @@ export function ImportButton({
                                 </form>
                             )}
                         />
-                    </Box>
+                    </div>
                 </Paper>
             </Popper>
         </div>

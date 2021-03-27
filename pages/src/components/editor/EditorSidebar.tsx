@@ -30,7 +30,7 @@ export function EditorSidebar(props: any) {
         <Fab onClick={() => setEditorOpen(!editorOpen)}
             className={classes.fab}
             color={editorOpen ? undefined : "primary"} aria-label="edit" size="small"
-            id="FrmdbTogglePageEditorBtn"
+            data-testid="FrmdbTogglePageEditorBtn"
         >
             <EditPageIcon />
         </Fab>

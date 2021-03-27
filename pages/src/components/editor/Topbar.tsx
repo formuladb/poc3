@@ -2,7 +2,6 @@ import { useEditor, SerializedNode } from '@craftjs/core';
 import { ROOT_NODE } from '@craftjs/utils';
 
 import {
-    Box,
     FormControlLabel,
     Switch,
     Grid,
@@ -49,7 +48,7 @@ export const Topbar = ({ editorEnabled }: { editorEnabled: boolean }) => {
     let pageData = parseLocation(location.pathname);
 
     return (
-        <Box px={1} py={1} mt={3} mb={1} bgcolor="#cbe8e7">
+        <div style={{backgroundColor: "#cbe8e7", padding: "10px", marginTop: "40px", marginBottom: "10px"}}>
             <Grid container alignItems="center">
                 <Grid item xs>
                     <ButtonGroup variant="text">
@@ -134,6 +133,6 @@ export const Topbar = ({ editorEnabled }: { editorEnabled: boolean }) => {
                     />
                 </Grid> */}
             </Grid>
-        </Box>
+        </div>
     );
 };

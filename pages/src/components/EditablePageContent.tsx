@@ -101,13 +101,13 @@ export default function EditablePageContent({
     console.log("render")
 
     return (
-        <Box padding={1}>
+        <div style={{padding: '10px'}}>
             <Frame>
                 <Element canvas padding={1}>
                     {null}
                 </Element>
             </Frame>
-        </Box>
+        </div>
     );
 }
 

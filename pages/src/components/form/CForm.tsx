@@ -1,8 +1,7 @@
 import { Element, useNode } from '@craftjs/core';
 import React, { Children, useState } from 'react';
-import { ContainerDefaultProps, ContainerSettings } from '../page/CPaper';
 import { DeleteButton, FormWithRedirect, SaveButton, useCreate, useNotify, Record, useGetOne, CRUD_GET_ONE, useRedirect } from 'react-admin';
-import { Toolbar, Box, Grid, AppBar, Tabs, Tab } from '@material-ui/core';
+import { Toolbar, Grid } from '@material-ui/core';
 import { CRow } from '../page/CRow';
 import { CButton } from '../page/CButton';
 import { CText } from '../page/CText';
@@ -130,16 +129,16 @@ export const RawForm = ({
                     // here starts the custom form layout
                     <form style={{ width: '100%' }}>
                         <fieldset disabled={disabled} style={{ border: 0 }}>
-                            <Box width="100%" p={2} >
+                            <div style={{width: '100%', padding: "20px"}} >
                                 <Grid container direction="column" spacing={2} wrap="wrap" justify="space-between"
                                     style={{ padding: '10px' }}
                                 >
                                     {/* {Children.count(children)} */}
                                     {children}
                                 </Grid>
-                            </Box>
+                            </div>
                             <Toolbar className="frmdb-form-actions-toolbar">
-                                <Box display="flex" justifyContent="space-between" width="100%" borderTop={1} pt={2} borderColor="grey.500" >
+                                <div style={{display: "flex", justifyContent: "space-between", width: "100%", borderTop: '10px', paddingTop: "20px", borderColor: "grey"}}  >
                                     <SaveButton
                                         saving={formProps.saving}
                                         handleSubmitWithRedirect={formProps.handleSubmitWithRedirect}
@@ -159,7 +158,7 @@ export const RawForm = ({
                                         saving={formProps.saving}
                                         redirect={undefined}
                                     />
-                                </Box>
+                                </div>
                             </Toolbar>
                         </fieldset>
                     </form>
