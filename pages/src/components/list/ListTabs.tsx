@@ -13,18 +13,6 @@ import {
 import { useRedirect, Record } from 'react-admin';
 import { CListProps } from '../../core-domain/page';
 
-import TabIcon1 from '@material-ui/icons/Filter1';
-import TabIcon2 from '@material-ui/icons/Filter2';
-import TabIcon3 from '@material-ui/icons/Filter3';
-import TabIcon4 from '@material-ui/icons/Filter4';
-import TabIcon5 from '@material-ui/icons/Filter5';
-import TabIcon6 from '@material-ui/icons/Filter6';
-import TabIcon7 from '@material-ui/icons/Filter7';
-import TabIcon8 from '@material-ui/icons/Filter8';
-import TabIcon9 from '@material-ui/icons/Filter9';
-
-const TabIcons = [TabIcon1, TabIcon2, TabIcon3, TabIcon4, TabIcon5, TabIcon6, TabIcon7, TabIcon8, TabIcon9];
-
 interface ListTabsProps {
     ids: ReactText[];
     data: { [id: string]: Record };
@@ -52,7 +40,9 @@ export const ListTabs = ({
     const theme = useTheme();
     const mdScreen = useMediaQuery(theme.breakpoints.up('md'));
 
-    const [currentId, setCurrentId] = React.useState(ids[0]);
+    const match = pathname.match(new RegExp(`/${resource}/([^/]+)$`));
+    const [currentId, setCurrentId] = React.useState(match?.[1] || ids[0]);
+    
     const onChange = (event: React.ChangeEvent<{}>, newValue: string) => {
         setCurrentId(newValue);
     };
@@ -64,12 +54,14 @@ export const ListTabs = ({
         };
     }
 
-    return (<div style={{ padding: '10px' }}>
+    return (<div style={{ padding: '10px', maxWidth: "70vw" }}>
         <Paper square>
-            <Tabs value={currentId} onChange={onChange} aria-label="tabs tbd">
+            <Tabs value={currentId+''} onChange={onChange} aria-label="tabs tbd"
+                variant="scrollable" scrollButtons="auto"
+            >
                 {ids.map((id, idx) =>
-                    <Tab icon={React.createElement(TabIcons[idx])} label={mdScreen ? data[id][labelSource] : undefined}
-                        {...a11yProps(id)} value={id} key={id}
+                    <Tab label={mdScreen ? data[id][labelSource] : idx}
+                        {...a11yProps(id)} value={id+''} key={id}
                         component={Link} to={`${url}/${resource}/${id}`}
                     />
                 )}

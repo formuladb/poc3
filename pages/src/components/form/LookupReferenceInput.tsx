@@ -145,8 +145,7 @@ export function FReferenceInput({
             validate={validate}
             initialValue={initialValue}
         >
-            <AutocompleteInput optionText="username" />
-            {/* {nP.referenceInputType === "radio_button" ?
+            {nP.referenceInputType === "radio_button" ?
                 <RadioButtonGroupInput key="radio_button" 
                     optionText={choice => nP.referenceText ? (choice?.[nP.referenceText]||'') + '' : ''}
                     fullWidth={true} optionValue="id"
@@ -159,7 +158,7 @@ export function FReferenceInput({
                     fullWidth={true} optionValue="id"
                     onSelect={(selectedItem) => propagateValueChange(selectedItem)}
                 />
-            } */}
+            }
         </ReferenceInput>
     );
 }

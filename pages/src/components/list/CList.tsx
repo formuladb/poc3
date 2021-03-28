@@ -27,6 +27,7 @@ import { ListActions } from './ListActions';
 import { useTraceUpdate } from '../../useTraceRenders';
 import { getCInputPropsFromFieldDef, getDefaultReferenceText } from '../defaultEditPageContent';
 import { useRawFormContext } from '../form/useRawFormContext';
+import debounceRender from 'react-debounce-render';
 
 export function CList(nP: CListProps & { children: null | React.ReactNode }) {
     // useTraceUpdate(CList.name, nP);
@@ -81,6 +82,49 @@ export function SubList({
     return <Grid item className="" ref={connect}>
         {parentResourceId && <RefManyField parentResourceId={parentResourceId} {...nP} children={children} />}
     </Grid>;
+};
+
+const ReferenceManyField: FC<ReferenceManyFieldProps> = props => {
+    const {
+        basePath,
+        children,
+        filter,
+        page = 1,
+        perPage,
+        record,
+        reference,
+        resource,
+        sort,
+        source,
+        target,
+    } = props;
+
+    if (React.Children.count(children) !== 1) {
+        throw new Error(
+            '<ReferenceManyField> only accepts a single child (like <Datagrid>)'
+        );
+    }
+
+    const controllerProps = useReferenceManyFieldController({
+        basePath,
+        filter,
+        page,
+        perPage,
+        record,
+        reference,
+        resource,
+        sort,
+        source,
+        target,
+    });
+
+    return (
+        <ResourceContextProvider value={reference}>
+            <ListContextProvider value={controllerProps}>
+                <ReferenceManyFieldView {...props} {...controllerProps} />
+            </ListContextProvider>
+        </ResourceContextProvider>
+    );
 };
 
 const RefManyField = ({

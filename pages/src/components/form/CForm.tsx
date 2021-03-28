@@ -127,11 +127,11 @@ export const RawForm = ({
                 validate={validateForm}
                 render={formProps => (
                     // here starts the custom form layout
-                    <form style={{ width: '100%' }}>
+                    <form style={{ border: 0, padding: 0, margin: 0 }}>
                         <fieldset disabled={disabled} style={{ border: 0 }}>
-                            <div style={{width: '100%', padding: "20px"}} >
+                            <div style={{margin: "20px"}} >
                                 <Grid container direction="column" spacing={2} wrap="wrap" justify="space-between"
-                                    style={{ padding: '10px' }}
+                                    style={{ padding: '10px', margin: 0 }}
                                 >
                                     {/* {Children.count(children)} */}
                                     {children}

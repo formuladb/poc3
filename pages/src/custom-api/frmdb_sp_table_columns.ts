@@ -20,7 +20,7 @@ function getDataType(colName: string, colType: string): FieldType {
             return "ImageField";
         } else return "TextField";
     }
-    if (colType.match(/(integer|numeric|bigint)/)) return "NumberField";
+    if (colType.match(/(integer|numeric|bigint|double precision)/)) return "NumberField";
     if (colType.match(/(date|timestamp)/)) return "DateTimeField";
     if (colType.match(/(interval)/)) return "IntervalField";
     if (colType.match(/(boolean)/)) return "BooleanField";
