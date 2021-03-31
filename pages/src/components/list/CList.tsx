@@ -35,12 +35,13 @@ import { useTraceRenders } from '../../useTraceRenders';
 import { getCInputPropsFromFieldDef, getDefaultReferenceText } from '../defaultEditPageContent';
 import { useRawFormContext } from '../form/useRawFormContext';
 import { FrmdbResourceWithFields } from '../../core-domain/records';
+import { shallowEquals, shallowEqualsProps } from '../../shallowEqualsProps';
+import { isEqual, omit } from 'lodash';
 
 export function CList(nP: CListProps & { children: null | React.ReactNode }) {
     const craftNode = useNode();
     const translate = useTranslate();
     const listContext = useListContext();
-    useTraceRenders('CList', { nP, craftNode, translate, listContext });
 
     const {
         connectors: { connect },
@@ -54,11 +55,24 @@ export function CList(nP: CListProps & { children: null | React.ReactNode }) {
 
     return <CListInternalMemo {...nP} {...extraProps} />;
 }
-CList.displayName = 'CList';
+CList.displayName = CList.name;
 
-const CListInternalMemo = React.memo(CListInternal);
 
-function CListInternal(props: CListProps & { 
+const CListInternalMemo = React.memo(CListInternal, (a, b) => {
+    if (!isEqual(a.listContext, b.listContext)) {
+        return false;
+    }
+
+    for (const k in a) {
+        const key = k as keyof typeof a;
+        if (key !== "listContext") return a[key] === b[key];
+    }
+
+    return true;
+});
+CListInternalMemo.displayName = CListInternalMemo.name;
+
+function CListInternal(props: CListProps & {
     children: null | React.ReactNode,
     connect: any,
     translate: Translate,
@@ -149,7 +163,7 @@ const RefManyField = ({
     </ReferenceManyField>
 }
 
-export function RawList(props: CListProps & { 
+export function RawList(props: CListProps & {
     children: null | React.ReactNode,
     parentResourceId?: string,
 }) {
@@ -202,12 +216,22 @@ export function RawList(props: CListProps & {
         translate,
     };
 
-    return <MemoizedRawListInternal {...nP} {...extraProps} />;
+    return <RawListInternalMemo {...nP} {...extraProps} />;
 }
 RawList.displayName = 'RawList';
 
-const MemoizedRawListInternal = React.memo(RawListInternal);
-function RawListInternal(props: CListProps & { 
+const RawListInternalMemo = React.memo(RawListInternal, (a, b) => {
+    if (!isEqual(a.listContext, b.listContext)) return false;
+
+    for (const k in a) {
+        const key = k as keyof typeof a;
+        if (key !== "listContext") return a[key] === b[key];
+    }
+
+    return true;
+});
+RawListInternalMemo.displayName = RawListInternalMemo.name;
+function RawListInternal(props: CListProps & {
     children: null | React.ReactNode,
     parentResourceId?: string,
 

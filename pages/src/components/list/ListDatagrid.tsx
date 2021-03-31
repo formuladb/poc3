@@ -3,7 +3,7 @@ import React, { useState, ReactText, useEffect } from 'react';
 import {
     BooleanField, ChipField, DateField, EmailField, FileField,
     ImageField, NumberField, TextField, UrlField,
-    Record, useCreate, useNotify, useListContext, useTranslate,
+    Record, useCreate, useNotify, useListContext, useTranslate, ListControllerProps,
 } from 'react-admin';
 import { ResourceFieldDef } from '../../core-domain/fields';
 import { cloneDeep } from 'lodash';
@@ -18,6 +18,7 @@ import { CInputProps, CListProps } from '../../core-domain/page';
 
 import { GoToEditPageButton } from './buttons/GoToEditPageButton';
 import { FField } from '../form/FField';
+import { ListContextMemoizer } from './ListContextMemoizer';
 
 const HEADER_HEIGHT = 50;
 const ROW_HEIGHT = 40;
@@ -28,16 +29,23 @@ type AgDatagridProps = Omit<CListProps, 'cListType'> & {
     resourceCols: ResourceFieldDef[],
     onRecordEdited: (data: Record) => void,
 };
-export function ListDatagrid({
+export function ListDatagrid(props: AgDatagridProps) {
+    return <ListContextMemoizer>
+        <ListDatagridInternal {...props} />
+    </ListContextMemoizer>;
+}
+function ListDatagridInternal({
     fields,
     editable = false as boolean,
     resourceCols,
     onRecordEdited,
-}: AgDatagridProps) {
+    listContext,
+}: AgDatagridProps & { listContext?: ListControllerProps<Record> }) {
+    if (!listContext) throw new Error("listContext is missing");
     const {
         ids, data, resource,
         setFilters,
-    } = useListContext();;
+    } = listContext;
 
     const translate = useTranslate();
     const [gridApi, setGridApi] = useState(null);

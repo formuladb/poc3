@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { cloneElement, useMemo } from 'react';
-import PropTypes from 'prop-types';
 import {
     useListContext,
     TopToolbar,
@@ -8,31 +7,44 @@ import {
     ExportButton,
     Button,
     sanitizeListRestProps,
+    ListControllerProps, Record,
 } from 'react-admin';
-import IconEvent from '@material-ui/icons/Event';
 import { EditButtonPopoverField } from './buttons/EditButtonPopoverFieldProps';
 import { CListProps } from '../../core-domain/page';
 import { ImportButton } from './buttons/ImportButton';
+import { ListContextMemoizer } from './ListContextMemoizer';
 
-export function ListActions({
+type Props = Partial<CListProps> & {
+    parentResourceId?: string,
+    className?,
+    filters?,
+    maxResults?,
+};
+
+export function ListActions(props: Props) {
+    return <ListContextMemoizer>
+        <ListActionsInternal {...props} />
+    </ListContextMemoizer>;
+}
+
+function ListActionsInternal({
     isSubListOf,
     enabledActions,
     fields,
     refToParentListFieldName,
     parentResourceId,
+    listContext,
     ...props
-}: Partial<CListProps> & {
-    parentResourceId?: string,
-    className?,
-    filters?,
-    maxResults?,
-}) {
+}: Props & { listContext?: ListControllerProps<Record> }) {
+    if (!listContext) throw new Error("listContext is missing");
+
     const {
         className,
         filters,
         maxResults,
         ...rest
     } = props;
+
     const {
         currentSort,
         resource,
@@ -43,7 +55,8 @@ export function ListActions({
         selectedIds,
         showFilter,
         total,
-    } = useListContext();;
+    } = listContext;
+
     return (
         <TopToolbar className={className} {...sanitizeListRestProps(rest)}>
             {filters && cloneElement(filters, {

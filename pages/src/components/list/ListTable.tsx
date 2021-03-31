@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTheme, useMediaQuery } from '@material-ui/core';
+import Table from '@material-ui/core/Table';
 import {
     Datagrid, DatagridProps,
     Record,
@@ -11,9 +12,11 @@ import { CInputProps, CListProps } from '../../core-domain/page';
 import { GoToEditPageButton } from './buttons/GoToEditPageButton';
 import { EditButtonPopoverField } from './buttons/EditButtonPopoverFieldProps';
 import { FieldType } from '../../core-domain/fields';
-import { MobileList } from './MobileList';
+import { MobileTable } from './MobileTable';
 import { getFieldLabel } from '../field-utils';
 import { useTraceRenders } from '../../useTraceRenders';
+import { ListContextMemoizer } from './ListContextMemoizer';
+import { DesktopTable } from './DesktopTable';
 
 type ListDatagridProps = CListProps & {
     fields: Exclude<CListProps['fields'], undefined>,
@@ -35,17 +38,26 @@ export const ListTable = ({
 
     const theme = useTheme();
     const mdScreen = useMediaQuery(theme.breakpoints.up('md'));
-    useTraceRenders(ListTable.name, {theme, mdScreen});
 
     return <>
-        {!mdScreen && <MobileList fields={fields} editable={editable} />}
-        {mdScreen && <Datagrid {...props}>
-            {editable && isSubListOf && <EditButtonPopoverField resource={resource} fields={fields} />}
-            {editable && !isSubListOf && <GoToEditPageButton resource={resource} />}
-            {fields.map(field => {
-                return <FieldWrapper label={getFieldLabel(resource, field)} field={field} key={field.source} />
-            })}
-        </Datagrid>}
+        {!mdScreen && <MobileTable fields={fields} editable={editable} />}
+        {mdScreen &&
+            !isSubListOf ?
+            <Datagrid {...props}>
+                {editable && !isSubListOf && <GoToEditPageButton resource={resource} />}
+                {fields.map(field => {
+                    return <FieldWrapper label={getFieldLabel(resource, field)} field={field} key={field.source} />
+                })}
+            </Datagrid>
+            :
+            <DesktopTable fields={fields} {...props}>
+                {editable && <EditButtonPopoverField resource={resource} fields={fields} />}
+                {fields.map(field => {
+                    return <FieldWrapper label={getFieldLabel(resource, field)} field={field} key={field.source} />
+                })}
+            </DesktopTable>
+
+        }
     </>;
 };
 

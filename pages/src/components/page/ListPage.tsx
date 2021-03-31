@@ -25,7 +25,7 @@ import { FInput } from '../form/FInput';
 import { FrmdbResourceWithFields } from '../../core-domain/records';
 
 function PageFilter(props: object) {
-    const { resource } = useListContext();;
+    const { resource } = useListContext();
     const [columns, setColumns] = useState([] as ResourceFieldDef[])
     const dataProvider = useDataProvider();
     useEffect(() => {

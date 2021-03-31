@@ -1,20 +1,28 @@
 import React from 'react';
-import { useListContext, useTranslate } from "react-admin";
+import { ListControllerProps, useTranslate, Record } from "react-admin";
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { CInputProps } from '../../core-domain/page';
 import { FField } from '../form/FField';
 import { EditButtonPopoverField } from './buttons/EditButtonPopoverFieldProps';
+import { ListContextMemoizer } from './ListContextMemoizer';
 
 interface MobileListProps {
     fields: CInputProps[];
     editable?: boolean;
 }
-export function MobileList({
+export function MobileTable(props: MobileListProps) {
+    return <ListContextMemoizer>
+        <MobileListInternal {...props} />
+    </ListContextMemoizer>;
+}
+function MobileListInternal({
     fields,
     editable,
-}: MobileListProps) {
-    const { ids, data, basePath, resource } = useListContext();;
+    listContext,
+}: MobileListProps & { listContext?: ListControllerProps<Record> }) {
+    if (!listContext) throw new Error("listContext is missing");
+    const { ids, data, basePath, resource } = listContext;
 
     const translate = useTranslate();
 
