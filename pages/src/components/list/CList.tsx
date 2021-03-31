@@ -53,49 +53,14 @@ export function CList(nP: CListProps & { children: null | React.ReactNode }) {
         listContext,
     };
 
-    return <CListInternalMemo {...nP} {...extraProps} />;
-}
-CList.displayName = CList.name;
-
-
-const CListInternalMemo = React.memo(CListInternal, (a, b) => {
-    if (!isEqual(a.listContext, b.listContext)) {
-        return false;
-    }
-
-    for (const k in a) {
-        const key = k as keyof typeof a;
-        if (key !== "listContext") return a[key] === b[key];
-    }
-
-    return true;
-});
-CListInternalMemo.displayName = CListInternalMemo.name;
-
-function CListInternal(props: CListProps & {
-    children: null | React.ReactNode,
-    connect: any,
-    translate: Translate,
-    listContext: ListControllerProps<Record>,
-}) {
-
-    const {
-        children,
-        connect,
-        translate,
-        listContext,
-        ...nP
-    } = props;
-
     return (
         <div className="" ref={connect}>
-            {nP.isSubListOf && <SubList key="sublist" {...nP} children={children} />}
-            {!nP.isSubListOf && !listContext && <span key="loading">{translate('waiting for list context...')}</span>}
-            {!nP.isSubListOf && listContext && <RawList key="list" {...nP} children={children} />}
+            {nP.isSubListOf && <SubList key="sublist" {...nP} children={nP.children} />}
+            {!nP.isSubListOf && <RawList key="list" {...nP} children={nP.children} />}
         </div>
     );
 }
-CListInternal.displayName = 'CListInternal';
+CList.displayName = CList.name;
 
 export function SubList({
     children = null as null | React.ReactNode,
