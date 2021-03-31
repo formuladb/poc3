@@ -13,6 +13,7 @@ import { EditButtonPopoverField } from './buttons/EditButtonPopoverFieldProps';
 import { FieldType } from '../../core-domain/fields';
 import { MobileList } from './MobileList';
 import { getFieldLabel } from '../field-utils';
+import { useTraceRenders } from '../../useTraceRenders';
 
 type ListDatagridProps = CListProps & {
     fields: Exclude<CListProps['fields'], undefined>,
@@ -34,20 +35,8 @@ export const ListTable = ({
 
     const theme = useTheme();
     const mdScreen = useMediaQuery(theme.breakpoints.up('md'));
+    useTraceRenders('ListTable', {theme, mdScreen});
 
-    function getFieldType(field: CInputProps) {
-        let fieldType: FieldType;
-        if (field.cInputType === "Reference"
-            || field.cInputType === "Select"
-            || field.cInputType === "Lookup"
-        ) {
-            fieldType = "TextField"
-        }
-        else {
-            fieldType = field.cInputType;
-        };
-        return fieldType;
-    }
     return <>
         {!mdScreen && <MobileList fields={fields} editable={editable} />}
         {mdScreen && <Datagrid {...props}>

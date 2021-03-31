@@ -8,10 +8,6 @@ import i18nProviderBuilder from './i18nProviderBuilder';
 import authProvider from './authProvider';
 
 authProvider.init();
-// const { data: paramsData, loading: loadingParams, error: errorParams } = useGetList<FrmbSystemParams>("frmdb_system_params", {page: 1, perPage: 1000}, {field: 'id', order: 'ASC'}, {});
-// const { data: i18nData, loading: loadingI18n, error: errorI18n } = useGetList<FrmbDictionary>("frmdb_dictionary", {page: 1, perPage: 1000}, {field: 'id', order: 'ASC'}, {});
-// if (loadingParams || loadingI18n) { return <Loading />; }
-// if (errorParams || errorI18n) { return <p>ERROR</p>; }
 
 const i18nProvider = i18nProviderBuilder(dataProvider, authProvider);
 ReactDOM.render(

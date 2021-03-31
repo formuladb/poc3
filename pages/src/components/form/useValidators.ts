@@ -14,7 +14,7 @@ export function useValidators(resource: string, fieldDefsByName: RawFormContextD
         if (fieldDef.name == "id" && isCreate) continue;//skip "id" field for "create" forms
         ret[fieldDef.name] = (value, allValues, props) => {
             const isRequired = isFieldRequired(fieldDef);
-            console.debug('validationFn', resource, fieldDef.name, value, fieldDef, isRequired);
+            //console.debug('validationFn', resource, fieldDef.name, value, fieldDef, isRequired);
             if (isRequired) return requiredFn(value, allValues);
         };
     }

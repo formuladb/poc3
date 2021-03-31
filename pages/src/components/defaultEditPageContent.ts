@@ -69,7 +69,6 @@ export function getDefaultReferenceText(referenceWithFields: FrmdbResourceWithFi
     let strCol: string | null = null;
 
     for (let col of referenceWithFields.field_defs) {
-        console.log(col.name);
         if (['name', 'title', 'username'].includes(col.name)) {
             nameCol = col.name;
         } else if (['code', 'description'].includes(col.name) && !nameCol) {
@@ -78,6 +77,5 @@ export function getDefaultReferenceText(referenceWithFields: FrmdbResourceWithFi
             strCol = col.name;
         }
     }
-    console.log(nameCol || strCol || 'id');
     return nameCol || strCol || 'id';
 }

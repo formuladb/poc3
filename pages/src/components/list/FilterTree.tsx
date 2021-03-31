@@ -27,7 +27,7 @@ export function FilterTree(props: {filterTreeResource: string, filterTreeField: 
         {}
     );
     let treeNodes = createTree((ids || []).map(id => id + ''));
-    console.debug(treeNodes);
+    //console.debug(treeNodes);
     const classes = useStyles();
 
     if (loading) { return <Loading />; }

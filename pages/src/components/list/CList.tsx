@@ -1,5 +1,5 @@
 import { Node as CraftJsNode, useNode } from '@craftjs/core';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, FC, cloneElement, Children, useMemo } from 'react';
 import {
     RecordMap, useListContext, Record,
     useCreate, useNotify,
@@ -8,6 +8,13 @@ import {
     CRUD_GET_ONE,
     ReferenceManyField,
     useTranslate,
+    ResourceContextProvider,
+    ListContextProvider,
+    useReferenceManyFieldController,
+    ReferenceManyFieldProps,
+    sanitizeFieldRestProps,
+    Translate,
+    ListControllerProps,
 } from 'react-admin';
 import { DEFAULT_COLS, FieldType, FieldTypes, ResourceFieldDef } from '../../core-domain/fields';
 import { ListDatagrid } from './ListDatagrid';
@@ -24,19 +31,21 @@ import { useUpsertRecord } from '../form/useUpsertRecord';
 import { CInputProps, CListProps, CListTypes } from '../../core-domain/page';
 import CListPropsSchema from '../../core-domain/json-schemas/CListProps.json';
 import { ListActions } from './ListActions';
-import { useTraceUpdate } from '../../useTraceRenders';
+import { useTraceRenders } from '../../useTraceRenders';
 import { getCInputPropsFromFieldDef, getDefaultReferenceText } from '../defaultEditPageContent';
 import { useRawFormContext } from '../form/useRawFormContext';
-import debounceRender from 'react-debounce-render';
+import { FrmdbResourceWithFields } from '../../core-domain/records';
+import { useMemoizedHookDeepEq, useMemoizedHookDeepEqDiff } from '../generic/useMemoizedHookDeepEq';
 
 export function CList(nP: CListProps & { children: null | React.ReactNode }) {
-    // useTraceUpdate(CList.name, nP);
+    const craftNode = useMemoizedHookDeepEqDiff(true, useNode, (node) => ({ node }));
+    const translate = useTranslate();
+    const listContext = useMemoizedHookDeepEq(useListContext);
+    useTraceRenders('CList', { craftNode, translate, listContext });
+
     const {
         connectors: { connect },
-    } = useNode((node) => ({ node }));
-
-    const translate = useTranslate();
-    const listContext = useListContext();
+    } = craftNode;
 
     return (
         <div className="" ref={connect}>
@@ -77,14 +86,14 @@ export function SubList({
         parentResourceId = pageData.parsedPath[0]?.resourceId;
     }
 
-    console.debug('SubList for ', parentResourceId, nP, rawFormContext);
+    //console.debug('SubList for ', parentResourceId, nP, rawFormContext);
 
     return <Grid item className="" ref={connect}>
         {parentResourceId && <RefManyField parentResourceId={parentResourceId} {...nP} children={children} />}
     </Grid>;
 };
 
-const ReferenceManyField: FC<ReferenceManyFieldProps> = props => {
+const MyReferenceManyField: FC<ReferenceManyFieldProps> = props => {
     const {
         basePath,
         children,
@@ -106,13 +115,13 @@ const ReferenceManyField: FC<ReferenceManyFieldProps> = props => {
     }
 
     const controllerProps = useReferenceManyFieldController({
-        basePath,
+        basePath: basePath!,
         filter,
         page,
         perPage,
         record,
         reference,
-        resource,
+        resource: resource!,
         sort,
         source,
         target,
@@ -127,6 +136,23 @@ const ReferenceManyField: FC<ReferenceManyFieldProps> = props => {
     );
 };
 
+export const ReferenceManyFieldView = props => {
+    const { basePath, children, pagination, reference, ...rest } = props;
+    return (
+        <>
+            {cloneElement(Children.only(children), {
+                ...sanitizeFieldRestProps(rest),
+                basePath,
+                resource: reference,
+            })}
+            {pagination &&
+                props.total !== undefined &&
+                cloneElement(pagination)}
+        </>
+    );
+};
+
+const RefManySort = { field: 'id', order: 'ASC' };
 const RefManyField = ({
     children = null as null | React.ReactNode,
     parentResourceId,
@@ -146,28 +172,33 @@ const RefManyField = ({
         }
     );
 
-    console.log('SubListOf ', nP.isSubListOf, 'fkey', nP.refToParentListFieldName, 'record', parentResourceId, record);
-
     return <ReferenceManyField basePath={nP.isSubListOf} record={record} addLabel={false}
-        reference={nP.resource!} target={nP.refToParentListFieldName!} sort={{ field: 'id', order: 'ASC' }}
+        reference={nP.resource!} target={nP.refToParentListFieldName!}
+        sort={RefManySort}
+        perPage={50}
     >
         <RawList {...nP} children={children} refToParentListFieldName={nP.refToParentListFieldName} parentResourceId={parentResourceId} />
     </ReferenceManyField>
 }
 
-export function RawList({
-    children = null as null | React.ReactNode,
-    refToParentListFieldName,
-    parentResourceId,
-    resource,
-    fields,
-    ...nP
-}: CListProps & { children: null | React.ReactNode } & { parentResourceId?: string }) {
-    const { ids, data, resource: resourceFromContext, ...restProps } = useListContext();
+export function RawList(props: CListProps & { 
+    children: null | React.ReactNode,
+    parentResourceId?: string,
+}) {
+    const {
+        children = null as null | React.ReactNode,
+        refToParentListFieldName,
+        parentResourceId,
+        resource,
+        fields,
+        ...nP
+    } = props;
+    const listContext = useMemoizedHookDeepEq(useListContext);
+    const { ids, data, resource: resourceFromContext, ...restListContextProps } = listContext;
     const translate = useTranslate();
     const { resourceWithFields, onUpsertRecord } = useUpsertRecord(resource || resourceFromContext);
 
-    const displayedFields = fields && fields.length > 0 ? fields
+    const displayedFields = useMemo(() => fields && fields.length > 0 ? fields
         : resourceWithFields.field_defs
             .filter(fieldDef => !DEFAULT_COLS.includes(fieldDef.name))
             .map(fieldDef => {
@@ -183,11 +214,62 @@ export function RawList({
                     }
                 }
                 return c;
-            });
+            }),
+        [fields, resourceFromContext, resourceWithFields]
+    );
 
     let haveActions = nP.enabledActions && nP.enabledActions.length > 0;
 
-    console.debug("resource", resource, resourceFromContext, "displayedFields", displayedFields);
+    const extraProps = {
+        children,
+        refToParentListFieldName,
+        parentResourceId,
+        resource,
+
+        listContext,
+        haveActions,
+        displayedFields,
+        resourceWithFields,
+        onUpsertRecord,
+        translate,
+    };
+
+    return <MemoizedRawListInternal {...nP} {...extraProps} />;
+}
+RawList.displayName = 'RawList';
+
+const MemoizedRawListInternal = React.memo(RawListInternal);
+function RawListInternal(props: CListProps & { 
+    children: null | React.ReactNode,
+    parentResourceId?: string,
+
+
+    listContext: ListControllerProps<Record>,
+    haveActions: boolean | undefined,
+    displayedFields: CInputProps[],
+    resourceWithFields: FrmdbResourceWithFields,
+    onUpsertRecord: (data: Partial<Record>) => Promise<void>,
+    translate: Translate,
+}) {
+
+    const {
+        children = null as null | React.ReactNode,
+        refToParentListFieldName,
+        parentResourceId,
+        resource,
+        fields,
+
+        listContext,
+        haveActions,
+        displayedFields,
+        resourceWithFields,
+        onUpsertRecord,
+        translate,
+
+        ...nP
+    } = props;
+
+    const { ids, data, resource: resourceFromContext, ...restListContextProps } = listContext;
 
     return <>
         {haveActions && <ListActions isSubListOf={nP.isSubListOf}
@@ -207,7 +289,7 @@ export function RawList({
                 fields={displayedFields} resourceCols={resourceWithFields.field_defs}
                 onRecordEdited={onUpsertRecord}
                 isSubListOf={nP.isSubListOf}
-                {...(restProps as any)}
+                {...(restListContextProps as any)}
             />
         }
         {ids && ids[0] && nP.cListType == 'Datagrid' &&
@@ -225,7 +307,7 @@ export function RawList({
         {(!ids || !ids[0]) && <span>{translate('no elements yet')}</span>}
     </>;
 }
-RawList.displayName = 'RawList';
+RawListInternal.displayName = 'RawListInternal';
 
 const CListSettingSchema = CListPropsSchema as JSONSchema7;
 console.log('CListPropsSchema=', CListPropsSchema);

@@ -18,7 +18,7 @@ export function xslx_exporter(
 
         //@ts-ignore
         let Worker = await import('worker-loader!./xlsx_exporter_worker');// eslint-disable-line import/no-webpack-loader-syntax
-        console.debug(Worker);
+        //console.debug(Worker);
         const worker = new Worker.default();
 
         let columns = await frmdb_sp_table_columns(resource!);

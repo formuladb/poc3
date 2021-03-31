@@ -4,8 +4,8 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { CInputProps } from '../../core-domain/page';
 import { FField } from '../form/FField';
-import { FieldType } from '../../core-domain/fields';
 import { EditButtonPopoverField } from './buttons/EditButtonPopoverFieldProps';
+import { useMemoizedHookDeepEq } from '../generic/useMemoizedHookDeepEq';
 
 interface MobileListProps {
     fields: CInputProps[];
@@ -15,21 +15,8 @@ export function MobileList({
     fields,
     editable,
 }: MobileListProps) {
-    const { ids, data, basePath, resource } = useListContext();
+    const { ids, data, basePath, resource } = useMemoizedHookDeepEq(useListContext);
 
-    function getFieldType(field: CInputProps) {
-        let fieldType: FieldType;
-        if (field.cInputType === "Reference"
-            || field.cInputType === "Select"
-            || field.cInputType === "Lookup"
-        ) {
-            fieldType = "TextField"
-        }
-        else {
-            fieldType = field.cInputType;
-        };
-        return fieldType;
-    }
     const translate = useTranslate();
 
     return (

@@ -41,7 +41,7 @@ export function avoidDuplicatesDataProviderProxy(baseDataProvider: DataProvider,
         return (resource: string, params: Parameters<typeof method>[1]) => {
             const key = { resource, params };
             let cacheEntry = cache.get(key);
-            console.debug(resource, params, cacheEntry);
+            //console.debug(resource, params, cacheEntry);
             if (!cacheEntry) {
                 const ret = (method as any).call(null, resource, params);
                 cache.set(key, ret);

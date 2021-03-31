@@ -56,11 +56,9 @@ export function EditButtonPopoverField({
     const dataProvider = useDataProvider();
     const [displayedFields, setDisplayedFields] = useState<CInputProps[]>(fields || []);
     useEffect(() => {
-        console.log(fields, "displayedFields", displayedFields);
+
         if (!fields || fields.length == 0) {
-            console.log(fields, "displayedFields", displayedFields);
             const defaultFields = defaultEditPageFields(resourceWithFields, !!isCreate);
-            console.log(resource, fields, "displayedFields", defaultFields);
             setDisplayedFields(defaultFields.filter(
                 fld => refToParentListFieldName !== fld.source
             ));
@@ -68,7 +66,7 @@ export function EditButtonPopoverField({
     }, [resourceWithFields, fields]);
     const addHiddenIdField = !isCreate && !displayedFields.find(f => f.source == "id");
 
-    console.debug("resource", resource, "displayedFields", displayedFields);
+    //console.debug("resource", resource, "displayedFields", displayedFields);
 
     return (
         <div>

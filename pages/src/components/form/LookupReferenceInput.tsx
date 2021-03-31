@@ -58,8 +58,8 @@ function useLookupContext(nP: CInputLookupProps | CInputReferenceProps) {
         }
     }
 
-    console.debug('LazyReferenceAutocompleteInput:', 'rawFormContext', rawFormContext, 'nP', nP,
-        'refState', refState, "form values", form.getState().values);
+    //console.debug('LazyReferenceAutocompleteInput:', 'rawFormContext', rawFormContext, 'nP', nP,
+        // 'refState', refState, "form values", form.getState().values);
 
     return { reference: refState.reference, propagateValueChange };
 }

@@ -33,7 +33,6 @@ export function CForm({
     let resId = nP.resourceId || pageData.parsedPath[0]?.resourceId;
     resId = resId != "create" ? resId : undefined;
 
-    console.log('FFFFF', resId);
     return <div ref={connect}>
         {resId &&
             <EditForm resource={res} resourceId={resId} children={children} disabled={nP.disabled} enabledActions={nP.enabledActions} />}

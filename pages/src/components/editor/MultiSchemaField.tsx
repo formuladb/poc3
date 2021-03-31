@@ -48,17 +48,17 @@ class AnyOfField extends Component<any> {
         const { widget = "select", ...uiOptions } = getUiOptions(this.props.uiSchema);
         const { rootSchema } = this.props.registry;
 
-        console.debug(this.props);
+        //console.debug(this.props);
         if (uiOptions.anyOfDiscriminatorField && formData) {
             let selectedDiscriminatorValue = formData[uiOptions.anyOfDiscriminatorField];
-            console.debug(uiOptions.anyOfDiscriminatorField, selectedDiscriminatorValue, formData);
+            //console.debug(uiOptions.anyOfDiscriminatorField, selectedDiscriminatorValue, formData);
             for (let [idx, option] of this.props.options.entries()) {
                 let opt = option;
                 if (option.hasOwnProperty('$ref')) {
                     opt = resolveSchema(option, rootSchema, formData);
                 }
                 if (opt?.properties?.[uiOptions.anyOfDiscriminatorField]?.enum?.[0] === selectedDiscriminatorValue) {
-                    console.debug(option);
+                    //console.debug(option);
                     return idx;
                 }
             }
@@ -157,7 +157,7 @@ class AnyOfField extends Component<any> {
                 if (option.hasOwnProperty('$ref')) {
                     opt = resolveSchema(option, rootSchema, formData);
                 }
-                console.debug(opt);
+                //console.debug(opt);
                 return {
                     label: opt?.properties?.[uiOptions.anyOfDiscriminatorField]?.enum?.[0],
                     value: index,

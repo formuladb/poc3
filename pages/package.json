@@ -22,6 +22,7 @@
     "csv-parse": "^4.15.1",
     "dayjs": "^1.9.4",
     "debug": "^4.3.1",
+    "deep-object-diff": "^1.1.0",
     "exceljs": "^4.2.0",
     "jsep": "git+https://github.com/acristu/jsep.git",
     "jsonschema": "^1.4.0",

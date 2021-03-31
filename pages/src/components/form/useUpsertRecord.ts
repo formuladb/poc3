@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { ResourceFieldDef } from '../../core-domain/fields';
 import { Record, useCreate, useDataProvider, useNotify, useRedirect, useTranslate } from 'react-admin';
 import { useRouteMatch } from 'react-router-dom';
@@ -21,7 +21,7 @@ export function useUpsertRecord(resource: string): UseUpsertRecordRet {
     const redirect = useRedirect();
     const translate = useTranslate();
 
-    const dataProviderOpts = {
+    const dataProviderOpts = useMemo(() => ({
         onSuccess: ({ data }) => {
             notify(`${translate('saved')} ${translate(`resources.${resource}.name`)} #${data['id']}`, 'info');
             if (url.match(/\/create$/)) {
@@ -31,9 +31,9 @@ export function useUpsertRecord(resource: string): UseUpsertRecordRet {
         onFailure: (error) => {
             notify(error.message || JSON.stringify(error), 'error');
         }
-    };
+    }), []);
 
-    const onUpsertRecord = async (rec: Partial<Record>) => {
+    const onUpsertRecord = useCallback(async (rec: Partial<Record>) => {
         let data = cloneDeep(rec);
         console.log('COLS', resourceCols);
         if (resource.indexOf('frmdbvw') < 0) {
@@ -55,7 +55,7 @@ export function useUpsertRecord(resource: string): UseUpsertRecordRet {
         } else {
             dataProvider.create(resource, { data }, dataProviderOpts);
         }
-    };
+    }, [resourceWithFields, resourceCols, dataProvider, dataProviderOpts]);
 
     return { onUpsertRecord, resourceWithFields };
 }

@@ -13,6 +13,7 @@ import IconEvent from '@material-ui/icons/Event';
 import { EditButtonPopoverField } from './buttons/EditButtonPopoverFieldProps';
 import { CListProps } from '../../core-domain/page';
 import { ImportButton } from './buttons/ImportButton';
+import { useMemoizedHookDeepEq } from '../generic/useMemoizedHookDeepEq';
 
 export function ListActions({
     isSubListOf,
@@ -43,7 +44,7 @@ export function ListActions({
         selectedIds,
         showFilter,
         total,
-    } = useListContext();
+    } = useMemoizedHookDeepEq(useListContext);
     return (
         <TopToolbar className={className} {...sanitizeListRestProps(rest)}>
             {filters && cloneElement(filters, {

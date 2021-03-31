@@ -43,7 +43,7 @@ function App(props: AppProps) {
 
 function AsyncResources() {
     const resources = useResources();
-    console.debug(resources);
+    //console.debug(resources);
 
     const locale = useLocale();
     const setLocale = useSetLocale();

@@ -23,7 +23,7 @@ export function useResourceWithFields(resource: string): FrmdbResourceWithFields
         let resWithFields: FrmdbResourceWithFields | null = null;
         dataProvider.getOne<FrmdbResourceWithFields>("frmdb_resource_with_fields", { id: resource })
             .then(async (res) => {
-                console.debug('response', res);
+                //console.debug('response', res);
                 resWithFields = res.data;
 
                 if (resWithFields != null) {
@@ -43,7 +43,7 @@ export function useResourceWithFields(resource: string): FrmdbResourceWithFields
 
     }, [resource]);
 
-    console.debug('response return', resourceWithFields);
+    //console.debug('response return', resourceWithFields);
     return resourceWithFields;
 }
 
@@ -66,7 +66,7 @@ export function useMultipleResourcesWithFields(resources: string[]): FrmdbResour
         })();
     }, [resources]);
 
-    console.debug('response return', resourcesWithFields);
+    //console.debug('response return', resourcesWithFields);
     return resourcesWithFields;
 }
 

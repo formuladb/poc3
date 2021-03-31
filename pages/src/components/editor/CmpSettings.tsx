@@ -75,7 +75,7 @@ export const CmpSettings = ({
                 props[k] = v;
             }
         });
-        console.debug("CmpSettings submitted: ", formData, dynSchema);
+        //console.debug("CmpSettings submitted: ", formData, dynSchema);
     };
     // const debouncedUpdateComponent = debounce(updateComponent, 500);
 

@@ -28,11 +28,10 @@ import { CInputProps } from '../../core-domain/page';
 import CInputPropsSchema from '../../core-domain/json-schemas/CInputProps.json';
 import { useRawFormContext } from './useRawFormContext';
 import { useValidators } from './useValidators';
-import { useTraceUpdate } from '../../useTraceRenders';
+import { useTraceRenders } from '../../useTraceRenders';
 import { useInitialValueResolver } from './useInitialValueResolver';
 
 export const CInput = (nP: CInputProps) => {
-    useTraceUpdate(CInput.name, nP);
     const { query } = useEditor();
     const {
         node,
