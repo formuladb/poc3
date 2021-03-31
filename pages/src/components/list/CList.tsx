@@ -145,6 +145,66 @@ export function RawList(props: CListProps & {
     const translate = useTranslate();
     const { resourceWithFields, onUpsertRecord } = useUpsertRecord(resource || resourceFromContext);
 
+    let haveActions = nP.enabledActions && nP.enabledActions.length > 0;
+
+    const extraProps = {
+        children,
+        refToParentListFieldName,
+        parentResourceId,
+        resource,
+
+        listContext,
+        haveActions,
+        resourceWithFields,
+        onUpsertRecord,
+        translate,
+    };
+
+    return <RawListInternalMemo {...nP} {...extraProps} />;
+}
+RawList.displayName = 'RawList';
+
+const RawListInternalMemo = React.memo(RawListInternal, (a, b) => {
+    if (!isEqual(a.listContext, b.listContext)) return false;
+
+    for (const k in a) {
+        const key = k as keyof typeof a;
+        if (key !== "listContext" && a[key] !== b[key]) return false;
+    }
+
+    return true;
+});
+RawListInternalMemo.displayName = RawListInternalMemo.name;
+function RawListInternal(props: CListProps & {
+    children: null | React.ReactNode,
+    parentResourceId?: string,
+
+
+    listContext: ListControllerProps<Record>,
+    haveActions: boolean | undefined,
+    resourceWithFields: FrmdbResourceWithFields,
+    onUpsertRecord: (data: Partial<Record>) => Promise<void>,
+    translate: Translate,
+}) {
+
+    const {
+        children = null as null | React.ReactNode,
+        refToParentListFieldName,
+        parentResourceId,
+        resource,
+        fields,
+
+        listContext,
+        haveActions,
+        resourceWithFields,
+        onUpsertRecord,
+        translate,
+
+        ...nP
+    } = props;
+
+    const { ids, data, resource: resourceFromContext, ...restListContextProps } = listContext;
+
     const displayedFields = useMemo(() => fields && fields.length > 0 ? fields
         : resourceWithFields.field_defs
             .filter(fieldDef => !DEFAULT_COLS.includes(fieldDef.name))
@@ -164,69 +224,6 @@ export function RawList(props: CListProps & {
             }),
         [fields, resourceFromContext, resourceWithFields]
     );
-
-    let haveActions = nP.enabledActions && nP.enabledActions.length > 0;
-
-    const extraProps = {
-        children,
-        refToParentListFieldName,
-        parentResourceId,
-        resource,
-
-        listContext,
-        haveActions,
-        displayedFields,
-        resourceWithFields,
-        onUpsertRecord,
-        translate,
-    };
-
-    return <RawListInternalMemo {...nP} {...extraProps} />;
-}
-RawList.displayName = 'RawList';
-
-const RawListInternalMemo = React.memo(RawListInternal, (a, b) => {
-    if (!isEqual(a.listContext, b.listContext)) return false;
-
-    for (const k in a) {
-        const key = k as keyof typeof a;
-        if (key !== "listContext") return a[key] === b[key];
-    }
-
-    return true;
-});
-RawListInternalMemo.displayName = RawListInternalMemo.name;
-function RawListInternal(props: CListProps & {
-    children: null | React.ReactNode,
-    parentResourceId?: string,
-
-
-    listContext: ListControllerProps<Record>,
-    haveActions: boolean | undefined,
-    displayedFields: CInputProps[],
-    resourceWithFields: FrmdbResourceWithFields,
-    onUpsertRecord: (data: Partial<Record>) => Promise<void>,
-    translate: Translate,
-}) {
-
-    const {
-        children = null as null | React.ReactNode,
-        refToParentListFieldName,
-        parentResourceId,
-        resource,
-        fields,
-
-        listContext,
-        haveActions,
-        displayedFields,
-        resourceWithFields,
-        onUpsertRecord,
-        translate,
-
-        ...nP
-    } = props;
-
-    const { ids, data, resource: resourceFromContext, ...restListContextProps } = listContext;
 
     return <>
         {haveActions && <ListActions isSubListOf={nP.isSubListOf}

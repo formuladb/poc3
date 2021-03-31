@@ -6,6 +6,7 @@ import {
     TableHead,
     TableBody,
     TableRow,
+    Typography,
 } from '@material-ui/core';
 import React from 'react';
 import { CInputProps } from '../../core-domain/page';
@@ -36,7 +37,11 @@ function DesktopTableInternal({
         <TableHead>
             <TableRow>
                 {fields.map(field => {
-                    return <TableCell>{translate(`resources.${resource}.fields.${field.source}`)}</TableCell>
+                    return <TableCell>
+                        <Typography variant="subtitle2">
+                            {translate(`resources.${resource}.fields.${field.source}`)}
+                        </Typography>
+                    </TableCell>
                 })}
             </TableRow>
         </TableHead>
