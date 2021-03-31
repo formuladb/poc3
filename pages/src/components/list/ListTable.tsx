@@ -35,7 +35,7 @@ export const ListTable = ({
 
     const theme = useTheme();
     const mdScreen = useMediaQuery(theme.breakpoints.up('md'));
-    useTraceRenders('ListTable', {theme, mdScreen});
+    useTraceRenders(ListTable.name, {theme, mdScreen});
 
     return <>
         {!mdScreen && <MobileList fields={fields} editable={editable} />}

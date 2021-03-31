@@ -18,7 +18,6 @@ import { CInputProps, CListProps } from '../../core-domain/page';
 
 import { GoToEditPageButton } from './buttons/GoToEditPageButton';
 import { FField } from '../form/FField';
-import { useMemoizedHookDeepEq } from '../generic/useMemoizedHookDeepEq';
 
 const HEADER_HEIGHT = 50;
 const ROW_HEIGHT = 40;
@@ -38,7 +37,7 @@ export function ListDatagrid({
     const {
         ids, data, resource,
         setFilters,
-    } = useMemoizedHookDeepEq(useListContext);
+    } = useListContext();;
 
     const translate = useTranslate();
     const [gridApi, setGridApi] = useState(null);

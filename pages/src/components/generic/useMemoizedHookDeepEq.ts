@@ -1,25 +1,25 @@
 import { useRef, useEffect } from "react";
-import { ListControllerProps, useListContext, Record } from "react-admin";
-import { isEqual } from 'lodash';
+import { IsEqualCustomizer, isEqualWith } from 'lodash';
 import { diff } from 'deep-object-diff';
 
-export function useMemoizedHookDeepEq(hook: Function, ...args) {
-    return useMemoizedHookDeepEqDiff(false, hook, ...args);
+interface Opts {
+    doDiff?: boolean;
+    comparatorCustomizer?: IsEqualCustomizer;
 }
-
-export function useMemoizedHookDeepEqDiff(diff: boolean, hook: Function, ...args) {
+export function useMemoizedHookDeepEq(opts: Opts, hook: Function, ...args) {
     const hookResult = hook(...args);
     const prev: React.MutableRefObject<any> = useRef(hookResult);
 
-    const hasNotChanged = isEqual(prev.current, hookResult);
+    const hasNotChanged = isEqualWith(prev.current, hookResult, opts.comparatorCustomizer);
     if (hasNotChanged) {
         return prev.current;
     } else {
-        if (diff) {
-            console.log('useMemoizedHookDeepEqDiff-useTraceRenders', 
-                prev.current === hookResult, 'hasNotChanged=', hasNotChanged,
-                diff(prev.current, hookResult), prev, hookResult);
-        }
+        // if (opts.doDiff) {
+        //     console.log('useMemoizedHookDeepEqDiff-useTraceRenders', 
+        //         prev.current === hookResult, 'hasNotChanged=', hasNotChanged,
+        //         'diff=', diff(prev.current, hookResult), 
+        //         'prev=', prev.current, 'new=', hookResult);
+        // }
         prev.current = hookResult;
         return hookResult;
     }

@@ -5,7 +5,6 @@ import Typography from '@material-ui/core/Typography';
 import { CInputProps } from '../../core-domain/page';
 import { FField } from '../form/FField';
 import { EditButtonPopoverField } from './buttons/EditButtonPopoverFieldProps';
-import { useMemoizedHookDeepEq } from '../generic/useMemoizedHookDeepEq';
 
 interface MobileListProps {
     fields: CInputProps[];
@@ -15,7 +14,7 @@ export function MobileList({
     fields,
     editable,
 }: MobileListProps) {
-    const { ids, data, basePath, resource } = useMemoizedHookDeepEq(useListContext);
+    const { ids, data, basePath, resource } = useListContext();;
 
     const translate = useTranslate();
 

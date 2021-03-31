@@ -1,17 +1,8 @@
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
+import { diff } from 'deep-object-diff';
 
 export function useTraceRenders(cmpName: string, props) {
     const prev = useRef(props);
-    useEffect(() => {
-        const changedProps = Object.entries(props).reduce((ps, [k, v]) => {
-            if (prev.current[k] !== v) {
-                ps[k] = {prev: prev.current[k], now: v};
-            }
-            return ps;
-        }, {});
-        if (Object.keys(changedProps).length > 0) {
-            console.log(`${cmpName} useTraceRenders`, changedProps);
-        }
-        prev.current = props;
-    });
+    console.log(`${cmpName} useTraceRenders`, prev.current === props ? '===' : diff(prev.current, props));
+    prev.current = props;
 }

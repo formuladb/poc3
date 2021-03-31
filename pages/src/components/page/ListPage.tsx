@@ -23,10 +23,9 @@ import { xslx_exporter } from './xlsx_exporter/xlsx_exporter';
 import { ResourceFieldDef } from '../../core-domain/fields';
 import { FInput } from '../form/FInput';
 import { FrmdbResourceWithFields } from '../../core-domain/records';
-import { useMemoizedHookDeepEq } from '../generic/useMemoizedHookDeepEq';
 
 function PageFilter(props: object) {
-    const { resource } = useMemoizedHookDeepEq(useListContext);
+    const { resource } = useListContext();;
     const [columns, setColumns] = useState([] as ResourceFieldDef[])
     const dataProvider = useDataProvider();
     useEffect(() => {

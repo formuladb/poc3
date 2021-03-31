@@ -35,27 +35,53 @@ import { useTraceRenders } from '../../useTraceRenders';
 import { getCInputPropsFromFieldDef, getDefaultReferenceText } from '../defaultEditPageContent';
 import { useRawFormContext } from '../form/useRawFormContext';
 import { FrmdbResourceWithFields } from '../../core-domain/records';
-import { useMemoizedHookDeepEq, useMemoizedHookDeepEqDiff } from '../generic/useMemoizedHookDeepEq';
 
 export function CList(nP: CListProps & { children: null | React.ReactNode }) {
-    const craftNode = useMemoizedHookDeepEqDiff(true, useNode, (node) => ({ node }));
+    const craftNode = useNode();
     const translate = useTranslate();
-    const listContext = useMemoizedHookDeepEq(useListContext);
-    useTraceRenders('CList', { craftNode, translate, listContext });
+    const listContext = useListContext();
+    useTraceRenders('CList', { nP, craftNode, translate, listContext });
 
     const {
         connectors: { connect },
     } = craftNode;
 
+    const extraProps = {
+        connect,
+        translate,
+        listContext,
+    };
+
+    return <CListInternalMemo {...nP} {...extraProps} />;
+}
+CList.displayName = 'CList';
+
+const CListInternalMemo = React.memo(CListInternal);
+
+function CListInternal(props: CListProps & { 
+    children: null | React.ReactNode,
+    connect: any,
+    translate: Translate,
+    listContext: ListControllerProps<Record>,
+}) {
+
+    const {
+        children,
+        connect,
+        translate,
+        listContext,
+        ...nP
+    } = props;
+
     return (
         <div className="" ref={connect}>
-            {nP.isSubListOf && <SubList key="sublist" {...nP} />}
-            {!nP.isSubListOf && !listContext && <span>{translate('waiting for list context...')}</span>}
-            {!nP.isSubListOf && listContext && <RawList key="list" {...nP} />}
+            {nP.isSubListOf && <SubList key="sublist" {...nP} children={children} />}
+            {!nP.isSubListOf && !listContext && <span key="loading">{translate('waiting for list context...')}</span>}
+            {!nP.isSubListOf && listContext && <RawList key="list" {...nP} children={children} />}
         </div>
     );
 }
-CList.displayName = 'CList';
+CListInternal.displayName = 'CListInternal';
 
 export function SubList({
     children = null as null | React.ReactNode,
@@ -93,64 +119,6 @@ export function SubList({
     </Grid>;
 };
 
-const MyReferenceManyField: FC<ReferenceManyFieldProps> = props => {
-    const {
-        basePath,
-        children,
-        filter,
-        page = 1,
-        perPage,
-        record,
-        reference,
-        resource,
-        sort,
-        source,
-        target,
-    } = props;
-
-    if (React.Children.count(children) !== 1) {
-        throw new Error(
-            '<ReferenceManyField> only accepts a single child (like <Datagrid>)'
-        );
-    }
-
-    const controllerProps = useReferenceManyFieldController({
-        basePath: basePath!,
-        filter,
-        page,
-        perPage,
-        record,
-        reference,
-        resource: resource!,
-        sort,
-        source,
-        target,
-    });
-
-    return (
-        <ResourceContextProvider value={reference}>
-            <ListContextProvider value={controllerProps}>
-                <ReferenceManyFieldView {...props} {...controllerProps} />
-            </ListContextProvider>
-        </ResourceContextProvider>
-    );
-};
-
-export const ReferenceManyFieldView = props => {
-    const { basePath, children, pagination, reference, ...rest } = props;
-    return (
-        <>
-            {cloneElement(Children.only(children), {
-                ...sanitizeFieldRestProps(rest),
-                basePath,
-                resource: reference,
-            })}
-            {pagination &&
-                props.total !== undefined &&
-                cloneElement(pagination)}
-        </>
-    );
-};
 
 const RefManySort = { field: 'id', order: 'ASC' };
 const RefManyField = ({
@@ -193,7 +161,7 @@ export function RawList(props: CListProps & {
         fields,
         ...nP
     } = props;
-    const listContext = useMemoizedHookDeepEq(useListContext);
+    const listContext = useListContext();;
     const { ids, data, resource: resourceFromContext, ...restListContextProps } = listContext;
     const translate = useTranslate();
     const { resourceWithFields, onUpsertRecord } = useUpsertRecord(resource || resourceFromContext);
