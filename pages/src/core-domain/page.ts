@@ -63,6 +63,10 @@ export interface CListProps {
 
     /**@TJS-format frmdb-multiple-choice */
     enabledActions?: ListAction[];
+
+    /**@TJS-format frmdb-resource-field-name */
+    sortField?: string;
+    sortOrder?: 'ASC' | 'DESC';
 }
 
 interface ActionCREATE {
@@ -224,6 +228,9 @@ export interface CInputReferenceProps extends CInputPropsBase {
     layout?: "single_row";
     /**@TJS-format frmdb-reference-matching-field-name */
     matchingColumn?: string;
+    /**@TJS-format frmdb-reference-field-name */
+    sortField?: string;
+    sortOrder?: 'ASC' | 'DESC';
 }
 export interface CInputReferenceNode extends PageNodeBase, CInputReferenceProps {
     _tag: 'CInput';

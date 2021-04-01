@@ -99,7 +99,6 @@ export function SubList({
 };
 
 
-const RefManySort = { field: 'id', order: 'ASC' };
 const RefManyField = ({
     children = null as null | React.ReactNode,
     parentResourceId,
@@ -119,9 +118,17 @@ const RefManyField = ({
         }
     );
 
+    const {
+        sortField,
+        sortOrder,
+    } = nP;
+
+    const sort = useMemo(() => ({ field: sortField || 'id', order: sortOrder || 'ASC' }),
+        [sortField, sortOrder]);
+
     return <ReferenceManyField basePath={nP.isSubListOf} record={record} addLabel={false}
         reference={nP.resource!} target={nP.refToParentListFieldName!}
-        sort={RefManySort}
+        sort={sort}
         perPage={50}
     >
         <RawList {...nP} children={children} refToParentListFieldName={nP.refToParentListFieldName} parentResourceId={parentResourceId} />

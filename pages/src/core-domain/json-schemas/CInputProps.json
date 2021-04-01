@@ -743,6 +743,17 @@
                     ],
                     "type": "string"
                 },
+                "sortField": {
+                    "format": "frmdb-reference-field-name",
+                    "type": "string"
+                },
+                "sortOrder": {
+                    "enum": [
+                        "ASC",
+                        "DESC"
+                    ],
+                    "type": "string"
+                },
                 "source": {
                     "format": "frmdb-resource-field-name",
                     "type": "string"

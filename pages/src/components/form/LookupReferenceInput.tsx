@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useState } from "react";
+import React, { useCallback, useContext, useMemo, useState } from "react";
 import { useForm, useFormState } from 'react-final-form';
 import {
     AutocompleteInput,
@@ -69,7 +69,9 @@ export function LookupInput({
     validate,
     ...nP
 }: CInputLookupProps & { validate: Validator | Validator[] }) {
-
+    const {
+        referenceText
+    } = nP;
     const [enableEdit, setEnableEdit] = useState(false);
     const { reference, propagateValueChange } = useLookupContext(nP);
 
@@ -80,12 +82,12 @@ export function LookupInput({
                     resource={nP.resource}
                     source={nP.source}
                     reference={reference}
-                    filterToQuery={(searchText: any) => ({ [`${nP.referenceText}@ilike`]: searchText })}
+                    filterToQuery={(searchText: any) => ({ [`${referenceText}@ilike`]: searchText })}
                     onChange={ev => { setEnableEdit(true) }}
                     onBlur={ev => { setEnableEdit(false) }}
                     fullWidth={true}
                 >
-                    <AutocompleteInput fullWidth={true} optionText={nP.referenceText} optionValue="id"
+                    <AutocompleteInput fullWidth={true} optionText={referenceText} optionValue="id"
                         onSelect={(selectedItem) => propagateValueChange(selectedItem)}
                     />
                 </ReferenceInput>
@@ -118,43 +120,52 @@ export function FReferenceInput({
     validate,
     ...nP
 }: CInputReferenceProps & { validate: Validator }) {
+    const {
+        matchingColumn,
+        sortField,
+        sortOrder,
+        referenceText,
+    } = nP;
     const { propagateValueChange } = useLookupContext(nP);
     
     let rawFormContext = useRawFormContext();
     let extraFilter = {};
-    if (nP.matchingColumn && rawFormContext.record) {
-        const matchingValue = rawFormContext.record[nP.matchingColumn];
+    if (matchingColumn && rawFormContext.record) {
+        const matchingValue = rawFormContext.record[matchingColumn];
         extraFilter = {
-            [nP.matchingColumn]: matchingValue
+            [matchingColumn]: matchingValue
         };
     }
-
+    const sort = useMemo(() => ({ field: sortField || referenceText || 'id', order: sortOrder || 'ASC' }),
+        [sortField, sortOrder]);
     
     const initialValueResolver = useInitialValueResolver();
     const initialValue = initialValueResolver(nP);
 
     const filterToQuery = searchText => ({ 
         ...extraFilter,
-        [`${nP.referenceText}@ilike`]: searchText,
+        [`${referenceText}@ilike`]: searchText,
     });
+            
     return (
-        <ReferenceInput key={nP.referenceText} resource={nP.resource} source={nP.source}
+        <ReferenceInput key={referenceText} resource={nP.resource} source={nP.source}
             reference={nP.reference}
             variant={nP.variant} disabled={nP.disabled} fullWidth={true}
             filterToQuery={filterToQuery}
             validate={validate}
             initialValue={initialValue}
+            sort={sort}
         >
             {nP.referenceInputType === "radio_button" ?
                 <RadioButtonGroupInput key="radio_button" 
-                    optionText={choice => nP.referenceText ? (choice?.[nP.referenceText]||'') + '' : ''}
+                    optionText={choice => referenceText ? (choice?.[referenceText]||'') + '' : ''}
                     fullWidth={true} optionValue="id"
                     onSelect={(selectedItem) => propagateValueChange(selectedItem)}
                     row={nP.layout === "single_row" ? true : false}
                 />
                 :
                 <AutocompleteInput key="autocomplete" 
-                    optionText={choice => nP.referenceText ? (choice?.[nP.referenceText]||'') + '' : ''}
+                    optionText={choice => referenceText ? (choice?.[referenceText]||'') + '' : ''}
                     fullWidth={true} optionValue="id"
                     onSelect={(selectedItem) => propagateValueChange(selectedItem)}
                 />

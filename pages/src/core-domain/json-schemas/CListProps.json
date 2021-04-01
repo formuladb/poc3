@@ -774,6 +774,17 @@
                     ],
                     "type": "string"
                 },
+                "sortField": {
+                    "format": "frmdb-reference-field-name",
+                    "type": "string"
+                },
+                "sortOrder": {
+                    "enum": [
+                        "ASC",
+                        "DESC"
+                    ],
+                    "type": "string"
+                },
                 "source": {
                     "format": "frmdb-resource-field-name",
                     "type": "string"
@@ -1145,6 +1156,17 @@
         },
         "resource": {
             "format": "frmdb-resource-name",
+            "type": "string"
+        },
+        "sortField": {
+            "format": "frmdb-resource-field-name",
+            "type": "string"
+        },
+        "sortOrder": {
+            "enum": [
+                "ASC",
+                "DESC"
+            ],
             "type": "string"
         }
     },
