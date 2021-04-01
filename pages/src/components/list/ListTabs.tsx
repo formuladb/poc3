@@ -55,7 +55,7 @@ export const ListTabs = ({
     }
 
     return (<div style={{ padding: '10px', maxWidth: "70vw" }}>
-        <Paper square>
+        <Paper square style={{margin: "0 30px 0 30px"}}>
             <Tabs value={currentId+''} onChange={onChange} aria-label="tabs tbd"
                 variant="scrollable" scrollButtons="auto"
             >

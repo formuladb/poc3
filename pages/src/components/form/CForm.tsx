@@ -127,7 +127,7 @@ export const RawForm = ({
                 render={formProps => (
                     // here starts the custom form layout
                     <form style={{ border: 0, padding: 0, margin: 0 }}>
-                        <fieldset disabled={disabled} style={{ border: 0 }}>
+                        <fieldset disabled={disabled} style={{ border: 0, margin: 0 }}>
                             <div style={{margin: "20px"}} >
                                 <Grid container direction="column" spacing={2} wrap="wrap" justify="space-between"
                                     style={{ padding: '10px', margin: 0 }}
@@ -155,7 +155,8 @@ export const RawForm = ({
                                         resource={resource}
                                         record={formProps.record}
                                         saving={formProps.saving}
-                                        redirect={undefined}
+                                        mutationMode="pessimistic"
+                                        redirect={false}
                                     />
                                 </div>
                             </Toolbar>

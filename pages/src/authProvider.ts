@@ -66,7 +66,6 @@ const authProvider: AuthProvider = {
 
     getIdentity: () => {
         const tokenData = inMemoryJWT.getTokenData();
-        console.log("XXXXXX", tokenData);
 
         return Promise.resolve({
             id: tokenData?.user_id ? parseInt(tokenData.user_id) : undefined,

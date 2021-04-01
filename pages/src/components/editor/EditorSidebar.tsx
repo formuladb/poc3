@@ -37,7 +37,7 @@ export function EditorSidebar(props: any) {
         <Drawer variant="persistent" anchor="right" open={editorOpen}
             onClose={() => setEditorOpen(false)}
         >
-            <div style={{ width: '280px' }}>
+            {editorOpen && <div style={{ width: '280px' }}>
                 <Topbar editorEnabled={editorOpen} />
                 <Toolbox />
                 <SettingsPanel />
@@ -51,7 +51,7 @@ export function EditorSidebar(props: any) {
                     onClose={() => setSnackbarMessage(null)}
                     message={<span>{snackbarMessage}</span>}
                 />
-            </div>
+            </div>}
         </Drawer>
     </>);
 }

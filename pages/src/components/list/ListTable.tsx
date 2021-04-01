@@ -31,32 +31,32 @@ export const ListTable = ({
     fields,
     editable,
     isSubListOf,
+    refToParentListFieldName,
+    parentResourceId,
     resourceCols,
     onRecordEdited,
     ...props
 }: ListDatagridProps) => {
 
     const theme = useTheme();
-    const mdScreen = useMediaQuery(theme.breakpoints.up('md'));
+    const mdScreen = useMediaQuery(theme.breakpoints.up('md'), { noSsr: true });
 
     return <>
         {!mdScreen && <MobileTable fields={fields} editable={editable} />}
         {mdScreen &&
-            !isSubListOf ?
-            <Datagrid {...props}>
-                {editable && !isSubListOf && <GoToEditPageButton resource={resource} />}
-                {fields.map(field => {
-                    return <FieldWrapper label={getFieldLabel(resource, field)} field={field} key={field.source} />
-                })}
-            </Datagrid>
-            :
-            <DesktopTable fields={fields} {...props}>
-                {editable && <EditButtonPopoverField resource={resource} fields={fields} />}
-                {fields.map(field => {
-                    return <FieldWrapper label={getFieldLabel(resource, field)} field={field} key={field.source} />
-                })}
-            </DesktopTable>
-
+            (!isSubListOf ?
+                <Datagrid {...props}>
+                    {editable && !isSubListOf && <GoToEditPageButton resource={resource} />}
+                    {fields.map(field => {
+                        return <FieldWrapper label={getFieldLabel(resource, field)} field={field} key={field.source} />
+                    })}
+                </Datagrid>
+                :
+                <DesktopTable fields={fields} editable={editable}
+                    refToParentListFieldName={refToParentListFieldName}
+                    parentResourceId={parentResourceId}
+                />
+            )
         }
     </>;
 };

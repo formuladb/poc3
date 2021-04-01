@@ -132,35 +132,19 @@ export function RawList(props: CListProps & {
     children: null | React.ReactNode,
     parentResourceId?: string,
 }) {
-    const {
-        children = null as null | React.ReactNode,
-        refToParentListFieldName,
-        parentResourceId,
-        resource,
-        fields,
-        ...nP
-    } = props;
     const listContext = useListContext();;
     const { ids, data, resource: resourceFromContext, ...restListContextProps } = listContext;
     const translate = useTranslate();
-    const { resourceWithFields, onUpsertRecord } = useUpsertRecord(resource || resourceFromContext);
-
-    let haveActions = nP.enabledActions && nP.enabledActions.length > 0;
+    const { resourceWithFields, onUpsertRecord } = useUpsertRecord(props.resource || resourceFromContext);
 
     const extraProps = {
-        children,
-        refToParentListFieldName,
-        parentResourceId,
-        resource,
-
         listContext,
-        haveActions,
         resourceWithFields,
         onUpsertRecord,
         translate,
     };
 
-    return <RawListInternalMemo {...nP} {...extraProps} />;
+    return <RawListInternalMemo {...props} {...extraProps} />;
 }
 RawList.displayName = 'RawList';
 
@@ -179,9 +163,7 @@ function RawListInternal(props: CListProps & {
     children: null | React.ReactNode,
     parentResourceId?: string,
 
-
     listContext: ListControllerProps<Record>,
-    haveActions: boolean | undefined,
     resourceWithFields: FrmdbResourceWithFields,
     onUpsertRecord: (data: Partial<Record>) => Promise<void>,
     translate: Translate,
@@ -195,7 +177,6 @@ function RawListInternal(props: CListProps & {
         fields,
 
         listContext,
-        haveActions,
         resourceWithFields,
         onUpsertRecord,
         translate,
@@ -224,6 +205,8 @@ function RawListInternal(props: CListProps & {
             }),
         [fields, resourceFromContext, resourceWithFields]
     );
+
+    let haveActions = nP.enabledActions && nP.enabledActions.length > 0;
 
     return <>
         {haveActions && <ListActions isSubListOf={nP.isSubListOf}

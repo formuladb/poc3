@@ -31,7 +31,7 @@ export function useUpsertRecord(resource: string): UseUpsertRecordRet {
         onFailure: (error) => {
             notify(error.message || JSON.stringify(error), 'error');
         }
-    }), []);
+    }), [resource, url, redirect, translate]);
 
     const onUpsertRecord = useCallback(async (rec: Partial<Record>) => {
         let data = cloneDeep(rec);
@@ -55,7 +55,7 @@ export function useUpsertRecord(resource: string): UseUpsertRecordRet {
         } else {
             dataProvider.create(resource, { data }, dataProviderOpts);
         }
-    }, [resourceWithFields, resourceCols, dataProvider, dataProviderOpts]);
+    }, [resource, resourceWithFields, resourceCols, dataProvider, dataProviderOpts]);
 
     return { onUpsertRecord, resourceWithFields };
 }

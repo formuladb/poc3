@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Record, TextInput, useDataProvider, useRefresh } from 'react-admin';
+import { DeleteButton, Record, TextInput, useDataProvider, useRefresh } from 'react-admin';
 import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Edit';
 import AddIcon from '@material-ui/icons/Add';
@@ -27,7 +27,8 @@ interface EditButtonPopoverFieldProps {
     refToParentListFieldName?: string;
     parentResourceId?: string;
 }
-export function EditButtonPopoverField({
+export const EditButtonPopoverField = React.memo(EditButtonPopoverFieldInternal);
+function EditButtonPopoverFieldInternal({
     resource,
     fields,
     record = undefined,
@@ -53,7 +54,6 @@ export function EditButtonPopoverField({
     const id = open ? `${resource}-edit-popper` : undefined;
     const resourceWithFields = useResourceWithFields(resource);
 
-    const dataProvider = useDataProvider();
     const [displayedFields, setDisplayedFields] = useState<CInputProps[]>(fields || []);
     useEffect(() => {
 
@@ -74,6 +74,8 @@ export function EditButtonPopoverField({
                 {isCreate && <AddIcon />}
                 {!isCreate && <EditIcon />}
             </Button>
+            <DeleteButton resource={resource} record={record} label={''}
+                mutationMode="pessimistic" redirect={false} size="small" />
             <Popper
                 id={id}
                 open={open}
