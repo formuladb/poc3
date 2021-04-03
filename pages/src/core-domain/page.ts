@@ -64,6 +64,8 @@ export interface CListProps {
     /**@TJS-format frmdb-multiple-choice */
     enabledActions?: ListAction[];
 
+    formActions?: FormAction[];
+
     /**@TJS-format frmdb-resource-field-name */
     sortField?: string;
     sortOrder?: 'ASC' | 'DESC';
@@ -92,8 +94,15 @@ export type ListAction =
     | ActionPRINT
 ;
 
+
+export interface ActionSAVE {
+    actionType: 'SAVE';
+    label?: string;
+}
+
 export type FormAction = 
     | ActionPRINT
+    | ActionSAVE
 ;
 
 export interface CListNode extends PageNodeBase, CListProps {

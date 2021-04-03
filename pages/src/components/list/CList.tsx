@@ -226,6 +226,7 @@ function RawListInternal(props: CListProps & {
             <ListTabs ids={ids} data={data}
                 resource={resource || resourceFromContext}
                 labelSource={nP.labelSource}
+                formActions={nP.formActions}
                 children={children} />}
         {ids && ids[0] && nP.cListType == 'Table' &&
             <ListTable editable={nP.editable}

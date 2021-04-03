@@ -1,5 +1,5 @@
 import { Element, useNode } from '@craftjs/core';
-import React, { Children, useState } from 'react';
+import React, { Children, useState, useMemo } from 'react';
 import { DeleteButton, FormWithRedirect, SaveButton, useCreate, useNotify, Record, useGetOne, CRUD_GET_ONE, useRedirect } from 'react-admin';
 import { Toolbar, Grid } from '@material-ui/core';
 import { CRow } from '../page/CRow';
@@ -9,7 +9,7 @@ import { useLocation } from 'react-router-dom';
 import { parseLocation } from '../editor/Topbar.utils';
 import { useUpsertRecord } from './useUpsertRecord';
 import { FormWithRedirectProps } from 'react-admin';
-import { CFormProps } from '../../core-domain/page';
+import { ActionSAVE, CFormProps } from '../../core-domain/page';
 import CFormPropsSchema from '../../core-domain/json-schemas/CFormProps.json';
 import { CmpSettings } from '../editor/CmpSettings';
 import { JSONSchema7 } from 'json-schema';
@@ -118,6 +118,13 @@ export const RawForm = ({
         addInput
     };
 
+    const extraActions = useMemo(() => {
+        return enabledActions?.filter(act => act.actionType !== "SAVE")
+    }, [enabledActions]);
+    const saveAction: ActionSAVE | undefined = useMemo(() => {
+        return enabledActions?.find(act => act.actionType === "SAVE") as ActionSAVE | undefined;
+    }, [enabledActions]);
+
     return (
         <RawFormContext.Provider value={formContext}>
             <FormWithRedirect
@@ -141,10 +148,11 @@ export const RawForm = ({
                                     <SaveButton
                                         saving={formProps.saving}
                                         handleSubmitWithRedirect={formProps.handleSubmitWithRedirect}
+                                        label={saveAction?.label}
                                     />
-                                    {enabledActions &&
+                                    {extraActions &&
                                         <ButtonGroup color="primary" aria-label="outlined primary button group">
-                                            {enabledActions?.map(act => {
+                                            {extraActions.map(act => {
                                                 if (act.actionType === "PRINT") {
                                                     return <PrintButton />;
                                                 }

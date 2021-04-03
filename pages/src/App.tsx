@@ -6,8 +6,6 @@ import {
 } from 'react-admin';
 import { useEffect, useState } from 'react';
 
-import { ListGuesser } from 'react-admin';
-import { EditGuesser } from 'react-admin';
 import Layout from './components/layout/Layout';
 import { EditablePage } from './components/EditablePage';
 import themeReducer from './configuration/themeReducer';
@@ -18,6 +16,7 @@ import { useResources } from './useResources';
 import { AppIcon } from './components/generic/AppIcon';
 import { createBrowserHistory } from 'history';
 import { EMPTY_LOCALE } from './i18nProviderBuilder';
+import { Dashboard } from './components/layout/Dashboard';
 
 const history = createBrowserHistory({
     basename: window.location.pathname.split('/').filter(i => i)[0]||'',
@@ -61,6 +60,7 @@ function AsyncResources() {
             layout={Layout}
             customRoutes={customRoutes}
             ready={Ready}
+            dashboard={Dashboard}
         >
             {resources.filter(r => r.resource_type === "RESOURCE").map(resource => {
                 let resourceProps = {

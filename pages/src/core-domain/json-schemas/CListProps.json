@@ -82,6 +82,24 @@
             ],
             "type": "object"
         },
+        "ActionSAVE": {
+            "additionalProperties": false,
+            "properties": {
+                "actionType": {
+                    "enum": [
+                        "SAVE"
+                    ],
+                    "type": "string"
+                },
+                "label": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "actionType"
+            ],
+            "type": "object"
+        },
         "CInputBooleanFieldProps": {
             "additionalProperties": false,
             "properties": {
@@ -1137,6 +1155,19 @@
                     },
                     {
                         "$ref": "#/definitions/CInputLookupProps"
+                    }
+                ]
+            },
+            "type": "array"
+        },
+        "formActions": {
+            "items": {
+                "anyOf": [
+                    {
+                        "$ref": "#/definitions/ActionPRINT"
+                    },
+                    {
+                        "$ref": "#/definitions/ActionSAVE"
                     }
                 ]
             },

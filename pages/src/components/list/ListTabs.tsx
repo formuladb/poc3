@@ -11,13 +11,14 @@ import {
     useLocation
 } from "react-router-dom";
 import { useRedirect, Record } from 'react-admin';
-import { CListProps } from '../../core-domain/page';
+import { CListProps, FormAction } from '../../core-domain/page';
 
 interface ListTabsProps {
     ids: ReactText[];
     data: { [id: string]: Record };
     resource: string;
     labelSource: string;
+    formActions?: FormAction[];
     children: null | React.ReactNode;
 }
 export const ListTabs = ({
@@ -25,6 +26,7 @@ export const ListTabs = ({
     data,
     resource,
     labelSource = "id",
+    formActions,
     children = null,
 }: ListTabsProps) => {
     const redirect = useRedirect();
@@ -42,7 +44,7 @@ export const ListTabs = ({
 
     const match = pathname.match(new RegExp(`/${resource}/([^/]+)$`));
     const [currentId, setCurrentId] = React.useState(match?.[1] || ids[0]);
-    
+
     const onChange = (event: React.ChangeEvent<{}>, newValue: string) => {
         setCurrentId(newValue);
     };
@@ -55,13 +57,13 @@ export const ListTabs = ({
     }
 
     return (<div style={{ padding: '10px', maxWidth: "70vw" }}>
-        <Paper square style={{margin: "0 30px 0 30px"}}>
-            <Tabs value={currentId+''} onChange={onChange} aria-label="tabs tbd"
+        <Paper square style={{ margin: "0 30px 0 30px" }}>
+            <Tabs value={currentId + ''} onChange={onChange} aria-label="tabs tbd"
                 variant="scrollable" scrollButtons="auto"
             >
                 {ids.map((id, idx) =>
                     <Tab label={mdScreen ? data[id][labelSource] : idx}
-                        {...a11yProps(id)} value={id+''} key={id}
+                        {...a11yProps(id)} value={id + ''} key={id}
                         component={Link} to={`${url}/${resource}/${id}`}
                     />
                 )}
@@ -69,11 +71,13 @@ export const ListTabs = ({
         </Paper>
         <Switch>
             <Route path={url} exact key="default" render={() =>
-                <RawForm resource={resource} record={data[ids[0]]} children={children} />
+                <RawForm resource={resource} record={data[ids[0]]} children={children}
+                    enabledActions={formActions} />
             } />
             {ids.map((id, idx) =>
                 <Route path={`${url}/${resource}/${id}`} key={id} render={() =>
-                    <RawForm resource={resource} record={data[id]} children={children} />
+                    <RawForm resource={resource} record={data[id]} children={children}
+                        enabledActions={formActions} />
                 } />
             )}
         </Switch>
