@@ -1,5 +1,5 @@
 import { Element, useNode } from '@craftjs/core';
-import React, { Children, useState, useMemo } from 'react';
+import React, { Children, useState, useMemo, useCallback } from 'react';
 import {
     DeleteButton, FormWithRedirect, SaveButton,
     useCreate, useNotify, Record, useGetOne,
@@ -9,7 +9,7 @@ import { Toolbar, Grid } from '@material-ui/core';
 import { CRow } from '../page/CRow';
 import { CButton } from '../page/CButton';
 import { CText } from '../page/CText';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useRouteMatch } from 'react-router-dom';
 import { parseLocation } from '../editor/Topbar.utils';
 import { useUpsertRecord } from './useUpsertRecord';
 import { FormWithRedirectProps } from 'react-admin';
@@ -79,18 +79,36 @@ export const RawForm = ({
     disabled = false as boolean,
     refToParentListFieldName = undefined as string | undefined,
     parentResourceId = undefined as string | undefined,
+    nextSiblingResourceId = undefined as string | undefined,
     enabledActions = undefined as CFormProps['enabledActions'],
     onSave = undefined as undefined | ((data: Partial<Record>, saveOk: boolean) => void | Promise<void>)
 }) => {
 
+    const { url } = useRouteMatch();
+    const extraActions = useMemo(() => {
+        return enabledActions?.filter(act => act.actionType !== "SAVE")
+    }, [enabledActions]);
+    const saveAction: ActionSAVE | undefined = useMemo(() => {
+        return enabledActions?.find(act => act.actionType === "SAVE") as ActionSAVE | undefined;
+    }, [enabledActions]);
+    const redirectOnSave = useMemo(() => {
+        return saveAction?.redirectNextSibling && nextSiblingResourceId ?
+            url.replace(/\/[^\/]+$/, `/${nextSiblingResourceId}`)
+            : undefined;
+    }, [saveAction, nextSiblingResourceId]);
+    const deleteAction: ActionDELETE | undefined = useMemo(() => {
+        return enabledActions?.find(act => act.actionType === "DELETE") as ActionDELETE | undefined;
+    }, [enabledActions]);
+
     const { resourceWithFields, onUpsertRecord } = useUpsertRecord(resource);
-    const save: FormWithRedirectProps['save'] = (data, redirectTo, optional) => {
+    const save: FormWithRedirectProps['save'] = useCallback((data, redirectTo, optional) => {
         if (refToParentListFieldName && parentResourceId) {
             data[refToParentListFieldName] = parentResourceId;
         }
-        onUpsertRecord(data);
+        onUpsertRecord(data, redirectOnSave);
         if (onSave) onSave(data, true);
-    }
+    }, [refToParentListFieldName, parentResourceId, redirectOnSave]);
+
     const fieldDefsByName = groupByUniqProp(resourceWithFields.field_defs, 'name');
     const validators = useValidators(resource, fieldDefsByName, record == undefined);
     const validateForm = (values) => {
@@ -121,16 +139,6 @@ export const RawForm = ({
         inputs,
         addInput
     };
-
-    const extraActions = useMemo(() => {
-        return enabledActions?.filter(act => act.actionType !== "SAVE")
-    }, [enabledActions]);
-    const saveAction: ActionSAVE | undefined = useMemo(() => {
-        return enabledActions?.find(act => act.actionType === "SAVE") as ActionSAVE | undefined;
-    }, [enabledActions]);
-    const deleteAction: ActionDELETE | undefined = useMemo(() => {
-        return enabledActions?.find(act => act.actionType === "DELETE") as ActionDELETE | undefined;
-    }, [enabledActions]);
 
     return (
         <RawFormContext.Provider value={formContext}>

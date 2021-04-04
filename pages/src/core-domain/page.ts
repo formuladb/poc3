@@ -98,6 +98,7 @@ export type ListAction =
 export interface ActionSAVE {
     actionType: 'SAVE';
     label?: string;
+    redirectNextSibling?: boolean;
 }
 export interface ActionDELETE {
     actionType: 'DELETE';

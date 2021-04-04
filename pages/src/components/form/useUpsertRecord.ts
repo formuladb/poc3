@@ -1,13 +1,17 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { ResourceFieldDef } from '../../core-domain/fields';
-import { Record, useCreate, useDataProvider, useNotify, useRedirect, useTranslate } from 'react-admin';
+import {
+    Record, useCreate, useDataProvider,
+    useNotify, useRedirect, useTranslate,
+    RedirectionSideEffect,
+} from 'react-admin';
 import { useRouteMatch } from 'react-router-dom';
 import { cloneDeep } from 'lodash';
 import { useResourceWithFields } from './useResourceWithFields';
 import { FrmdbResourceWithFields } from '../../core-domain/records';
 
 export interface UseUpsertRecordRet {
-    onUpsertRecord: (data: Partial<Record>) => Promise<void>,
+    onUpsertRecord: (data: Partial<Record>, redirectTo?: string) => Promise<void>,
     resourceWithFields: FrmdbResourceWithFields,
 }
 export function useUpsertRecord(resource: string): UseUpsertRecordRet {
@@ -24,16 +28,13 @@ export function useUpsertRecord(resource: string): UseUpsertRecordRet {
     const dataProviderOpts = useMemo(() => ({
         onSuccess: ({ data }) => {
             notify(`${translate('saved')} ${translate(`resources.${resource}.name`)} #${data['id']}`, 'info');
-            if (url.match(/\/create$/)) {
-                redirect(url.replace(/\/create$/, `/${data['id']}`));
-            }
         },
         onFailure: (error) => {
             notify(error.message || JSON.stringify(error), 'error');
         }
     }), [resource, url, redirect, translate]);
 
-    const onUpsertRecord = useCallback(async (rec: Partial<Record>) => {
+    const onUpsertRecord = useCallback(async (rec: Partial<Record>, redirectTo?: string) => {
         let data = cloneDeep(rec);
         console.log('COLS', resourceCols);
         if (resource.indexOf('frmdbvw') < 0) {
@@ -47,14 +48,21 @@ export function useUpsertRecord(resource: string): UseUpsertRecordRet {
         }
 
         if (undefined != data['id']) {
-            dataProvider.update(resource, {
-                id: data['id'], 
+            await dataProvider.update(resource, {
+                id: data['id'],
                 data,
-                previousData: {id: "not-using-previous-data"},
+                previousData: { id: "not-using-previous-data" },
             }, dataProviderOpts)
         } else {
-            dataProvider.create(resource, { data }, dataProviderOpts);
+            await dataProvider.create(resource, { data }, dataProviderOpts);
         }
+
+        if (url.match(/\/create$/)) {
+            redirect(url.replace(/\/create$/, `/${data['id']}`));
+        } else if (redirectTo != undefined) {
+            redirect(redirectTo);
+        }
+
     }, [resource, resourceWithFields, resourceCols, dataProvider, dataProviderOpts]);
 
     return { onUpsertRecord, resourceWithFields };
