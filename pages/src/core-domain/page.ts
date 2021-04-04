@@ -99,10 +99,15 @@ export interface ActionSAVE {
     actionType: 'SAVE';
     label?: string;
 }
+export interface ActionDELETE {
+    actionType: 'DELETE';
+    disabled?: boolean;
+}
 
 export type FormAction = 
     | ActionPRINT
     | ActionSAVE
+    | ActionDELETE
 ;
 
 export interface CListNode extends PageNodeBase, CListProps {

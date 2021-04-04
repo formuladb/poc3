@@ -10,6 +10,7 @@ INSERT INTO frmdb_dictionary (id, en, ro) VALUES
     ('upload file', 'Upload File', 'Încarcă Fișier'),
     ('import', 'Import File', 'Import Fișier'),
     ('i18n.loading', 'Loading', 'Se Încarcă'),
+    ('frmdb.action.next', 'Next', 'Următorul'),
     ('no elements yet', ' . . . (+ for adding)', ' . . . (+ pt a adăuga)')
 ON CONFLICT(id) DO UPDATE SET
     en = EXCLUDED.en, 

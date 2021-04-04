@@ -1,6 +1,10 @@
 import { Element, useNode } from '@craftjs/core';
 import React, { Children, useState, useMemo } from 'react';
-import { DeleteButton, FormWithRedirect, SaveButton, useCreate, useNotify, Record, useGetOne, CRUD_GET_ONE, useRedirect } from 'react-admin';
+import {
+    DeleteButton, FormWithRedirect, SaveButton,
+    useCreate, useNotify, Record, useGetOne,
+    CRUD_GET_ONE, useRedirect,
+} from 'react-admin';
 import { Toolbar, Grid } from '@material-ui/core';
 import { CRow } from '../page/CRow';
 import { CButton } from '../page/CButton';
@@ -9,7 +13,7 @@ import { useLocation } from 'react-router-dom';
 import { parseLocation } from '../editor/Topbar.utils';
 import { useUpsertRecord } from './useUpsertRecord';
 import { FormWithRedirectProps } from 'react-admin';
-import { ActionSAVE, CFormProps } from '../../core-domain/page';
+import { ActionSAVE, ActionDELETE, CFormProps } from '../../core-domain/page';
 import CFormPropsSchema from '../../core-domain/json-schemas/CFormProps.json';
 import { CmpSettings } from '../editor/CmpSettings';
 import { JSONSchema7 } from 'json-schema';
@@ -124,6 +128,9 @@ export const RawForm = ({
     const saveAction: ActionSAVE | undefined = useMemo(() => {
         return enabledActions?.find(act => act.actionType === "SAVE") as ActionSAVE | undefined;
     }, [enabledActions]);
+    const deleteAction: ActionDELETE | undefined = useMemo(() => {
+        return enabledActions?.find(act => act.actionType === "DELETE") as ActionDELETE | undefined;
+    }, [enabledActions]);
 
     return (
         <RawFormContext.Provider value={formContext}>
@@ -135,7 +142,7 @@ export const RawForm = ({
                     // here starts the custom form layout
                     <form style={{ border: 0, padding: 0, margin: 0 }}>
                         <fieldset disabled={disabled} style={{ border: 0, margin: 0 }}>
-                            <div style={{margin: "20px"}} >
+                            <div style={{ margin: "20px" }} >
                                 <Grid container direction="column" spacing={2} wrap="wrap" justify="space-between"
                                     style={{ padding: '10px', margin: 0 }}
                                 >
@@ -144,7 +151,7 @@ export const RawForm = ({
                                 </Grid>
                             </div>
                             <Toolbar className="frmdb-form-actions-toolbar">
-                                <div style={{display: "flex", justifyContent: "space-between", width: "100%", borderTop: '10px', paddingTop: "20px", borderColor: "grey"}}  >
+                                <div style={{ display: "flex", justifyContent: "space-between", width: "100%", borderTop: '10px', paddingTop: "20px", borderColor: "grey" }}  >
                                     <SaveButton
                                         saving={formProps.saving}
                                         handleSubmitWithRedirect={formProps.handleSubmitWithRedirect}
@@ -159,13 +166,13 @@ export const RawForm = ({
                                             })}
                                         </ButtonGroup>
                                     }
-                                    <DeleteButton
+                                    {!deleteAction?.disabled && < DeleteButton
                                         resource={resource}
                                         record={formProps.record}
                                         saving={formProps.saving}
                                         mutationMode="pessimistic"
                                         redirect={false}
-                                    />
+                                    />}
                                 </div>
                             </Toolbar>
                         </fieldset>

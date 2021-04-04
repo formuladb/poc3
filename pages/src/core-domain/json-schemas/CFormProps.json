@@ -2,6 +2,24 @@
     "$schema": "http://json-schema.org/draft-07/schema#",
     "additionalProperties": false,
     "definitions": {
+        "ActionDELETE": {
+            "additionalProperties": false,
+            "properties": {
+                "actionType": {
+                    "enum": [
+                        "DELETE"
+                    ],
+                    "type": "string"
+                },
+                "disabled": {
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "actionType"
+            ],
+            "type": "object"
+        },
         "ActionPRINT": {
             "additionalProperties": false,
             "properties": {
@@ -48,6 +66,9 @@
                     },
                     {
                         "$ref": "#/definitions/ActionSAVE"
+                    },
+                    {
+                        "$ref": "#/definitions/ActionDELETE"
                     }
                 ]
             },
