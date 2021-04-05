@@ -24,6 +24,10 @@ DO $migration$ BEGIN
 
         PERFORM frmdb_put_table(p_table_name, v_col_type);
 
+        IF p_base_col_name = 'id' THEN --this is a one-to-one relation
+            PERFORM frmdb_put_column_REFERENCE_TO(p_table_name, 'id', p_base_table);
+        END IF;
+
         FOREACH v_sync_col_name IN ARRAY p_sync_cols LOOP
             SELECT data_type::varchar INTO v_col_type FROM information_schema.columns
                 WHERE table_name = p_base_table::name AND column_name = v_sync_col_name;

@@ -49,3 +49,19 @@ $$ LANGUAGE SQL IMMUTABLE PARALLEL SAFE;
 CREATE OR REPLACE FUNCTION IS_ENUM(param text, enum_values VARIADIC text[]) RETURNS boolean AS $$
   SELECT param = ANY(enum_values)
 $$ LANGUAGE SQL IMMUTABLE PARALLEL SAFE;
+
+CREATE OR REPLACE FUNCTION IFS(
+  test1 boolean, value1 text, 
+  text2 boolean default null, value2 text default null,
+  text3 boolean default null, value3 text default null,
+  text4 boolean default null, value4 text default null,
+  text5 boolean default null, value5 text default null
+) RETURNS text AS $$
+  SELECT CASE
+    WHEN test1 THEN value1
+    WHEN test2 THEN value2
+    WHEN test3 THEN value3
+    WHEN test4 THEN value4
+    WHEN test5 THEN value5
+  END
+$$ LANGUAGE SQL IMMUTABLE PARALLEL SAFE;
