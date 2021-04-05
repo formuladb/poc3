@@ -11,7 +11,7 @@ import { useResourceWithFields } from './useResourceWithFields';
 import { FrmdbResourceWithFields } from '../../core-domain/records';
 
 export interface UseUpsertRecordRet {
-    onUpsertRecord: (data: Partial<Record>, redirectTo?: string) => Promise<void>,
+    onUpsertRecord: (data: Partial<Record>, redirectTo?: string, beforeSave?: (resource, data) => void) => Promise<void>,
     resourceWithFields: FrmdbResourceWithFields,
 }
 export function useUpsertRecord(resource: string): UseUpsertRecordRet {
@@ -34,7 +34,7 @@ export function useUpsertRecord(resource: string): UseUpsertRecordRet {
         }
     }), [resource, url, redirect, translate]);
 
-    const onUpsertRecord = useCallback(async (rec: Partial<Record>, redirectTo?: string) => {
+    const onUpsertRecord = useCallback(async (rec: Partial<Record>, redirectTo?: string, beforeSave?: (resource, data) => void) => {
         let data = cloneDeep(rec);
         console.log('COLS', resourceCols);
         if (resource.indexOf('frmdbvw') < 0) {
@@ -45,6 +45,10 @@ export function useUpsertRecord(resource: string): UseUpsertRecordRet {
                     delete data[col.name];
                 }
             }
+        }
+
+        if (beforeSave) {
+            beforeSave(resource, data);
         }
 
         if (undefined != data['id']) {

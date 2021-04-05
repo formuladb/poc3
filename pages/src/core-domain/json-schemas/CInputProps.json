@@ -879,6 +879,13 @@
                     "format": "frmdb-resource-field-name",
                     "type": "string"
                 },
+                "translate": {
+                    "enum": [
+                        "no",
+                        "yes"
+                    ],
+                    "type": "string"
+                },
                 "variant": {
                     "enum": [
                         "filled",

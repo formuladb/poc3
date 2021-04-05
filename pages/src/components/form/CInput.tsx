@@ -72,6 +72,7 @@ export const CInput = (nP: CInputProps) => {
             validate={validationFn} ><Img /></ImageInput>}
         {nP.cInputType == 'Select' && <SelectInput size={nP.size} resource={nP.resource} source={nP.source} initialValue={nP.initialValue}
             variant={nP.variant} disabled={isDisabled} fullWidth={true}
+            translate={nP.translate}
             choices={nP.choices.map(c => ({ id: c, name: c }))}
             validate={validationFn} />}
         {nP.cInputType == 'Reference' && nP.referenceText &&

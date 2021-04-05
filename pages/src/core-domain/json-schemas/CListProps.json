@@ -100,6 +100,27 @@
             ],
             "type": "object"
         },
+        "ActionREDIRECT": {
+            "additionalProperties": false,
+            "properties": {
+                "actionType": {
+                    "enum": [
+                        "REDIRECT"
+                    ],
+                    "type": "string"
+                },
+                "path": {
+                    "$ref": "#/definitions/UrlPath"
+                },
+                "redirectNextSibling": {
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "actionType"
+            ],
+            "type": "object"
+        },
         "ActionSAVE": {
             "additionalProperties": false,
             "properties": {
@@ -109,12 +130,52 @@
                     ],
                     "type": "string"
                 },
+                "extraActions": {
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/ActionSET"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionREDIRECT"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
                 "label": {
                     "type": "string"
                 }
             },
             "required": [
-                "actionType"
+                "actionType",
+                "extraActions"
+            ],
+            "type": "object"
+        },
+        "ActionSET": {
+            "additionalProperties": false,
+            "properties": {
+                "actionType": {
+                    "enum": [
+                        "SET"
+                    ],
+                    "type": "string"
+                },
+                "source": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": [
+                        "string",
+                        "number"
+                    ]
+                }
+            },
+            "required": [
+                "actionType",
+                "source",
+                "value"
             ],
             "type": "object"
         },
@@ -946,6 +1007,13 @@
                     "format": "frmdb-resource-field-name",
                     "type": "string"
                 },
+                "translate": {
+                    "enum": [
+                        "no",
+                        "yes"
+                    ],
+                    "type": "string"
+                },
                 "variant": {
                     "enum": [
                         "filled",
@@ -1086,6 +1154,24 @@
                 "cInputType",
                 "resource",
                 "source"
+            ],
+            "type": "object"
+        },
+        "UrlPath": {
+            "additionalProperties": false,
+            "properties": {
+                "resource": {
+                    "type": "string"
+                },
+                "resourceId": {
+                    "type": [
+                        "string",
+                        "number"
+                    ]
+                }
+            },
+            "required": [
+                "resource"
             ],
             "type": "object"
         }

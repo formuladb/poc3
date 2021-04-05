@@ -52,10 +52,11 @@ $$ LANGUAGE SQL IMMUTABLE PARALLEL SAFE;
 
 CREATE OR REPLACE FUNCTION IFS(
   test1 boolean, value1 text, 
-  text2 boolean default null, value2 text default null,
-  text3 boolean default null, value3 text default null,
-  text4 boolean default null, value4 text default null,
-  text5 boolean default null, value5 text default null
+  test2 boolean default null, value2 text default null,
+  test3 boolean default null, value3 text default null,
+  test4 boolean default null, value4 text default null,
+  test5 boolean default null, value5 text default null,
+  test6 boolean default null, value6 text default null
 ) RETURNS text AS $$
   SELECT CASE
     WHEN test1 THEN value1
@@ -63,5 +64,6 @@ CREATE OR REPLACE FUNCTION IFS(
     WHEN test3 THEN value3
     WHEN test4 THEN value4
     WHEN test5 THEN value5
+    WHEN test6 THEN value6
   END
 $$ LANGUAGE SQL IMMUTABLE PARALLEL SAFE;

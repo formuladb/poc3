@@ -95,10 +95,28 @@ export type ListAction =
 ;
 
 
+export interface ActionSET {
+    actionType: 'SET';
+    source: string;
+    value: string | number;
+}
+
+export type IdType = string | number;
+export interface UrlPath {
+    resource: string;
+    resourceId?: IdType;
+}
+
+export interface ActionREDIRECT {
+    actionType: 'REDIRECT';
+    redirectNextSibling?: boolean;
+    path?: UrlPath;
+}
+
 export interface ActionSAVE {
     actionType: 'SAVE';
     label?: string;
-    redirectNextSibling?: boolean;
+    extraActions: (ActionSET | ActionREDIRECT)[];
 }
 export interface ActionDELETE {
     actionType: 'DELETE';
@@ -228,6 +246,7 @@ export interface CInputSelectProps extends CInputPropsBase {
     cInputType: "Select";
     choices: string[];
     initialValue?: string;
+    translate?: "yes" | "no";
 }
 export interface CInputSelectNode extends PageNodeBase, CInputSelectProps {
     _tag: 'CInput';

@@ -13,7 +13,7 @@ import { useLocation, useRouteMatch } from 'react-router-dom';
 import { parseLocation } from '../editor/Topbar.utils';
 import { useUpsertRecord } from './useUpsertRecord';
 import { FormWithRedirectProps } from 'react-admin';
-import { ActionSAVE, ActionDELETE, CFormProps } from '../../core-domain/page';
+import { ActionSAVE, ActionDELETE, CFormProps, ActionREDIRECT, ActionSET } from '../../core-domain/page';
 import CFormPropsSchema from '../../core-domain/json-schemas/CFormProps.json';
 import { CmpSettings } from '../editor/CmpSettings';
 import { JSONSchema7 } from 'json-schema';
@@ -92,10 +92,24 @@ export const RawForm = ({
         return enabledActions?.find(act => act.actionType === "SAVE") as ActionSAVE | undefined;
     }, [enabledActions]);
     const redirectOnSave = useMemo(() => {
-        return saveAction?.redirectNextSibling && nextSiblingResourceId ?
-            url.replace(/\/[^\/]+$/, `/${nextSiblingResourceId}`)
-            : undefined;
+        const redirectOnSaveAct = saveAction?.extraActions?.find(act => act.actionType === "REDIRECT") as ActionREDIRECT | undefined;
+        if (redirectOnSaveAct?.redirectNextSibling && nextSiblingResourceId) {
+            return url.replace(/\/[^\/]+$/, `/${nextSiblingResourceId}`);
+        } else if (redirectOnSaveAct?.path) {
+            const path = redirectOnSaveAct?.path;
+            return `/${path.resource}/${path.resourceId}`;
+        }
+        
+        return undefined;
     }, [saveAction, nextSiblingResourceId]);
+
+    const beforeSave = useCallback((resource: string, data: Record) => {
+        const setAction = saveAction?.extraActions?.find(act => act.actionType === "SET") as ActionSET | undefined;
+        if (setAction) {
+            data[setAction.source] = setAction.value;
+        }
+    }, [saveAction]);
+
     const deleteAction: ActionDELETE | undefined = useMemo(() => {
         return enabledActions?.find(act => act.actionType === "DELETE") as ActionDELETE | undefined;
     }, [enabledActions]);
@@ -105,7 +119,7 @@ export const RawForm = ({
         if (refToParentListFieldName && parentResourceId) {
             data[refToParentListFieldName] = parentResourceId;
         }
-        onUpsertRecord(data, redirectOnSave);
+        onUpsertRecord(data, redirectOnSave, beforeSave);
         if (onSave) onSave(data, true);
     }, [refToParentListFieldName, parentResourceId, redirectOnSave]);
 
