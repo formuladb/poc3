@@ -21,7 +21,8 @@ migrate_postgres_db_Time=`fctLogTime migrate_postgres_db.time`
 echo "## migrate.sh #################################################################"
 
 if [ $frmdbMigrTime -gt $migrate_frmdb_db_Time ]; then 
-    migrate_frmdb_db.sh && touch migrate_frmdb_db.time
+    migrate_frmdb_db.sh
+    [ $? -eq 0 ] && touch migrate_test_db.time
 fi
 if [ $frmdbMigrTime -gt $migrate_test_db_Time -o $resourcesMigrTime -gt $migrate_test_db_Time ]; then 
     migrate_test_db.sh

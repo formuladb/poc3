@@ -22,7 +22,7 @@ BEGIN;
     PREPARE my_thrower AS INSERT INTO test (id, enumcol) VALUES (1, 'C');
     SELECT throws_ilike(
         'my_thrower',
-        '%violates check constraint "test_enumcol_ck"'
+        '%violates check constraint "test__enumcol__ck"'
     );
 
     SELECT * FROM finish();

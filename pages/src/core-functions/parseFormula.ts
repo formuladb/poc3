@@ -1,6 +1,5 @@
 import { Expression } from "jsep";
 import * as jsep from 'jsep';
-jsep.addLiteral('@', '@');
 jsep.removeBinaryOp('==');
 jsep.removeBinaryOp('===');
 jsep.removeBinaryOp('!==');

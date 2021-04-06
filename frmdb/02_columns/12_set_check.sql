@@ -14,7 +14,7 @@ BEGIN
         v_existing_check varchar;
         v_to_add boolean := false;
     BEGIN
-        v_constraint_name := p_table_name || '_' || p_col_name || '_ck';
+        v_constraint_name := p_table_name || '__' || p_col_name || '__ck';
 
         SELECT check_clause INTO v_existing_check FROM information_schema.check_constraints
             WHERE constraint_name = v_constraint_name;

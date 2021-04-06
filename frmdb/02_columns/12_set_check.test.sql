@@ -12,10 +12,10 @@ BEGIN;
         $$ VALUES (true) $$
     );
     SELECT col_has_check( 'public', 'test', 'col', '' );
-    select check_clause from information_schema.check_constraints where constraint_name = 'test_col_ck';
+    select check_clause from information_schema.check_constraints where constraint_name = 'test__col__ck';
     SELECT results_eq(
         $$ SELECT check_clause::varchar collate "C" FROM information_schema.check_constraints
-            WHERE constraint_schema = 'public' AND constraint_name = 'test_col_ck' $$,
+            WHERE constraint_schema = 'public' AND constraint_name = 'test__col__ck' $$,
         $$ SELECT '(is_not_null(col))'::varchar collate "C" $$
     );
     SELECT results_eq(
@@ -29,7 +29,7 @@ BEGIN;
     );
     SELECT results_eq(
         $$ SELECT check_clause::varchar collate "C" FROM information_schema.check_constraints
-            WHERE constraint_schema = 'public' AND constraint_name = 'test_col_ck' $$,
+            WHERE constraint_schema = 'public' AND constraint_name = 'test__col__ck' $$,
         $$ SELECT '(_and(is_not_null(col), gt(col, 0)))'::varchar collate "C" $$
     );
     SELECT results_eq(
