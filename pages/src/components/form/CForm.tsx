@@ -22,6 +22,7 @@ import { groupByUniqProp } from '../utils';
 import { useValidators } from './useValidators';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import { PrintButton } from '../list/buttons/PrintButton';
+import { getValueOrFormula, isFormula } from '../../core-functions/evaluateFormula';
 
 export function CForm({
     children = null as null | React.ReactNode,
@@ -91,6 +92,12 @@ export const RawForm = ({
     const saveAction: ActionSAVE | undefined = useMemo(() => {
         return enabledActions?.find(act => act.actionType === "SAVE") as ActionSAVE | undefined;
     }, [enabledActions]);
+    const saveButtonLabel = useMemo(() => {
+        if (isFormula(saveAction?.label)) { 
+            return getValueOrFormula(record || {id: null}, saveAction?.label);
+        }
+        return saveAction?.label;
+    }, [record, saveAction])
     const redirectOnSave = useMemo(() => {
         const redirectOnSaveAct = saveAction?.extraActions?.find(act => act.actionType === "REDIRECT") as ActionREDIRECT | undefined;
         if (redirectOnSaveAct?.redirectNextSibling && nextSiblingResourceId) {
@@ -177,7 +184,7 @@ export const RawForm = ({
                                     <SaveButton
                                         saving={formProps.saving}
                                         handleSubmitWithRedirect={formProps.handleSubmitWithRedirect}
-                                        label={saveAction?.label}
+                                        label={saveButtonLabel}
                                     />
                                     {extraActions &&
                                         <ButtonGroup color="primary" aria-label="outlined primary button group">

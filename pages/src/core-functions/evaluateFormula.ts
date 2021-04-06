@@ -1,4 +1,3 @@
-export default "tbd";
 import { ScalarFunctions }  from "./ScalarFunctions";
 // import * as ActionFunctions from "./ActionFunctions";
 import { $e2s, parseFormula } from "./parseFormula";
@@ -118,4 +117,14 @@ export function evaluateFormula(obj: {}, scalarFormula: string) {
         formulaCache.set(scalarFormula, compiledFunction);
     }
     return compiledFunction.functionBoundToContext(obj);
+}
+
+export function getValueOrFormula(obj: {}, value: any) {
+    if (isFormula(value)) {
+        return evaluateFormula(obj, value);
+    } else return value;
+}
+
+export function isFormula(value: any) {
+    return typeof value === "string" && value.indexOf('(') >= 0;
 }
