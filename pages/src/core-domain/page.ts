@@ -279,7 +279,18 @@ export interface CInputLookupNode extends PageNodeBase, CInputLookupProps {
     _tag: 'CInput';
 }
 
-export type CInputProps =
+
+export interface CInputFormulaProps extends CInputPropsBase {
+    cInputType: "Formula";
+    formula: string;
+    field: CInputPropsNoFormulas;
+}
+export interface CInputFormulaNode extends PageNodeBase, CInputFormulaProps {
+    _tag: 'CInput';
+}
+
+
+export type CInputPropsNoFormulas =
     | CInputTextFieldProps
     | CInputBooleanFieldProps
     | CInputChipFieldProps
@@ -298,6 +309,11 @@ export type CInputProps =
     | CInputLookupProps
     ;
 
+export type CInputProps =
+    | CInputPropsNoFormulas
+    | CInputFormulaProps
+;
+
 export type CInputNode =
     | CInputTextFieldNode
     | CInputBooleanFieldNode
@@ -315,6 +331,7 @@ export type CInputNode =
     | CInputSelectNode
     | CInputReferenceNode
     | CInputLookupNode
+    | CInputFormulaNode
     ;
 
 export interface CFormProps {

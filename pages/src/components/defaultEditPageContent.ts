@@ -1,6 +1,6 @@
 import { DEFAULT_COLS, ResourceFieldDef } from "../core-domain/fields";
 import { FrmdbResourceWithFields } from "../core-domain/records";
-import { CInputProps, PageNode } from "../core-domain/page";
+import { CInputFormulaProps, CInputProps, CInputReferenceProps, CInputUrlFieldProps, PageNode } from "../core-domain/page";
 import { isFieldRequired } from "../core-functions/validateAndConvertFields";
 
 export function defaultEditPageContent(
@@ -51,17 +51,33 @@ export function defaultEditPageFields(
 }
 
 export function getCInputPropsFromFieldDef(resource: string, fieldDef: ResourceFieldDef) {
-    return {
-        cInputType: fieldDef.c_reference_to ? "Reference" : fieldDef.type,
-        resource: resource,
-        source: fieldDef.name,
-        variant: "standard",
-        disabled: fieldDef.c_is_computed,
-        reference: fieldDef.c_reference_to ? fieldDef.c_reference_to : undefined,
-        c_check: fieldDef.c_check,
-        c_default: fieldDef.c_default,
-        c_formula: fieldDef.c_formula,
-    } as CInputProps
+    if (fieldDef.c_reference_to) {
+        const ret: CInputReferenceProps = {
+            cInputType: "Reference",
+            resource: resource,
+            source: fieldDef.name,
+            disabled: fieldDef.c_is_computed,
+            reference: fieldDef.c_reference_to,
+        };
+        return ret;
+
+    } else if (fieldDef.name.indexOf('url__') === 0) {
+        const ret: CInputUrlFieldProps = {
+            cInputType: "UrlField",
+            resource: resource,
+            source: fieldDef.name,
+            disabled: fieldDef.c_is_computed,
+        };
+        return ret;
+    } else {
+        const ret: Exclude<CInputProps, CInputReferenceProps | CInputFormulaProps> = {
+            cInputType: fieldDef.type,
+            resource: resource,
+            source: fieldDef.name,
+            disabled: fieldDef.c_is_computed,
+        };
+        return ret;
+    }
 }
 
 export function getDefaultReferenceText(referenceWithFields: FrmdbResourceWithFields): string {

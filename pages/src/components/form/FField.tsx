@@ -19,6 +19,7 @@ import { makeStyles } from '@material-ui/core';
 
 import { FieldType } from "../../core-domain/fields";
 import { CInputProps } from '../../core-domain/page';
+import { FormulaField } from './FormulaField';
 
 const useStyles = makeStyles({
     imageField: {
@@ -52,5 +53,6 @@ export function FField({ field, ...props }: { field: CInputProps, record? }) {
             <ReferenceField source={field.source}  {...props} reference={field.reference} >
                 <TextField source={field.referenceText} />
             </ReferenceField>}
+        { field.cInputType == 'Formula' && <FormulaField field={field} {...props} />}
     </>);
 }

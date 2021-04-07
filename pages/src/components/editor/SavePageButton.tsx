@@ -30,7 +30,7 @@ export default ({ pageId, pageIcon }) => {
         dataProvider.create("frmdb_pages", {
             data: {
                 id: pageId,
-                icon: pageIcon,
+                // icon: pageIcon,
                 content: mapToTree(ROOT_NODE, serializedNodes[ROOT_NODE], serializedNodes)
             }
         })
