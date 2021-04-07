@@ -8,7 +8,7 @@ import Popper from '@material-ui/core/Popper';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { Fab } from '@material-ui/core';
-import { RawForm, RawFormProps } from '../../form/CForm';
+import { RawForm, RawFormProps } from '../../form/RawForm';
 import { CInputProps, CListProps } from '../../../core-domain/page';
 import { CInput } from '../../form/CInput';
 import { useResourceWithFields } from '../../form/useResourceWithFields';

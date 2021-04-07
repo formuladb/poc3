@@ -14,6 +14,7 @@ import { RawFormContext, RawFormContextData, useRawFormContext } from "./useRawF
 import { useResourceWithFields } from "./useResourceWithFields";
 import { getDefaultReferenceText } from "../defaultEditPageContent";
 import { useInitialValueResolver } from "./useInitialValueResolver";
+import { useUrlParamsRecordFields } from "./useUrlParamsRecordFields";
 
 const DefaultRefState = {
     reference: undefined as undefined | string,
@@ -140,13 +141,15 @@ export function FReferenceInput({
         [sortField, sortOrder]);
     
     const initialValueResolver = useInitialValueResolver();
-    const initialValue = initialValueResolver(nP);
+    const initialValueResolved = initialValueResolver(nP);
+    const recordFieldsInUrl = useUrlParamsRecordFields();
+    const initialValue = initialValueResolved || recordFieldsInUrl[nP.source];
 
     const filterToQuery = searchText => ({ 
         ...extraFilter,
         [`${referenceText}@ilike`]: searchText,
     });
-            
+
     return (
         <ReferenceInput key={referenceText} resource={nP.resource} source={nP.source}
             reference={nP.reference}
@@ -168,6 +171,8 @@ export function FReferenceInput({
                     optionText={choice => referenceText ? (choice?.[referenceText]||'') + '' : ''}
                     fullWidth={true} optionValue="id"
                     onSelect={(selectedItem) => propagateValueChange(selectedItem)}
+                    initialInputValue={initialValue}
+                    inputValue={initialValue}
                 />
             }
         </ReferenceInput>

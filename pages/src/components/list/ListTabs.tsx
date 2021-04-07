@@ -1,5 +1,5 @@
 import React, { ReactText, useEffect } from 'react';
-import { RawForm } from '../form/CForm';
+import { RawForm } from '../form/RawForm';
 import { Tabs, Tab, AppBar, Paper } from '@material-ui/core';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
