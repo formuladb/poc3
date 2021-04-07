@@ -9,6 +9,7 @@ import {
     useTranslate,
     useListContext,
     useDataProvider,
+    BulkDeleteButton,
 } from 'react-admin';
 import { Card, CardContent } from '@material-ui/core';
 import { makeStyles, Snackbar } from '@material-ui/core';
@@ -147,6 +148,7 @@ export function ListPage({
             classes={{ root: classes.root, main: classes.content }}
             pagination={pageNodeProps?.noPagination ? false : <FdbPagination largePages={pageNodeProps?.largePages} />}
             perPage={pageNodeProps?.largePages ? 200 : 10}
+            bulkActionButtons={<BulkDeleteButton />}
             exporter={exporter}
             {...props}
         >

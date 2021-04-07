@@ -217,6 +217,7 @@ BEGIN
 
     IF (TG_OP = 'DELETE' ) THEN
         RAISE NOTICE '% ROLLUP_dst_r: %', v_in, TG_ARGV;
+        RETURN OLD;
     ELSIF TG_OP = 'INSERT' THEN
         RAISE NOTICE '% ROLLUP_dst_r: %, %', v_in, TG_ARGV, NEW;
 

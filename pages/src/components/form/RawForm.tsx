@@ -75,7 +75,7 @@ export const RawForm = ({
         }
         onUpsertRecord(data, redirectOnSave, beforeSave);
         if (onSave) onSave(data, true);
-    }, [refToParentListFieldName, parentResourceId, redirectOnSave]);
+    }, [refToParentListFieldName, parentResourceId, redirectOnSave, resourceWithFields, onUpsertRecord]);
 
     const fieldDefsByName = groupByUniqProp(resourceWithFields.field_defs, 'name');
     const validators = useValidators(resource, fieldDefsByName, record == undefined);
@@ -103,7 +103,8 @@ export const RawForm = ({
     const formContext: RawFormContextData = {
         isCreate: record == undefined,
         resource,
-        record: record || recordFieldsInUrl,
+        record,
+        recordFieldsInUrl,
         fieldDefsByName,
         inputs,
         addInput
@@ -113,7 +114,7 @@ export const RawForm = ({
         <RawFormContext.Provider value={formContext}>
             <FormWithRedirect
                 save={save}
-                record={record || recordFieldsInUrl}
+                record={record}
                 validate={validateForm}
                 render={formProps => (
                     // here starts the custom form layout

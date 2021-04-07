@@ -7,6 +7,7 @@ export interface RawFormContextData {
     isCreate: boolean;
     resource: string;
     record: Record | undefined;
+    recordFieldsInUrl: Partial<Record> | undefined;
     fieldDefsByName: {[source: string]: ResourceFieldDef};
     inputs: {[name: string]: CInputProps};
     addInput(name: string, props: CInputProps);

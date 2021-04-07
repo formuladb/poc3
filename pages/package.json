@@ -34,7 +34,7 @@
     "ra-language-greek": "^0.1.6",
     "ra-language-romanian": "git+https://github.com/acristu/ra-language-romanian.git",
     "react": "^16.13.1",
-    "react-admin": "^3.12.1",
+    "react-admin": "^3.14.2",
     "react-contenteditable": "^3.3.5",
     "react-debounce-render": "^7.0.0",
     "react-dom": "^16.13.1",

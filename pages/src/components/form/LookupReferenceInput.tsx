@@ -142,13 +142,19 @@ export function FReferenceInput({
     
     const initialValueResolver = useInitialValueResolver();
     const initialValueResolved = initialValueResolver(nP);
-    const recordFieldsInUrl = useUrlParamsRecordFields();
-    const initialValue = initialValueResolved || recordFieldsInUrl[nP.source];
+    const initialValueStr: string | undefined = initialValueResolved || rawFormContext.recordFieldsInUrl?.[nP.source];
+    //WARN: the id might be only digits but still of type string 
+    const initialValue = initialValueStr && initialValueStr.match(/^\d+$/) ? parseInt(initialValueStr) : initialValueStr;
 
     const filterToQuery = searchText => ({ 
         ...extraFilter,
         [`${referenceText}@ilike`]: searchText,
     });
+
+    const optionTextFn = useCallback(choice => {
+        const ret = referenceText ? (choice?.[referenceText]||'') + '' : ''
+        return ret;
+    }, [referenceText]);
 
     return (
         <ReferenceInput key={referenceText} resource={nP.resource} source={nP.source}
@@ -156,23 +162,21 @@ export function FReferenceInput({
             variant={nP.variant} disabled={nP.disabled} fullWidth={true}
             filterToQuery={filterToQuery}
             validate={validate}
-            initialValue={initialValue}
+            defaultValue={initialValue}
             sort={sort}
         >
             {nP.referenceInputType === "radio_button" ?
                 <RadioButtonGroupInput key="radio_button" 
-                    optionText={choice => referenceText ? (choice?.[referenceText]||'') + '' : ''}
+                    optionText={optionTextFn}
                     fullWidth={true} optionValue="id"
                     onSelect={(selectedItem) => propagateValueChange(selectedItem)}
                     row={nP.layout === "single_row" ? true : false}
                 />
                 :
                 <AutocompleteInput key="autocomplete" 
-                    optionText={choice => referenceText ? (choice?.[referenceText]||'') + '' : ''}
+                    optionText={optionTextFn}
                     fullWidth={true} optionValue="id"
                     onSelect={(selectedItem) => propagateValueChange(selectedItem)}
-                    initialInputValue={initialValue}
-                    inputValue={initialValue}
                 />
             }
         </ReferenceInput>

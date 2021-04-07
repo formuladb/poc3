@@ -17,7 +17,6 @@ export interface UseUpsertRecordRet {
 export function useUpsertRecord(resource: string): UseUpsertRecordRet {
 
     const resourceWithFields = useResourceWithFields(resource);
-    const resourceCols = resourceWithFields ? resourceWithFields.field_defs : [];
     const dataProvider = useDataProvider();
     const notify = useNotify();
 
@@ -36,9 +35,8 @@ export function useUpsertRecord(resource: string): UseUpsertRecordRet {
 
     const onUpsertRecord = useCallback(async (rec: Partial<Record>, redirectTo?: string, beforeSave?: (resource, data) => void) => {
         let data = cloneDeep(rec);
-        console.log('COLS', resourceCols);
         if (resource.indexOf('frmdbvw') < 0) {
-            for (let col of resourceCols) {
+            for (let col of (resourceWithFields.field_defs || [])) {
                 // id col is needed for Upsert functionality on the server, we must not delete it
                 let keepIdCol = col.name === "id" && undefined != data['id'];
                 if ((col.c_is_computed == true || col.c_formula) && !keepIdCol) {
@@ -67,7 +65,7 @@ export function useUpsertRecord(resource: string): UseUpsertRecordRet {
             redirect(redirectTo);
         }
 
-    }, [resource, resourceWithFields, resourceCols, dataProvider, dataProviderOpts]);
+    }, [resource, resourceWithFields, dataProvider, dataProviderOpts]);
 
     return { onUpsertRecord, resourceWithFields };
 }

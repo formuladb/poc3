@@ -28,7 +28,6 @@ import { CInputProps } from '../../core-domain/page';
 import CInputPropsSchema from '../../core-domain/json-schemas/CInputProps.json';
 import { useRawFormContext } from './useRawFormContext';
 import { useValidators } from './useValidators';
-import { useInitialValueResolver } from './useInitialValueResolver';
 
 export const CInput = (nP: CInputProps) => {
     const { query } = useEditor();
@@ -43,33 +42,34 @@ export const CInput = (nP: CInputProps) => {
     const validationFn = validators[nP.source];
     const fieldDef = rawFormContext.fieldDefsByName[nP.source];
     const isDisabled = nP.disabled || fieldDef?.c_is_computed || nP.source === "id";
+    const initialValueFromUrl = rawFormContext.recordFieldsInUrl?.[nP.source];
 
     return <Grid item md={nP.width || 3} className="" ref={connect}>
-        {nP.cInputType == 'TextField' && <TextInput size={nP.size} resource={nP.resource} source={nP.source} initialValue={nP.initialValue}
+        {nP.cInputType == 'TextField' && <TextInput size={nP.size} resource={nP.resource} source={nP.source} initialValue={nP.initialValue || initialValueFromUrl}
             variant={nP.variant} disabled={isDisabled} fullWidth={true} multiline={nP.multiline}
             validate={validationFn} />}
-        {nP.cInputType == 'RichTextField' && <RichTextInput size={nP.size} resource={nP.resource} source={nP.source} initialValue={nP.initialValue}
+        {nP.cInputType == 'RichTextField' && <RichTextInput size={nP.size} resource={nP.resource} source={nP.source} initialValue={nP.initialValue || initialValueFromUrl}
             variant={nP.variant} disabled={isDisabled} fullWidth={true}
             options={nP.disabled ? {
                 modules: { toolbar: false }, readOnly: true,
             } : undefined}
             validate={validationFn} />}
-        {nP.cInputType == 'NumberField' && <NumberInput size={nP.size} resource={nP.resource} source={nP.source} initialValue={nP.initialValue}
+        {nP.cInputType == 'NumberField' && <NumberInput size={nP.size} resource={nP.resource} source={nP.source} initialValue={nP.initialValue || initialValueFromUrl}
             variant={nP.variant} disabled={isDisabled} fullWidth={true}
             validate={validationFn} />}
-        {nP.cInputType == 'DateField' && <DateInput size={nP.size} resource={nP.resource} source={nP.source} initialValue={nP.initialValue}
+        {nP.cInputType == 'DateField' && <DateInput size={nP.size} resource={nP.resource} source={nP.source} initialValue={nP.initialValue || initialValueFromUrl}
             variant={nP.variant} disabled={isDisabled} fullWidth={true}
             validate={validationFn} />}
-        {nP.cInputType == 'DateTimeField' && <DateTimeInput size={nP.size} resource={nP.resource} source={nP.source} initialValue={nP.initialValue}
+        {nP.cInputType == 'DateTimeField' && <DateTimeInput size={nP.size} resource={nP.resource} source={nP.source} initialValue={nP.initialValue || initialValueFromUrl}
             variant={nP.variant} disabled={isDisabled} fullWidth={true}
             validate={validationFn} />}
-        {nP.cInputType == 'BooleanField' && <NullableBooleanInput size={nP.size} resource={nP.resource} source={nP.source} initialValue={nP.initialValue}
+        {nP.cInputType == 'BooleanField' && <NullableBooleanInput size={nP.size} resource={nP.resource} source={nP.source} initialValue={nP.initialValue || initialValueFromUrl}
             variant={nP.variant} disabled={isDisabled} fullWidth={true}
             validate={validationFn} />}
         {nP.cInputType == 'ImageField' && <ImageInput resource={nP.resource} source={nP.source}
             variant={nP.variant} disabled={isDisabled} fullWidth={true}
             validate={validationFn} ><Img /></ImageInput>}
-        {nP.cInputType == 'Select' && <SelectInput size={nP.size} resource={nP.resource} source={nP.source} initialValue={nP.initialValue}
+        {nP.cInputType == 'Select' && <SelectInput size={nP.size} resource={nP.resource} source={nP.source} initialValue={nP.initialValue || initialValueFromUrl}
             variant={nP.variant} disabled={isDisabled} fullWidth={true}
             translate={nP.translate}
             choices={nP.choices.map(c => ({ id: c, name: c }))}

@@ -45,7 +45,7 @@ export const ListTable = ({
         {!mdScreen && <MobileTable fields={fields} editable={editable} />}
         {mdScreen &&
             (!isSubListOf ?
-                <Datagrid {...props}>
+                <Datagrid hasBulkActions={true} {...props}>
                     {editable && !isSubListOf && <GoToEditPageButton resource={resource} />}
                     {fields.map(field => {
                         return <FieldWrapper label={getFieldLabel(resource, field)} field={field} key={field.source} />
