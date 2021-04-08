@@ -2,7 +2,6 @@
 --####################################################################################
 --####################################################################################
 --####################################################################################
-
 DO $migration$ BEGIN
     CREATE OR REPLACE FUNCTION frmdb_put_column_VLOOKUP(
         p_table_name regclass, 
@@ -61,6 +60,7 @@ DO $migration$ BEGIN
     END; $fun$ language 'plpgsql';
 END;
 $migration$;
+
 
 --####################################################################################
 --####################################################################################
@@ -122,6 +122,7 @@ BEGIN
                 v_rec.id,
                 v_dst_col_name, v_rec.val
         );
+        RAISE NOTICE '% VLOOKUP_src_s: %', v_in, TRIM(v_stm);
         EXECUTE v_stm;
         RAISE NOTICE '% VLOOKUP_src_s: %', v_in, TRIM(v_stm);
 
@@ -130,7 +131,6 @@ BEGIN
     RETURN NULL; -- result is ignored since this is an AFTER trigger
 END;
 $fun$ LANGUAGE plpgsql;
-
 
 
 

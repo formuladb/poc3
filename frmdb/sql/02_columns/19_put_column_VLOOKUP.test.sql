@@ -16,6 +16,7 @@ BEGIN;
         p_filter_expr := $$  src.src_nb < dst.dst_nb $$
     );
 
+    SELECT col_type_is( 'public', 'dst_tbl', 'src_id', 'pg_catalog', 'integer', 'check-type' );
     SELECT col_type_is( 'public', 'dst_tbl', 'dst_nb', 'pg_catalog', 'integer', 'check-type' );
 
     INSERT INTO src_tbl (id, src_join, src_nb) VALUES (123, 'a', 10);

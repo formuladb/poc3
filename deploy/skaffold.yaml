@@ -52,7 +52,7 @@ deploy:
         image_cliutils: registry.formuladb.io/formuladb/febe/formuladb-cliutils
       setValues: 
         ingress.host: frmdb.localhost
-        envtype: development
+        envtype: localdev
       createNamespace: true
 profiles:
 - name: production

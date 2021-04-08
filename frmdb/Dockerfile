@@ -1,10 +1,16 @@
-FROM alpine:3.13.1
+FROM node:lts-alpine
 
 RUN apk add --no-cache postgresql-client git vim openssh curl entr \
     netcat-openbsd less net-tools rsync jq bash findutils
 
-RUN mkdir /frmdb
-ADD . /frmdb/
+COPY package.json /package.json
+RUN npm install
 
-COPY *.sh /bin/
-RUN chmod +x /bin/*sh
+COPY index.ts /index.ts
+
+ADD scripts /scripts
+ADD sql /sql/
+
+RUN chmod +x /scripts/*sh
+
+CMD npm start
