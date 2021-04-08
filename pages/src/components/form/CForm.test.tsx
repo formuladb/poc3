@@ -3,9 +3,9 @@ import {
     fireEvent, prettyDOM
 } from '@testing-library/react';
 import {
-    DataProvider, DataProviderContext, renderWithRedux,
-    GetOneParams,
+    DataProvider, DataProviderContext,
 } from 'react-admin';
+import { renderWithRedux } from 'ra-test';
 import { EditablePage } from "../EditablePage";
 import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';

@@ -3,9 +3,10 @@ import {
     findAllByText, prettyDOM, render, wait, screen
 } from '@testing-library/react';
 import {
-    TestContext, DataProvider, DataProviderContext, renderWithRedux,
+    DataProvider, DataProviderContext,
     Edit, SimpleForm, TextInput, GetOneParams,
 } from 'react-admin';
+import { renderWithRedux } from 'ra-test';
 
 test('basic test', async () => {
     const defaultEditProps = {
