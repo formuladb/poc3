@@ -21,12 +21,9 @@ DO $migration$ BEGIN
         v_constraint_name varchar;
         v_ref_table_name varchar;
     BEGIN
-        v_ctx := format('%s frmdb_put_column_VLOOKUP: p_table_name=%s, p_col_name=%s, p_src_table=%s, p_src_vlookup_col_name=%s, p_src_ref_col_name=%s, p_filter_expr=%s', 
-            v_in, p_table_name, p_col_name, p_src_table, p_src_vlookup_col_name, p_src_ref_col_name, p_filter_expr);
+        v_ctx := format('%s frmdb_put_column_VLOOKUP: p_table_name=%s, p_col_name=%s, p_src_table=%s, p_src_vlookup_col_name=%s, p_dst_join_col_name=%s, p_src_join_col_name=%s, p_filter_expr=%s', 
+            v_in, p_table_name, p_col_name, p_src_table, p_src_vlookup_col_name, p_dst_join_col_name, p_src_join_col_name, p_filter_expr);
         RAISE NOTICE '%', v_ctx;
-
-        --TODO: check that p_src_ref_col_name is a REFERNCE_TO v_dst_table_name, or that v_dst_table_name is GENERATED from p_src_ref_col_name
-        --TODO: compute bulk rollup for existing tables
 
         SELECT data_type::varchar INTO v_col_type
             FROM information_schema.columns

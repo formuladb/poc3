@@ -30,6 +30,8 @@ build:
       cache: {}
   - image: registry.formuladb.io/formuladb/febe/formuladb-deploy_frmdb
     context: ../frmdb
+    sync: 
+      infer: ["**/*"]
     kaniko:
       dockerfile: Dockerfile
       cache: {}
@@ -50,7 +52,7 @@ deploy:
         image_cliutils: registry.formuladb.io/formuladb/febe/formuladb-cliutils
       setValues: 
         ingress.host: frmdb.localhost
-        envtype: dev
+        envtype: development
       createNamespace: true
 profiles:
 - name: production

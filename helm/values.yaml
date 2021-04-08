@@ -1,6 +1,6 @@
 ingress:
   host: null
-envtype: production
+envtype: development
 image_assets: registry.formuladb.io/formuladb/febe/formuladb-assets:b455a7c5@sha256:f79dac552f6c01f55bad0c74ba5e87ee072654a15bf0f1d8d577e65fb3a01609
 image_for_db: registry.formuladb.io/formuladb/febe/dbplv8:12.3-2.3.15-1
 image_for_clitools: registry.formuladb.io/formuladb/febe/formuladb-clitools:0.0.1

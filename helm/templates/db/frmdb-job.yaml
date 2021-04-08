@@ -1,32 +1,59 @@
-# apiVersion: batch/v1
-# kind: Job
-# metadata:
-#   name: deploy-frmdb-{{ .Values.image_deploy_frmdb | regexFind "[^:]+$" | substr 0 10 }}
-#   labels:
-#     app: {{ .Release.Name }}-frmdb-job
-#     appgroup: deploy-jobs
-#     skaffold.dev/run-id: static
-#   annotations:
-#     "helm.sh/hook": post-install,post-upgrade
-#     "helm.sh/hook-delete-policy": hook-succeeded,before-hook-creation
-# spec:
-#   template:
-#     metadata:
-#       labels:
-#         app: {{ .Release.Name }}-frmdb-job
-#     spec:
-#       initContainers:
-#       - name: check-db-ready
-#         image: postgres@sha256:05580d6c8f7bb0566793c7c45ab276458c53c9c31300c046ba6fcbc66598c7b9
-#         command: ['sh', '-c', 'until pg_isready -h db -p 5432 -t 1; do echo waiting for database; sleep 2; done;']
-#       containers:
-#       - name: deploy-frmdb
-#         image: {{ .Values.image_deploy_frmdb }}
-#         command: ["sh", "/frmdb.sh"]
-#         env:
-#         - name: PGPASSWORD
-#           value: postgres
-#       restartPolicy: Never
-#       imagePullSecrets:
-#         - name: regcred
-#   backoffLimit: 1
+{{ if eq .Values.envtype "production" }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: deploy-frmdb
+  labels:
+    app: {{ .Release.Name }}-frmdb-job
+    appgroup: deploy-jobs
+    skaffold.dev/run-id: static
+  annotations:
+    "helm.sh/hook": post-install,post-upgrade
+    "helm.sh/hook-delete-policy": hook-succeeded,before-hook-creation
+spec:
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-frmdb-job
+    spec:
+      initContainers:
+      - name: check-db-ready
+        image: postgres@sha256:05580d6c8f7bb0566793c7c45ab276458c53c9c31300c046ba6fcbc66598c7b9
+        command: ['sh', '-c', 'until pg_isready -h db -p 5432 -t 1; do echo waiting for database; sleep 2; done;']
+      containers:
+      - name: deploy-frmdb
+        image: {{ .Values.image_deploy_frmdb }}
+        command: ["sh", "/bin/migrate_frmdb_db.sh"]
+        env:
+        - name: PGPASSWORD
+          value: postgres
+      restartPolicy: Never
+      imagePullSecrets:
+        - name: regcred
+  backoffLimit: 1
+{{ else }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy-frmdb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: deploy-frmdb
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        service: deploy-frmdb
+    spec:
+      containers:
+      - name: deploy-frmdb
+        image: {{ .Values.image_deploy_frmdb }}
+        command: ["bash", "-c", "trap 'exit' SIGTERM; sleep 5; bash /bin/migrate_frmdb_watch.sh"]
+        env:
+        - name: PGPASSWORD
+          value: postgres
+      imagePullSecrets:
+        - name: regcred
+{{ end }}
