@@ -13,9 +13,7 @@ build:
   - image: registry.formuladb.io/formuladb/febe/formuladb-resources
     context: ../resources
     sync:
-      manual:
-      - src: index.ts
-        dest: /
+      infer: ['sql/**']
     kaniko:
       dockerfile: Dockerfile
       cache: {}

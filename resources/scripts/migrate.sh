@@ -7,7 +7,7 @@ fctLogTime() {
     stat -c %Y "$1" || echo 0
 }
 
-frmdbMigrTime=`fctMigrTime /frmdb`
+frmdbMigrTime=`fctMigrTime /sql`
 bakMigrTime=`fctMigrTime /deploy/00_pg_dump.sql.gz`
 resourcesMigrTime=`fctMigrTime /deploy/apps-resources`
 pagesMigrTime=`fctMigrTime /deploy/apps-pages`

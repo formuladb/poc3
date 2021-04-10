@@ -1,8 +1,8 @@
 BEGIN;
-    SELECT plan( 11 );
+    SELECT plan( 7 );
 
     CREATE TABLE src_tbl (id integer PRIMARY KEY, src_join varchar, src_nb integer);
-    CREATE TABLE dst_tbl (id varchar PRIMARY KEY, dst_join varchar, dst_nb integer);
+    CREATE TABLE dst_tbl (id integer PRIMARY KEY, dst_join varchar, dst_nb integer);
     SELECT has_table( 'public'::name, 'src_tbl'::name );
     SELECT has_table( 'public'::name, 'dst_tbl'::name );
 
@@ -20,22 +20,24 @@ BEGIN;
     SELECT col_type_is( 'public', 'dst_tbl', 'dst_nb', 'pg_catalog', 'integer', 'check-type' );
 
     INSERT INTO src_tbl (id, src_join, src_nb) VALUES (123, 'a', 10);
+    INSERT INTO src_tbl (id, src_join, src_nb) VALUES (124, 'a', 100);
     INSERT INTO dst_tbl (id, dst_join, dst_nb) VALUES (456, 'a', 20);
     SELECT results_eq(
         $$ SELECT * FROM dst_tbl ORDER BY id $$,
-        $$ VALUES ( 1, 'a', 20, 123 ) $$
+        $$ VALUES ( 456, 'a'::varchar, 20, 123 ) $$
     );
 
-    UPDATE src_tbl VALUES SET src_col = 21 WHERE id = 123;
+    UPDATE src_tbl VALUES SET src_nb = 21 WHERE id = 123;
+    SELECT id, dst_join, dst_nb, src_id FROM dst_tbl ORDER BY id;
     SELECT results_eq(
-        $$ SELECT * FROM dst_tbl ORDER BY id $$,
-        $$ VALUES ( 1, 'a', 20, null ) $$
+        $$ SELECT id, dst_join, dst_nb, COALESCE(src_id, 1234567) FROM dst_tbl ORDER BY id $$,
+        $$ VALUES ( 456, 'a'::varchar, 20, 1234567 ) $$
     );
 
-    UPDATE src_tbl VALUES SET src_col = 5 WHERE id = 123;
+    UPDATE src_tbl VALUES SET src_nb = 5 WHERE id = 123;
     SELECT results_eq(
-        $$ SELECT * FROM dst_tbl ORDER BY id $$,
-        $$ VALUES ( 1, 'a', 20, 123 ) $$
+        $$ SELECT id, dst_join, dst_nb, src_id FROM dst_tbl ORDER BY id $$,
+        $$ VALUES ( 456, 'a'::varchar, 20, 123 ) $$
     );
 
     SELECT * FROM finish();

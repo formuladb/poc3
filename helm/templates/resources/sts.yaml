@@ -24,6 +24,7 @@ spec:
         #FIXME: replace with k8s secret
         - { name: JWT_SECRET, value: "asd1238d140dhoicoiqhewodqhed81-312d" }
         - { name: ENVTYPE, value: {{ .Values.envtype }} }
+        - { name: PGPASSWORD,  value: postgres }
         volumeMounts:
           - mountPath: /volume
             name: resources-persistence

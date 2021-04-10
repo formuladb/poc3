@@ -34,8 +34,7 @@ DO $migration$ BEGIN
         END IF;
         RAISE NOTICE '% > frmdb_put_column_VLOOKUP: type of %.% is %.', v_in, p_src_table, p_src_vlookup_col_name, v_col_type;
 
-        PERFORM frmdb_put_column(p_table_name, p_col_name, v_col_type, 
-            format('is_not_null(%I)', p_col_name)::varchar, '0'::varchar);
+        PERFORM frmdb_put_column(p_table_name, p_col_name, v_col_type);
         PERFORM frmdb_set_formula_row_trigger_on_dst(
             '15', --p_prefix
             'BEFORE',
@@ -69,9 +68,9 @@ $migration$;
 CREATE OR REPLACE FUNCTION frmdb_vlookup_src_strg() RETURNS TRIGGER AS $fun$
 DECLARE
     v_src_table_name regclass := TG_ARGV[0];
-    p_src_vlookup_col_name varchar := TG_ARGV[1];
+    v_src_vlookup_col_name varchar := TG_ARGV[1];
     v_dst_table_name regclass := TG_ARGV[2];
-    v_dst_col_name regclass := TG_ARGV[3];
+    v_dst_col_name varchar := TG_ARGV[3];
     v_dst_join_col_name varchar  := TG_ARGV[4];
     v_src_join_col_name varchar  := TG_ARGV[5];
     v_filter_expr varchar := TG_ARGV[6];
@@ -89,24 +88,23 @@ BEGIN
     IF TG_OP = 'DELETE' THEN
         v_loop_stm := format($$ 
             SELECT src.id as id,
-                MIN(%I)
+                MIN(src.%I)
             FROM old_table src 
                 INNER JOIN %I dst ON dst.%I = src.%I
             WHERE (%s)
             GROUP BY src.id
-        $$, p_src_vlookup_col_name,
+        $$, v_src_vlookup_col_name,
             v_dst_table_name, v_dst_join_col_name, v_src_join_col_name,
             v_filter_expr
         );
     ELSIF (TG_OP = 'INSERT' OR TG_OP = 'UPDATE') THEN
         v_loop_stm := format($$ 
-            SELECT src.id as id,
-                MIN(%I) as val
+            SELECT dst.id as id,
+                MIN(src.%I) as val
             FROM new_table src 
-                INNER JOIN %I dst ON dst.%I = src.%I
-            WHERE (%s)
-            GROUP BY src.id
-        $$, p_src_vlookup_col_name,
+                RIGHT OUTER JOIN %I dst ON dst.%I = src.%I AND (%s)
+            GROUP BY dst.id
+        $$, v_src_vlookup_col_name,
             v_dst_table_name, v_dst_join_col_name, v_src_join_col_name,
             v_filter_expr
         );
@@ -117,7 +115,6 @@ BEGIN
         
         v_stm := format($$ UPDATE %I SET %I = %L
             WHERE id = %L
-                AND %I <> %L
         $$, v_dst_table_name, v_dst_col_name, v_rec.val, 
                 v_rec.id,
                 v_dst_col_name, v_rec.val
@@ -143,7 +140,7 @@ DECLARE
     v_src_table_name regclass := TG_ARGV[0];
     v_src_vlookup_col_name varchar := TG_ARGV[1];
     v_dst_table_name regclass := TG_ARGV[2];
-    v_dst_col_name regclass := TG_ARGV[3];
+    v_dst_col_name varchar := TG_ARGV[3];
     v_dst_join_col_name varchar  := TG_ARGV[4];
     v_src_join_col_name varchar  := TG_ARGV[5];
     v_filter_expr varchar := TG_ARGV[6];
@@ -163,14 +160,16 @@ BEGIN
         v_dst_h := hstore(NEW);
 
         v_stm := format($$ 
-            SELECT %I as id, %I as val 
-            FROM %I
-            WHERE %I = %L 
-                AND (%s)
+            SELECT src.id, src.%I as val 
+            FROM %I src
+                INNER JOIN json_populate_record(null::%I, %L) dst 
+                    ON src.%I = dst.%I
+            WHERE (%s)
             LIMIT 1
-        $$, v_src_ref_col_name, v_src_vlookup_col_name, 
+        $$, v_src_vlookup_col_name, 
             v_src_table_name, 
-            v_src_join_col_name, v_dst_h->v_dst_join_col_name, 
+                    v_dst_table_name, row_to_json(NEW),
+                    v_src_join_col_name, v_dst_join_col_name, 
                 v_filter_expr
         );
         RAISE NOTICE '% VLOOKUP_dst_r: v_stm = (%).', v_in, v_stm;
