@@ -2,7 +2,7 @@
 fctMigrate_pages() {
     dbname=$1
     fctH2 "Loaging pages on ${dbname} "
-    for i in /deploy/apps-pages/*.json; do 
+    for i in /volume/pages/*.json; do 
         id=`basename $i | sed -e 's/.json$//'`
         content=`cat $i | sed -e "s/\n/ /g; s/'/''/g;"`
         psql -v ON_ERROR_STOP=1 -e -h db -U postgres -d $dbname -c \

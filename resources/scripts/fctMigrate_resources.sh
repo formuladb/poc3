@@ -4,7 +4,7 @@ fctMigrate_resources() {
 
     fctH2 "Migrating resources on ${dbname} "
     
-    for i in /deploy/apps-resources/*.sql; do 
+    for i in /volume/resources/*.sql; do 
         if [[ $i = *.test.sql ]]; then
             if [ "$dbname" = "test" -o "$dbname" = "dev" ]; then
                 fctH2 "$dbname:$i"

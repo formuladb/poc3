@@ -21,22 +21,22 @@ migrate_postgres_db_Time=`fctLogTime migrate_postgres_db.time`
 echo "## migrate.sh #################################################################"
 
 if [ $frmdbMigrTime -gt $migrate_frmdb_db_Time ]; then 
-    migrate_frmdb_db.sh
+    /scripts/migrate_frmdb_db.sh
     [ $? -eq 0 ] && touch migrate_test_db.time
 fi
 if [ $frmdbMigrTime -gt $migrate_test_db_Time -o $resourcesMigrTime -gt $migrate_test_db_Time ]; then 
-    migrate_test_db.sh
+    /scripts/migrate_test_db.sh
     [ $? -eq 0 ] && touch migrate_test_db.time
 fi
 if [ $frmdbMigrTime -gt $migrate_bak_db_Time -o $bakMigrTime -gt $migrate_bak_db_Time ]; then 
-    migrate_bak_db.sh
+    /scripts/migrate_bak_db.sh
     [ $? -eq 0 ] && touch migrate_bak_db.time
 fi
 if [ $frmdbMigrTime -gt $migrate_dev_db_Time -o $bakMigrTime -gt $migrate_dev_db_Time -o $resourcesMigrTime -gt $migrate_dev_db_Time ]; then 
-    migrate_dev_db.sh
+    /scripts/migrate_dev_db.sh
     [ $? -eq 0 ] && touch migrate_dev_db.time
 fi
 if [ $frmdbMigrTime -gt $migrate_postgres_db_Time -o $bakMigrTime -gt $migrate_postgres_db_Time -o $resourcesMigrTime -gt $migrate_postgres_db_Time -o $pagesMigrTime -gt $migrate_postgres_db_Time ]; then 
-    migrate_postgres_db.sh
+    /scripts/migrate_postgres_db.sh
     [ $? -eq 0 ] && touch migrate_postgres_db.time
 fi

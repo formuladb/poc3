@@ -3,6 +3,7 @@
 // The example below uses values for play.min.io:9000
 
 import * as Minio from 'minio';
+import { spawn } from 'child_process';
 
 var client = new Minio.Client({
     endPoint: 'minio',
@@ -60,4 +61,50 @@ app.put('/upload/:table/:column/:file', async (req: express.Request, res) => {
     res.status(200).end();
 });
 
-app.listen(8080)
+app.listen(8080);
+startDevModeMigration();
+
+// function startGitSync() {
+//     console.log("Starting git-sync each 5 sec");
+//     setInterval(() => {
+//         runCmd('timeout', '30', 'bash', '/scripts/sync-git.sh');
+//     }, 30000)
+// }
+// function startBackupDb() {
+//     console.log("Starting backup-db every day");
+//     setInterval(() => {
+//         runCmd('timeout', '600', 'bash', '/scripts/backup-db.sh');
+//     }, 24 * 3600000)
+// }
+
+function startDevModeMigration() {
+    if (process.env.ENVTYPE === "localdev") {
+        console.log("Starting migration script");
+        runCmd('timeout', '300', 'bash', '/scripts/migrate_watch.sh');    
+    }
+}
+
+function runCmd(cmd: string, ...args: string[]) {
+    var prc = spawn(cmd, args);
+
+    //noinspection JSUnresolvedFunction
+    prc.stdout.setEncoding('utf8');
+    prc.stdout.on('data', function (data) {
+        var str = data.toString()
+        var lines = str.split(/(\r?\n)/g);
+        console.log(lines.join(""));
+    });
+    prc.stderr.on('data', function (data) {
+        var str = data.toString()
+        var lines = str.split(/(\r?\n)/g);
+        console.error(lines.join(""));
+    });
+
+    prc.on('close', function (code) {
+        if (code) console.error('process exit code ' + code);
+    });
+}
+
+process.on('unhandledRejection', (reason, p) => {
+    console.error('Unhandled Rejection at: Promise', p, 'reason:', reason);
+});

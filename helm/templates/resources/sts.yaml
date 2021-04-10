@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: resources
 spec:
@@ -7,7 +7,7 @@ spec:
   selector:
     matchLabels:
       service: resources
-  strategy: {}
+  serviceName: resources
   template:
     metadata:
       labels:
@@ -23,5 +23,26 @@ spec:
         - { name: MINIO_SECRET_KEY, value: "S8wavKlP7DRTo5hXyEsBaCVjpW5qEs0dvcUDlOBcaFJdSSS3zILfoK9rXjfBGlVn" }
         #FIXME: replace with k8s secret
         - { name: JWT_SECRET, value: "asd1238d140dhoicoiqhewodqhed81-312d" }
+        - { name: ENVTYPE, value: {{ .Values.envtype }} }
+        volumeMounts:
+          - mountPath: /volume
+            name: resources-persistence
       imagePullSecrets:
         - name: regcred
+{{ if eq .Values.envtype "production" }}
+  volumeClaimTemplates:
+  - metadata:
+      name: resources-persistence
+    spec:
+      accessModes: [ ReadWriteOnce ]
+      resources:
+        requests:
+          storage: 1Gi
+{{ else }}
+      volumes:
+      - name: resources-persistence
+        persistentVolumeClaim:
+        hostPath:
+          path: /run/desktop/mnt/host/wsl/formuladb-apps/{{ .Release.Namespace }}
+          type: Directory
+{{ end }}
