@@ -13,6 +13,21 @@ spec:
       labels:
         service: resources
     spec:
+      # initContainers:
+      # - name: deploy-bakobj
+      #   image: registry.formuladb.io/formuladb-projects/quizzes/formuladb-deploy_bakobj
+      #   env:
+      #   - { name: MINIO_ACCESS_KEY, value: "2VTDNqA7p9wlkNFgxB" }
+      #   - { name: MINIO_SECRET_KEY, value: "S8wavKlP7DRTo5hXyEsBaCVjpW5qEs0dvcUDlOBcaFJdSSS3zILfoK9rXjfBGlVn" }
+      #   command:
+      #     - /bin/sh
+      #     - -ec
+      #     - |
+      #       /usr/bin/mc config host add myminio http://minio:9000 $MINIO_ACCESS_KEY $MINIO_SECRET_KEY
+      #       /usr/bin/mc mb --ignore-existing myminio/frmdb-bucket;
+      #       /usr/bin/mc policy set download myminio/frmdb-bucket;
+      #       /usr/bin/mc mirror /images myminio/frmdb-bucket/images;
+      #       /usr/bin/mc mirror /objects4resources myminio/frmdb-bucket/objects4resources;    
       containers:
       - name: resources
         image: {{ .Values.image_resources }}
