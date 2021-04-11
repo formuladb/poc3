@@ -36,7 +36,7 @@ DO $migration$ BEGIN
 
         PERFORM frmdb_put_column(p_table_name, p_col_name, v_col_type);
         PERFORM frmdb_set_formula_row_trigger_on_dst(
-            '15', --p_prefix
+            '55', --p_prefix --after ROLLUP
             'BEFORE',
             'frmdb_vlookup_dst_rtrg'::regproc,  --p_trigger_function_name
             p_src_table::regclass,             --p_src_table_name
@@ -155,7 +155,7 @@ BEGIN
     IF (TG_OP = 'DELETE' ) THEN
         RAISE NOTICE '% VLOOKUP_dst_r: %', v_in, TG_ARGV;
         RETURN OLD;
-    ELSIF TG_OP = 'INSERT' THEN
+    ELSIF (TG_OP = 'INSERT' OR TG_OP = 'UPDATE') THEN
         RAISE NOTICE '% VLOOKUP_dst_r: %, %', v_in, TG_ARGV, NEW;
         v_dst_h := hstore(NEW);
 
@@ -176,7 +176,7 @@ BEGIN
         EXECUTE v_stm INTO v_src_rec;
 
         NEW := NEW #= hstore(v_dst_col_name, v_src_rec.val::varchar);  
-        RAISE NOTICE '% VLOOKUP_dst_r: %.', v_in, NEW;
+        RAISE NOTICE '% VLOOKUP_dst_r: %.', v_in, row_to_json(NEW);
         RETURN NEW;
     ELSE --TG_OP = 'UPDATE' THEN
         RETURN NEW;
