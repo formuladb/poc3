@@ -45,7 +45,7 @@ export async function frmdb_sp_table_columns(p_table_name: string): Promise<Reso
             c_is_computed: (!col.c_is_updatable)
                 || (col.c_formula && col.c_formula.indexOf('EXECUTE FUNCTION ') < 0)
                 || (col.c_formula && col.c_formula.indexOf('EXECUTE FUNCTION ') >= 0
-                    && col.c_formula.match(/hlookup|rollup/i))
+                    && col.c_formula.match(/[hv]lookup|rollup/i))
             ,
             c_formula: col.c_formula,
             c_reference_to: col.c_reference_to,
