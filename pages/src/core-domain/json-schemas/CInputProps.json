@@ -48,6 +48,9 @@
         },
         {
             "$ref": "#/definitions/CInputLookupProps"
+        },
+        {
+            "$ref": "#/definitions/CInputFormulaProps"
         }
     ],
     "definitions": {
@@ -403,6 +406,117 @@
             },
             "required": [
                 "cInputType",
+                "resource",
+                "source"
+            ],
+            "type": "object"
+        },
+        "CInputFormulaProps": {
+            "additionalProperties": false,
+            "properties": {
+                "cInputType": {
+                    "enum": [
+                        "Formula"
+                    ],
+                    "type": "string"
+                },
+                "disabled": {
+                    "type": "boolean"
+                },
+                "field": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/CInputTextFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputRichTextFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputBooleanFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputChipFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputDateFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputDateTimeFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputEmailFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputImageFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputFileFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputNumberFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputUrlFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputIntervalFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputJsonProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputSelectProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputReferenceProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputLookupProps"
+                        }
+                    ]
+                },
+                "formula": {
+                    "type": "string"
+                },
+                "resource": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "size": {
+                    "enum": [
+                        "small"
+                    ],
+                    "type": "string"
+                },
+                "source": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "variant": {
+                    "enum": [
+                        "filled",
+                        "outlined",
+                        "standard"
+                    ],
+                    "type": "string"
+                },
+                "width": {
+                    "enum": [
+                        10,
+                        12,
+                        2,
+                        3,
+                        4,
+                        6,
+                        8
+                    ],
+                    "type": "number"
+                }
+            },
+            "required": [
+                "cInputType",
+                "field",
+                "formula",
                 "resource",
                 "source"
             ],

@@ -39,6 +39,7 @@ function preProcessAst(node: Expression) {
             // return evaluateArray(node.elements, context);
 
         case 'BinaryExpression':
+            if (node.operator === "=") node.operator = "==";
             preProcessAst(node.left);
             preProcessAst(node.right);
             break;

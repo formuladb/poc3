@@ -41,7 +41,9 @@ export const RawForm = ({
     }, [enabledActions]);
     const saveButtonLabel = useMemo(() => {
         if (isFormula(saveAction?.label)) { 
-            return getValueOrFormula(record || {id: null}, saveAction?.label);
+            const val = getValueOrFormula(record || {id: null}, saveAction?.label);
+            console.log('XXX', record, saveAction?.label, val);
+            return val;
         }
         return saveAction?.label;
     }, [record, saveAction])
@@ -49,13 +51,13 @@ export const RawForm = ({
         const redirectOnSaveAct = saveAction?.extraActions?.find(act => act.actionType === "REDIRECT") as ActionREDIRECT | undefined;
         if (redirectOnSaveAct?.redirectNextSibling && nextSiblingResourceId) {
             return url.replace(/\/[^\/]+$/, `/${nextSiblingResourceId}`);
-        } else if (redirectOnSaveAct?.path) {
-            const path = redirectOnSaveAct?.path;
-            return `/${path.resource}/${path.resourceId}`;
+        } else if (redirectOnSaveAct?.to) {
+            const to = redirectOnSaveAct?.to;
+            return `/${to.resource}/${record?.[to.referenceField]}`;
         }
         
         return undefined;
-    }, [saveAction, nextSiblingResourceId]);
+    }, [saveAction, nextSiblingResourceId, record]);
 
     const beforeSave = useCallback((resource: string, data: Record) => {
         const setAction = saveAction?.extraActions?.find(act => act.actionType === "SET") as ActionSET | undefined;

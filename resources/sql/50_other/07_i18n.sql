@@ -13,6 +13,8 @@ INSERT INTO frmdb_dictionary (id, en, ro) VALUES
     ('frmdb.action.next', 'Next', 'Următorul'),
     ('frmdb.action.start', 'Start', 'Start'),
     ('frmdb.action.finalize', 'Finalize', 'Finalizare'),
+    ('frmdb.action.results', 'Results', 'Resultate'),
+    ('frmdb.action.result', 'Result', 'Resultat'),
     ('frmdb.action.stop', 'Stop', 'Stop'),
     ('no elements yet', ' . . . (+ for adding)', ' . . . (+ pt a adăuga)')
 ON CONFLICT(id) DO UPDATE SET

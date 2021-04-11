@@ -109,15 +109,29 @@
                     ],
                     "type": "string"
                 },
-                "path": {
-                    "$ref": "#/definitions/UrlPath"
-                },
                 "redirectNextSibling": {
                     "type": "boolean"
+                },
+                "to": {
+                    "additionalProperties": false,
+                    "properties": {
+                        "referenceField": {
+                            "type": "string"
+                        },
+                        "resource": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "referenceField",
+                        "resource"
+                    ],
+                    "type": "object"
                 }
             },
             "required": [
-                "actionType"
+                "actionType",
+                "to"
             ],
             "type": "object"
         },
@@ -1006,6 +1020,239 @@
             },
             "required": [
                 "cInputType",
+                "resource",
+                "source"
+            ],
+            "type": "object"
+        },
+        "CInputFormulaNode": {
+            "additionalProperties": false,
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "_tag": {
+                    "enum": [
+                        "CInput"
+                    ],
+                    "type": "string"
+                },
+                "cInputType": {
+                    "enum": [
+                        "Formula"
+                    ],
+                    "type": "string"
+                },
+                "disabled": {
+                    "type": "boolean"
+                },
+                "field": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/CInputTextFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputRichTextFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputBooleanFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputChipFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputDateFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputDateTimeFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputEmailFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputImageFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputFileFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputNumberFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputUrlFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputIntervalFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputJsonProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputSelectProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputReferenceProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputLookupProps"
+                        }
+                    ]
+                },
+                "formula": {
+                    "type": "string"
+                },
+                "resource": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "size": {
+                    "enum": [
+                        "small"
+                    ],
+                    "type": "string"
+                },
+                "source": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "variant": {
+                    "enum": [
+                        "filled",
+                        "outlined",
+                        "standard"
+                    ],
+                    "type": "string"
+                },
+                "width": {
+                    "enum": [
+                        10,
+                        12,
+                        2,
+                        3,
+                        4,
+                        6,
+                        8
+                    ],
+                    "type": "number"
+                }
+            },
+            "required": [
+                "_id",
+                "_tag",
+                "cInputType",
+                "field",
+                "formula",
+                "resource",
+                "source"
+            ],
+            "type": "object"
+        },
+        "CInputFormulaProps": {
+            "additionalProperties": false,
+            "properties": {
+                "cInputType": {
+                    "enum": [
+                        "Formula"
+                    ],
+                    "type": "string"
+                },
+                "disabled": {
+                    "type": "boolean"
+                },
+                "field": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/CInputTextFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputRichTextFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputBooleanFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputChipFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputDateFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputDateTimeFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputEmailFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputImageFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputFileFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputNumberFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputUrlFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputIntervalFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputJsonProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputSelectProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputReferenceProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputLookupProps"
+                        }
+                    ]
+                },
+                "formula": {
+                    "type": "string"
+                },
+                "resource": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "size": {
+                    "enum": [
+                        "small"
+                    ],
+                    "type": "string"
+                },
+                "source": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "variant": {
+                    "enum": [
+                        "filled",
+                        "outlined",
+                        "standard"
+                    ],
+                    "type": "string"
+                },
+                "width": {
+                    "enum": [
+                        10,
+                        12,
+                        2,
+                        3,
+                        4,
+                        6,
+                        8
+                    ],
+                    "type": "number"
+                }
+            },
+            "required": [
+                "cInputType",
+                "field",
+                "formula",
                 "resource",
                 "source"
             ],
@@ -2463,6 +2710,9 @@
                             },
                             {
                                 "$ref": "#/definitions/CInputLookupProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputFormulaProps"
                             }
                         ]
                     },
@@ -2830,6 +3080,9 @@
                     "$ref": "#/definitions/CInputLookupNode"
                 },
                 {
+                    "$ref": "#/definitions/CInputFormulaNode"
+                },
+                {
                     "$ref": "#/definitions/CFormNode"
                 },
                 {
@@ -2842,24 +3095,6 @@
                     "$ref": "#/definitions/CRowNode"
                 }
             ]
-        },
-        "UrlPath": {
-            "additionalProperties": false,
-            "properties": {
-                "resource": {
-                    "type": "string"
-                },
-                "resourceId": {
-                    "type": [
-                        "string",
-                        "number"
-                    ]
-                }
-            },
-            "required": [
-                "resource"
-            ],
-            "type": "object"
         }
     }
 }

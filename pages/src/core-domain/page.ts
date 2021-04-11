@@ -1,5 +1,6 @@
-import { FieldType } from "./fields";
-
+export interface FormulaInUI {
+    expression: string;
+}
 export interface PageNodeBase {
     readonly _tag: string;
     _id: string;
@@ -101,16 +102,13 @@ export interface ActionSET {
     value: string | number;
 }
 
-export type IdType = string | number;
-export interface UrlPath {
-    resource: string;
-    resourceId?: IdType;
-}
-
 export interface ActionREDIRECT {
     actionType: 'REDIRECT';
     redirectNextSibling?: boolean;
-    path?: UrlPath;
+    to: {
+        resource: string;
+        referenceField: string;
+    } 
 }
 
 export interface ActionSAVE {
