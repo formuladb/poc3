@@ -66,7 +66,7 @@ DECLARE
     v_sync_col3 varchar := TG_ARGV[6];
     v_sync_col4 varchar := TG_ARGV[7];
 
-    v_in varchar := '[' || pg_backend_pid() || '] ' || REPEAT('> ', pg_trigger_depth());
+    v_in varchar := 'GENERATED[' || pg_backend_pid() || ':' || TG_NAME || '] ' || REPEAT('> ', pg_trigger_depth());
     v_stm varchar;
     v_loop_stm varchar;
     v_select_col_list varchar := 'id';
@@ -80,7 +80,7 @@ DECLARE
     v_tmp_arr varchar[];
     v_syn_col_name varchar;
 BEGIN
-    RAISE NOTICE '% GENERATED_src_s: %', v_in, TG_ARGV;
+    RAISE NOTICE '%: %', v_in, TG_ARGV;
 
     IF TG_OP = 'INSERT' OR TG_OP = 'UPDATE' THEN
         FOREACH v_syn_col_name IN ARRAY ARRAY[v_sync_col1, v_sync_col2, v_sync_col3, v_sync_col4] LOOP
@@ -142,9 +142,9 @@ BEGIN
             v_insert_values_list,
             v_insert_on_conflict_list
         );
-        RAISE NOTICE '% GENERATED_src_s: %', v_in, v_stm;
 
         FOR v_rec IN EXECUTE v_loop_stm LOOP
+            RAISE NOTICE '%: %, $*=%', v_in, v_stm, v_rec;
             IF v_sync_col4 IS NOT NULL THEN
                 EXECUTE v_stm USING v_rec.col1, v_rec.col2, v_rec.col3, v_rec.col4, v_rec.col5;
             ELSIF v_sync_col3 IS NOT NULL THEN

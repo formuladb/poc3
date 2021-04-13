@@ -101,7 +101,7 @@ DECLARE
     v_dst_col_name varchar := TG_ARGV[3];
     v_dst_ref_col_name varchar := TG_ARGV[4];
 
-    v_in varchar := '[' || pg_backend_pid()|| ':' || TG_NAME || '] ' || REPEAT('> ', pg_trigger_depth());
+    v_in varchar := 'HLOOKUP[' || pg_backend_pid()|| ':' || TG_NAME || '] ' || REPEAT('> ', pg_trigger_depth());
     v_stm varchar;
     v_loop_stm varchar;
     v_rec RECORD;
@@ -127,7 +127,7 @@ BEGIN
                     v_dst_ref_col_name, v_rec.id,
                     v_dst_col_name, v_rec.src_col_value);
                 EXECUTE v_stm;
-                RAISE NOTICE '%: %.% = %.', v_in, v_dst_table_name, v_dst_col_name, v_rec.src_col_value;
+                RAISE NOTICE '%: %', v_in, v_stm;
 
             END LOOP;
         END IF;
@@ -156,7 +156,7 @@ DECLARE
     v_dst_col_name varchar := TG_ARGV[3];
     v_dst_ref_col_name varchar := TG_ARGV[4];
 
-    v_in varchar := '[' || pg_backend_pid() || ':' || TG_NAME || '] ' || REPEAT('> ', pg_trigger_depth());
+    v_in varchar := 'HLOOKUP[' || pg_backend_pid() || ':' || TG_NAME || '] ' || REPEAT('> ', pg_trigger_depth());
     v_stm varchar;
     v_loop_stm varchar;
     v_dst_h hstore := hstore(NEW);
@@ -179,7 +179,7 @@ BEGIN
                     v_dst_h->v_dst_ref_col_name);
             EXECUTE v_stm INTO v_src_rec;
 
-            RAISE NOTICE '%: %.% = % (%.% = %).', v_in, v_src_table_name, v_src_col_name, v_src_rec.src_col_value, v_dst_table_name, v_dst_ref_col_name, v_dst_h->v_dst_ref_col_name;
+            RAISE NOTICE '%: %', v_in, v_stm;
 
             PERFORM set_config('frmdb_hlookup_trg.src', '', true);
             RETURN NEW #= hstore(v_dst_col_name, v_src_rec.src_col_value::text);  
