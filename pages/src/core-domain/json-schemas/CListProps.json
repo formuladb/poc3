@@ -1420,6 +1420,10 @@
                     "format": "frmdb-resource-field-name",
                     "type": "string"
                 },
+                "pivotYAxisSource": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
                 "refToParentListFieldName": {
                     "format": "frmdb-resource-field-name",
                     "type": "string"
@@ -1466,10 +1470,7 @@
                 "labelSource",
                 "resource",
                 "xAxisSource",
-                "yAxisSource",
-                "yAxisSource2",
-                "yAxisSource3",
-                "yAxisSource4"
+                "yAxisSource"
             ],
             "type": "object"
         },

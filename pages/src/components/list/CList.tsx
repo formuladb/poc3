@@ -21,6 +21,7 @@ import { ListDatagrid } from './ListDatagrid';
 import { ListTable } from './ListTable';
 import { ListTabs } from './ListTabs';
 import { ListFormList } from './ListFormList';
+import { ListChart } from './ListChart';
 import { CmpSettings } from '../editor/CmpSettings';
 import { JSONSchema7 } from 'json-schema';
 import { CmpCraftStatic } from '../utils';
@@ -247,6 +248,10 @@ function RawListInternal(props: CListProps & {
             <ListFormList ids={ids} data={data}
                 resource={resource || resourceFromContext}
                 children={children} />}
+        {ids && ids[0] && nP.cListType == 'Chart' &&
+            <ListChart ids={ids} data={data}
+                resource={resource || resourceFromContext}
+                children={children} {...nP} />}
         {(!ids || !ids[0]) && <span>{translate('no elements yet')}</span>}
     </>;
 }

@@ -101,8 +101,12 @@ export interface CListChartProps extends CListPropsBase {
     chartType: "Line" | "Bar" | "Pie";    
     /**@TJS-format frmdb-resource-field-name */
     xAxisSource: string;
+    
     /**@TJS-format frmdb-resource-field-name */
     yAxisSource: string;
+    /**@TJS-format frmdb-resource-field-name */
+    pivotYAxisSource?: string;
+
     /**@TJS-format frmdb-resource-field-name */
     yAxisSource2?: string;
     /**@TJS-format frmdb-resource-field-name */

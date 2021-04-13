@@ -42,7 +42,6 @@ export const RawForm = ({
     const saveButtonLabel = useMemo(() => {
         if (isFormula(saveAction?.label)) { 
             const val = getValueOrFormula(record || {id: null}, saveAction?.label);
-            console.log('XXX', record, saveAction?.label, val);
             return val;
         }
         return saveAction?.label;
