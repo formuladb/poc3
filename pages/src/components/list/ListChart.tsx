@@ -9,6 +9,9 @@ import {
     PieChart,
     Pie,
     Tooltip,
+    Legend,
+    Cell,
+    PieProps,
 } from 'recharts';
 import { Record } from 'react-admin';
 import { CListChartProps } from '../../core-domain/page';
@@ -20,6 +23,8 @@ interface ListChartProps extends CListChartProps {
     resource: string;
     children: null | React.ReactNode;
 }
+
+const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
 export const ListChart = (props: ListChartProps) => {
     const {
@@ -37,7 +42,7 @@ export const ListChart = (props: ListChartProps) => {
         if (pivotYAxisSource) {
             const groupedData = groupBy(data, xAxisSource);
             const pivotValues = new Set<string>();
-            const chartData: ({ name: string } & object )[] = [];
+            const chartData: ({ name: string } & object)[] = [];
             entries(groupedData).forEach(([k, recs]) => {
                 let ret = { name: k };
                 for (let r of recs) {
@@ -68,7 +73,7 @@ export const ListChart = (props: ListChartProps) => {
     console.log('XXX', data, chartData);
 
     return (<div style={{ width: "65vw", height: "35vh" }}>
-        {"Line" == chartType && <ResponsiveContainer width="100%" height="100%">
+        {"Line" == chartType && <ResponsiveContainer key="Line" width="100%" height="100%">
             <LineChart width={500} height={300} data={chartData}>
                 <XAxis dataKey="name" />
                 <YAxis />
@@ -77,24 +82,24 @@ export const ListChart = (props: ListChartProps) => {
                 {yKey2 && <Line type="monotone" dataKey={yKey2} stroke="#82ca9d" />}
                 {yKey3 && <Line type="monotone" dataKey={yKey3} stroke="#e458e9" />}
                 {yKey4 && <Line type="monotone" dataKey={yKey4} stroke="#ec2121" />}
+                <Tooltip key={xAxisSource} />
+                <Legend />
             </LineChart>
         </ResponsiveContainer>}
         {"Pie" == chartType &&
-            <ResponsiveContainer width="100%" height="100%">
+            <ResponsiveContainer key="Pie" width="100%" height="100%">
                 <PieChart width={400} height={400}>
-                    <Pie dataKey={yKey} isAnimationActive={true} data={chartData}
-                        cx="50%" cy="50%" outerRadius={80} fill="#8884d8" label
-                    />
-                    {yKey2 && <Pie dataKey={yKey2} isAnimationActive={false} data={chartData}
-                        cx="50%" cy="50%" outerRadius={80} fill="#82ca9d" label
-                    />}
-                    {yKey3 && <Pie dataKey={yKey3} isAnimationActive={false} data={chartData}
-                        cx="50%" cy="50%" outerRadius={80} fill="#e458e9" label
-                    />}
-                    {yKey4 && <Pie dataKey={yKey4} isAnimationActive={false} data={chartData}
-                        cx="50%" cy="50%" outerRadius={80} fill="#ec2121" label
-                    />}
+                    {[yKey, yKey2, yKey3, yKey4].map(yK =>
+                        yK && <Pie key={yK} dataKey={yK} isAnimationActive={true} data={chartData}
+                            cx="50%" cy="50%" outerRadius={80} label
+                        >
+                            {chartData.map((entry, index) => (
+                                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                            ))}
+                        </Pie>
+                    )}
                     <Tooltip key={xAxisSource} />
+                    <Legend />
                 </PieChart>
             </ResponsiveContainer>}
     </div>);
