@@ -10,11 +10,11 @@ import {
     ListControllerProps, Record,
 } from 'react-admin';
 import { EditButtonPopoverField } from './buttons/EditButtonPopoverFieldProps';
-import { CListProps } from '../../core-domain/page';
+import { CListPropsBase } from '../../core-domain/page';
 import { ImportButton } from './buttons/ImportButton';
 import { ListContextMemoizer } from './ListContextMemoizer';
 
-type Props = Partial<CListProps> & {
+type Props = Partial<CListPropsBase> & {
     parentResourceId?: string,
     className?,
     filters?,

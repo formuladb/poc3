@@ -14,7 +14,7 @@ import { ClientSideRowModelModule } from "@ag-grid-community/client-side-row-mod
 
 import '@ag-grid-community/core/dist/styles/ag-grid.css';
 import '@ag-grid-community/core/dist/styles/ag-theme-alpine.css';
-import { CInputProps, CListProps } from '../../core-domain/page';
+import { CInputProps, CListPropsBase } from '../../core-domain/page';
 
 import { GoToEditPageButton } from './buttons/GoToEditPageButton';
 import { FField } from '../form/FField';
@@ -23,8 +23,8 @@ import { ListContextMemoizer } from './ListContextMemoizer';
 const HEADER_HEIGHT = 50;
 const ROW_HEIGHT = 40;
 
-type AgDatagridProps = Omit<CListProps, 'cListType'> & {
-    fields: Exclude<CListProps['fields'], undefined>
+type AgDatagridProps = Omit<CListPropsBase, 'cListType'> & {
+    fields: Exclude<CListPropsBase['fields'], undefined>
 } & {
     resourceCols: ResourceFieldDef[],
     onRecordEdited: (data: Record) => void,

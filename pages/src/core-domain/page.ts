@@ -40,17 +40,7 @@ export interface CPageListNode extends CPageNodeBase, CPageListProps {
 export type CPageProps = CPageEditProps | CPageCreateProps | CPageListProps;
 export type CPageNode = CPageEditNode | CPageCreateNode | CPageListNode;
 
-export const CListTypes = {
-    Tabs: 0,
-    // SingleFieldList: 0,
-    Table: 0,
-    Datagrid: 0,
-    FormList: 0,
-    // SimpleList: 0,
-}
-
-export interface CListProps {
-    cListType: keyof typeof CListTypes;
+export interface CListPropsBase {
     /**@TJS-format frmdb-resource-name */
     resource: string;
     /**@TJS-format frmdb-resource-field-name */
@@ -71,6 +61,74 @@ export interface CListProps {
     sortField?: string;
     sortOrder?: 'ASC' | 'DESC';
 }
+
+export interface CListTabsProps extends CListPropsBase {
+    cListType: 'Tabs';
+}
+export interface CListTabsNode extends PageNodeBase, CListTabsProps {
+    _tag: 'CList';
+    children?: PageNode[];
+}
+
+export interface CListTableProps extends CListPropsBase {
+    cListType: 'Table';
+}
+export interface CListTableNode extends PageNodeBase, CListTableProps {
+    _tag: 'CList';
+    children?: PageNode[];
+}
+
+
+export interface CListDatagridProps extends CListPropsBase {
+    cListType: 'Datagrid';
+}
+export interface CListDatagridNode extends PageNodeBase, CListDatagridProps {
+    _tag: 'CList';
+    children?: PageNode[];
+}
+
+export interface CListFormListProps extends CListPropsBase {
+    cListType: 'FormList';
+}
+export interface CListFormListNode extends PageNodeBase, CListFormListProps {
+    _tag: 'CList';
+    children?: PageNode[];
+}
+
+
+export interface CListChartProps extends CListPropsBase {
+    cListType: 'Chart';
+    chartType: "Line" | "Bar" | "Pie";    
+    /**@TJS-format frmdb-resource-field-name */
+    xAxisSource: string;
+    /**@TJS-format frmdb-resource-field-name */
+    yAxisSource: string;
+    /**@TJS-format frmdb-resource-field-name */
+    yAxisSource2: string;
+    /**@TJS-format frmdb-resource-field-name */
+    yAxisSource3: string;
+    /**@TJS-format frmdb-resource-field-name */
+    yAxisSource4: string;
+}
+export interface CListChartNode extends PageNodeBase, CListChartProps {
+    _tag: 'CList';
+    children?: PageNode[];
+}
+
+export type CListProps = 
+    | CListTabsProps
+    | CListTableProps
+    | CListDatagridProps
+    | CListFormListProps
+    | CListChartProps
+;
+export type CListNode = 
+    | CListTabsNode
+    | CListTableNode
+    | CListDatagridNode
+    | CListFormListNode
+    | CListChartNode
+;
 
 interface ActionCREATE {
     actionType: 'CREATE';
@@ -127,10 +185,6 @@ export type FormAction =
     | ActionDELETE
 ;
 
-export interface CListNode extends PageNodeBase, CListProps {
-    _tag: 'CList';
-    children?: PageNode[];
-}
 
 interface GridItemProps {
     width?: 2 | 3 | 4 | 6 | 8 | 10 | 12;

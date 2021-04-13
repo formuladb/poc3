@@ -8,7 +8,7 @@ import {
 } from 'react-admin';
 import { ResourceFieldDef } from '../../core-domain/fields';
 import { FField } from '../form/FField';
-import { CInputProps, CListProps } from '../../core-domain/page';
+import { CInputProps, CListPropsBase } from '../../core-domain/page';
 import { GoToEditPageButton } from './buttons/GoToEditPageButton';
 import { EditButtonPopoverField } from './buttons/EditButtonPopoverFieldProps';
 import { FieldType } from '../../core-domain/fields';
@@ -18,8 +18,8 @@ import { useTraceRenders } from '../../useTraceRenders';
 import { ListContextMemoizer } from './ListContextMemoizer';
 import { DesktopTable } from './DesktopTable';
 
-type ListDatagridProps = CListProps & {
-    fields: Exclude<CListProps['fields'], undefined>,
+type ListDatagridProps = CListPropsBase & {
+    fields: Exclude<CListPropsBase['fields'], undefined>,
     refToParentListFieldName?: string,
     parentResourceId?: string,
 } & {

@@ -28,15 +28,13 @@ import { useLocation } from 'react-router-dom';
 import { parseLocation } from '../editor/Topbar.utils';
 import { Grid } from '@material-ui/core';
 import { useUpsertRecord } from '../form/useUpsertRecord';
-import { CInputProps, CListProps, CListTypes } from '../../core-domain/page';
+import { CListProps } from '../../core-domain/page';
 import CListPropsSchema from '../../core-domain/json-schemas/CListProps.json';
 import { ListActions } from './ListActions';
-import { useTraceRenders } from '../../useTraceRenders';
 import { getCInputPropsFromFieldDef, getDefaultReferenceText } from '../defaultEditPageContent';
 import { useRawFormContext } from '../form/useRawFormContext';
 import { FrmdbResourceWithFields } from '../../core-domain/records';
-import { shallowEquals, shallowEqualsProps } from '../../shallowEqualsProps';
-import { isEqual, omit } from 'lodash';
+import { isEqual } from 'lodash';
 
 export function CList(nP: CListProps & { children: null | React.ReactNode }) {
     const craftNode = useNode();

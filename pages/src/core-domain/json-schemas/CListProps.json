@@ -1,6 +1,22 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "additionalProperties": false,
+    "anyOf": [
+        {
+            "$ref": "#/definitions/CListTabsProps"
+        },
+        {
+            "$ref": "#/definitions/CListTableProps"
+        },
+        {
+            "$ref": "#/definitions/CListDatagridProps"
+        },
+        {
+            "$ref": "#/definitions/CListFormListProps"
+        },
+        {
+            "$ref": "#/definitions/CListChartProps"
+        }
+    ],
     "definitions": {
         "ActionCREATE": {
             "additionalProperties": false,
@@ -1281,148 +1297,746 @@
                 "source"
             ],
             "type": "object"
-        }
-    },
-    "properties": {
-        "cListType": {
-            "enum": [
-                "Datagrid",
-                "FormList",
-                "Table",
-                "Tabs"
+        },
+        "CListChartProps": {
+            "additionalProperties": false,
+            "properties": {
+                "cListType": {
+                    "enum": [
+                        "Chart"
+                    ],
+                    "type": "string"
+                },
+                "chartType": {
+                    "enum": [
+                        "Bar",
+                        "Line",
+                        "Pie"
+                    ],
+                    "type": "string"
+                },
+                "editable": {
+                    "type": "boolean"
+                },
+                "enabledActions": {
+                    "format": "frmdb-multiple-choice",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/ActionCREATE"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionEXPORT"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionIMPORTDATA"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionPRINT"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "fields": {
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/CInputTextFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputRichTextFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputBooleanFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputChipFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputDateFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputDateTimeFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputEmailFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputImageFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputFileFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputNumberFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputUrlFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputIntervalFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputJsonProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputSelectProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputReferenceProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputLookupProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputFormulaProps"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "formActions": {
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/ActionPRINT"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionSAVE"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionDELETE"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "isSubListOf": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "labelSource": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "refToParentListFieldName": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "resource": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "sortField": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "sortOrder": {
+                    "enum": [
+                        "ASC",
+                        "DESC"
+                    ],
+                    "type": "string"
+                },
+                "xAxisSource": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "yAxisSource": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "yAxisSource2": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "yAxisSource3": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "yAxisSource4": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "cListType",
+                "chartType",
+                "labelSource",
+                "resource",
+                "xAxisSource",
+                "yAxisSource",
+                "yAxisSource2",
+                "yAxisSource3",
+                "yAxisSource4"
             ],
-            "type": "string"
+            "type": "object"
         },
-        "editable": {
-            "type": "boolean"
-        },
-        "enabledActions": {
-            "format": "frmdb-multiple-choice",
-            "items": {
-                "anyOf": [
-                    {
-                        "$ref": "#/definitions/ActionCREATE"
+        "CListDatagridProps": {
+            "additionalProperties": false,
+            "properties": {
+                "cListType": {
+                    "enum": [
+                        "Datagrid"
+                    ],
+                    "type": "string"
+                },
+                "editable": {
+                    "type": "boolean"
+                },
+                "enabledActions": {
+                    "format": "frmdb-multiple-choice",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/ActionCREATE"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionEXPORT"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionIMPORTDATA"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionPRINT"
+                            }
+                        ]
                     },
-                    {
-                        "$ref": "#/definitions/ActionEXPORT"
+                    "type": "array"
+                },
+                "fields": {
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/CInputTextFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputRichTextFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputBooleanFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputChipFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputDateFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputDateTimeFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputEmailFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputImageFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputFileFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputNumberFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputUrlFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputIntervalFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputJsonProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputSelectProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputReferenceProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputLookupProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputFormulaProps"
+                            }
+                        ]
                     },
-                    {
-                        "$ref": "#/definitions/ActionIMPORTDATA"
+                    "type": "array"
+                },
+                "formActions": {
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/ActionPRINT"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionSAVE"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionDELETE"
+                            }
+                        ]
                     },
-                    {
-                        "$ref": "#/definitions/ActionPRINT"
-                    }
-                ]
+                    "type": "array"
+                },
+                "isSubListOf": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "labelSource": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "refToParentListFieldName": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "resource": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "sortField": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "sortOrder": {
+                    "enum": [
+                        "ASC",
+                        "DESC"
+                    ],
+                    "type": "string"
+                }
             },
-            "type": "array"
-        },
-        "fields": {
-            "items": {
-                "anyOf": [
-                    {
-                        "$ref": "#/definitions/CInputTextFieldProps"
-                    },
-                    {
-                        "$ref": "#/definitions/CInputRichTextFieldProps"
-                    },
-                    {
-                        "$ref": "#/definitions/CInputBooleanFieldProps"
-                    },
-                    {
-                        "$ref": "#/definitions/CInputChipFieldProps"
-                    },
-                    {
-                        "$ref": "#/definitions/CInputDateFieldProps"
-                    },
-                    {
-                        "$ref": "#/definitions/CInputDateTimeFieldProps"
-                    },
-                    {
-                        "$ref": "#/definitions/CInputEmailFieldProps"
-                    },
-                    {
-                        "$ref": "#/definitions/CInputImageFieldProps"
-                    },
-                    {
-                        "$ref": "#/definitions/CInputFileFieldProps"
-                    },
-                    {
-                        "$ref": "#/definitions/CInputNumberFieldProps"
-                    },
-                    {
-                        "$ref": "#/definitions/CInputUrlFieldProps"
-                    },
-                    {
-                        "$ref": "#/definitions/CInputIntervalFieldProps"
-                    },
-                    {
-                        "$ref": "#/definitions/CInputJsonProps"
-                    },
-                    {
-                        "$ref": "#/definitions/CInputSelectProps"
-                    },
-                    {
-                        "$ref": "#/definitions/CInputReferenceProps"
-                    },
-                    {
-                        "$ref": "#/definitions/CInputLookupProps"
-                    },
-                    {
-                        "$ref": "#/definitions/CInputFormulaProps"
-                    }
-                ]
-            },
-            "type": "array"
-        },
-        "formActions": {
-            "items": {
-                "anyOf": [
-                    {
-                        "$ref": "#/definitions/ActionPRINT"
-                    },
-                    {
-                        "$ref": "#/definitions/ActionSAVE"
-                    },
-                    {
-                        "$ref": "#/definitions/ActionDELETE"
-                    }
-                ]
-            },
-            "type": "array"
-        },
-        "isSubListOf": {
-            "format": "frmdb-resource-name",
-            "type": "string"
-        },
-        "labelSource": {
-            "format": "frmdb-resource-field-name",
-            "type": "string"
-        },
-        "refToParentListFieldName": {
-            "format": "frmdb-resource-field-name",
-            "type": "string"
-        },
-        "resource": {
-            "format": "frmdb-resource-name",
-            "type": "string"
-        },
-        "sortField": {
-            "format": "frmdb-resource-field-name",
-            "type": "string"
-        },
-        "sortOrder": {
-            "enum": [
-                "ASC",
-                "DESC"
+            "required": [
+                "cListType",
+                "labelSource",
+                "resource"
             ],
-            "type": "string"
+            "type": "object"
+        },
+        "CListFormListProps": {
+            "additionalProperties": false,
+            "properties": {
+                "cListType": {
+                    "enum": [
+                        "FormList"
+                    ],
+                    "type": "string"
+                },
+                "editable": {
+                    "type": "boolean"
+                },
+                "enabledActions": {
+                    "format": "frmdb-multiple-choice",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/ActionCREATE"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionEXPORT"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionIMPORTDATA"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionPRINT"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "fields": {
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/CInputTextFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputRichTextFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputBooleanFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputChipFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputDateFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputDateTimeFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputEmailFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputImageFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputFileFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputNumberFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputUrlFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputIntervalFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputJsonProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputSelectProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputReferenceProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputLookupProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputFormulaProps"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "formActions": {
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/ActionPRINT"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionSAVE"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionDELETE"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "isSubListOf": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "labelSource": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "refToParentListFieldName": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "resource": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "sortField": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "sortOrder": {
+                    "enum": [
+                        "ASC",
+                        "DESC"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "cListType",
+                "labelSource",
+                "resource"
+            ],
+            "type": "object"
+        },
+        "CListTableProps": {
+            "additionalProperties": false,
+            "properties": {
+                "cListType": {
+                    "enum": [
+                        "Table"
+                    ],
+                    "type": "string"
+                },
+                "editable": {
+                    "type": "boolean"
+                },
+                "enabledActions": {
+                    "format": "frmdb-multiple-choice",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/ActionCREATE"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionEXPORT"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionIMPORTDATA"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionPRINT"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "fields": {
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/CInputTextFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputRichTextFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputBooleanFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputChipFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputDateFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputDateTimeFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputEmailFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputImageFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputFileFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputNumberFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputUrlFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputIntervalFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputJsonProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputSelectProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputReferenceProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputLookupProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputFormulaProps"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "formActions": {
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/ActionPRINT"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionSAVE"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionDELETE"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "isSubListOf": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "labelSource": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "refToParentListFieldName": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "resource": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "sortField": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "sortOrder": {
+                    "enum": [
+                        "ASC",
+                        "DESC"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "cListType",
+                "labelSource",
+                "resource"
+            ],
+            "type": "object"
+        },
+        "CListTabsProps": {
+            "additionalProperties": false,
+            "properties": {
+                "cListType": {
+                    "enum": [
+                        "Tabs"
+                    ],
+                    "type": "string"
+                },
+                "editable": {
+                    "type": "boolean"
+                },
+                "enabledActions": {
+                    "format": "frmdb-multiple-choice",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/ActionCREATE"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionEXPORT"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionIMPORTDATA"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionPRINT"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "fields": {
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/CInputTextFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputRichTextFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputBooleanFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputChipFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputDateFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputDateTimeFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputEmailFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputImageFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputFileFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputNumberFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputUrlFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputIntervalFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputJsonProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputSelectProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputReferenceProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputLookupProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputFormulaProps"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "formActions": {
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/ActionPRINT"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionSAVE"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionDELETE"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "isSubListOf": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "labelSource": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "refToParentListFieldName": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "resource": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "sortField": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "sortOrder": {
+                    "enum": [
+                        "ASC",
+                        "DESC"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "cListType",
+                "labelSource",
+                "resource"
+            ],
+            "type": "object"
         }
-    },
-    "required": [
-        "cListType",
-        "labelSource",
-        "resource"
-    ],
-    "type": "object"
+    }
 }
 

@@ -9,7 +9,7 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { Fab } from '@material-ui/core';
 import { RawForm, RawFormProps } from '../../form/RawForm';
-import { CInputProps, CListProps } from '../../../core-domain/page';
+import { CInputProps, CListPropsBase } from '../../../core-domain/page';
 import { CInput } from '../../form/CInput';
 import { useResourceWithFields } from '../../form/useResourceWithFields';
 import { groupByUniqProp } from '../../utils';
@@ -20,8 +20,8 @@ import { defaultEditPageFields } from '../../defaultEditPageContent';
  * @param record injected by Datagird
  */
 interface EditButtonPopoverFieldProps {
-    resource: CListProps['resource'];
-    fields: CListProps['fields'];
+    resource: CListPropsBase['resource'];
+    fields: CListPropsBase['fields'];
     record?: Record | undefined;
     isCreate?: boolean;
     refToParentListFieldName?: string;
