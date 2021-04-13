@@ -104,11 +104,11 @@ export interface CListChartProps extends CListPropsBase {
     /**@TJS-format frmdb-resource-field-name */
     yAxisSource: string;
     /**@TJS-format frmdb-resource-field-name */
-    yAxisSource2: string;
+    yAxisSource2?: string;
     /**@TJS-format frmdb-resource-field-name */
-    yAxisSource3: string;
+    yAxisSource3?: string;
     /**@TJS-format frmdb-resource-field-name */
-    yAxisSource4: string;
+    yAxisSource4?: string;
 }
 export interface CListChartNode extends PageNodeBase, CListChartProps {
     _tag: 'CList';

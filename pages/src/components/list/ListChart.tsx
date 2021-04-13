@@ -50,18 +50,18 @@ export const ListChart = (props: ListChartProps) => {
             "Pie" == chartType &&
             <ResponsiveContainer width="100%" height="100%">
                 <PieChart width={400} height={400}>
-                    <Pie
-                        
-                        dataKey={yAxisSource}
-                        isAnimationActive={false}
-                        data={chartData}
-                        cx="50%"
-                        cy="50%"
-                        outerRadius={80}
-                        fill="#8884d8"
-                        label
+                    <Pie dataKey={yAxisSource} isAnimationActive={false} data={chartData}
+                        cx="50%" cy="50%" outerRadius={80} fill="#8884d8" label
                     />
-                    <Tooltip key={xAxisSource} />
+                    {yAxisSource2 && <Pie dataKey={yAxisSource} isAnimationActive={false} data={chartData}
+                        cx="50%" cy="50%" outerRadius={80} fill="#82ca9d" label
+                    />}
+                    {yAxisSource2 && <Pie dataKey={yAxisSource} isAnimationActive={false} data={chartData}
+                        cx="50%" cy="50%" outerRadius={80} fill="#e458e9" label
+                    />}
+                    {yAxisSource2 && <Pie dataKey={yAxisSource} isAnimationActive={false} data={chartData}
+                        cx="50%" cy="50%" outerRadius={80} fill="#ec2121" label
+                    />}
                 </PieChart>
             </ResponsiveContainer>
         }
