@@ -95,6 +95,7 @@ BEGIN
         v_policyname varchar;
         v_idx integer;
         v_stm varchar;
+        v_seq_name text;
     BEGIN
         v_idx := 1;
 
@@ -109,6 +110,13 @@ BEGIN
 
             v_stm := format($$ GRANT UPDATE ON %I TO %I $$, p_table_name, p_role_name);
             EXECUTE v_stm;
+
+            v_seq_name := p_table_name || '_id_seq';
+            IF EXISTS ( SELECT * FROM information_schema.sequences WHERE sequence_name = v_seq_name) THEN
+                v_stm := format($$ GRANT USAGE, SELECT, UPDATE ON %I TO %I $$, 
+                    v_seq_name, p_role_name);
+                EXECUTE v_stm;
+            END IF;
         END IF;
 
         IF p_update_perm <> 'false' THEN
@@ -201,11 +209,6 @@ DECLARE
     v_rec RECORD;
     v_stm varchar;
 BEGIN
-
-    IF p_select_perm <> 'false' THEN
-        v_stm := format($$ GRANT USAGE, SELECT, UPDATE ON ALL SEQUENCES IN SCHEMA public TO %I $$, p_role_name);
-        EXECUTE v_stm;
-    END IF;
 
     FOR v_rec IN SELECT relname, relrowsecurity, relforcerowsecurity
         FROM pg_class WHERE relrowsecurity=true
