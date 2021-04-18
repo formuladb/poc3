@@ -70,7 +70,6 @@ export const ListChart = (props: ListChartProps) => {
             return { yKey, yKey2, yKey3, yKey4, chartData };
         }
     }, [data, xAxisSource, yAxisSource, pivotYAxisSource, yAxisSource2, yAxisSource3, yAxisSource4,]);
-    console.log('XXX', data, chartData);
 
     return (<div style={{ width: "65vw", height: "35vh" }}>
         {"Line" == chartType && <ResponsiveContainer key="Line" width="100%" height="100%">

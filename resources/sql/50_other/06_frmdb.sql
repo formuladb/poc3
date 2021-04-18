@@ -6,6 +6,7 @@ SELECT frmdb_put_column('frmdb_resources', 'parent', 'varchar');
 SELECT frmdb_put_column('frmdb_resources', 'resource_type', 'text', '_and(is_not_null(resource_type), is_enum(resource_type, ''PAGE'', ''RESOURCE''))', '''RESOURCE''');
 SELECT frmdb_put_column('frmdb_resources', 'icon', 'character varying', 'is_not_null(icon)');
 SELECT frmdb_put_column('frmdb_resources', 'menu_order', 'integer', null, '0');
+SELECT frmdb_put_column('frmdb_resources', 'options', 'json');
 
 SELECT frmdb_put_table('frmdb_pages', 'varchar');
 SELECT frmdb_put_column('frmdb_pages', 'content', 'json');

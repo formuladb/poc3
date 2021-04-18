@@ -1,3 +1,4 @@
+import { cloneDeep } from 'lodash';
 import { stringify } from 'query-string';
 import {
   fetchUtils, DataProvider, Identifier,
@@ -199,7 +200,7 @@ export default (apiUrl: string, httpClient = fetchUtils.fetchJson, defaultListOp
 
       const url = `${apiUrl}/${resource}?${stringify(query)}`;
 
-      return httpClient(url, options).then(({ headers, json }) => {
+      return httpClient(url, options).then(({ headers, body, json }) => {
         if (!headers.has('content-range')) {
           throw new Error(
             `The Content-Range header is missing in the HTTP Response. The postgREST data provider expects 

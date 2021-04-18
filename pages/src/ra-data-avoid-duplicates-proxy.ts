@@ -46,7 +46,8 @@ export function avoidDuplicatesDataProviderProxy(baseDataProvider: DataProvider,
                 const ret = (method as any).call(null, resource, params);
                 cache.set(key, ret);
             }
-            return cache.get(key) as ReturnType<typeof method>;
+            const toRet = cache.get(key) as ReturnType<typeof method>;;
+            return toRet;
         };
     }
 
