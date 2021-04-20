@@ -8,10 +8,8 @@ import {
 import React from 'react';
 
 import { CButton } from '../page/CButton';
-import { Card } from '../page/Card';
-import { CColumn } from '../page/CColumn';
+import { CSection } from '../page/CSection';
 import { CRow } from '../page/CRow';
-import { CPaper } from '../page/CPaper';
 import { CText } from '../page/CText';
 import { CForm } from '../form/CForm';
 import { CInput } from '../form/CInput';
@@ -33,36 +31,15 @@ export const Toolbox = () => {
                         }
                         variant="contained"
                     >
-                        Button
+                        Action
                     </MuiButton>
                 </Grid>
                 <Grid md={6} container direction="column" item>
                     <MuiButton style={{ textTransform: 'none' }}
-                        ref={(ref) => connectors.create(ref, <CText text="Some Text" />)}
+                        ref={(ref) => connectors.create(ref, <CSection />)}
                         variant="contained"
                     >
-                        Text
-                    </MuiButton>
-                </Grid>
-                <Grid md={6} container direction="column" item>
-                    <MuiButton style={{ textTransform: 'none' }}
-                        ref={(ref) =>
-                            connectors.create(
-                                ref,
-                                <Element canvas is={CPaper} padding={20} />
-                            )
-                        }
-                        variant="contained"
-                    >
-                        Paper
-                    </MuiButton>
-                </Grid>
-                <Grid md={6} container direction="column" item>
-                    <MuiButton style={{ textTransform: 'none' }}
-                        ref={(ref) => connectors.create(ref, <Card />)}
-                        variant="contained"
-                    >
-                        Card
+                        Section
                     </MuiButton>
                 </Grid>
                 <Grid md={6} container direction="column" item>
@@ -71,14 +48,6 @@ export const Toolbox = () => {
                         variant="contained"
                     >
                         Row
-                    </MuiButton>
-                </Grid>
-                <Grid md={6} container direction="column" item>
-                    <MuiButton style={{ textTransform: 'none' }}
-                        ref={(ref) => connectors.create(ref, <Element canvas is={CColumn} padding={10}>Add children here</Element>)}
-                        variant="contained"
-                    >
-                        Column
                     </MuiButton>
                 </Grid>
                 <Grid md={6} container direction="column" item>

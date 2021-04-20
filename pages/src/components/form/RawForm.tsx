@@ -121,7 +121,7 @@ export const RawForm = ({
                     // here starts the custom form layout
                     <form style={{ border: 0, padding: 0, margin: 0 }}>
                         <fieldset disabled={disabled} style={{ border: 0, margin: 0 }}>
-                            <div style={{ margin: "20px" }} >
+                            <div style={{ margin: "0 20px 0 20px" }} >
                                 <Grid container direction="column" spacing={2} wrap="wrap" justify="space-between"
                                     style={{ padding: '10px', margin: 0 }}
                                 >
@@ -129,31 +129,31 @@ export const RawForm = ({
                                     {children}
                                 </Grid>
                             </div>
-                            <Toolbar className="frmdb-form-actions-toolbar">
-                                <div style={{ display: "flex", justifyContent: "space-between", width: "100%", borderTop: '10px', paddingTop: "20px", borderColor: "grey" }}  >
-                                    <SaveButton
-                                        saving={formProps.saving}
-                                        handleSubmitWithRedirect={formProps.handleSubmitWithRedirect}
-                                        label={saveButtonLabel}
-                                    />
-                                    {extraActions &&
-                                        <ButtonGroup color="primary" aria-label="outlined primary button group">
-                                            {extraActions.map(act => {
-                                                if (act.actionType === "PRINT") {
-                                                    return <PrintButton />;
-                                                }
-                                            })}
-                                        </ButtonGroup>
-                                    }
-                                    {!deleteAction?.disabled && < DeleteButton
-                                        resource={resource}
-                                        record={formProps.record}
-                                        saving={formProps.saving}
-                                        mutationMode="pessimistic"
-                                        redirect={false}
-                                    />}
-                                </div>
-                            </Toolbar>
+                            <div className="frmdb-form-actions-toolbar"
+                                style={{ display: "flex", justifyContent: "space-between", width: "100%", borderTop: '10px', borderColor: "grey" }}  
+                            >
+                                <SaveButton
+                                    saving={formProps.saving}
+                                    handleSubmitWithRedirect={formProps.handleSubmitWithRedirect}
+                                    label={saveButtonLabel}
+                                />
+                                {extraActions &&
+                                    <ButtonGroup color="primary" aria-label="outlined primary button group">
+                                        {extraActions.map(act => {
+                                            if (act.actionType === "PRINT") {
+                                                return <PrintButton />;
+                                            }
+                                        })}
+                                    </ButtonGroup>
+                                }
+                                {!deleteAction?.disabled && < DeleteButton
+                                    resource={resource}
+                                    record={formProps.record}
+                                    saving={formProps.saving}
+                                    mutationMode="pessimistic"
+                                    redirect={false}
+                                />}
+                            </div>
                         </fieldset>
                     </form>
                 )}

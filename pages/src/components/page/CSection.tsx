@@ -4,17 +4,16 @@ import { Paper, FormControl, FormLabel } from '@material-ui/core';
 import ColorPicker from 'material-ui-color-picker';
 import React from 'react';
 
-export const CSection = ({ background="transparent", padding, children=null as null | React.ReactNode }) => {
+export const CSection = ({ children=null as null | React.ReactNode }) => {
   const {
     connectors: { connect, drag },
   } = useNode();
   return (
-    <Paper
+    <div
       ref={(ref: any) => connect(drag(ref))}
-      style={{ margin: '5px 0', background, padding: `${padding}px` }}
     >
       {children}
-    </Paper>
+    </div>
   );
 };
 

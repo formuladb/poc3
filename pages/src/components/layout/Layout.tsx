@@ -19,7 +19,7 @@ export default (props: LayoutProps) => {
     );
     const { identity, loading: identityLoading, error } = useGetIdentity();
     const frmdbResource = useCurrentResource();
-    const layoutType = frmdbResource?.options?.[identity?.role || 'anon']?.layoutType;
+    const layoutType = frmdbResource?.options?.[identity?.role || 'frmdb_anon']?.layoutType;
     const sideBarCmp = layoutType === "ONE_PAGE" ? EmptySidebar : Sidebar;
     console.log('XXX', identity, frmdbResource, layoutType);
     return (

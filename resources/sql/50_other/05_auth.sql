@@ -136,12 +136,12 @@ frmdb_sql_unit_test_login_anon() returns void as $fun$
 declare
   v_stm varchar;
 begin
-  v_stm := format($$ SET ROLE anon $$);
+  v_stm := format($$ SET ROLE frmdb_anon $$);
   EXECUTE v_stm;
 
   PERFORM set_config('request.jwt.claim.user_id', NULL, true);
   PERFORM set_config('request.jwt.claim.username', NULL, true);
-  PERFORM set_config('request.jwt.claim.role', 'anon', true);
+  PERFORM set_config('request.jwt.claim.role', 'frmdb_anon', true);
 end;
 $fun$ language plpgsql;
 
@@ -244,19 +244,19 @@ $$ language plpgsql;
 --#############################################################################
 --#############################################################################
 
--- the names "anon" and "authenticator" are configurable and not
+-- the names "frmdb_anon" and "authenticator" are configurable and not
 -- sacred, we simply choose them for clarity
 DO
 $do$
 BEGIN
-  IF NOT EXISTS (SELECT FROM pg_catalog.pg_roles WHERE  rolname = 'anon') THEN
-      create role anon noinherit;
+  IF NOT EXISTS (SELECT FROM pg_catalog.pg_roles WHERE  rolname = 'frmdb_anon') THEN
+      create role frmdb_anon noinherit;
   END IF;
   IF NOT EXISTS (SELECT FROM pg_catalog.pg_roles WHERE  rolname = 'authenticator') THEN
       create role authenticator noinherit;
-      grant anon to authenticator;
+      grant frmdb_anon to authenticator;
   END IF;
 END
 $do$;
 
-grant execute on function frmdb_login(text,text) to anon;
+grant execute on function frmdb_login(text,text) to frmdb_anon;

@@ -70,6 +70,7 @@ const authProvider: AuthProvider = {
         return Promise.resolve({
             id: tokenData?.user_id ? parseInt(tokenData.user_id) : undefined,
             fullName: tokenData?.username,
+            role: tokenData?.role,
         } as UserIdentity);
     }
 };

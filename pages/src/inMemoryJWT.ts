@@ -53,12 +53,15 @@ export const inMemoryJWTManager = () => {
         isRefreshing = fetch(refreshEndpoint)
             .then(async (response) => {
                 if (response.status !== 200) {
-                    console.log("getRefreshedToken", response.status);
+                    console.log("getRefreshedToken failed ", response.status);
                     ereaseToken();
-                    global.console.log(
-                        'Token renewal failure'
-                    );
-                    return { token: null };
+                    return {
+                        token: btoa(JSON.stringify({
+                            role: 'frmdb_anon',
+                            user_id: null,
+                            username: null,
+                        }))
+                    };
                 }
                 let res = await response.json();
                 return res[0];
