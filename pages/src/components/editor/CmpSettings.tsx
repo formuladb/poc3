@@ -7,7 +7,7 @@ import { FrmdbResource, FrmdbResourceWithFields } from '../../core-domain/record
 import { DataProvider, RecordMap, useDataProvider, useGetList } from 'react-admin';
 import { cloneDeep, debounce, isEqual } from 'lodash';
 import { useLocation } from 'react-router-dom';
-import { parseLocation } from './Topbar.utils';
+import { parseLocation } from '../../location_utils';
 import { ResourceFieldDef } from '../../core-domain/fields';
 import MultiSchemaField from './MultiSchemaField';
 import { useResources } from '../../useResources';

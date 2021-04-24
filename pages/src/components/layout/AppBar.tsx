@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { forwardRef } from 'react';
-import { AppBar, UserMenu, MenuItemLink, useTranslate } from 'react-admin';
+import { AppBar, UserMenu, MenuItemLink, useTranslate, useGetIdentity } from 'react-admin';
 import Typography from '@material-ui/core/Typography';
 import SettingsIcon from '@material-ui/icons/Settings';
 import { makeStyles } from '@material-ui/core/styles';
@@ -31,11 +31,16 @@ const ConfigurationMenu = forwardRef<any, any>((props, ref) => {
     );
 });
 
-const CustomUserMenu = (props: any) => (
-    <UserMenu {...props}>
-        <ConfigurationMenu />
-    </UserMenu>
-);
+const CustomUserMenu = (props: any) => {
+    const { loaded, identity } = useGetIdentity();
+    return <>
+        { identity && identity?.role != "frmdb_anon" &&
+            <UserMenu {...props}>
+                <ConfigurationMenu />
+            </UserMenu>
+        }
+    </>;
+};
 
 const CustomAppBar = (props: any) => {
     const classes = useStyles();
@@ -47,7 +52,7 @@ const CustomAppBar = (props: any) => {
                 className={classes.title}
                 id="react-admin-title"
             />
-            <img src="/frmdb-bucket/images/logo.png" style={{height: '35px'}} />
+            <img src="/frmdb-bucket/images/logo.png" style={{ height: '35px' }} />
             <span className={classes.spacer} />
         </AppBar>
     );

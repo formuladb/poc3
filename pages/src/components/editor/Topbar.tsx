@@ -19,7 +19,7 @@ import UndoIcon from '@material-ui/icons/Undo';
 import RedoIcon from '@material-ui/icons/Redo';
 import { useMutation } from 'react-admin';
 import { useLocation } from 'react-router-dom';
-import { parseLocation } from './Topbar.utils';
+import { parseLocation } from '../../location_utils';
 import SavePageButton from './SavePageButton';
 import { AppIcon } from '../generic/AppIcon';
 

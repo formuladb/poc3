@@ -1,4 +1,3 @@
-import { useEditor, SerializedNode } from '@craftjs/core';
 export interface PageData {
     pageId: string;
     resource: string;
@@ -22,7 +21,8 @@ export function parseLocation(pathname: string): PageData {
         parsedPath.push({resourceName});
     }
 
-    let pageId = parsedPath[0].resourceName + (firstId ? '__id' : '');
+    const resource = parsedPath[0]?.resourceName || 'frmdb_dashboard';
+    let pageId = resource + (firstId ? '__id' : '');
 
-    return {pageId, resource: parsedPath[0].resourceName, parsedPath};
+    return {pageId, resource, parsedPath};
 }

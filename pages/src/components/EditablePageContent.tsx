@@ -7,7 +7,7 @@ import React, { useEffect, useState } from 'react';
 
 import { RecordMap, useDataProvider, useAuthProvider, useAuthenticated } from 'react-admin';
 import { useLocation } from 'react-router-dom';
-import { parseLocation } from './editor/Topbar.utils';
+import { parseLocation } from '../location_utils';
 import { FrmdbPage, FrmdbResource, FrmdbResourceWithFields } from '../core-domain/records';
 import { EditablePageProps } from './EditablePage';
 import { mapFromTree } from './editor/page-utils';

@@ -26,7 +26,7 @@ import { CmpSettings } from '../editor/CmpSettings';
 import { JSONSchema7 } from 'json-schema';
 import { CmpCraftStatic } from '../utils';
 import { useLocation } from 'react-router-dom';
-import { parseLocation } from '../editor/Topbar.utils';
+import { parseLocation } from '../../location_utils';
 import { Grid } from '@material-ui/core';
 import { useUpsertRecord } from '../form/useUpsertRecord';
 import { CListProps } from '../../core-domain/page';

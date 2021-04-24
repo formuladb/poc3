@@ -57,9 +57,7 @@ export const inMemoryJWTManager = () => {
                     ereaseToken();
                     return {
                         token: btoa(JSON.stringify({
-                            role: 'frmdb_anon',
-                            user_id: null,
-                            username: null,
+                            role: 'frmdb_anon'
                         }))
                     };
                 }

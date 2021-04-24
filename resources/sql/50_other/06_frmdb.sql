@@ -1,3 +1,5 @@
+SELECT frmdb_put_table('frmdb_dashboard', 'varchar');
+
 SELECT frmdb_put_table('frmdb_system_params', 'varchar');
 SELECT frmdb_put_column('frmdb_system_params', 'val', 'varchar');
 
