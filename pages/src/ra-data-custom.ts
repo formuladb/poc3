@@ -9,9 +9,23 @@ import { frmdb_sp_table_columns } from './custom-api/frmdb_sp_table_columns';
 import { FrmdbResourceWithFields } from './core-domain/records';
 import { avoidDuplicatesDataProviderProxy } from './ra-data-avoid-duplicates-proxy';
 
+async function httpClientTranslatePg(url, options) {
+    try {
+        const ret = await httpClient(url, options);
+        return ret;
+    } catch (err) {
+        console.warn(err, err.message);
+        const violatedConstraint = typeof err.message === "string" && err.message.match(/(\w+__ck)\b/)?.[1];
+        if (violatedConstraint) {
+            throw new Error(violatedConstraint);
+        }
+        throw err;
+    }
+};
+
 const postgrestUrl = '/fdb-resources';
-const postgrestProvider = postgrestRestProvider(postgrestUrl, httpClient);
-const baseProvider = postgrestProvider; 
+const postgrestProvider = postgrestRestProvider(postgrestUrl, httpClientTranslatePg);
+const baseProvider = postgrestProvider;
 let customProvidersFactory = (window as any).$FRMDB_UI_PAGES?.CUSTOM_PROVIDERS || function (defaultDataProvider: DataProvider) {
     return {};
 }

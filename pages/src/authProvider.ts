@@ -66,10 +66,9 @@ const authProvider: AuthProvider = {
 
     getIdentity: () => {
         const tokenData = inMemoryJWT.getTokenData();
-        console.log('XXX', tokenData);
         return Promise.resolve({
             id: tokenData?.user_id && tokenData?.user_id != "null" ? parseInt(tokenData.user_id) : undefined,
-            fullName: tokenData?.username && tokenData?.username != "null" ? tokenData?.username : undefined,
+            fullName: tokenData?.username && tokenData?.username != "null" ? tokenData?.username : 'Anonymous',
             role: tokenData?.role,
         } as UserIdentity);
     }

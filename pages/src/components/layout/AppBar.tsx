@@ -34,11 +34,9 @@ const ConfigurationMenu = forwardRef<any, any>((props, ref) => {
 const CustomUserMenu = (props: any) => {
     const { loaded, identity } = useGetIdentity();
     return <>
-        { identity && identity?.role != "frmdb_anon" &&
-            <UserMenu {...props}>
-                <ConfigurationMenu />
-            </UserMenu>
-        }
+        <UserMenu {...props}>
+            <ConfigurationMenu />
+        </UserMenu>
     </>;
 };
 
