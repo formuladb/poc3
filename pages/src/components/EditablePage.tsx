@@ -62,6 +62,10 @@ export function EditablePage({
                     {pageType === "List" &&
                         <ListPage key="List" {...pageComponentRaProps}><Na><EditablePageContent pageType={pageType} /></Na></ListPage>}
                 </div>
+                <div key="Single">
+                    {pageType === "Single" &&
+                        <div key="Single"><EditablePageContent pageType={pageType} /></div>}
+                </div>
 
                 <EditorSidebar />
             </Editor>

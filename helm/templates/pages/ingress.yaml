@@ -8,7 +8,7 @@ spec:
   rules:
   - http:
       paths:
-      - path: /fdb-pages(/|$)(.*)
+      - path: /
         pathType: ImplementationSpecific
         backend:
           service: 

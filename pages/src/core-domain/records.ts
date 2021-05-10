@@ -10,7 +10,7 @@ export interface FrmdbResource {
     id: string;
     parent?: string;
     icon: string;
-    resource_type: 'PAGE' | 'RESOURCE';
+    resource_type: 'GROUP' | 'PAGE' | 'RESOURCE';
     menu_order: number;
     options?: {
         [role: string]: {

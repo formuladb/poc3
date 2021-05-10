@@ -29,8 +29,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 export default function EditablePageContent({
-    pageType,
-    ...pageComponentRaProps
+    pageType
 }: EditablePageProps) {
     const { actions } = useEditor(
         (state, query) => ({

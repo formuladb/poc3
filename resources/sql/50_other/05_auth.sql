@@ -220,12 +220,16 @@ $$ language plpgsql;
 create or replace function
 frmdb_logout() returns varchar as $$
 declare
-  _cookie varchar;
+  v_stm varchar;
 begin
 
-  _cookie := format('[{"set-cookie": "dbrestauth=frmdb_logout; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; max-age=86400"}]');
-  PERFORM set_config('response.headers', _cookie, true);    
-  return 'frmdb_logout';
+  v_stm := format($$ SET ROLE frmdb_anon $$);
+  EXECUTE v_stm;
+  PERFORM set_config('request.jwt.claim.user_id', NULL, true);
+  PERFORM set_config('request.jwt.claim.username', NULL, true);
+
+  RETURN frmdb_refresh_token();
+
 end;
 $$ language plpgsql;
 

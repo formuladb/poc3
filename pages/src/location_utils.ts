@@ -21,7 +21,7 @@ export function parseLocation(pathname: string): PageData {
         parsedPath.push({resourceName});
     }
 
-    const resource = parsedPath[0]?.resourceName || 'frmdb_dashboard';
+    const resource = parsedPath[0]?.resourceName || 'frmdb_homepage';
     let pageId = resource + (firstId ? '__id' : '');
 
     return {pageId, resource, parsedPath};

@@ -29,7 +29,7 @@ const authProvider: AuthProvider = {
     },
 
     logout: () => {
-        const request = new Request('/fdb-resources/rpc/logout', {
+        const request = new Request('/fdb-resources/rpc/frmdb_logout', {
             method: 'GET',
             headers: new Headers({ 'Content-Type': 'application/json' }),
             credentials: 'include',
