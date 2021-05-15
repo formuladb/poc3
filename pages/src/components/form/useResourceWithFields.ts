@@ -6,7 +6,6 @@ import { FrmdbResourceWithFields } from '../../core-domain/records';
 
 export function useResourceWithFields(resource: string): FrmdbResourceWithFields {
 
-    useAuthenticated(); // redirects to login if not authenticated
     const [resourceWithFields, setResourceWithFields] = useState<FrmdbResourceWithFields>({
         id: resource,
         field_defs: [{
@@ -48,7 +47,6 @@ export function useResourceWithFields(resource: string): FrmdbResourceWithFields
 
 export function useMultipleResourcesWithFields(resources: string[]): FrmdbResourceWithFields[] {
 
-    useAuthenticated(); // redirects to login if not authenticated
     const [resourcesWithFields, setResourcesWithFields] = useState<FrmdbResourceWithFields[]>([]);
     const dataProvider = useDataProvider();
 

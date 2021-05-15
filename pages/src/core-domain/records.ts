@@ -1,11 +1,5 @@
 import { FieldType, ResourceFieldDef } from "./fields";
 
-export declare type Identifier = string | number;
-export interface Record {
-    id: Identifier;
-    [key: string]: any;
-}
-
 export interface FrmdbResource {
     id: string;
     parent?: string;

@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useAuthenticated } from 'react-admin';
 import { FrmdbResource } from './core-domain/records';
 import { useDataProvider } from 'react-admin';
 
 export function useResources(): FrmdbResource[] {
 
-    useAuthenticated(); // redirects to login if not authenticated
     const [resources, setResources] = useState<FrmdbResource[]>([]);
     const dataProvider = useDataProvider();
 

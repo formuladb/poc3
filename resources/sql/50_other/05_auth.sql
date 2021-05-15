@@ -218,7 +218,7 @@ $$ language plpgsql;
 --#############################################################################
 
 create or replace function
-frmdb_logout() returns varchar as $$
+frmdb_logout() returns varchar as $fun$
 declare
   v_stm varchar;
 begin
@@ -231,7 +231,7 @@ begin
   RETURN frmdb_refresh_token();
 
 end;
-$$ language plpgsql;
+$fun$ language plpgsql;
 
 
 

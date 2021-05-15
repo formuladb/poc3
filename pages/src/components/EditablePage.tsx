@@ -21,6 +21,7 @@ import { Create, Edit } from 'react-admin';
 import { CPage } from './page/CPage';
 import { ListPage } from './page/ListPage';
 import { CPageProps } from '../core-domain/page';
+import { useCurrentUser } from './form/useCurrentUser';
 
 export interface EditablePageProps {
     pageType: CPageProps['cPageType'];
@@ -29,7 +30,10 @@ export function EditablePage({
     pageType,
     ...pageComponentRaProps
 }: EditablePageProps) {
-    console.log("render")
+
+    console.log("render");
+    const currentUser = useCurrentUser();
+
     return (
         <div className="frmdb-editable-page" style={{ margin: '0 auto', width: '100%' }}>
             <Editor enabled={false}
@@ -61,10 +65,6 @@ export function EditablePage({
                 <div key="List">
                     {pageType === "List" &&
                         <ListPage key="List" {...pageComponentRaProps}><Na><EditablePageContent pageType={pageType} /></Na></ListPage>}
-                </div>
-                <div key="Single">
-                    {pageType === "Single" &&
-                        <div key="Single"><EditablePageContent pageType={pageType} /></div>}
                 </div>
 
                 <EditorSidebar />

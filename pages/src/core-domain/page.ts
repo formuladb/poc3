@@ -38,15 +38,8 @@ export interface CPageListNode extends CPageNodeBase, CPageListProps {
     _tag: 'CPage';
 }
 
-export interface CPageSingleProps {
-    cPageType: 'Single';
-}
-export interface CPageSingleNode extends CPageNodeBase, CPageSingleProps {
-    _tag: 'CPage';
-}
-
-export type CPageProps = CPageEditProps | CPageCreateProps | CPageListProps | CPageSingleProps;
-export type CPageNode = CPageEditNode | CPageCreateNode | CPageListNode | CPageSingleNode;
+export type CPageProps = CPageEditProps | CPageCreateProps | CPageListProps;
+export type CPageNode = CPageEditNode | CPageCreateNode | CPageListNode;
 
 export interface CListPropsBase {
     /**@TJS-format frmdb-resource-name */
