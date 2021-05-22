@@ -34,9 +34,24 @@ spec:
             name: bak-obj
       imagePullSecrets:
         - name: regcred
+{{ if ne .Values.envtype "production" }}
+      volumes:
+      - name: resources-persistence
+        persistentVolumeClaim:
+        hostPath:
+          path: /run/desktop/mnt/host/wsl/prw-tenants
+          type: Directory
+{{ end }}
   volumeClaimTemplates:
   - metadata:
       name: bak-db
+    spec:
+      accessModes: [ ReadWriteOnce ]
+      resources:
+        requests:
+          storage: 1Gi
+  - metadata:
+      name: bak-obj
     spec:
       accessModes: [ ReadWriteOnce ]
       resources:
@@ -50,11 +65,4 @@ spec:
       resources:
         requests:
           storage: 1Gi
-{{ else }}
-      volumes:
-      - name: resources-persistence
-        persistentVolumeClaim:
-        hostPath:
-          path: /run/desktop/mnt/host/wsl/prw-tenants
-          type: Directory
 {{ end }}

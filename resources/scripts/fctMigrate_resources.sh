@@ -6,8 +6,9 @@ fctMigrate_resources() {
     
     fctH1 "Loaging pages on ${dbname} "
     for tenant in /tenants/*; do
-        fctH2 "Loaging resources for tentant ${tenant} on ${dbname} "
-        for i in $tenant/*.sql; do 
+        fctH2 "Loaging resources for tentant ${tenant} on ${dbname}"
+        shopt -s nullglob
+        for i in $tenant/*/*.sql; do 
             if [[ $i = *.test.sql ]]; then
                 if [ "$dbname" = "test" -o "$dbname" = "dev" ]; then
                     fctH2 "$dbname:$i"

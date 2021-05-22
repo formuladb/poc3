@@ -1,10 +1,11 @@
 
 fctMigrate_pages() {
     dbname=$1
-    fctH1 "Loaging pages on ${dbname} "
+    fctH1 "Loading pages on ${dbname} "
     for tenant in /tenants/*; do
-        fctH2 "Loaging pages for tentant ${tenant} on ${dbname} "
-        for i in $tenant/pages/*.json; do 
+        fctH2 "Loading pages for tentant ${tenant} on ${dbname}"
+        shopt -s nullglob
+        for i in $tenant/*/*.json; do 
             id=`basename $i | sed -e 's/.json$//'`
             content=`cat $i | sed -e "s/\n/ /g; s/'/''/g;"`
             psql -v ON_ERROR_STOP=1 -e -h db -U postgres -d $dbname -c \
