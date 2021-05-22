@@ -1,0 +1,130 @@
+{
+    "$schema": "/home/acr/code/formuladb/formuladb/pages/src/core-domain/json-schemas/PageNode.json",
+    "_tag": "CPage",
+    "_id": "ROOT",
+    "cPageType": "Edit",
+    "children": [
+        {
+            "_tag": "CForm",
+            "_id": "Ek4N5ig9v",
+            "resource": "quizzes",
+            "enabledActions": [
+                {
+                    "actionType": "SAVE",
+                    "label": "IFS(IS_NULL(id), 'frmdb.action.start', state = 'IN_PROGRESS', 'frmdb.action.finalize', state = 'FINALIZED', 'frmdb.action.results')",
+                    "extraActions": [
+                        {
+                            "actionType": "SET",
+                            "source": "state",
+                            "value": "FINALIZED"
+                        },
+                        {
+                            "actionType": "REDIRECT",
+                            "to": {
+                                "resource": "quizzes_results",
+                                "referenceField": "id"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "actionType": "DELETE",
+                    "disabled": true
+                }
+            ],
+            "children": [
+                {
+                    "_tag": "CRow",
+                    "_id": "MainRowId",
+                    "background": "#ffffff",
+                    "padding": 3,
+                    "children": [
+                        {
+                            "_tag": "CInput",
+                            "_id": "3Ubquiz_session_id",
+                            "cInputType": "Reference",
+                            "resource": "quizzes",
+                            "source": "quiz_session_id",
+                            "variant": "standard",
+                            "reference": "quiz_sessions",
+                            "disabled": true
+                        },
+                        {
+                            "_tag": "CInput",
+                            "_id": "TDzF5aQl3",
+                            "cInputType": "Select",
+                            "resource": "quizzes",
+                            "source": "state",
+                            "variant": "standard",
+                            "disabled": true,
+                            "choices": [
+                                "IN_PROGRESS",
+                                "FINALIZED"
+                            ]
+                        },
+                        {
+                            "_tag": "CInput",
+                            "_id": "3Ubid",
+                            "cInputType": "NumberField",
+                            "resource": "quizzes",
+                            "source": "id",
+                            "variant": "standard"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "_tag": "CList",
+            "_id": "zcjUgJc1t",
+            "cListType": "Tabs",
+            "resource": "quiz_questions_frmdbvw",
+            "editable": true,
+            "isSubListOf": "quizzes",
+            "refToParentListFieldName": "quizzes__id",
+            "enabledActions": [],
+            "labelSource": "position",
+            "sortField": "position",
+            "formActions": [
+                {
+                    "actionType": "SAVE",
+                    "label": "frmdb.action.next",
+                    "extraActions": [
+                        {
+                            "actionType": "REDIRECT",
+                            "redirectNextSibling": true
+                        }
+                    ]
+                },
+                {
+                    "actionType": "DELETE",
+                    "disabled": true
+                }
+            ],
+            "children": [
+                {
+                    "_tag": "CInput",
+                    "_id": "YUfbz5btd",
+                    "cInputType": "RichTextField",
+                    "resource": "quiz_questions_frmdbvw",
+                    "source": "question",
+                    "disabled": true,
+                    "width": 12
+                },
+                {
+                    "_tag": "CInput",
+                    "_id": "YUfbz5bte",
+                    "cInputType": "Reference",
+                    "resource": "quiz_questions_frmdbvw",
+                    "source": "given_answer",
+                    "reference": "qtmpl__questions__answers",
+                    "referenceText": "answer",
+                    "matchingColumn": "qtmpl__questions__id",
+                    "referenceInputType": "radio_button",
+                    "width": 12,
+                    "sortField": "position"
+                }
+            ]
+        }
+    ]
+}

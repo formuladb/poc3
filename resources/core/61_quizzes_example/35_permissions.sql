@@ -1,0 +1,31 @@
+SELECT frmdb_set_permission_on_all_tables('administrator', 'true', 'true', 'true', 'true');
+
+-- SELECT frmdb_set_permission_on_all_tables('enduser', 'true', 'false', 'false', 'false');
+-- SELECT frmdb_set_permission('enduser', 'users', 'true', 'false', 'frmdb_is_owner(username)', 'false');
+SELECT frmdb_set_permission('frmdb_anon', 'frmdb_resources', 'true', 'false', 'false', 'false');
+SELECT frmdb_set_permission('frmdb_anon', 'frmdb_pages', 'true', 'false', 'false', 'false');
+SELECT frmdb_set_permission('frmdb_anon', 'frmdb_dictionary', 'true', 'false', 'false', 'false');
+SELECT frmdb_set_permission('frmdb_anon', 'quiz_sessions', 'true', 'false', 'true', 'false');
+SELECT frmdb_set_permission('frmdb_anon', 'quizzes', 'true', 'true', 'true', 'false');
+-- SELECT frmdb_set_permission('frmdb_anon', 'quizzes_results', 'true', 'true', 'true', 'false');
+GRANT ALL ON quizzes_results TO frmdb_anon;
+SELECT frmdb_set_permission('frmdb_anon', 'quizzes__questions', 'true', 'true', 'true', 'false');
+SELECT frmdb_set_permission('frmdb_anon', 'quiz_templates', 'true', 'false', 'false', 'false');
+SELECT frmdb_set_permission('frmdb_anon', 'qtmpl__results', 'true', 'false', 'false', 'false');
+SELECT frmdb_set_permission('frmdb_anon', 'qtmpl__questions__answers', 'true', 'false', 'false', 'false');
+GRANT ALL ON quiz_questions_frmdbvw TO frmdb_anon;
+GRANT ALL ON quiz_sessions_res__frmdbvw TO frmdb_anon;
+
+SELECT frmdb_set_permission_on_all_tables('operator', 'true', 'false', 'false', 'false');
+SELECT frmdb_set_permission('operator', 'users', 'true', 'frmdb_is_owner(username)', 'frmdb_is_owner(username)', 'false');
+SELECT frmdb_set_permission('operator', 'quiz_templates', 'true', 'true', 'true', 'true');
+SELECT frmdb_set_permission('operator', 'qtmpl__results', 'true', 'true', 'true', 'true');
+SELECT frmdb_set_permission('operator', 'qtmpl__questions', 'true', 'true', 'true', 'true');
+SELECT frmdb_set_permission('operator', 'qtmpl__questions__answers', 'true', 'true', 'true', 'true');
+SELECT frmdb_set_permission('operator', 'quiz_sessions', 'true', 'true', 'true', 'true');
+SELECT frmdb_set_permission('operator', 'quizzes', 'true', 'true', 'true', 'true');
+-- SELECT frmdb_set_permission('operator', 'quizzes_results', 'true', 'true', 'true', 'false');
+GRANT ALL ON quizzes_results TO operator;
+SELECT frmdb_set_permission('operator', 'quizzes__questions', 'true', 'true', 'true', 'true');
+GRANT ALL ON quiz_questions_frmdbvw TO operator;
+GRANT ALL ON quiz_sessions_res__frmdbvw TO operator;

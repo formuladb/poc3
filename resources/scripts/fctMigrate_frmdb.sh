@@ -3,7 +3,7 @@ fctMigrate_frmdb() {
     fctH2 "Migrating frmdb on ${dbname} "
 
     dbname=$1
-    for i in /sql/*/*.sql; do 
+    for i in /core/*/*.sql; do 
         fctH2 "running $i on $dbname"
         psql -v ON_ERROR_STOP=1 -e -h db -U postgres -d "$dbname" -f $i
     done

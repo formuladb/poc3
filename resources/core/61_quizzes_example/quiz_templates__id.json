@@ -1,0 +1,181 @@
+{
+    "$schema": "../../formuladb/pages/src/core-domain/json-schemas/PageNode.json",
+    "_tag": "CPage",
+    "_id": "ROOT",
+    "cPageType": "Edit",
+    "children": [
+        {
+            "_tag": "CForm",
+            "_id": "Ek4N5ig9v",
+            "resource": "quiz_templates",
+            "children": [
+                {
+                    "_tag": "CRow",
+                    "_id": "MainRowId",
+                    "background": "#ffffff",
+                    "padding": 3,
+                    "children": [
+                        {
+                            "_tag": "CInput",
+                            "_id": "3Ubid",
+                            "cInputType": "NumberField",
+                            "resource": "quiz_templates",
+                            "source": "id",
+                            "variant": "standard",
+                            "width": 2
+                        },
+                        {
+                            "_tag": "CInput",
+                            "_id": "3Ubname",
+                            "cInputType": "TextField",
+                            "resource": "quiz_templates",
+                            "source": "name",
+                            "variant": "standard"
+                        },
+                        {
+                            "_tag": "CInput",
+                            "_id": "3Ubdescription",
+                            "cInputType": "TextField",
+                            "resource": "quiz_templates",
+                            "source": "description",
+                            "variant": "standard"
+                        },
+                        {
+                            "_tag": "CInput",
+                            "_id": "3Ubmax_points",
+                            "cInputType": "NumberField",
+                            "resource": "quiz_templates",
+                            "source": "max_points",
+                            "variant": "standard"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "_tag": "CList",
+            "_id": "321UgJc1t",
+            "cListType": "Table",
+            "resource": "qtmpl__results",
+            "sortField": "id",
+            "editable": true,
+            "isSubListOf": "quiz_templates",
+            "refToParentListFieldName": "quizz_template_id",
+            "enabledActions": [
+                {
+                    "actionType": "CREATE"
+                }
+            ],
+            "fields": [
+                {
+                    "cInputType": "NumberField",
+                    "resource": "qtmpl__results",
+                    "source": "points_start",
+                    "variant": "standard",
+                    "width": 2
+                },
+                {
+                    "cInputType": "NumberField",
+                    "resource": "qtmpl__results",
+                    "source": "points_end",
+                    "variant": "standard",
+                    "width": 2
+                },
+                {
+                    "cInputType": "TextField",
+                    "resource": "qtmpl__results",
+                    "source": "title",
+                    "variant": "standard"
+                },
+                {
+                    "cInputType": "RichTextField",
+                    "resource": "qtmpl__results",
+                    "source": "details",
+                    "variant": "standard",
+                    "width": 12
+                }
+            ]
+        },
+        {
+            "_tag": "CList",
+            "_id": "zcjUgJc1t",
+            "cListType": "Tabs",
+            "resource": "qtmpl__questions",
+            "labelSource": "position",
+            "sortField": "position",
+            "editable": true,
+            "isSubListOf": "quiz_templates",
+            "refToParentListFieldName": "quizz_template_id",
+            "enabledActions": [
+                {
+                    "actionType": "CREATE"
+                }
+            ],
+            "children": [
+                {
+                    "_tag": "CInput",
+                    "_id": "YUfbz5btd",
+                    "cInputType": "RichTextField",
+                    "resource": "qtmpl__questions",
+                    "source": "question",
+                    "width": 12
+                },
+                {
+                    "_tag": "CList",
+                    "_id": "zcjUgJc12",
+                    "cListType": "Table",
+                    "resource": "qtmpl__questions__answers",
+                    "editable": true,
+                    "isSubListOf": "qtmpl__questions",
+                    "refToParentListFieldName": "qtmpl__questions__id",
+                    "sortField": "position",
+                    "enabledActions": [
+                        {
+                            "actionType": "CREATE"
+                        }
+                    ],
+                    "fields": [
+                        {
+                            "cInputType": "TextField",
+                            "resource": "qtmpl__questions__answers",
+                            "source": "id",
+                            "width": 8
+                        },
+                        {
+                            "cInputType": "TextField",
+                            "resource": "qtmpl__questions__answers",
+                            "source": "answer",
+                            "width": 8
+                        },
+                        {
+                            "cInputType": "NumberField",
+                            "resource": "qtmpl__questions__answers",
+                            "source": "points",
+                            "width": 2
+                        },
+                        {
+                            "cInputType": "NumberField",
+                            "resource": "qtmpl__questions__answers",
+                            "source": "position",
+                            "width": 2
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "_tag": "CList",
+            "_id": "zcj2UgJc1t",
+            "cListType": "Chart",
+            "resource": "quiz_sessions_res__frmdbvw",
+            "editable": true,
+            "isSubListOf": "quiz_templates",
+            "refToParentListFieldName": "quizz_template_id",
+            "sortField": "id",
+            "chartType": "Line",
+            "xAxisSource": "session_start",
+            "yAxisSource": "nb_quizzes",
+            "pivotYAxisSource": "result_title"
+        }
+    ]
+}

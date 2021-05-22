@@ -1,0 +1,103 @@
+{
+    "$schema": "/home/acr/code/formuladb/formuladb/pages/src/core-domain/json-schemas/PageNode.json",
+    "_tag": "CPage",
+    "_id": "ROOT",
+    "cPageType": "Edit",
+    "children": [
+        {
+            "_tag": "CForm",
+            "_id": "Ek4N5ig9v",
+            "resource": "quiz_sessions",
+            "children": [
+                {
+                    "_tag": "CRow",
+                    "_id": "MainRowId",
+                    "background": "#ffffff",
+                    "padding": 3,
+                    "children": [
+                        {
+                            "_tag": "CInput",
+                            "_id": "3Ubid",
+                            "cInputType": "NumberField",
+                            "resource": "quiz_sessions",
+                            "source": "id",
+                            "variant": "standard"
+                        },
+                        {
+                            "_tag": "CInput",
+                            "_id": "3Ubname",
+                            "cInputType": "TextField",
+                            "resource": "quiz_sessions",
+                            "source": "name",
+                            "variant": "standard"
+                        },
+                        {
+                            "_tag": "CInput",
+                            "_id": "3Ubquizz_template_id",
+                            "cInputType": "Reference",
+                            "resource": "quiz_sessions",
+                            "source": "quizz_template_id",
+                            "variant": "standard",
+                            "reference": "quiz_templates"
+                        },
+                        {
+                            "_tag": "CInput",
+                            "_id": "3Ubsession_start",
+                            "cInputType": "DateTimeField",
+                            "resource": "quiz_sessions",
+                            "source": "session_start",
+                            "variant": "standard"
+                        },
+                        {
+                            "_tag": "CInput",
+                            "_id": "3Ubsession_end",
+                            "cInputType": "DateTimeField",
+                            "resource": "quiz_sessions",
+                            "source": "session_end",
+                            "variant": "standard"
+                        },
+                        {
+                            "_tag": "CInput",
+                            "_id": "3Ubmax_nb_quizzes",
+                            "cInputType": "NumberField",
+                            "resource": "quiz_sessions",
+                            "source": "max_nb_quizzes",
+                            "variant": "standard"
+                        },
+                        {
+                            "_tag": "CInput",
+                            "_id": "3Ubnb_quizzes",
+                            "cInputType": "NumberField",
+                            "resource": "quiz_sessions",
+                            "source": "nb_quizzes",
+                            "variant": "standard"
+                        },
+                        {
+                            "_tag": "CInput",
+                            "_id": "3Uburl__share",
+                            "cInputType": "UrlField",
+                            "resource": "quiz_sessions",
+                            "source": "url__share",
+                            "variant": "standard",
+                            "disabled": true
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "_tag": "CList",
+            "_id": "zcj2UgJc1t",
+            "cListType": "Chart",
+            "resource": "quiz_sessions_res__frmdbvw",
+            "editable": true,
+            "isSubListOf": "quiz_sessions",
+            "refToParentListFieldName": "quiz_session_id",
+            "enabledActions": [],
+            "sortField": "id",
+            "chartType": "Pie",
+            "xAxisSource": "result_title",
+            "yAxisSource": "nb_quizzes"
+        }
+    ]
+}

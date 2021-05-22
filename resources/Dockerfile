@@ -11,6 +11,6 @@ COPY index.ts /index.ts
 ADD scripts /scripts
 RUN chmod +x /scripts/*sh
 
-ADD sql /sql/
+ADD core /core/
 
 CMD npm start
