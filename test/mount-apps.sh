@@ -1,2 +1,2 @@
-mkdir /mnt/wsl/formuladb-apps
-sudo mount --bind $HOME/code/formuladb/formuladb-apps /mnt/wsl/formuladb-apps 
+mkdir /mnt/wsl/prw-tenants
+sudo mount --bind $HOME/code/pagerows/core/resources/tenants /mnt/wsl/prw-tenants

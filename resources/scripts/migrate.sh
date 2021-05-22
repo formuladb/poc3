@@ -8,9 +8,9 @@ fctLogTime() {
 }
 
 frmdbMigrTime=`fctMigrTime /core`
-bakMigrTime=`fctMigrTime /volume/bak-db/00_pg_dump.sql.gz`
-resourcesMigrTime=`fctMigrTime /volume/resources`
-pagesMigrTime=`fctMigrTime /volume/pages`
+bakMigrTime=`fctMigrTime /bak-db/00_pg_dump.sql.gz`
+resourcesMigrTime=`fctMigrTime /tenants/*/resources`
+pagesMigrTime=`fctMigrTime /tenants/*/pages`
 
 migrate_frmdb_db_Time=`fctLogTime migrate_frmdb_db.time`
 migrate_test_db_Time=`fctLogTime migrate_test_db.time`

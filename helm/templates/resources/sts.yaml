@@ -26,12 +26,23 @@ spec:
         - { name: ENVTYPE, value: {{ .Values.envtype }} }
         - { name: PGPASSWORD,  value: postgres }
         volumeMounts:
-          - mountPath: /volume
+          - mountPath: /tenants
             name: resources-persistence
+          - mountPath: /bak-db
+            name: bak-db
+          - mountPath: /bak-obj
+            name: bak-obj
       imagePullSecrets:
         - name: regcred
-{{ if eq .Values.envtype "production" }}
   volumeClaimTemplates:
+  - metadata:
+      name: bak-db
+    spec:
+      accessModes: [ ReadWriteOnce ]
+      resources:
+        requests:
+          storage: 1Gi
+{{ if eq .Values.envtype "production" }}
   - metadata:
       name: resources-persistence
     spec:
@@ -44,6 +55,6 @@ spec:
       - name: resources-persistence
         persistentVolumeClaim:
         hostPath:
-          path: /run/desktop/mnt/host/wsl/formuladb-apps/{{ .Release.Namespace }}
+          path: /run/desktop/mnt/host/wsl/prw-tenants
           type: Directory
 {{ end }}
