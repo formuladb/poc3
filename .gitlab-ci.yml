@@ -4,15 +4,16 @@ default:
   image: node
 
 stages:
-  script:
-    - build_pages
-    - test_pages
+  - build_pages
+  - test_pages
 
 build_page:
+  stage: build_page
   script:
     - npm install
     - npm run build
 
 test_pages:
+  state: test_pages
   script:
     - npm test
