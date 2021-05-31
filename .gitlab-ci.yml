@@ -7,8 +7,8 @@ stages:
   - build_pages
   - test_pages
 
-build_page:
-  stage: build_page
+build_pages:
+  stage: build_pages
   script:
     - npm install
     - npm run build
