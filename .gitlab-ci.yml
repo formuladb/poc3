@@ -14,6 +14,6 @@ build_page:
     - npm run build
 
 test_pages:
-  state: test_pages
+  stage: test_pages
   script:
     - npm test
