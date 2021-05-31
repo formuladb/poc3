@@ -10,6 +10,7 @@ stages:
 build_pages:
   stage: build_pages
   script:
+    - cd pages
     - npm install
     - npm run build
 
