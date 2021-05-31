@@ -1,0 +1,15 @@
+variables:
+  GIT_DEPTH: 5
+default:
+  image: node
+
+stages:
+    - build_pages
+    - test_pages
+
+build_page:
+    - npm install
+    - npm run build
+
+test_pages:
+    - npm test
