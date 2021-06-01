@@ -1,7 +1,9 @@
 variables:
   GIT_DEPTH: 5
 default:
-  image: node
+  image: node:lts-alpine3.12
+  before_script:
+    - apk add --no-cache bash git make gcc g++ python
 
 stages:
   - build_pages
