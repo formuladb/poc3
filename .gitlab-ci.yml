@@ -3,7 +3,7 @@ variables:
 default:
   image: node:lts-alpine3.12
   before_script:
-    - apk add --no-cache bash git make gcc g++ python
+    - apk add --no-cache bash git make gcc g++ python3
 
 stages:
   - build_pages
