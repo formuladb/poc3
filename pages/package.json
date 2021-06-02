@@ -45,7 +45,7 @@
   },
   "scripts": {
     "start": "react-scripts start --no-cache",
-    "build": "react-scripts build",
+    "build": "DISABLE_ESLINT_PLUGIN=true react-scripts build",
     "test": "react-scripts test --no-cache --env jest-environment-jsdom-fourteen",
     "eject": "react-scripts eject",
     "gen-json-schema": "bash generate-json-schemas.sh"
