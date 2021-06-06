@@ -9,7 +9,7 @@ fctMigrate_resources() {
         fctH2 "Loaging resources for tentant ${tenant} on ${dbname}"
         shopt -s nullglob
         for i in $tenant/*/*.sql; do 
-            export PGOPTIONS=--search_path=
+            # export PGOPTIONS=--search_path=
             if [[ $i = *.test.sql ]]; then
                 if [ "$dbname" = "test" -o "$dbname" = "dev" ]; then
                     fctH2 "$dbname:$i"
