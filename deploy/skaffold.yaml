@@ -32,8 +32,6 @@ deploy:
     - name: formuladb
       chartPath: ../helm
       artifactOverrides:
-        image_resources: registry.formuladb.io/formuladb/febe/formuladb-resources
-        image_pages: registry.formuladb.io/formuladb/febe/formuladb-pages
         # image_deploy_frmdb: registry.formuladb.io/formuladb/febe/formuladb-deploy_frmdb
         # image_cliutils: registry.formuladb.io/formuladb/febe/formuladb-cliutils
       setValues: 

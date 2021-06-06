@@ -14,7 +14,7 @@ deploy:
     - name: pagerows-rows
       chartPath: ./helm
       artifactOverrides:
-        image_resources: registry.gitlab.com/pagerows/pagerows/rows
+        image_rows: registry.gitlab.com/pagerows/pagerows/rows
       setValues: 
         ingress.host: frmdb.localhost
         envtype: localdev

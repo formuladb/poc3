@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: resources
+  name: rows
 spec:
   replicas: 1
   selector:
     matchLabels:
-      service: resources
-  serviceName: resources
+      service: rows
+  serviceName: rows
   template:
     metadata:
       labels:
-        service: resources
+        service: rows
     spec:  
       containers:
-      - name: resources
-        image: {{ .Values.image_resources }}
+      - name: rows
+        image: {{ .Values.image_rows }}
         ports:
         - containerPort: 8080
         env:
@@ -27,7 +27,7 @@ spec:
         - { name: PGPASSWORD,  value: postgres }
         volumeMounts:
           - mountPath: /tenants
-            name: resources-persistence
+            name: rows-persistence
           - mountPath: /bak-db
             name: bak-db
           - mountPath: /bak-obj
@@ -36,7 +36,7 @@ spec:
         - name: regcred
 {{ if ne .Values.envtype "production" }}
       volumes:
-      - name: resources-persistence
+      - name: rows-persistence
         persistentVolumeClaim:
         hostPath:
           path: /run/desktop/mnt/host/wsl/prw-tenants
@@ -59,7 +59,7 @@ spec:
           storage: 1Gi
 {{ if eq .Values.envtype "production" }}
   - metadata:
-      name: resources-persistence
+      name: rows-persistence
     spec:
       accessModes: [ ReadWriteOnce ]
       resources:

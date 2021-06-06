@@ -132,4 +132,4 @@ SELECT frmdb_put_column_REFERENCE_TO('quiz_sessions', 'quizz_template_id', 'quiz
 SELECT frmdb_put_column('quiz_sessions', 'session_start', $$ timestamp with time zone $$, 'is_not_null(session_start)', null);
 SELECT frmdb_put_column('quiz_sessions', 'session_end', $$ timestamp with time zone $$, 'is_not_null(session_end)', null);
 SELECT frmdb_put_column('quiz_sessions', 'max_nb_quizzes', $$ integer $$, 'is_not_null(max_nb_quizzes)', null);
-SELECT frmdb_put_column('quiz_sessions', 'url__share', $$ text $$, null, null,  $$ CONCATENATE('/fdb-pages/quizzes/create?state=IN_PROGRESS&quiz_session_id=', id::text) $$);
+SELECT frmdb_put_column('quiz_sessions', 'url__share', $$ text $$, null, null,  $$ CONCATENATE('/prws/quizzes/create?state=IN_PROGRESS&quiz_session_id=', id::text) $$);
