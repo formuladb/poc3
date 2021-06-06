@@ -15,7 +15,7 @@ export const CardTop = ({ children }) => {
   } = useNode();
   return (
     <div
-      ref={connect}
+      ref={connect as (instance: HTMLDivElement | null) => void}
       className="text-only"
       style={{
         padding: '10px',
@@ -42,7 +42,8 @@ export const CardBottom = ({ children }) => {
     connectors: { connect },
   } = useNode();
   return (
-    <div style={{ padding: '10px 0' }} ref={connect}>
+    //@ts-ignore
+    <div style={{ padding: '10px 0' }} ref={connect as (instance: HTMLDivElement | null) => void}>
       {children}
     </div>
   );

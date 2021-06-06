@@ -14,7 +14,7 @@ export function CColumn ({
     } = useNode();
     return (
         <Grid container direction="column" spacing={2}
-            ref={connect}
+            ref={connect as (instance: HTMLDivElement | null) => void}
         >
             {children}
         </Grid>

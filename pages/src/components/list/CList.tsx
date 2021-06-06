@@ -53,7 +53,7 @@ export function CList(nP: CListProps & { children: null | React.ReactNode }) {
     };
 
     return (
-        <div className="" ref={connect}>
+        <div className="" ref={connect as (instance: HTMLDivElement | null) => void}>
             {nP.isSubListOf && <SubList key="sublist" {...nP} children={nP.children} />}
             {!nP.isSubListOf && <RawList key="list" {...nP} children={nP.children} />}
         </div>
@@ -92,7 +92,7 @@ export function SubList({
 
     //console.debug('SubList for ', parentResourceId, nP, rawFormContext);
 
-    return <Grid item className="" ref={connect}>
+    return <Grid item className="" ref={connect as (instance: HTMLDivElement | null) => void}>
         {parentResourceId && <RefManyField parentResourceId={parentResourceId} {...nP} children={children} />}
     </Grid>;
 };

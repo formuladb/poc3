@@ -29,7 +29,7 @@ export const CText = ({ text, textAlign, fontWeight }: CTextProps) => {
 
   return (
     <Grid item
-      ref={connect}
+      ref={connect as (instance: HTMLDivElement | null) => void}
       onClick={() => selected && setEditable(true)}
     >
       <ContentEditable

@@ -121,6 +121,7 @@ export const RenderNode = ({ render }) => {
                     >
                         <span className="flex-1 mr-4">{name}</span>
                         {moveable ? (
+                            //@ts-ignore
                             <Btn className="mr-2 cursor-move" ref={drag}>
                                 <Move />
                             </Btn>

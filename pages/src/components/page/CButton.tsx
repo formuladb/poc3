@@ -16,8 +16,10 @@ export const CButton = ({ size, variant, color, text }: { size?, variant?, color
   } = useNode();
   return (
     <Grid item>
+      {/*@ts-ignore*/}
       <MaterialButton
-        ref={connect}
+        //@ts-ignore
+        ref={connect as (instance: HTMLDivElement | null) => void}
         style={{ margin: '5px' }}
         size={size}
         variant={variant}

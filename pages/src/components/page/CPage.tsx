@@ -19,7 +19,7 @@ export function CPage({
     return (
         <Grid container direction="column" spacing={2}
             style={{padding: '10px'}}
-            ref={connect}
+            ref={connect as (instance: HTMLDivElement | null) => void}
         >
             {children}
         </Grid>

@@ -31,7 +31,7 @@ export function CRow({
     return (
         <Grid container direction="row" spacing={2}
             {...extraProps}
-            ref={connect}
+            ref={connect as (instance: HTMLDivElement | null) => void}
         >
             {children}
         </Grid>
