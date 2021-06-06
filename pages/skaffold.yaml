@@ -3,7 +3,7 @@ kind: Config
 build:
   artifacts:
   - image: registry.gitlab.com/pagerows/pagerows/pages
-    context: ./pages
+    context: .
     sync:
       manual:
       - src: '**/*'
@@ -16,7 +16,7 @@ deploy:
     - name: formuladb
       chartPath: ./helm
       artifactOverrides:
-        image_pages: registry.formuladb.io/formuladb/febe/formuladb-pages
+        image_pages: registry.gitlab.com/pagerows/pagerows/pages
       setValues: 
         ingress.host: frmdb.localhost
         envtype: localdev
