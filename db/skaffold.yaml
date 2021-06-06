@@ -1,22 +1,10 @@
 apiVersion: skaffold/v2beta11
 kind: Config
-build:
-  artifacts:
-  - image: registry.gitlab.com/pagerows/pagerows/pages
-    context: .
-    sync:
-      manual:
-      - src: '**/*'
-        dest: /
-    docker:
-      dockerfile: Dockerfile.dev
 deploy:
   helm:
     releases:
-    - name: pagerows-pages
+    - name: pagerows-db
       chartPath: ./helm
-      artifactOverrides:
-        image_pages: registry.gitlab.com/pagerows/pagerows/pages
       setValues: 
         ingress.host: frmdb.localhost
         envtype: localdev

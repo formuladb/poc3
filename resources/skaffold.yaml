@@ -2,21 +2,19 @@ apiVersion: skaffold/v2beta11
 kind: Config
 build:
   artifacts:
-  - image: registry.gitlab.com/pagerows/pagerows/pages
+  - image: registry.formuladb.io/formuladb/febe/formuladb-resources
     context: .
     sync:
-      manual:
-      - src: '**/*'
-        dest: /
+      infer: ['core/**']
     docker:
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
 deploy:
   helm:
     releases:
-    - name: pagerows-pages
+    - name: pagerows-rows
       chartPath: ./helm
       artifactOverrides:
-        image_pages: registry.gitlab.com/pagerows/pagerows/pages
+        image_resources: registry.gitlab.com/pagerows/pagerows/rows
       setValues: 
         ingress.host: frmdb.localhost
         envtype: localdev
