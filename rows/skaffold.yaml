@@ -2,7 +2,7 @@ apiVersion: skaffold/v2beta11
 kind: Config
 build:
   artifacts:
-  - image: registry.formuladb.io/formuladb/febe/formuladb-resources
+  - image: registry.gitlab.com/pagerows/pagerows/rows
     context: .
     sync:
       infer: ['core/**']
