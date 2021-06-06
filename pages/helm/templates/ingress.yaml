@@ -8,7 +8,7 @@ spec:
   rules:
   - http:
       paths:
-      - path: /prws
+      - path: /
         pathType: ImplementationSpecific
         backend:
           service: 
