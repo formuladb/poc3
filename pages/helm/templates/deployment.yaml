@@ -22,7 +22,7 @@ spec:
         env:
           - { name: BROWSER, value: 'none' }
           # - { name: CI, value: 'true' }
-          - { name: PUBLIC_URL, value: '/fdb-pages' }
+          - { name: PUBLIC_URL, value: '/prws' }
         resources: {}
       restartPolicy: Always
       imagePullSecrets:
