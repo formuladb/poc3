@@ -1,0 +1,3 @@
+ingress:
+  host: null
+image_pages: registry.gitlab.com/pagerows/pagerows/pages:b5bdc51b-dirty@sha256:b0180c51255839678e591b097af0fbb0db71cdd9a8f80481c16be82db2704211

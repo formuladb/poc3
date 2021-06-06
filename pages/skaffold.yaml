@@ -1,0 +1,38 @@
+apiVersion: skaffold/v2beta11
+kind: Config
+build:
+  artifacts:
+  - image: registry.gitlab.com/pagerows/pagerows/pages
+    context: ./pages
+    sync:
+      manual:
+      - src: '**/*'
+        dest: /
+    docker:
+      dockerfile: Dockerfile.dev
+deploy:
+  helm:
+    releases:
+    - name: formuladb
+      chartPath: ./helm
+      artifactOverrides:
+        image_pages: registry.formuladb.io/formuladb/febe/formuladb-pages
+      setValues: 
+        ingress.host: frmdb.localhost
+        envtype: localdev
+      createNamespace: true
+profiles:
+- name: localdev
+- name: production
+  patches:
+  - op: replace
+    path: /deploy/helm/releases/0/setValues/envtype
+    value: production
+  # - op: remove
+  #   path: /build/cluster
+  # - op: remove
+  #   path: /build/artifacts/0/docker
+  # - op: add
+  #   path: /build/artifacts/0/kaniko
+  #   value:
+  #     dockerfile: Dockerfile

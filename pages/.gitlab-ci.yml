@@ -1,0 +1,41 @@
+variables:
+  GIT_DEPTH: 5
+default:
+  image: node:lts-alpine3.12
+  before_script:
+    - apk add --no-cache bash git make gcc g++ python3
+
+stages:
+  - install
+  - build
+  - test
+
+install:
+  stage: install
+  script:
+    - cd pages
+    - npm install
+  cache:
+    key: ${CI_COMMIT_SHA}
+    paths:
+      - node_modules/
+
+build:
+  stage: build
+  script:
+    - cd pages
+    - npm run build
+  cache:
+    key: ${CI_COMMIT_SHA}
+    paths:
+      - node_modules/
+
+test:
+  stage: test
+  script:
+    - cd pages
+    - npm test
+  cache:
+    key: ${CI_COMMIT_SHA}
+    paths:
+      - node_modules/
