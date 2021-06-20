@@ -41,7 +41,7 @@ export function defaultEditPageFields(
     return resourceWithFields.field_defs
         .filter(fieldDef => {
             if (DEFAULT_COLS.includes(fieldDef.name)) return false;
-            if (isCreate && 'id' === fieldDef.name) return false;
+            if (isCreate && 'id' === fieldDef.name && fieldDef.type !== "TextField") return false;
             if (isCreate && fieldDef.c_is_computed) return false;
             if (isCreate && !isFieldRequired(fieldDef)) return false;
             return true;
