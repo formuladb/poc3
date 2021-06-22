@@ -1,5 +1,11 @@
 apiVersion: skaffold/v2beta11
 kind: Config
+build:
+  artifacts:
+  - image: registry.gitlab.com/pagerows/pagerows/db-backup
+    context: backup
+    docker:
+      dockerfile: Dockerfile
 deploy:
   helm:
     releases:

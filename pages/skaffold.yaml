@@ -17,6 +17,7 @@ deploy:
       chartPath: ./helm
       artifactOverrides:
         image_pages: registry.gitlab.com/pagerows/pagerows/pages
+        image_db_backup: registry.gitlab.com/pagerows/pagerows/db-backup        
       setValues: 
         ingress.host: frmdb.localhost
         envtype: localdev

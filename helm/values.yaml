@@ -1,6 +1,3 @@
 ingress:
   host: null
 envtype: localdev
-# image_for_clitools: registry.formuladb.io/formuladb/febe/formuladb-clitools:0.0.1
-# image_deploy_frmdb: registry.formuladb.io/formuladb/febe/formuladb-deploy_frmdb:b5bdc51b-dirty@sha256:b0180c51255839678e591b097af0fbb0db71cdd9a8f80481c16be82db2704211
-# image_cliutils: registry.formuladb.io/formuladb/febe/formuladb-cliutils:b5bdc51b@sha256:eaf29116fb67c6dbd8ae874c514529925bd43ebcfaa8cd7286c70338fa7b0ebd

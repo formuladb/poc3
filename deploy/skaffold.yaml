@@ -1,62 +1,21 @@
 apiVersion: skaffold/v2beta11
 kind: Config
 build:
-  tagPolicy:
-    gitCommit: {}
-  cluster:
-    randomPullSecret: true
-    randomDockerConfigSecret: true
-    pullSecretName: regcred
-    dockerConfig:
-      path: ../setup-platform/k8s/docker-config.json
-  artifacts:
-  - image: registry.formuladb.io/formuladb/febe/formuladb-resources
-    context: ../resources
-    sync:
-      infer: ['core/**']
-    kaniko:
-      dockerfile: Dockerfile
-      cache: {}
-  - image: registry.formuladb.io/formuladb/febe/formuladb-pages
-    context: ../pages
-    sync:
-      manual:
-      - src: '**/*'
-        dest: /
-    kaniko:
-      dockerfile: Dockerfile
-      cache: {}
-deploy:
-  helm:
-    releases:
-    - name: formuladb
-      chartPath: ../helm
-      artifactOverrides:
-        # image_deploy_frmdb: registry.formuladb.io/formuladb/febe/formuladb-deploy_frmdb
-        # image_cliutils: registry.formuladb.io/formuladb/febe/formuladb-cliutils
-      setValues: 
-        ingress.host: frmdb.localhost
-        envtype: localdev
-      createNamespace: true
+  local:
+    concurrency: 0 #builds all artifacts parallely
+requires:
+  - path: ./db
+    activeProfiles:
+      - { name: localdev, activatedBy: [localdev] }
+      - { name: production, activatedBy: [production] }
+  - path: ./pages
+    activeProfiles:
+      - { name: localdev, activatedBy: [localdev] }
+      - { name: production, activatedBy: [production] }
+  - path: ./rows
+    activeProfiles:
+      - { name: localdev, activatedBy: [localdev] }
+      - { name: production, activatedBy: [production] }
 profiles:
-- name: production
-  patches:
-  - op: replace
-    path: /deploy/helm/releases/0/setValues/envtype
-    value: production
-- name: localdev
-  patches:
-  - op: remove
-    path: /build/cluster
-  - op: remove
-    path: /build/artifacts/0/kaniko
-  - op: add
-    path: /build/artifacts/0/docker
-    value:
-      dockerfile: Dockerfile
-  - op: remove
-    path: /build/artifacts/1/kaniko
-  - op: add
-    path: /build/artifacts/1/docker
-    value:
-      dockerfile: Dockerfile.dev
+  - name: localdev
+  - name: production
