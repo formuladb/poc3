@@ -1,6 +1,6 @@
 #docker build -t dbplv8 -f Dockerfile.plv8 .
-#docker tag dbplv8 registry.formuladb.io/formuladb/febe/dbplv8:12.3-2.3.15-1
-#docker push registry.formuladb.io/formuladb/febe/dbplv8:12.3-2.3.15-1
+#docker tag dbplv8 registry.gitlab.com/pagerows/pagerows/dbplv8:12.3-2.3.15-1
+#docker push registry.gitlab.com/pagerows/pagerows/dbplv8:12.3-2.3.15-1
 
 FROM postgres:12.3
 

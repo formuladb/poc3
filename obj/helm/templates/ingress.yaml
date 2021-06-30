@@ -22,4 +22,4 @@ spec:
             name: minio
             port:
               number: 9000  
-    {{ if .Values.ingress.host}}host: {{ .Release.Namespace }}.{{ .Values.ingress.host }}{{end}}
+    {{ if .Values.ingress.host}}host: {{ .Values.ingress.host }}{{end}}

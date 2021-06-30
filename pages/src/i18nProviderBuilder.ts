@@ -10,7 +10,7 @@ import englishMessages from 'ra-language-english';
 import roMessages from 'ra-language-romanian';
 import frMessages from 'ra-language-french';
 import deMessages from 'ra-language-german';
-import esMessages from '@blackbox-vision/ra-language-spanish';
+// import esMessages from '@blackbox-vision/ra-language-spanish';
 import elMessages from 'ra-language-greek';
 
 import { resolveBrowserLocale } from 'react-admin';
@@ -20,7 +20,7 @@ const Lang2MessagesMap = {
     'ro': roMessages,
     'fr': frMessages,
     'de': deMessages,
-    'es': esMessages,
+    // 'es': esMessages,
     'el': elMessages,
 };
 
