@@ -4,15 +4,15 @@ build:
   local:
     concurrency: 0 #builds all artifacts parallely
 requires:
-  - path: ./db
+  - path: ../db
     activeProfiles:
       - { name: localdev, activatedBy: [localdev] }
       - { name: production, activatedBy: [production] }
-  - path: ./pages
+  - path: ../pages
     activeProfiles:
       - { name: localdev, activatedBy: [localdev] }
       - { name: production, activatedBy: [production] }
-  - path: ./rows
+  - path: ../rows
     activeProfiles:
       - { name: localdev, activatedBy: [localdev] }
       - { name: production, activatedBy: [production] }

@@ -11,6 +11,8 @@ deploy:
     releases:
     - name: pagerows-db
       chartPath: ./helm
+      artifactOverrides:
+        image_db_backup: registry.gitlab.com/pagerows/pagerows/db-backup
       setValues: 
         ingress.host: frmdb.localhost
         envtype: localdev

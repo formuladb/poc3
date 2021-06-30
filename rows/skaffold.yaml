@@ -18,7 +18,7 @@ deploy:
       setValues: 
         ingress.host: frmdb.localhost
         envtype: localdev
-      namespace: "{{ .NAMESPACE }}"
+      namespace: "{{ .PRW_NAMESPACE }}"
       createNamespace: true
 profiles:
 - name: localdev
@@ -27,6 +27,9 @@ profiles:
   - op: replace
     path: /deploy/helm/releases/0/setValues/envtype
     value: production
+  - op: replace
+    path: /deploy/helm/releases/0/setValues/ingress.host
+    value: "{{ .PRW_INGRESS_HOST }}"
   # - op: remove
   #   path: /build/cluster
   # - op: remove
