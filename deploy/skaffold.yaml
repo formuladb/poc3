@@ -16,6 +16,10 @@ requires:
     activeProfiles:
       - { name: localdev, activatedBy: [localdev] }
       - { name: production, activatedBy: [production] }
+  - path: ../obj
+    activeProfiles:
+      - { name: localdev, activatedBy: [localdev] }
+      - { name: production, activatedBy: [production] }
 profiles:
   - name: localdev
   - name: production

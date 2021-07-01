@@ -118,11 +118,11 @@ begin
         'role', _user.role,
         'user_id', _user.id,
         'username', _user.username,
-        'exp', extract(epoch from now())::integer + 60*60
+        'exp', extract(epoch from now())::integer + 3600
       ), 'asd1238d140dhoicoiqhewodqhed81-312d'
   );
 
-  _cookie := format('[{"set-cookie": "dbrestauth=%s; path=/; HttpOnly; max-age=86400"}]', result.token);
+  _cookie := format('[{"set-cookie": "dbrestauth=%s; path=/; HttpOnly; max-age=3600"}]', result.token);
   PERFORM set_config('response.headers', _cookie, true);    
   return result;
 end;
@@ -203,10 +203,10 @@ begin
       select current_user as role, 
       (select current_setting('request.jwt.claim.user_id', true)) as user_id,
       (select current_setting('request.jwt.claim.username', true)) as username,
-      extract(epoch from now())::integer + 60*60 as exp
+      extract(epoch from now())::integer + 3600 as exp
     ) r
     into result;
-  _cookie := format('[{"set-cookie": "dbrestauth=%s; path=/; HttpOnly; max-age=86400"}]', result.token);
+  _cookie := format('[{"set-cookie": "dbrestauth=%s; path=/; HttpOnly; max-age=3600"}]', result.token);
   PERFORM set_config('response.headers', _cookie, true);    
   return result;
 end;

@@ -8,7 +8,7 @@ deploy:
       setValueTemplates: 
         ingress.host: "{{ .PRW_INGRESS_HOST }}"
         envtype: localdev
-      namespace: "{{ .NAMESPACE }}"
+      namespace: "{{ .PRW_NAMESPACE }}"
       createNamespace: true
 profiles:
 - name: localdev
