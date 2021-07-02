@@ -62,7 +62,7 @@ app.put('/upload/:table/:column/:file', async (req: express.Request, res) => {
 });
 
 app.listen(8080);
-startDevModeMigration();
+// startDevModeMigration();
 
 // function startGitSync() {
 //     console.log("Starting git-sync each 5 sec");
@@ -77,12 +77,12 @@ startDevModeMigration();
 //     }, 24 * 3600000)
 // }
 
-function startDevModeMigration() {
-    if (process.env.ENVTYPE === "localdev") {
-        console.log("Starting migration script");
-        runCmd('timeout', '300', 'bash', '/scripts/migrate_watch.sh');    
-    }
-}
+// function startDevModeMigration() {
+//     if (process.env.ENVTYPE === "localdev") {
+//         console.log("Starting migration script");
+//         runCmd('timeout', '300', 'bash', '/scripts/migrate_watch.sh');    
+//     }
+// }
 
 function runCmd(cmd: string, ...args: string[]) {
     var prc = spawn(cmd, args);
