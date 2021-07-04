@@ -49,20 +49,20 @@ export function useUpsertRecord(resource: string): UseUpsertRecordRet {
             beforeSave(resource, data);
         }
 
-        if (undefined != data['id']) {
-            await dataProvider.update(resource, {
-                id: data['id'],
-                data,
-                previousData: { id: "not-using-previous-data" },
-            }, dataProviderOpts)
-        } else {
+        // if (undefined != data['id']) {
+        //     await dataProvider.update(resource, {
+        //         id: data['id'],
+        //         data,
+        //         previousData: { id: "not-using-previous-data" },
+        //     }, dataProviderOpts)
+        // } else {
             await dataProvider.create(resource, { data }, dataProviderOpts);
-        }
+        // }
 
         if (url.match(/\/create$/)) {
             redirect(url.replace(/\/create$/, `/${data['id']}`));
         } else if (redirectTo != undefined) {
-            redirect(redirectTo);
+            redirect(redirectTo, resourceWithFields.id);
         }
 
     }, [resource, resourceWithFields, dataProvider, dataProviderOpts]);

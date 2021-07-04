@@ -36,7 +36,7 @@ export const CInput = (nP: CInputProps) => {
     const validators = useValidators(rawFormContext.resource, rawFormContext.fieldDefsByName, rawFormContext.isCreate);
     const validationFn = validators[nP.source];
     const fieldDef = rawFormContext.fieldDefsByName[nP.source];
-    const isDisabled = nP.disabled || fieldDef?.c_is_computed || nP.source === "id";
+    const isDisabled = nP.disabled || fieldDef?.c_is_computed /*|| nP.source === "id"*/;
     const initialValueFromUrl = rawFormContext.recordFieldsInUrl?.[nP.source];
 
     return <Grid item md={nP.width || 3} className="" ref={connect as (instance: HTMLDivElement | null) => void}>

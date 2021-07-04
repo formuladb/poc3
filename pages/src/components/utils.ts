@@ -21,7 +21,3 @@ export function omitProps<T extends object>(obj: T, props: Array<keyof T>) {
     }
     return ret;
 }
-
-export function groupByUniqProp<T>(values: T[], propName: keyof T) {
-    return mapValues(groupBy(values, propName), v => v[0]);
-}

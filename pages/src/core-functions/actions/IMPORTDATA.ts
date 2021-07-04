@@ -1,5 +1,4 @@
-import { DataProvider, Record } from "react-admin";
-import { groupByUniqProp } from "../../components/utils";
+import { Record } from "react-admin";
 import { ActionIMPORTDATA } from "../../core-domain/page";
 import { FrmdbResourceWithFields } from "../../core-domain/records";
 import { FrmdbDataProvider } from "../../ra-data-postgrest";

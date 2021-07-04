@@ -27,8 +27,9 @@ export interface FrmdbPage {
 
 export interface FrmdbSystemParams {
     id: string;
-    value: string;
+    val: string;
 }
+export const LOCALE = 'LOCALE';
 
 export interface FrmdbDictionary {
     id: string;

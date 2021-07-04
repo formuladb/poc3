@@ -48,20 +48,30 @@
                     "type": "boolean"
                 },
                 "to": {
-                    "additionalProperties": false,
-                    "properties": {
-                        "referenceField": {
-                            "type": "string"
+                    "anyOf": [
+                        {
+                            "additionalProperties": false,
+                            "properties": {
+                                "referenceField": {
+                                    "type": "string"
+                                },
+                                "resource": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "referenceField",
+                                "resource"
+                            ],
+                            "type": "object"
                         },
-                        "resource": {
+                        {
+                            "enum": [
+                                "list"
+                            ],
                             "type": "string"
                         }
-                    },
-                    "required": [
-                        "referenceField",
-                        "resource"
-                    ],
-                    "type": "object"
+                    ]
                 }
             },
             "required": [

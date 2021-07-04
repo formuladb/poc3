@@ -9,7 +9,7 @@ import { useUpsertRecord } from './useUpsertRecord';
 import { FormWithRedirectProps } from 'react-admin';
 import { ActionSAVE, ActionDELETE, CFormProps, ActionREDIRECT, ActionSET } from '../../core-domain/page';
 import { RawFormContext, RawFormContextData } from './useRawFormContext';
-import { groupByUniqProp } from '../utils';
+import { groupByUniqProp } from '../../utils';
 import { useValidators } from './useValidators';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import { PrintButton } from '../list/buttons/PrintButton';
@@ -46,17 +46,6 @@ export const RawForm = ({
         }
         return saveAction?.label;
     }, [record, saveAction])
-    const redirectOnSave = useMemo(() => {
-        const redirectOnSaveAct = saveAction?.extraActions?.find(act => act.actionType === "REDIRECT") as ActionREDIRECT | undefined;
-        if (redirectOnSaveAct?.redirectNextSibling && nextSiblingResourceId) {
-            return url.replace(/\/[^\/]+$/, `/${nextSiblingResourceId}`);
-        } else if (redirectOnSaveAct?.to) {
-            const to = redirectOnSaveAct?.to;
-            return `/${to.resource}/${record?.[to.referenceField]}`;
-        }
-        
-        return undefined;
-    }, [saveAction, nextSiblingResourceId, record]);
 
     const beforeSave = useCallback((resource: string, data: Record) => {
         const setAction = saveAction?.extraActions?.find(act => act.actionType === "SET") as ActionSET | undefined;
@@ -70,6 +59,23 @@ export const RawForm = ({
     }, [enabledActions]);
 
     const { resourceWithFields, onUpsertRecord } = useUpsertRecord(resource);
+
+    const redirectOnSave = useMemo(() => {
+        const redirectOnSaveAct = saveAction?.extraActions?.find(act => act.actionType === "REDIRECT") as ActionREDIRECT | undefined;
+        if (redirectOnSaveAct?.redirectNextSibling && nextSiblingResourceId) {
+            return url.replace(/\/[^\/]+$/, `/${nextSiblingResourceId}`);
+        } else if (redirectOnSaveAct?.to) {
+            const to = redirectOnSaveAct?.to;
+            if (to === "LIST") {
+                return `/${resourceWithFields.id}`;
+            } else {
+                return `/${to.resource}/${record?.[to.referenceField]}`;
+            }
+        }
+        
+        return undefined;
+    }, [saveAction, nextSiblingResourceId, record, resourceWithFields]);
+
     const save: FormWithRedirectProps['save'] = useCallback((data, redirectTo, optional) => {
         if (refToParentListFieldName && parentResourceId) {
             data[refToParentListFieldName] = parentResourceId;

@@ -12,7 +12,6 @@ import { RawForm, RawFormProps } from '../../form/RawForm';
 import { CInputProps, CListPropsBase } from '../../../core-domain/page';
 import { CInput } from '../../form/CInput';
 import { useResourceWithFields } from '../../form/useResourceWithFields';
-import { groupByUniqProp } from '../../utils';
 import { defaultEditPageFields } from '../../defaultEditPageContent';
 
 /**

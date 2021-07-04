@@ -11,7 +11,7 @@ import { parseLocation } from '../../location_utils';
 import { ResourceFieldDef } from '../../core-domain/fields';
 import MultiSchemaField from './MultiSchemaField';
 import { useResources } from '../../useResources';
-import { groupByUniqProp } from '../utils';
+import { groupByUniqProp } from '../../utils';
 // import MultiSchemaField from './MultiSchemaField';
 
 export type SyncCmpSettingsCompleter = (node: CraftJsNode, schema: JSONSchema7) => JSONSchema7;

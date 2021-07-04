@@ -17,43 +17,53 @@ import { AppIcon } from './components/generic/AppIcon';
 import { createBrowserHistory } from 'history';
 import { EMPTY_LOCALE } from './i18nProviderBuilder';
 import { Dashboard } from './components/layout/Dashboard';
+import { useSystemParams } from './useSystemParams';
+import { LOCALE } from './core-domain/records';
+import i18nProviderBuilder from './i18nProviderBuilder';
 
 const history = createBrowserHistory({
-    basename: window.location.pathname.split('/').filter(i => i)[0]||'',
+    basename: window.location.pathname.split('/').filter(i => i)[0] || '',
 });
 
 type AppProps = {
     dataProvider: DataProvider,
     authProvider: AuthProvider,
-    i18nProvider: I18nProvider | undefined,
 };
 
 function App(props: AppProps) {
 
-    return (
-        <AdminContext {...props}
-            customReducers={{ theme: themeReducer }}
-            history={history}
-        >
-            <AsyncResources />
-        </AdminContext>
-    );
+    const i18nProvider = i18nProviderBuilder(props.dataProvider, props.authProvider);
+    const [locale, setLocale] = useState(i18nProvider.getLocale());
+    const systemParams = useSystemParams(props.dataProvider);
+    useEffect(() => {
+        let newLocale = systemParams[LOCALE]?.val;
+        if (newLocale) {
+            console.log("setting user's locale", newLocale);
+            i18nProvider.changeLocale(newLocale)
+                .then(() => {
+                    console.log("User locale set to ", newLocale);
+                    setLocale(newLocale)}
+                );
+        } else console.log("No locale yet loaded for this app");
+    }, [systemParams]);
+
+    return <>
+        { EMPTY_LOCALE === locale &&
+            <Loading loadingPrimary="app.page.loading" loadingSecondary="app.message.loading" />}
+        { EMPTY_LOCALE !== locale &&
+            <AdminContext {...props}
+                i18nProvider={i18nProvider}
+                customReducers={{ theme: themeReducer }}
+                history={history}
+            >
+                <AsyncResources />
+            </AdminContext>
+        }
+    </>;
 }
 
 function AsyncResources() {
     const resources = useResources();
-    //console.debug(resources);
-
-    const locale = useLocale();
-    const setLocale = useSetLocale();
-    useEffect(() => {
-        if (EMPTY_LOCALE === locale) {
-            let newLocale = localStorage.getItem('frmdb-locale');
-            if (!newLocale) newLocale = resolveBrowserLocale();
-            console.log("user's locale", newLocale);    
-            setLocale(newLocale); localStorage.setItem('frmdb-locale', newLocale);    
-        }
-    });
 
     return (
         <AdminUI
@@ -80,9 +90,9 @@ function AsyncResources() {
     );
 }
 
-const ListPage = (props) => <EditablePage {...props} pageType="List" />; 
-const EditPage = (props) => <EditablePage {...props} pageType="Edit" />; 
-const CreatePage = (props) => <EditablePage {...props} pageType="Create" />; 
+const ListPage = (props) => <EditablePage {...props} pageType="List" />;
+const EditPage = (props) => <EditablePage {...props} pageType="Edit" />;
+const CreatePage = (props) => <EditablePage {...props} pageType="Create" />;
 
 const customRoutes = [
     <Route exact path="/configuration" render={() => <Configuration />} />,

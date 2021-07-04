@@ -13,8 +13,6 @@ import deMessages from 'ra-language-german';
 // import esMessages from '@blackbox-vision/ra-language-spanish';
 import elMessages from 'ra-language-greek';
 
-import { resolveBrowserLocale } from 'react-admin';
-
 const Lang2MessagesMap = {
     'en': englishMessages,
     'ro': roMessages,
@@ -23,6 +21,8 @@ const Lang2MessagesMap = {
     // 'es': esMessages,
     'el': elMessages,
 };
+
+let DefaultMassages = englishMessages;
 
 async function changeLocale(locale: string, dataProvider: DataProvider, authProvider: AuthProvider) {
     let raMessages = Lang2MessagesMap[locale];
@@ -41,10 +41,11 @@ async function changeLocale(locale: string, dataProvider: DataProvider, authProv
     }
     console.log("locale change", locale, raMessages, frmdbAppMessages);
 
-    return {
+    DefaultMassages = {
         ...raMessages,
         ...frmdbAppMessages,
     };
+    return DefaultMassages;
 }
 
 export const EMPTY_LOCALE = "empty";
@@ -55,7 +56,7 @@ export default function i18nProviderBuilder(dataProvider: DataProvider, authProv
     let i18nProv = polyglotI18nProvider(loc => {
         if (firstCall) {
             firstCall = false;
-            return englishMessages;
+            return DefaultMassages;
         } else {
             return changeLocale(loc, dataProvider, authProvider);
         }

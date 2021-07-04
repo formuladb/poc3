@@ -15,7 +15,7 @@ import SubMenu from './SubMenu';
 import { useResources } from '../../useResources';
 import { FrmdbResource } from '../../core-domain/records';
 import { AppIcon } from '../generic/AppIcon';
-import { groupByUniqProp } from '../utils';
+import { groupByUniqProp } from '../../utils';
 
 const Menu: FC<MenuProps> = ({ onMenuClick, logout, dense = false }) => {
     const [resourceTree, setResourceTree] = useState([] as { parentRes: FrmdbResource, isOpen: boolean, childRes: FrmdbResource[] }[]);

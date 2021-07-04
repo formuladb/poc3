@@ -374,7 +374,7 @@ export default (apiUrl: string, httpClient = fetchUtils.fetchJson, defaultListOp
     create: (resource, params, isCreateMany?: boolean) => {
       const primaryKey = getPrimaryKey(resource, primaryKeys);
 
-      const url = `${apiUrl}/${resource}`;
+      const url = `${apiUrl}/${resource}?on_conflict=id`;
 
       return httpClient(url, {
         method: 'POST',

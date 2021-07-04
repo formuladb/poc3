@@ -168,7 +168,7 @@ export interface ActionSET {
 export interface ActionREDIRECT {
     actionType: 'REDIRECT';
     redirectNextSibling?: boolean;
-    to: {
+    to: 'LIST' | {
         resource: string;
         referenceField: string;
     } 
