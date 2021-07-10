@@ -13,7 +13,7 @@ ON CONFLICT(id) DO UPDATE SET
 ;
 INSERT INTO qtmpl__results (id, quizz_template_id, points_start, points_end, title, details)
 VALUES 
-(1, 1, 0, 1, 'Rezultat I', 'detalii despre resultatul de tip I, reomandari, sugestii, etc'), 
+(1, 1, 0, 1, 'Rezultat I', 'detalii despre resultatul de tip I, recomandari, sugestii, etc'), 
 (2, 1, 2, 2, 'Rezultat tip II', 'detalii despre rezultatul de tip II, bla bla bla bla adsca dcbala'), 
 (3, 1, 3, 500, 'Rezultat III', 'detalii III, lorem ipsum sim dolores ads a asd c asd ca sdc as dca dc ad a')
 ON CONFLICT(id) DO UPDATE SET 
