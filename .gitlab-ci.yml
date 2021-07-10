@@ -1,2 +1,3 @@
 include:
-  local: pages/.gitlab-ci.yaml
+  - local: pages/.gitlab-ci.yaml
+  - local: rows/.gitlab-ci.yaml
