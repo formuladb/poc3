@@ -1,1 +1,2 @@
-include pages/.gitlab-ci.yaml
+include:
+  local: pages/.gitlab-ci.yaml
