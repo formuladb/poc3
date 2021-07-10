@@ -25,7 +25,7 @@ const mime = require('mime');
 
 import * as jwt from 'jsonwebtoken';
 
-const app: express.Express = express();
+const app: express.Express = express.default();
 
 app.use(cookieParser());
 app.use((req: express.Request, res, next) => {

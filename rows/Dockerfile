@@ -7,6 +7,7 @@ COPY package.json /package.json
 RUN npm install
 
 COPY index.ts /index.ts
+COPY tsconfig.json /tsconfig.json
 
 ADD scripts /scripts
 RUN chmod +x /scripts/*sh
