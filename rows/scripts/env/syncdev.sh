@@ -10,4 +10,4 @@ export WORKDIR=$2
 
 kubectl -n "$NAMESPACE" exec rows-0 -- bash -c "mkdir -p /tenants/default"
 $BASEDIR/krsync -auv --exclude=.git "$WORKDIR/*" rows-0@$NAMESPACE:/tenants/default/
-kubectl -n "$NAMESPACE" exec rows-0 -- bash /scripts/migrate.sh
+kubectl -n "$NAMESPACE" exec rows-0 -- make -f /scripts/migrate.mk

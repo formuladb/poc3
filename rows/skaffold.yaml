@@ -5,7 +5,7 @@ build:
   - image: registry.gitlab.com/pagerows/pagerows/rows
     context: .
     sync:
-      infer: ['core/**']
+      infer: ['core/**', 'scripts/**']
     docker:
       dockerfile: Dockerfile
 deploy:

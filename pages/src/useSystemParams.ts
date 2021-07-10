@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { groupByUniqProp } from './utils';
-import { FrmdbSystemParams } from './core-domain/records';
+import { FrmdbSystemParams } from './core-domain/core-resources/FrmdbSystemParams';
 import { DataProvider, useDataProvider } from 'react-admin';
 import { Dictionary } from 'lodash';
 

@@ -3,7 +3,7 @@ import Form from "@rjsf/material-ui";
 import { JSONSchema7 } from 'json-schema';
 import { useNode, Node as CraftJsNode } from '@craftjs/core';
 import { Validator, Schema } from 'jsonschema';
-import { FrmdbResource, FrmdbResourceWithFields } from '../../core-domain/records';
+import { FrmdbResource, FrmdbResourceWithFields } from '../../core-domain/core-resources/FrmdbResource';
 import { DataProvider, RecordMap, useDataProvider, useGetList } from 'react-admin';
 import { cloneDeep, debounce, isEqual } from 'lodash';
 import { useLocation } from 'react-router-dom';

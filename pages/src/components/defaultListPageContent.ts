@@ -1,6 +1,6 @@
 import { RecordMap } from "react-admin";
 import { DEFAULT_FILTER_TREE_COLS } from "../core-domain/fields";
-import { FrmdbResource, FrmdbResourceWithFields } from "../core-domain/records";
+import { FrmdbResource, FrmdbResourceWithFields } from "../core-domain/core-resources/FrmdbResource";
 import { PageNode } from "../core-domain/page";
 
 export function defaultListPageContent(

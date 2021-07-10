@@ -1,7 +1,7 @@
 import lodashGet from 'lodash/get';
 import lodashSet from 'lodash/set';
 import { DataProvider, I18nProvider, AuthProvider } from 'react-admin';
-import { FrmdbDictionary, FrmdbSystemParams } from './core-domain/records';
+import { FrmdbDictionary } from './core-domain/core-resources/FrmdbDictionary';
 import polyglotI18nProvider from 'ra-i18n-polyglot';
 
 import englishMessages from 'ra-language-english';

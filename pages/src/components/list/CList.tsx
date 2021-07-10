@@ -34,7 +34,7 @@ import CListPropsSchema from '../../core-domain/json-schemas/CListProps.json';
 import { ListActions } from './ListActions';
 import { getCInputPropsFromFieldDef, getDefaultReferenceText } from '../defaultEditPageContent';
 import { useRawFormContext } from '../form/useRawFormContext';
-import { FrmdbResourceWithFields } from '../../core-domain/records';
+import { FrmdbResourceWithFields } from '../../core-domain/core-resources/FrmdbResource';
 import { isEqual } from 'lodash';
 
 export function CList(nP: CListProps & { children: null | React.ReactNode }) {

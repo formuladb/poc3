@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FrmdbResource } from './core-domain/records';
+import { FrmdbResource } from './core-domain/core-resources/FrmdbResource';
 import { useDataProvider } from 'react-admin';
 
 export function useResources(): FrmdbResource[] {

@@ -13,7 +13,7 @@ import { PageNode } from "../../core-domain/page";
 import { ThemeProvider, createMuiTheme } from '@material-ui/core';
 import { rest } from 'msw'
 import { setupServer } from 'msw/node'
-import { FrmdbResourceWithFields } from "../../core-domain/records";
+import { FrmdbResourceWithFields } from "../../core-domain/core-resources/FrmdbResource";
 
 const server = setupServer(
     rest.get('/fdb-resources/rpc/frmdb_sp_table_columns',
