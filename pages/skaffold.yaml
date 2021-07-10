@@ -29,6 +29,9 @@ profiles:
   - op: replace
     path: /deploy/helm/releases/0/setValueTemplates/envtype
     value: production
+  - op: replace
+    path: /build/artifacts/0/docker/dockerfile
+    value: Dockerfile
   # - op: remove
   #   path: /build/cluster
   # - op: remove

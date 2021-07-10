@@ -7,8 +7,8 @@ import * as express from 'express';
 const app: express.Express = express();
 
 const staticFiles = express.static('/build');
-app.get(/formuladb-ui-pages.*\.(?:png|jpg|jpeg|svg|gif|webm|eot|ttf|woff|woff2|otf|css|js)$/, (req, res, next) => {
-  req.url = req.url.replace(/^\/formuladb-ui-pages\//, '');
+app.get(/prws\/static\/.*\.(?:png|jpg|jpeg|svg|gif|webm|eot|ttf|woff|woff2|otf|css|js)$/, (req, res, next) => {
+  req.url = req.url.replace(/^\/prws\//, '');
   staticFiles(req, res, next);
 });
 

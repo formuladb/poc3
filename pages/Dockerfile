@@ -6,7 +6,9 @@ COPY package.json /package.json
 # COPY package-lock.json /package-lock.json
 RUN npm install --unsafe-perm
 
-ADD . /
+ADD src /src
+ADD public /public
+COPY tsconfig.json /tsconfig.json
 RUN npm run build
 RUN grep -o '.../static/................................' build/index.html
 
