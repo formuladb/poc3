@@ -17,7 +17,7 @@ export function AppIcon({ name, ...props }) {
     const classes = useStyles();
 
     return <Icon classes={{root: classes.iconRoot}}>
-        <img className={classes.imageIcon} src={`https://storage.googleapis.com/formuladb-static-assets/public-svg-icons/${name}.svg`} />
+        <img className={classes.imageIcon} src={`https://db0v4c9q87qfx.cloudfront.net/icons/${name}.svg`} />
     </Icon>
 
     // const [svg, setSvg] = useState<string>(`<circle cx="50" cy="50" r="40" stroke="black" />`);

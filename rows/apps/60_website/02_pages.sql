@@ -1,6 +1,7 @@
 INSERT INTO frmdb_dictionary (id, en, ro) VALUES
     ('resources.pages.name', 'Pages', 'Pagini'),
     ('resources.pages.fields.id', 'Id', 'Id'),
+    ('resources.pages.fields.tenant', 'Tenant', 'Tenant'),
     ('resources.pages.fields.title', 'Title', 'Titlu'),
     ('resources.pages.fields.created_at', 'Created At', 'Data Creare'),
     ('resources.pages.fields.created_by', 'Created By', 'Creat De'),
@@ -9,6 +10,7 @@ INSERT INTO frmdb_dictionary (id, en, ro) VALUES
 ON CONFLICT(id) DO UPDATE SET en = EXCLUDED.en, ro = EXCLUDED.ro;
 
 SELECT frmdb_put_table('pages', 'text');
+SELECT frmdb_put_column('pages', 'tenant', $$ text $$, 'is_not_null(tenant)', null);
 SELECT frmdb_put_column('pages', 'title', $$ text $$, 'is_not_null(title)', null);
 --TODO schema.org SEO annotations
 
@@ -28,6 +30,7 @@ INSERT INTO frmdb_dictionary (id, en, ro) VALUES
 ON CONFLICT(id) DO UPDATE SET en = EXCLUDED.en, ro = EXCLUDED.ro;
 
 SELECT frmdb_put_table('sections');
+SELECT frmdb_put_column('sections', 'tenant', $$ text $$, 'is_not_null(tenant)', null);
 SELECT frmdb_put_column_REFERENCE_TO('sections', 'page_id', 'pages', 'is_not_null(page_id)', null, 'CASCADE');
 SELECT frmdb_put_column('sections', 'title', $$ text $$, 'is_not_null(title)', null);
 SELECT frmdb_put_column('sections', 'subtitle', $$ text $$, null, null);
@@ -49,6 +52,7 @@ INSERT INTO frmdb_dictionary (id, en, ro) VALUES
 ON CONFLICT(id) DO UPDATE SET en = EXCLUDED.en, ro = EXCLUDED.ro;
 
 SELECT frmdb_put_table('subsections');
+SELECT frmdb_put_column('subsections', 'tenant', $$ text $$, 'is_not_null(tenant)', null);
 SELECT frmdb_put_column_REFERENCE_TO('subsections', 'section_id', 'sections', 'is_not_null(section_id)', null, 'CASCADE');
 SELECT frmdb_put_column('subsections', 'title', $$ text $$, 'is_not_null(title)', null);
 SELECT frmdb_put_column('subsections', 'subtitle', $$ text $$, null, null);

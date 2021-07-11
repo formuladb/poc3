@@ -4,15 +4,15 @@ export interface CSectionPropsBase {
     /**@TJS-format frmdb-resource-name */
     resource: string;
     /**@TJS-format frmdb-resource-field-name */
-    title: string;
+    titleSource: string;
     /**@TJS-format frmdb-resource-field-name */
-    subtitle?: string;
+    subtitleSource?: string;
     /**@TJS-format frmdb-resource-field-name */
-    text?: string;
+    textSource?: string;
     /**@TJS-format frmdb-resource-field-name */
-    media_url?: string;
+    mediaUrlSource?: string;
     /**@TJS-format frmdb-resource-field-name */
-    media_type?: string;
+    mediaTypeSource?: string;
 }
 
 export interface CSectionCOVERProps extends CSectionPropsBase {

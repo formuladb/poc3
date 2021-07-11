@@ -36,7 +36,7 @@ export const Toolbox = () => {
                 </Grid>
                 <Grid md={6} container direction="column" item>
                     <MuiButton style={{ textTransform: 'none' }}
-                        ref={(ref) => connectors.create(ref, <CSection />)}
+                        ref={(ref) => connectors.create(ref, <CSection cSectionType="COVER" resource="frmdb_pages" titleSource="id" />)}
                         variant="contained"
                     >
                         Section
