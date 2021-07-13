@@ -1,8 +1,8 @@
-const { JSDOM } = require('jsdom');
+import { JSDOM } from 'jsdom';
 import { HTMLTools, isHTMLElement } from "./html-tools";
 import * as fs from 'fs';
 import { cleanupDocumentDOM } from "./page-utils";
-import { Page, Section, SubSection } from "../core-domain/core-resources/Websites";
+import { Page, Section, SubSection } from "../../../src/core-domain/core-resources/Websites";
 
 for (let filePath of process.argv) {
     if (!filePath.match(/.*\.html$/)) { console.warn(filePath, "is not html"); continue }
@@ -11,11 +11,11 @@ for (let filePath of process.argv) {
 
 function html2sql(filePath: string) {
     let html = fs.readFileSync(filePath).toString();
-    const jsdom = new JSDOM(html, {}, {
-        features: {
-            'FetchExternalResources': false,
-            'ProcessExternalResources': false
-        }
+    const jsdom = new JSDOM(html, {
+        // features: {
+        //     'FetchExternalResources': false,
+        //     'ProcessExternalResources': false
+        // }
     });
     const htmlTools = new HTMLTools(jsdom.window.document, new jsdom.window.DOMParser());
     let cleanedUpDOM = cleanupDocumentDOM(htmlTools.doc);
@@ -73,3 +73,7 @@ function html2sql(filePath: string) {
         VALUES ('${page.id}', '${page.title}')
     `);
 }
+
+
+test('CForm test', async () => {
+});
