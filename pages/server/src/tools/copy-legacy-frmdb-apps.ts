@@ -10,6 +10,8 @@ for (let filePath of process.argv) {
 }
 
 function html2sql(filePath: string) {
+    const tenant = 'base';//todo, get from directory name
+
     let html = fs.readFileSync(filePath).toString();
     const jsdom = new JSDOM(html, {
         // features: {
@@ -26,7 +28,7 @@ function html2sql(filePath: string) {
     };
     const sections: Section[] = [];
     const subSections: SubSection[] = [];
-    
+
     let sectionIdx = 0;
     for (let sectionEl of Array.from(cleanedUpDOM.querySelectorAll(`body > *`))) {
         sectionIdx++;
@@ -35,45 +37,58 @@ function html2sql(filePath: string) {
             id: filePath + '-' + sectionIdx,
         };
 
-        if (sectionEl.tagName === "frmdb-t-cover") {
+        if (sectionEl.tagName.toLowerCase() === "frmdb-t-cover") {
             const section: Section = {
                 ...sectionPartial,
                 component: 'COVER'
             }
             sections.push(section);
-        } else if (sectionEl.tagName === "frmdb-t-header") {
+        } else if (sectionEl.tagName.toLowerCase() === "frmdb-t-header") {
             const section: Section = {
                 ...sectionPartial,
                 component: 'HEADER'
             }
             sections.push(section);
-        } else if (sectionEl.tagName === "section" && sectionEl.querySelector('.row .text-center .jumbotron')) {
+        } else if ("frmdb-t-media-section-main" === sectionEl.tagName.toLowerCase() ||
+            (sectionEl.tagName.toLowerCase() === "section" && sectionEl.querySelector('.row .text-center .jumbotron'))
+        ) {
             const section: Section = {
                 ...sectionPartial,
                 component: 'MEDIA'
             }
             sections.push(section);
-        } else if (sectionEl.tagName === "section" && sectionEl.querySelector('frmdb-t-card-deck frmdb-t-card-media-main')) {
+        } else if (sectionEl.tagName.toLowerCase() === "section" && sectionEl.querySelector('frmdb-t-card-deck frmdb-t-card-media-main')) {
             const section: Section = {
                 ...sectionPartial,
-                component: 'CARDS'
+                component: 'CARDS_IMG'
             }
             sections.push(section);
-        } else if (sectionEl.tagName === "section" && sectionEl.querySelector('frmdb-t-card-deck frmdb-t-card-icon-main')) {
+        } else if (sectionEl.tagName.toLowerCase() === "frmdb-t-section-cards-icon") {
             const section: Section = {
                 ...sectionPartial,
-                component: 'CARDS'
+                component: 'CARDS_ICO'
             }
             sections.push(section);
+        } else if ([
+            "frmdb-t-main-nav",
+            "frmdb-t-section-divider",
+            "frmdb-notification-container",
+            "frmdb-fe"].includes(sectionEl.tagName.toLowerCase())
+            || sectionEl.matches('[data-frmdb-fragment="_footer.html"]')
+            || sectionEl.matches('[data-frmdb-fragment="_scripts.html"]')
+        ) {
+            //ingnore
         } else throw new Error(`Unknown section ${htmlTools.normalizeDOM2HTML(sectionEl)}`);
     }
 
     console.log(`
-        INSERT INTO pages (id, title)
-        VALUES ('${page.id}', '${page.title}')
+        INSERT INTO pages (tenant, id, title)
+        VALUES ('${tenant}', '${page.id}', '${page.title}');
     `);
+    for (let section of sections) {
+        console.log(`
+            INSERT INTO sections (tenant, id, page_id, name, component)
+            VALUES ('${tenant}', '${section.id}', '${page.id}', '${section.name}', '${section.component});
+        `);
+    }
 }
-
-
-test('CForm test', async () => {
-});

@@ -5,7 +5,8 @@ export interface Page {
 
 interface SectionBase {
     id: string;
-    component: 'COVER' | 'HEADER' | 'MEDIA' | 'CARDS' | 'CARDS2';
+    component: 'COVER' | 'HEADER' | 'MEDIA' | 'CARDS_IMG' | 'CARDS_ICO';
+    name?: string;
     title?: string;
     subtitle?: string;
     text?: string;

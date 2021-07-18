@@ -34,13 +34,13 @@ export interface CSectionMEDIANode extends PageNodeBase, CSectionMEDIAProps {
     _tag: 'CSection';
 }
 export interface CSectionCARDSProps extends CSectionPropsBase {
-    cSectionType: 'CARDS';
+    cSectionType: 'CARDS_IMG';
 }
 export interface CSectionCARDSNode extends PageNodeBase, CSectionCARDSProps {
     _tag: 'CSection';
 }
 export interface CSectionCARDS2Props extends CSectionPropsBase {
-    cSectionType: 'CARDS2';
+    cSectionType: 'CARDS_ICO';
 }
 export interface CSectionCARDS2Node extends PageNodeBase, CSectionCARDS2Props {
     _tag: 'CSection';
