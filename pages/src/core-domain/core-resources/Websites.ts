@@ -3,15 +3,18 @@ export interface Page {
     title: string;    
 }
 
-interface SectionBase {
+interface PageElement {
     id: string;
-    component: 'COVER' | 'HEADER' | 'MEDIA' | 'CARDS_IMG' | 'CARDS_ICO';
     name?: string;
     title?: string;
     subtitle?: string;
-    text?: string;
+    body?: string;
     mediaUrl?: string;
     mediaType?: 'IMAGE' | 'ICON';
+}
+
+interface SectionBase extends PageElement {
+    component: 'COVER' | 'HEADER' | 'MEDIA' | 'CARDS_IMG' | 'CARDS_ICO';
 }
 
 export interface Section extends SectionBase {

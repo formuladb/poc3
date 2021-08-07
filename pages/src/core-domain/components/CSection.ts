@@ -8,7 +8,7 @@ export interface CSectionPropsBase {
     /**@TJS-format frmdb-resource-field-name */
     subtitleSource?: string;
     /**@TJS-format frmdb-resource-field-name */
-    textSource?: string;
+    bodySource?: string;
     /**@TJS-format frmdb-resource-field-name */
     mediaUrlSource?: string;
     /**@TJS-format frmdb-resource-field-name */

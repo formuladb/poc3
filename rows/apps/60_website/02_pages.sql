@@ -21,7 +21,7 @@ INSERT INTO frmdb_dictionary (id, en, ro) VALUES
     ('resources.sections.fields.id', 'Id', 'Id'),
     ('resources.sections.fields.title', 'Title', 'Titlu'),
     ('resources.sections.fields.subtitle', 'Subtitle', 'Sub Titlu'),
-    ('resources.sections.fields.text', 'Text', 'Text'),
+    ('resources.sections.fields.body', 'Body', 'Text'),
     ('resources.sections.fields.component', 'Component', 'Componentă'),
     ('resources.sections.fields.media_url', 'Media URL', 'Media URL'),
     ('resources.sections.fields.media_type', 'Media Type', 'Tip Media'),
@@ -31,7 +31,7 @@ INSERT INTO frmdb_dictionary (id, en, ro) VALUES
     ('resources.sections.fields.updated_by', 'Updated By', 'Modificat De')
 ON CONFLICT(id) DO UPDATE SET en = EXCLUDED.en, ro = EXCLUDED.ro;
 
-SELECT frmdb_put_table('sections', 'text');
+SELECT frmdb_put_table('sections', 'body');
 SELECT frmdb_put_column('sections', 'tenant', $$ text $$, 'is_not_null(tenant)', null);
 SELECT frmdb_put_column_REFERENCE_TO('sections', 'page_id', 'pages', 'is_not_null(page_id)', null, 'CASCADE');
 SELECT frmdb_put_column('sections', 'name', $$ text $$, null, null);

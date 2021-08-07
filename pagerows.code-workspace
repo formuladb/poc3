@@ -1,0 +1,22 @@
+{
+	"folders": [
+		{
+			"path": "db"
+		},
+		{
+			"path": "deploy"
+		},
+		{
+			"path": "obj"
+		},
+		{
+			"path": "pages"
+		},
+		{
+			"path": "rows"
+		},
+		{
+			"path": "test"
+		}
+	]
+}

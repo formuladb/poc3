@@ -4,13 +4,18 @@ import * as fs from 'fs';
 import { cleanupDocumentDOM } from "./page-utils";
 import { Page, Section, SubSection } from "../../../src/core-domain/core-resources/Websites";
 
-for (let filePath of process.argv) {
-    if (!filePath.match(/.*\.html$/)) { console.warn(filePath, "is not html"); continue }
-    html2sql(filePath);
+const BASEDIR = '/home/acr/code/frmdb/formuladb-env/frmdb-apps/';
+const APPS = [
+    'base-app'
+]
+
+for (let app of APPS) {
+    const sql = landingPage2sql(app, `${BASEDIR}/${app}/landing-page.html`);
+    fs.writeFileSync(`../../rows/apps/60_website/50_data.${app}.sql`, sql.join("\n"));
 }
 
-function html2sql(filePath: string) {
-    const tenant = 'base';//todo, get from directory name
+function landingPage2sql(app: string, filePath: string) {
+    const tenant = app;
 
     let html = fs.readFileSync(filePath).toString();
     const jsdom = new JSDOM(html, {
@@ -23,7 +28,7 @@ function html2sql(filePath: string) {
     let cleanedUpDOM = cleanupDocumentDOM(htmlTools.doc);
 
     const page: Page = {
-        id: filePath,
+        id: `landing-page`,
         title: cleanedUpDOM.querySelector(`title`)?.innerHTML || 'title-not-found',
     };
     const sections: Section[] = [];
@@ -34,13 +39,19 @@ function html2sql(filePath: string) {
         sectionIdx++;
         const sectionPartial = {
             pageId: page.id,
-            id: filePath + '-' + sectionIdx,
+            id: 'section' + sectionIdx,
         };
 
         if (sectionEl.tagName.toLowerCase() === "frmdb-t-cover") {
             const section: Section = {
                 ...sectionPartial,
-                component: 'COVER'
+                component: 'COVER',
+                title: sectionEl.querySelector('h1')?.innerHTML,
+                subtitle: sectionEl.querySelector('h6')?.innerHTML,
+                body: sectionEl.querySelector('.jumbotron p')?.innerHTML,
+                mediaUrl: (sectionEl as HTMLElement)?.style?.getPropertyValue('--frmdb-bg-img')
+                    .replace(/url\('/, '').replace(/'\)/, ''),
+                mediaType: "IMAGE"
             }
             sections.push(section);
         } else if (sectionEl.tagName.toLowerCase() === "frmdb-t-header") {
@@ -60,7 +71,8 @@ function html2sql(filePath: string) {
         } else if (sectionEl.tagName.toLowerCase() === "section" && sectionEl.querySelector('frmdb-t-card-deck frmdb-t-card-media-main')) {
             const section: Section = {
                 ...sectionPartial,
-                component: 'CARDS_IMG'
+                component: 'CARDS_IMG',
+                title: sectionEl.querySelector('h2')?.innerHTML,
             }
             sections.push(section);
         } else if (sectionEl.tagName.toLowerCase() === "frmdb-t-section-cards-icon") {
@@ -81,14 +93,19 @@ function html2sql(filePath: string) {
         } else throw new Error(`Unknown section ${htmlTools.normalizeDOM2HTML(sectionEl)}`);
     }
 
-    console.log(`
-        INSERT INTO pages (tenant, id, title)
-        VALUES ('${tenant}', '${page.id}', '${page.title}');
+    let sql = [];
+    sql.push(`
+INSERT INTO pages (tenant, id, title)
+VALUES ('${tenant}', '${page.id}', '${page.title}');
     `);
     for (let section of sections) {
-        console.log(`
-            INSERT INTO sections (tenant, id, page_id, name, component)
-            VALUES ('${tenant}', '${section.id}', '${page.id}', '${section.name}', '${section.component});
+        sql.push(`
+INSERT INTO sections (tenant, id, page_id, name, component, title, subtitle, body, media_url, media_type)
+VALUES ('${tenant}', '${section.id}', '${page.id}', '${section.name}', '${section.component}', '${section.title}', '${section.subtitle}', 
+'${section.body?.replace(/'/g, "''")}', 
+'${section.mediaUrl}', '${section.mediaType}');
         `);
     }
+
+    return sql;
 }

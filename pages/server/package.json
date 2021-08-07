@@ -6,7 +6,7 @@
   "scripts": {
     "compile": "tsc --sourceMap -p .",
     "watch-compile": "npm run compile -- -w --preserveWatchOutput",
-    "watch-tools": "nodemon out/server/src/tools/copy-legacy-frmdb-apps.js /home/acr/code/frmdb/formuladb-env/frmdb-apps/base-app/landing-page.html",
+    "watch-copy-html": "nodemon out/server/src/tools/copy-legacy-frmdb-apps.js",
     "watch": "concurrently -k \"npm:watch-*\" ",
     "start": "ts-node index.ts"
   },
