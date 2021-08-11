@@ -39,4 +39,3 @@ INSERT INTO sections (tenant, id, page_id, name, component, title, subtitle, bod
 VALUES ('base-app', 'section7', 'landing-page', 'undefined', 'MEDIA', 'undefined', 'undefined', 
 'undefined', 
 'undefined', 'undefined');
-        
