@@ -4,6 +4,8 @@
         "target": "ES2018",
         "noImplicitAny": false,
         "moduleResolution": "node",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,        
         "sourceMap": true,
         "rootDir": ".",
         "lib": [

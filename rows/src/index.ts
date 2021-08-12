@@ -1,3 +1,5 @@
+import "reflect-metadata";
+
 // In order to use the MinIO JavaScript API to generate the pre-signed URL, begin by instantiating
 // a `Minio.Client` object and pass in the values for your server.
 // The example below uses values for play.min.io:9000
