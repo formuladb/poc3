@@ -1,8 +1,8 @@
-import { Entity, Column } from "typeorm";
+import { Entity, Column, PrimaryColumn } from "typeorm";
 
 @Entity()
 export class FrmdbPage {
-    @Column() id: string;
+    @PrimaryColumn() id: string;
     @Column() icon: string;
-    @Column() content: object;
+    @Column() content: string;
 };

@@ -1,8 +1,8 @@
-import { Entity, Column } from "typeorm";
+import { Entity, Column, PrimaryColumn } from "typeorm";
 
 @Entity()
 export class FrmdbDictionary {
-    @Column() id: string;
+    @PrimaryColumn() id: string;
     @Column() en: string;
     @Column() fr: string;
     @Column() de: string;

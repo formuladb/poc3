@@ -1,7 +1,7 @@
 import "reflect-metadata";
 import {createConnection, getRepository } from "typeorm";
 import { putRow } from "../../core/orm/putRow";
-import {Page} from "./Page";
+import {Page} from "./entity/Page";
 
 createConnection().then(async connection => {
 

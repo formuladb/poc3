@@ -6,6 +6,9 @@ RUN apk add --no-cache postgresql-client git vim openssh curl entr make \
 COPY package.json /package.json
 RUN npm install
 
+COPY tsconfig.json /tsconfig.json
+COPY ormconfig.js /ormconfig.js
+
 ADD scripts /scripts
 RUN chmod +x /scripts/*sh
 

@@ -10,10 +10,10 @@ INSERT INTO frmdb_dictionary (id, en, ro) VALUES
     ('resources.pages.fields.updated_by', 'Updated By', 'Modificat De')
 ON CONFLICT(id) DO UPDATE SET en = EXCLUDED.en, ro = EXCLUDED.ro;
 
-SELECT frmdb_put_table('pages', 'text');
-SELECT frmdb_put_column('pages', 'tenant', $$ text $$, 'is_not_null(tenant)', null);
-SELECT frmdb_put_column('pages', 'name', $$ text $$, null, null);
-SELECT frmdb_put_column('pages', 'title', $$ text $$, null, null);
+SELECT frmdb_put_table('page', 'text');
+SELECT frmdb_put_column('page', 'meta_tenant', $$ text $$, 'is_not_null(meta_tenant)', null);
+SELECT frmdb_put_column('page', 'name', $$ text $$, null, null);
+SELECT frmdb_put_column('page', 'title', $$ text $$, null, null);
 --TODO schema.org SEO annotations
 
 INSERT INTO frmdb_dictionary (id, en, ro) VALUES
