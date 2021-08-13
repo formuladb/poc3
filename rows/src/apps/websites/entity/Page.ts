@@ -11,3 +11,5 @@ export class Page {
     @OneToMany(() => Section, section => section.page)
     sections?: Section[];
 }
+
+export interface PageI extends Page {}

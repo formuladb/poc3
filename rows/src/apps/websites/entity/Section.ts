@@ -26,9 +26,10 @@ export class Section extends SectionBase {
     component: keyof typeof SectionComponentTypes;
 
     @OneToMany(() => SubSection, subSection => subSection.section)
-    subSections: SubSection[];
+    subSections?: SubSection[];
 
 }
+export interface SectionI extends Section {}
 
 const SubSectionComponentTypes = {CARD:0};
 @Entity()
@@ -39,3 +40,4 @@ export class SubSection extends SectionBase {
     @Column({type: "enum", enum: Object.keys(SubSectionComponentTypes)}) 
     component: keyof typeof SubSectionComponentTypes;
 }
+export interface SubSectionI extends SubSection {}

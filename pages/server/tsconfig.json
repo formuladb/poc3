@@ -15,6 +15,7 @@
     },
     "include": [
         "./src/**/*",
-        "../src/core-domain/core-resources/*",
+        "../../rows/src/core/**/*",
+        "../../rows/src/apps/**/*",
     ]
 }

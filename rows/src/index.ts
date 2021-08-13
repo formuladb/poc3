@@ -54,7 +54,7 @@ app.get('/presignedUrl/:table/:column/:file', (req: express.Request, res) => {
 
 app.put('/upload/:table/:column/:file', async (req: express.Request, res) => {
     let mimeType = mime.getType(req.params.file);
-    await client.putObject('frmdb-bucket', 
+    await client.putObject('frmdb-bucket',
         `${req.params.table}/${req.params.column}/${req.params.file}`,
         req,
         {
@@ -63,8 +63,9 @@ app.put('/upload/:table/:column/:file', async (req: express.Request, res) => {
     res.status(200).end();
 });
 
-app.listen(8080);
-// startDevModeMigration();
+pgFmkInstall()
+    .then(() => app.listen(8080))
+    ;
 
 // function startGitSync() {
 //     console.log("Starting git-sync each 5 sec");
@@ -79,31 +80,37 @@ app.listen(8080);
 //     }, 24 * 3600000)
 // }
 
-// function startDevModeMigration() {
-//     if (process.env.ENVTYPE === "localdev") {
-//         console.log("Starting migration script");
-//         runCmd('timeout', '300', 'bash', '/scripts/migrate_watch.sh');    
-//     }
-// }
+async function pgFmkInstall() {
+    if (process.env.ENVTYPE === "localdev") {
+        console.log("Migrate core pg fmk");
+        await runCmd('timeout', '300', 'bash', '/scripts/pg-fmk.sh');
+    }
+}
 
-function runCmd(cmd: string, ...args: string[]) {
-    var prc = spawn(cmd, args);
+function runCmd(cmd: string, ...args: string[]): Promise<void> {
+    return new Promise((resolve, reject) => {
+        var prc = spawn(cmd, args);
 
-    //noinspection JSUnresolvedFunction
-    prc.stdout.setEncoding('utf8');
-    prc.stdout.on('data', function (data) {
-        var str = data.toString()
-        var lines = str.split(/(\r?\n)/g);
-        console.log(lines.join(""));
-    });
-    prc.stderr.on('data', function (data) {
-        var str = data.toString()
-        var lines = str.split(/(\r?\n)/g);
-        console.error(lines.join(""));
-    });
+        //noinspection JSUnresolvedFunction
+        prc.stdout.setEncoding('utf8');
+        prc.stdout.on('data', function (data) {
+            var str = data.toString()
+            var lines = str.split(/(\r?\n)/g);
+            console.log(lines.join(""));
+        });
+        prc.stderr.on('data', function (data) {
+            var str = data.toString()
+            var lines = str.split(/(\r?\n)/g);
+            console.error(lines.join(""));
+        });
 
-    prc.on('close', function (code) {
-        if (code) console.error('process exit code ' + code);
+        prc.on('close', function (code) {
+            if (code) {
+                const err = 'process exit code ' + code;
+                console.error(err);
+                reject(err);
+            } else resolve();
+        });
     });
 }
 
