@@ -9,22 +9,21 @@ createConnection().then(async connection => {
 
     await autoMigrate(connection, Section);
 
-    await putRow(Page, {
+    const page = await putRow(Page, {
         id: "landing-page",
         meta: { tenant: "base-app" },
         title: "FormulaDB Themes",
-        sections: [
-            {
-                meta: { tenant: "base-app" },
-                id: "landing-page-s1",
-                title: 't1',
-                subtitle: 'st1',
-                body: 'body1',
-                mediaUrl: 'http:://media1',
-                mediaType: "IMAGE",
-                component: "CARDS_ICO",
-                page: null
-            }
-        ]
+    });
+
+    await putRow(Section, {
+        meta: { tenant: "base-app" },
+        id: "landing-page-s1",
+        title: 't1',
+        subtitle: 'st1',
+        body: 'body1',
+        mediaUrl: 'http:://media1',
+        mediaType: "IMAGE",
+        component: "CARDS_ICO",
+        page
     });
 }).catch(error => console.log(error));
