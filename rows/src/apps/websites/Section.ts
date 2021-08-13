@@ -1,15 +1,7 @@
 import { ManyToOne, OneToMany } from "typeorm";
 import { Column, Entity } from "typeorm";
-import { Meta } from "./Meta";
-
-@Entity()
-export class Page {
-    @Column() id: string;
-    @Column() title: string;
-    @Column(() => Meta) meta: Meta;
-    @OneToMany(() => Section, section => section.page)
-    sections: Section[];
-}
+import { Meta } from "../../core/entity/Meta";
+import { Page } from "./Page";
 
 const MediaTypes = {IMAGE:0, ICON:0 };
 class SectionBase {

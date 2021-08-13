@@ -4,21 +4,8 @@ const SnakeNamingStrategy = require('typeorm-naming-strategies')
 module.exports = {
    name: 'development',
    type: 'postgres',
-   host: 'localhost',
+   password: "postgres",
+   host: 'db',
    port: 5432,
-
    namingStrategy: new SnakeNamingStrategy(),
-
-   "synchronize": true,
-   "logging": false,
-   "entities": [
-      "src/core/entity/**/*.ts"
-   ],
-   "migrations": [
-      "src/migration/**/*.ts"
-   ],
-   "subscribers": [
-      "src/subscriber/**/*.ts"
-   ],
-
 }

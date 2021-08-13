@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --watch index.ts --exitcrash --exec 'ts-node' index.ts",
+    "start": "nodemon --watch src --exitcrash --exec 'ts-node' src/index.ts",
     "build": "tsc",
     "test": "cp -ar core /core && mkdir -p /tenants/default && cp -ar apps/* /tenants/default/ && make -f scripts/migrate.mk"
   },
