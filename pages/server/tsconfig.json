@@ -4,6 +4,8 @@
         "outDir": "out",
         "esModuleInterop": true,
         "allowSyntheticDefaultImports": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
         "target": "ES2018",
         "noImplicitAny": false,
         "moduleResolution": "node",

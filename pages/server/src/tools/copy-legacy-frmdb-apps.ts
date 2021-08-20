@@ -11,8 +11,8 @@ const APPS = [
 ]
 
 for (let app of APPS) {
-    const sql = landingPage2sql(app, `${BASEDIR}/${app}/landing-page.html`);
-    fs.writeFileSync(`../../rows/apps/60_website/50_data.${app}.sql`, sql.join("\n"));
+    const ts = landingPage2sql(app, `${BASEDIR}/${app}/landing-page.html`);
+    fs.writeFileSync(`../../rows/src/apps/websites/data.ts`, ts.join("\n"));
 }
 
 function landingPage2sql(app: string, filePath: string) {
@@ -43,6 +43,7 @@ function landingPage2sql(app: string, filePath: string) {
             meta: { tenant },
             pageId: page.id,
             id: 'section' + sectionIdx,
+            page,
         };
 
         if (sectionEl.tagName.toLowerCase() === "frmdb-t-cover") {
@@ -96,19 +97,48 @@ function landingPage2sql(app: string, filePath: string) {
         } else throw new Error(`Unknown section ${htmlTools.normalizeDOM2HTML(sectionEl)}`);
     }
 
-    let sql = [];
-    sql.push(`
-INSERT INTO pages (tenant, id, title)
-VALUES ('${tenant}', '${page.id}', '${page.title}');
+    let dataTsFile = [`
+import "reflect-metadata";
+import { createConnection, getManager, getRepository } from "typeorm";
+import { autoMigrate } from "../../core/orm/autoMigrate";
+import { putRow } from "../../core/orm/putRow";
+import { Page } from "./entity/Page";
+import { Section } from "./entity/Section";
+
+createConnection().then(async connection => {
+
+    await autoMigrate(connection, Page);
+    await autoMigrate(connection, Section);        
+    `];
+
+    dataTsFile.push(`
+    const page = await putRow(Page, {
+        id: "${page.id}",
+        meta: { tenant: "${tenant}" },
+        title: "${page.title}",
+    });
     `);
     for (let section of sections) {
-        sql.push(`
-INSERT INTO sections (tenant, id, page_id, name, component, title, subtitle, body, media_url, media_type)
-VALUES ('${tenant}', '${section.id}', '${page.id}', '${section.name}', '${section.component}', '${section.title}', '${section.subtitle}', 
-'${section.body?.replace(/'/g, "''")}', 
-'${section.mediaUrl}', '${section.mediaType}');
+        dataTsFile.push(`
+
+    await putRow(Section, {
+        meta: { tenant: "${tenant}" },
+        id: "${section.id}",
+        title: \`${section.title}\`,
+        subtitle: \`${section.subtitle}\`,
+        body: \`${section.body}\`,${
+        section.mediaUrl ? `mediaUrl: "${section.mediaUrl}",`: ''}${
+        section.mediaType ? `mediaType: "${section.mediaType}",`: ''}
+        component: "${section.component}",
+        page
+    });
         `);
     }
 
-    return sql;
+    dataTsFile.push(`
+}).catch(error => console.log(error));
+    `);
+
+
+    return dataTsFile;
 }

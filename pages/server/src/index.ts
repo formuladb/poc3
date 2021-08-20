@@ -4,6 +4,7 @@ import * as express from 'express';
 
 // import * as jwt from 'jsonwebtoken';
 
+//@ts-ignore
 const app: express.Express = express();
 
 const staticFiles = express.static('/build');
