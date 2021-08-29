@@ -18,6 +18,21 @@ for (let app of APPS) {
 function landingPage2sql(app: string, filePath: string) {
     const tenant = app;
 
+    let dataTsFile = [`
+    import "reflect-metadata";
+    import { createConnection, getManager, getRepository } from "typeorm";
+    import { autoMigrate } from "../../core/orm/autoMigrate";
+    import { putRow } from "../../core/orm/putRow";
+    import { Page } from "./entity/Page";
+    import { Section, SubSection } from "./entity/Section";
+    
+    export default createConnection().then(async connection => {
+    
+        await autoMigrate(connection, Page);
+        await autoMigrate(connection, Section);        
+        await autoMigrate(connection, SubSection);        
+        `];
+
     let html = fs.readFileSync(filePath).toString();
     const jsdom = new JSDOM(html, {
         // features: {
@@ -33,8 +48,11 @@ function landingPage2sql(app: string, filePath: string) {
         meta: { tenant },
         title: cleanedUpDOM.querySelector(`title`)?.innerHTML || 'title-not-found',
     };
-    const sections: SectionI[] = [];
-    const subSections: SubSectionI[] = [];
+
+    dataTsFile.push(`
+    const page = await putRow(Page, {
+        id: "${page.id}", title: "${page.title}", meta: { tenant: "${tenant}" },
+    });`);
 
     let sectionIdx = 0;
     for (let sectionEl of Array.from(cleanedUpDOM.querySelectorAll(`body > *`))) {
@@ -42,12 +60,13 @@ function landingPage2sql(app: string, filePath: string) {
         const sectionPartial = {
             meta: { tenant },
             pageId: page.id,
-            id: 'section' + sectionIdx,
+            id: 'S' + sectionIdx,
             page,
         };
+        let section: SectionI | null = null;
 
         if (sectionEl.tagName.toLowerCase() === "frmdb-t-cover") {
-            const section: SectionI = {
+            section = {
                 ...sectionPartial,
                 component: 'COVER',
                 title: sectionEl.querySelector('h1')?.innerHTML,
@@ -57,34 +76,33 @@ function landingPage2sql(app: string, filePath: string) {
                     .replace(/url\('/, '').replace(/'\)/, ''),
                 mediaType: "IMAGE"
             }
-            sections.push(section);
         } else if (sectionEl.tagName.toLowerCase() === "frmdb-t-header") {
-            const section: SectionI = {
+            section = {
                 ...sectionPartial,
                 component: 'HEADER'
             }
-            sections.push(section);
         } else if ("frmdb-t-media-section-main" === sectionEl.tagName.toLowerCase() ||
             (sectionEl.tagName.toLowerCase() === "section" && sectionEl.querySelector('.row .text-center .jumbotron'))
         ) {
-            const section: SectionI = {
+            section = {
                 ...sectionPartial,
                 component: 'MEDIA'
             }
-            sections.push(section);
         } else if (sectionEl.tagName.toLowerCase() === "section" && sectionEl.querySelector('frmdb-t-card-deck frmdb-t-card-media-main')) {
-            const section: SectionI = {
+            section = {
                 ...sectionPartial,
                 component: 'CARDS_IMG',
                 title: sectionEl.querySelector('h2')?.innerHTML,
+                subtitle: sectionEl.querySelector('h2 + p')?.innerHTML,
             }
-            sections.push(section);
+
         } else if (sectionEl.tagName.toLowerCase() === "frmdb-t-section-cards-icon") {
-            const section: SectionI = {
+            section = {
                 ...sectionPartial,
-                component: 'CARDS_ICO'
+                component: 'CARDS_ICO',
+                title: sectionEl.querySelector('h2')?.innerHTML,
+                subtitle: sectionEl.querySelector('h2 + p')?.innerHTML,
             }
-            sections.push(section);
         } else if ([
             "frmdb-t-main-nav",
             "frmdb-t-section-divider",
@@ -95,44 +113,36 @@ function landingPage2sql(app: string, filePath: string) {
         ) {
             //ingnore
         } else throw new Error(`Unknown section ${htmlTools.normalizeDOM2HTML(sectionEl)}`);
-    }
 
-    let dataTsFile = [`
-import "reflect-metadata";
-import { createConnection, getManager, getRepository } from "typeorm";
-import { autoMigrate } from "../../core/orm/autoMigrate";
-import { putRow } from "../../core/orm/putRow";
-import { Page } from "./entity/Page";
-import { Section } from "./entity/Section";
+        if (section) {
+            dataTsFile.push(`        
+            {
+                const section = await putRow(Section, {
+                    id: "${section.id}", title: \`${section.title || ''}\`, component: "${section.component}", subtitle: \`${section.subtitle || ''}\`,
+                    body: \`${section.body || ''}\`,
+                    ${section.mediaUrl ? `mediaUrl: "${section.mediaUrl}",` : ''}${section.mediaType ? `mediaType: "${section.mediaType}",` : ''}meta: { tenant: "${tenant}" }, page
+                });`);
 
-createConnection().then(async connection => {
+            let subSections: SubSectionI[] = [];
+            if (section.component === "CARDS_IMG") {
+                subSections = getSubsections(sectionEl, "CARDS_IMG", tenant, section)
+            } else if (section.component === "CARDS_ICO") {
+                subSections = getSubsections(sectionEl, "CARDS_ICO", tenant, section)
+            }
 
-    await autoMigrate(connection, Page);
-    await autoMigrate(connection, Section);        
-    `];
-
-    dataTsFile.push(`
-    const page = await putRow(Page, {
-        id: "${page.id}",
-        meta: { tenant: "${tenant}" },
-        title: "${page.title}",
-    });
-    `);
-    for (let section of sections) {
-        dataTsFile.push(`
-
-    await putRow(Section, {
-        meta: { tenant: "${tenant}" },
-        id: "${section.id}",
-        title: \`${section.title}\`,
-        subtitle: \`${section.subtitle}\`,
-        body: \`${section.body}\`,${
-        section.mediaUrl ? `mediaUrl: "${section.mediaUrl}",`: ''}${
-        section.mediaType ? `mediaType: "${section.mediaType}",`: ''}
-        component: "${section.component}",
-        page
-    });
-        `);
+            if (subSections.length > 0) {
+                for (let subSection of subSections) {
+                    dataTsFile.push(`       
+                    await putRow(SubSection, {
+                        id: "${subSection.id}", title: \`${subSection.title || ''}\`, component: "${subSection.component}", subtitle: \`${subSection.subtitle || ''}\`,
+                        body: \`${subSection.body || ''}\`,
+                        ${subSection.mediaUrl ? `mediaUrl: "${subSection.mediaUrl}",` : ''}${subSection.mediaType ? `mediaType: "${subSection.mediaType}",` : ''}meta: { tenant: "${tenant}" }
+                        , section
+                    });`);
+                }
+            }
+            dataTsFile.push(`            }`);
+        }
     }
 
     dataTsFile.push(`
@@ -141,4 +151,56 @@ createConnection().then(async connection => {
 
 
     return dataTsFile;
+}
+
+
+function getSubsections(
+    sectionEl: Element,
+    sectionType: 'CARDS_IMG' | 'CARDS_ICO',
+    tenant: string,
+    section: SectionI
+): SubSectionI[] {
+    const subSections: SubSectionI[] = [];
+
+    const subSectionSelector = sectionType === "CARDS_IMG" ? 'frmdb-t-card-deck frmdb-t-card-media-main'
+        : 'frmdb-t-card-deck frmdb-t-card-icon-main';
+
+    let subSectionIdx = 0;
+    for (let subSectionEl of Array.from(sectionEl.querySelectorAll(subSectionSelector))) {
+        subSectionIdx++;
+        const subSectionPartial = {
+            meta: { tenant },
+            id: 'sS' + subSectionIdx,
+            section,
+        };
+
+        if (subSectionEl.tagName.toLowerCase() === "frmdb-t-card-media-main") {
+            const subSection: SubSectionI = {
+                ...subSectionPartial,
+                component: 'CARD_IMG',
+                title: subSectionEl.querySelector('h5')?.innerHTML,
+                subtitle: subSectionEl.querySelector('h6')?.innerHTML,
+                body: subSectionEl.querySelector('.h6 p')?.innerHTML,
+                mediaUrl: (subSectionEl.querySelector('frmdb-t-img') as HTMLElement)?.style?.getPropertyValue('--frmdb-bg-img')
+                    .replace(/url\('/, '').replace(/'\)/, ''),
+                mediaType: "IMAGE",
+                info: subSectionEl.querySelector('frmdb-t-card-note')?.innerHTML,
+                action: subSectionEl.querySelector('frmdb-t-card-action')?.innerHTML,
+            }
+            subSections.push(subSection);
+        } else if (subSectionEl.tagName.toLowerCase() === "frmdb-t-card-icon-main") {
+            const subSection: SubSectionI = {
+                ...subSectionPartial,
+                component: 'CARD_ICON',
+                title: subSectionEl.querySelector('frmdb-icon span')?.innerHTML,
+                body: subSectionEl.querySelector('h4 p')?.innerHTML,
+                mediaUrl: subSectionEl.querySelector('frmdb-icon').getAttribute('name'),
+                mediaType: "ICON",
+            }
+            subSections.push(subSection);
+        }
+    }
+    console.log(subSections.length)
+
+    return subSections;
 }

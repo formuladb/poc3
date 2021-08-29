@@ -1,6 +1,7 @@
-import { ManyToOne, OneToMany, PrimaryColumn } from "typeorm";
+import { AfterInsert, AfterUpdate, EntitySubscriberInterface, EventSubscriber, InsertEvent, ManyToOne, OneToMany, PrimaryColumn, UpdateEvent } from "typeorm";
 import { Column, Entity } from "typeorm";
 import { Meta } from "../../../core/entity/Meta";
+import { upsertChildren } from "../../../core/orm/upsertChildren";
 import { Section } from "./Section";
 
 @Entity()
@@ -13,3 +14,20 @@ export class Page {
 }
 
 export interface PageI extends Page {}
+
+@EventSubscriber()
+export class PageSubscriber implements EntitySubscriberInterface<Page> {
+
+    listenTo() {
+        return Page;
+    }
+
+    afterInsert(event: InsertEvent<Page>) {
+        upsertChildren(Page, event.entity);
+    }
+
+    afterUpdate(event: UpdateEvent<Page>) {
+        upsertChildren(Page, event.entity);
+    }
+
+}

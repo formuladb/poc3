@@ -23,6 +23,7 @@
     "noImplicitAny": false
   },
   "include": [
-    "src"
+    "src",
+    "../rows/src/core/**/*",
   ]
 }

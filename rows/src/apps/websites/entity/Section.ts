@@ -1,6 +1,7 @@
-import { ManyToOne, OneToMany, PrimaryColumn } from "typeorm";
+import { AfterInsert, AfterUpdate, EntitySubscriberInterface, EventSubscriber, InsertEvent, ManyToOne, OneToMany, PrimaryColumn, UpdateEvent } from "typeorm";
 import { Column, Entity } from "typeorm";
 import { Meta } from "../../../core/entity/Meta";
+import { upsertChildren } from "../../../core/orm/upsertChildren";
 import { Page } from "./Page";
 
 const MediaTypes = {IMAGE:0, ICON:0 };
@@ -13,6 +14,8 @@ class SectionBase {
     @Column() mediaUrl?: string;
     @Column({type: "enum", enum: Object.keys(MediaTypes)}) 
     mediaType?: keyof typeof MediaTypes;
+    @Column() info?: string;
+    @Column() action?: string;
     @Column(() => Meta) meta: Meta;
 }
 
@@ -27,11 +30,26 @@ export class Section extends SectionBase {
 
     @OneToMany(() => SubSection, subSection => subSection.section)
     subSections?: SubSection[];
-
 }
 export interface SectionI extends Section {}
 
-const SubSectionComponentTypes = {CARD:0};
+@EventSubscriber()
+export class SectionSubscriber implements EntitySubscriberInterface<Section> {
+
+    listenTo() {
+        return Section;
+    }
+
+    afterInsert(event: InsertEvent<Section>) {
+        upsertChildren(Section, event.entity);
+    }
+    afterUpdate(event: UpdateEvent<Section>) {
+        upsertChildren(Section, event.entity);
+    }
+}
+
+
+const SubSectionComponentTypes = {CARD_IMG:0, CARD_ICON:0};
 @Entity()
 export class SubSection extends SectionBase {
     @ManyToOne(() => Section, section => section.subSections)
