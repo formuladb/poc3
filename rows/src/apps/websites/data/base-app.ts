@@ -1,10 +1,10 @@
 
     import "reflect-metadata";
     import { createConnection, getManager, getRepository } from "typeorm";
-    import { autoMigrate } from "../../core/orm/autoMigrate";
-    import { putRow } from "../../core/orm/putRow";
-    import { Page } from "./entity/Page";
-    import { Section, SubSection } from "./entity/Section";
+    import { autoMigrate } from "../../../core/orm/autoMigrate";
+    import { putRow } from "../../../core/orm/putRow";
+    import { Page } from "../entity/Page";
+    import { Section, SubSection } from "../entity/Section";
     
     export default createConnection().then(async connection => {
     
@@ -13,26 +13,26 @@
         await autoMigrate(connection, SubSection);        
         
 
-    const page = await putRow(Page, {
-        id: "index", title: "FormulaDB Themes", meta: { tenant: "base-app" },
-    });
+        const page = await putRow(Page, {
+            id: "index", title: "FormulaDB Themes", meta: { tenant: "base-app" },
+        });
         
-            {
-                const section = await putRow(Section, {
-                    id: "indexS2", title: `Title of web app`, component: "COVER", subtitle: `Subtitle of app, can be a bit longer in words`,
-                    body: `Lead paragraph providing a short introduction to you website or app,
+        {
+            const section = await putRow(Section, {
+                id: "indexS2", title: `Title of web app`, component: "COVER", subtitle: `Subtitle of app, can be a bit longer in words`,
+                body: `Lead paragraph providing a short introduction to you website or app,
                     <br>it would be good to keep it under two lines of text
                 `,
-                    mediaUrl: "/formuladb-env/frmdb-apps/base-app/static/bg1.jpg",mediaType: "IMAGE",meta: { tenant: "base-app" }, page
-                });
-            }
+                mediaUrl: "/formuladb-env/frmdb-apps/base-app/static/bg1.jpg",mediaType: "IMAGE",meta: { tenant: "base-app" }, page
+            });
+        }
         
-            {
-                const section = await putRow(Section, {
-                    id: "indexS3", title: `Cards with Images`, component: "CARDS_IMG", subtitle: `Section lead paragraph, some text about the content described in this section.`,
-                    body: ``,
-                    meta: { tenant: "base-app" }, page
-                });
+        {
+            const section = await putRow(Section, {
+                id: "indexS3", title: `Cards with Images`, component: "CARDS_IMG", subtitle: `Section lead paragraph, some text about the content described in this section.`,
+                body: ``,
+                meta: { tenant: "base-app" }, page
+            });
        
                     await putRow(SubSection, {
                         id: "indexS3sS1", title: `Card 1 title`, component: "CARD_IMG", subtitle: `Card 1 subtitle`,
@@ -61,30 +61,31 @@
                         mediaUrl: "/formuladb-env/frmdb-apps/base-app/static/card4.jpg",mediaType: "IMAGE",meta: { tenant: "base-app" }
                         , section
                     });
-            }
+        }
         
-            {
-                const section = await putRow(Section, {
-                    id: "indexS4", title: ``, component: "MEDIA", subtitle: ``,
-                    body: ``,
-                    meta: { tenant: "base-app" }, page
-                });
-            }
+        {
+            const section = await putRow(Section, {
+                id: "indexS4", title: ``, component: "MEDIA", subtitle: ``,
+                body: ``,
+                mediaType: "IMAGE",meta: { tenant: "base-app" }, page
+            });
+        }
         
-            {
-                const section = await putRow(Section, {
-                    id: "indexS5", title: ``, component: "MEDIA", subtitle: ``,
-                    body: ``,
-                    meta: { tenant: "base-app" }, page
-                });
-            }
+        {
+            const section = await putRow(Section, {
+                id: "indexS5", title: `Section Heading`, component: "MEDIA", subtitle: ``,
+                body: `Pretium quis neque a faucibus. Quisque tempus pharetra tellus, sed molestie velit mattis ut. Suspendisse feugiat ligula dui, at
+                        convallis turpis auctor et. Etiam odio augue, sagittis vel quam quis, ultricies mollis mi. Fusce elementum ipsum a vehicula vehicula.`,
+                mediaUrl: "/formuladb-env/frmdb-apps/base-app/static/section1.jpg",mediaType: "IMAGE",meta: { tenant: "base-app" }, page
+            });
+        }
         
-            {
-                const section = await putRow(Section, {
-                    id: "indexS6", title: `Cards with Icons`, component: "CARDS_ICO", subtitle: `Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur.`,
-                    body: ``,
-                    meta: { tenant: "base-app" }, page
-                });
+        {
+            const section = await putRow(Section, {
+                id: "indexS6", title: `Cards with Icons`, component: "CARDS_ICO", subtitle: `Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur.`,
+                body: ``,
+                meta: { tenant: "base-app" }, page
+            });
        
                     await putRow(SubSection, {
                         id: "indexS6sS1", title: ``, component: "CARD_ICON", subtitle: ``,
@@ -127,15 +128,16 @@
                         mediaUrl: "fontawesome-solid-building-apartment-business-city-company-office-work",mediaType: "ICON",meta: { tenant: "base-app" }
                         , section
                     });
-            }
+        }
         
-            {
-                const section = await putRow(Section, {
-                    id: "indexS7", title: ``, component: "MEDIA", subtitle: ``,
-                    body: ``,
-                    meta: { tenant: "base-app" }, page
-                });
-            }
+        {
+            const section = await putRow(Section, {
+                id: "indexS7", title: `Section Heading`, component: "MEDIA", subtitle: ``,
+                body: `Etiam porta magna eu rutrum rhoncus. Sed ut tempor nibh. Nullam tempus egestas ullamcorper. Proin sollicitudin diam vel risus egestas, in
+                        fringilla ligula finibus.`,
+                mediaUrl: "/formuladb-env/frmdb-apps/base-app/static/section2.jpg",mediaType: "IMAGE",meta: { tenant: "base-app" }, page
+            });
+        }
 
 }).catch(error => console.log(error));
     

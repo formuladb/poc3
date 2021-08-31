@@ -5,14 +5,35 @@ import { cleanupDocumentDOM } from "./page-utils";
 import { PageI } from "../../../../rows/src/apps/websites/entity/Page";
 import { SectionI, SubSectionI } from "../../../../rows/src/apps/websites/entity/Section";
 
-const BASEDIR = '/home/acr/code/frmdb/formuladb-env/frmdb-apps/';
+const BASEDIR = '/home/acr/code/frmdb/formuladb-env/frmdb-apps';
 const APPS = [
-    'base-app'
+    { app: 'base-app', index: 'landing-page.html' },
+    { app: 'apollo-medical-center', index: 'index.html' },
+    { app: 'beauty-salon', index: 'index.html' },
+    { app: 'blog-add-on-app', index: 'index.html' },
+    { app: 'dental-health', index: 'index.html' },
+    { app: 'design-therapy', index: 'index.html' },
+    { app: 'formuladb-io', index: 'index.html' },
+    { app: 'formuladb-university', index: 'index.html' },
+    { app: 'health-guardians', index: 'index.html' },
+    { app: 'hotel', index: 'index.html' },
+    { app: 'it-services', index: 'index.html' },
+    { app: 'kids-playground', index: 'index.html' },
+    { app: 'law-firm', index: 'index.html' },
+    { app: 'online-payments', index: 'index.html' },
+    { app: 'photography-services', index: 'index.html' },
+    { app: 'restaurant', index: 'index.html' },
+    { app: 'sports', index: 'index.html' },
+    { app: 'users', index: 'index.html' },
+    { app: 'wellness-services', index: 'index.html' },
 ]
 
-for (let app of APPS) {
-    const ts = landingPage2sql(app, `${BASEDIR}/${app}/landing-page.html`);
-    fs.writeFileSync(`../../rows/src/apps/websites/data.ts`, ts.join("\n"));
+for (let aP of APPS) {
+    console.log("#########################################################################")
+    console.log(`# ${aP.app}`)
+    console.log("#########################################################################")
+    const ts = landingPage2sql(aP.app, `${BASEDIR}/${aP.app}/${aP.index}`);
+    fs.writeFileSync(`../../rows/src/apps/websites/data/${aP.app}.ts`, ts.join("\n"));
 }
 
 function landingPage2sql(app: string, filePath: string) {
@@ -21,10 +42,10 @@ function landingPage2sql(app: string, filePath: string) {
     let dataTsFile = [`
     import "reflect-metadata";
     import { createConnection, getManager, getRepository } from "typeorm";
-    import { autoMigrate } from "../../core/orm/autoMigrate";
-    import { putRow } from "../../core/orm/putRow";
-    import { Page } from "./entity/Page";
-    import { Section, SubSection } from "./entity/Section";
+    import { autoMigrate } from "../../../core/orm/autoMigrate";
+    import { putRow } from "../../../core/orm/putRow";
+    import { Page } from "../entity/Page";
+    import { Section, SubSection } from "../entity/Section";
     
     export default createConnection().then(async connection => {
     
@@ -44,15 +65,15 @@ function landingPage2sql(app: string, filePath: string) {
     let cleanedUpDOM = cleanupDocumentDOM(htmlTools.doc);
 
     const page: PageI = {
-        id: `landing-page`,
+        id: `index`,
         meta: { tenant },
         title: cleanedUpDOM.querySelector(`title`)?.innerHTML || 'title-not-found',
     };
 
     dataTsFile.push(`
-    const page = await putRow(Page, {
-        id: "${page.id}", title: "${page.title}", meta: { tenant: "${tenant}" },
-    });`);
+        const page = await putRow(Page, {
+            id: "${page.id}", title: "${page.title}", meta: { tenant: "${tenant}" },
+        });`);
 
     let sectionIdx = 0;
     for (let sectionEl of Array.from(cleanedUpDOM.querySelectorAll(`body > *`))) {
@@ -60,7 +81,7 @@ function landingPage2sql(app: string, filePath: string) {
         const sectionPartial = {
             meta: { tenant },
             pageId: page.id,
-            id: 'S' + sectionIdx,
+            id: page.id + 'S' + sectionIdx,
             page,
         };
         let section: SectionI | null = null;
@@ -73,8 +94,9 @@ function landingPage2sql(app: string, filePath: string) {
                 subtitle: sectionEl.querySelector('h6')?.innerHTML,
                 body: sectionEl.querySelector('.jumbotron p')?.innerHTML,
                 mediaUrl: (sectionEl as HTMLElement)?.style?.getPropertyValue('--frmdb-bg-img')
-                    .replace(/url\('/, '').replace(/'\)/, ''),
-                mediaType: "IMAGE"
+                    .replace(/url\(['"]/, '').replace(/['"]\)/, ''),
+                mediaType: "IMAGE",
+                aside: getFragment(app, sectionEl.querySelector('frmdb-t-aside')),
             }
         } else if (sectionEl.tagName.toLowerCase() === "frmdb-t-header") {
             section = {
@@ -82,13 +104,22 @@ function landingPage2sql(app: string, filePath: string) {
                 component: 'HEADER'
             }
         } else if ("frmdb-t-media-section-main" === sectionEl.tagName.toLowerCase() ||
-            (sectionEl.tagName.toLowerCase() === "section" && sectionEl.querySelector('.row .text-center .jumbotron'))
+            (sectionEl.tagName.toLowerCase() === "section" && 
+                sectionEl.querySelector('.row .col img') &&
+                sectionEl.querySelector('.row .col.text-center h2') &&
+                sectionEl.querySelector('.row .col.text-center p') &&
+                sectionEl.querySelector('.row .col.text-center a'))
         ) {
             section = {
                 ...sectionPartial,
-                component: 'MEDIA'
+                component: 'MEDIA',
+                title: sectionEl.querySelector('.col.text-center h2')?.innerHTML,
+                body: sectionEl.querySelector('.col.text-center p')?.innerHTML,
+                mediaUrl: sectionEl.querySelector('.row .col img')?.getAttribute('src'),
+                mediaType: "IMAGE",
+                action: sectionEl.querySelector('.col.text-center a')?.innerHTML,
             }
-        } else if (sectionEl.tagName.toLowerCase() === "section" && sectionEl.querySelector('frmdb-t-card-deck frmdb-t-card-media-main')) {
+        } else if (sectionEl.tagName.toLowerCase() === "section" && sectionEl.querySelector('frmdb-t-card-media-main')) {
             section = {
                 ...sectionPartial,
                 component: 'CARDS_IMG',
@@ -112,16 +143,22 @@ function landingPage2sql(app: string, filePath: string) {
             || sectionEl.matches('[data-frmdb-fragment="_scripts.html"]')
         ) {
             //ingnore
+        } else if (sectionEl.matches('[data-frmdb-fragment="_form.html"]')) {
+            section = {
+                ...sectionPartial,
+                component: 'FORM',
+                body: getFragment(app, sectionEl.parentElement),
+            }
         } else throw new Error(`Unknown section ${htmlTools.normalizeDOM2HTML(sectionEl)}`);
 
         if (section) {
             dataTsFile.push(`        
-            {
-                const section = await putRow(Section, {
-                    id: "${section.id}", title: \`${section.title || ''}\`, component: "${section.component}", subtitle: \`${section.subtitle || ''}\`,
-                    body: \`${section.body || ''}\`,
-                    ${section.mediaUrl ? `mediaUrl: "${section.mediaUrl}",` : ''}${section.mediaType ? `mediaType: "${section.mediaType}",` : ''}meta: { tenant: "${tenant}" }, page
-                });`);
+        {
+            const section = await putRow(Section, {
+                id: "${section.id}", title: \`${section.title || ''}\`, component: "${section.component}", subtitle: \`${section.subtitle || ''}\`,
+                body: \`${section.body || ''}\`,
+                ${section.mediaUrl ? `mediaUrl: "${section.mediaUrl}",` : ''}${section.mediaType ? `mediaType: "${section.mediaType}",` : ''}meta: { tenant: "${tenant}" }, page
+            });`);
 
             let subSections: SubSectionI[] = [];
             if (section.component === "CARDS_IMG") {
@@ -141,7 +178,7 @@ function landingPage2sql(app: string, filePath: string) {
                     });`);
                 }
             }
-            dataTsFile.push(`            }`);
+            dataTsFile.push(`        }`);
         }
     }
 
@@ -162,15 +199,15 @@ function getSubsections(
 ): SubSectionI[] {
     const subSections: SubSectionI[] = [];
 
-    const subSectionSelector = sectionType === "CARDS_IMG" ? 'frmdb-t-card-deck frmdb-t-card-media-main'
-        : 'frmdb-t-card-deck frmdb-t-card-icon-main';
+    const subSectionSelector = sectionType === "CARDS_IMG" ? 'frmdb-t-card-media-main'
+        : 'frmdb-t-card-icon-main';
 
     let subSectionIdx = 0;
     for (let subSectionEl of Array.from(sectionEl.querySelectorAll(subSectionSelector))) {
         subSectionIdx++;
         const subSectionPartial = {
             meta: { tenant },
-            id: 'sS' + subSectionIdx,
+            id: section.id + 'sS' + subSectionIdx,
             section,
         };
 
@@ -182,7 +219,7 @@ function getSubsections(
                 subtitle: subSectionEl.querySelector('h6')?.innerHTML,
                 body: subSectionEl.querySelector('.h6 p')?.innerHTML,
                 mediaUrl: (subSectionEl.querySelector('frmdb-t-img') as HTMLElement)?.style?.getPropertyValue('--frmdb-bg-img')
-                    .replace(/url\('/, '').replace(/'\)/, ''),
+                    .replace(/url\(['"]/, '').replace(/['"]\)/, ''),
                 mediaType: "IMAGE",
                 info: subSectionEl.querySelector('frmdb-t-card-note')?.innerHTML,
                 action: subSectionEl.querySelector('frmdb-t-card-action')?.innerHTML,
@@ -194,7 +231,7 @@ function getSubsections(
                 component: 'CARD_ICON',
                 title: subSectionEl.querySelector('frmdb-icon span')?.innerHTML,
                 body: subSectionEl.querySelector('h4 p')?.innerHTML,
-                mediaUrl: subSectionEl.querySelector('frmdb-icon').getAttribute('name'),
+                mediaUrl: subSectionEl.querySelector('frmdb-icon')?.getAttribute('name'),
                 mediaType: "ICON",
             }
             subSections.push(subSection);
@@ -203,4 +240,12 @@ function getSubsections(
     console.log(subSections.length)
 
     return subSections;
+}
+
+function getFragment(app: string, el: Element | null) {
+    if (!el) return;
+    let fragmentEl = el.querySelector('[ data-frmdb-fragment="_form.html"]');
+    if (fragmentEl) {
+        return fs.readFileSync(`${BASEDIR}/${app}/_form.html`, 'utf-8');
+    }
 }

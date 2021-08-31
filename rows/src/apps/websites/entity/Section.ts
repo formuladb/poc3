@@ -16,10 +16,11 @@ class SectionBase {
     mediaType?: keyof typeof MediaTypes;
     @Column() info?: string;
     @Column() action?: string;
+    @Column() aside?: string;
     @Column(() => Meta) meta: Meta;
 }
 
-const SectionComponentTypes = {COVER:0, HEADER:0, MEDIA:0, CARDS_IMG:0, CARDS_ICO:0};
+const SectionComponentTypes = {COVER:0, HEADER:0, MEDIA:0, CARDS_IMG:0, CARDS_ICO:0, FORM:0};
 @Entity()
 export class Section extends SectionBase {
     @ManyToOne(() => Page, page => page.sections)
