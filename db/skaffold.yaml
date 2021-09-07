@@ -16,7 +16,8 @@ deploy:
       setValues: 
         ingress.host: frmdb.localhost
         envtype: localdev
-      namespace: "{{ .PRW_NAMESPACE }}"
+      #namespace: "{{ .PRW_NAMESPACE }}"
+      namespace: prw
       createNamespace: true
 profiles:
 - name: localdev

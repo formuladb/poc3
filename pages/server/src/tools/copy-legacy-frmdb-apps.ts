@@ -104,7 +104,7 @@ function landingPage2sql(app: string, filePath: string) {
                 component: 'HEADER'
             }
         } else if ("frmdb-t-media-section-main" === sectionEl.tagName.toLowerCase() ||
-            (sectionEl.tagName.toLowerCase() === "section" && 
+            (sectionEl.tagName.toLowerCase() === "section" &&
                 sectionEl.querySelector('.row .col img') &&
                 sectionEl.querySelector('.row .col.text-center h2') &&
                 sectionEl.querySelector('.row .col.text-center p') &&
@@ -138,7 +138,9 @@ function landingPage2sql(app: string, filePath: string) {
             "frmdb-t-main-nav",
             "frmdb-t-section-divider",
             "frmdb-notification-container",
-            "frmdb-fe"].includes(sectionEl.tagName.toLowerCase())
+            "frmdb-fe",
+            "style",
+            ].includes(sectionEl.tagName.toLowerCase())
             || sectionEl.matches('[data-frmdb-fragment="_footer.html"]')
             || sectionEl.matches('[data-frmdb-fragment="_scripts.html"]')
         ) {

@@ -18,9 +18,9 @@ deploy:
       artifactOverrides:
         image_pages: registry.gitlab.com/pagerows/pagerows/pages
       setValueTemplates: 
-        ingress.host: "{{ .PRW_INGRESS_HOST }}"
+        #ingress.host: "{{ .PRW_INGRESS_HOST }}"
         envtype: localdev
-      namespace: "{{ .PRW_NAMESPACE }}"
+      namespace: prw
       createNamespace: true
 profiles:
 - name: localdev
