@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useAuthenticated } from 'react-admin';
 import { useDataProvider } from 'react-admin';
-import { ResourceFieldDef } from '../../core-domain/fields';
-import { FrmdbResourceWithFields } from '../../core-domain/core-resources/FrmdbResource';
+import { ResourceFieldDef } from '../../core/entity/fields';
+import { FrmdbResourceWithFields } from '../../core/entity/FrmdbResource';
 
 export function useResourceWithFields(resource: string): FrmdbResourceWithFields {
 

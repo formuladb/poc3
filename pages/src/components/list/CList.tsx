@@ -16,7 +16,7 @@ import {
     Translate,
     ListControllerProps,
 } from 'react-admin';
-import { DEFAULT_COLS, FieldType, FieldTypes, ResourceFieldDef } from '../../core-domain/fields';
+import { DEFAULT_COLS, FieldType, FieldTypes, ResourceFieldDef } from '../../core/entity/fields';
 import { ListDatagrid } from './ListDatagrid';
 import { ListTable } from './ListTable';
 import { ListTabs } from './ListTabs';
@@ -34,7 +34,7 @@ import CListPropsSchema from '../../core-domain/json-schemas/CListProps.json';
 import { ListActions } from './ListActions';
 import { getCInputPropsFromFieldDef, getDefaultReferenceText } from '../defaultEditPageContent';
 import { useRawFormContext } from '../form/useRawFormContext';
-import { FrmdbResourceWithFields } from '../../core-domain/core-resources/FrmdbResource';
+import { FrmdbResourceWithFields } from '../../core/entity/FrmdbResource';
 import { isEqual } from 'lodash';
 
 export function CList(nP: CListProps & { children: null | React.ReactNode }) {

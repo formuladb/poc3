@@ -21,9 +21,9 @@ import { ListActions } from '../list/ListActions';
 import { ROOT_NODE, useEditor } from '@craftjs/core';
 import { CPageListProps } from '../../core-domain/page';
 import { xslx_exporter } from './xlsx_exporter/xlsx_exporter';
-import { ResourceFieldDef } from '../../core-domain/fields';
+import { ResourceFieldDef } from '../../core/entity/fields';
 import { FInput } from '../form/FInput';
-import { FrmdbResourceWithFields } from '../../core-domain/core-resources/FrmdbResource';
+import { FrmdbResourceWithFields } from '../../core/entity/FrmdbResource';
 
 function PageFilter(props: object) {
     const { resource } = useListContext();

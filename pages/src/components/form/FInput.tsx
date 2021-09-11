@@ -8,7 +8,7 @@ import {
     NumberInput,
     TextInput,
 } from 'react-admin';
-import { FieldType } from "../../core-domain/fields";
+import { FieldType } from "../../core/entity/fields";
 
 type FInputProps = { type: FieldType }
     & Parameters<typeof TextInput>[0]

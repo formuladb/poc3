@@ -1,6 +1,6 @@
 import { Record } from "react-admin";
 import { ActionIMPORTDATA } from "../../core-domain/page";
-import { FrmdbResourceWithFields } from "../../core-domain/core-resources/FrmdbResource";
+import { FrmdbResourceWithFields } from "../../core/entity/FrmdbResource";
 import { FrmdbDataProvider } from "../../ra-data-postgrest";
 import { validateAndCovertObjPropertyType } from "../validateAndConvertFields";
 

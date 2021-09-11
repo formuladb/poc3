@@ -3,7 +3,7 @@ import { IS_NOT_NULL } from "../../core-functions/ScalarFunctions";
 
 import { required, Validator } from 'react-admin';
 import { RawFormContextData } from "./useRawFormContext";
-import { ResourceFieldDef } from '../../core-domain/fields';
+import { ResourceFieldDef } from '../../core/entity/fields';
 import { isFieldRequired } from '../../core-functions/validateAndConvertFields';
 
 const requiredFn = required();

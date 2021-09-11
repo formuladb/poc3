@@ -1,4 +1,4 @@
-import { ResourceFieldDef, FieldType } from "../core-domain/fields";
+import { ResourceFieldDef, FieldType } from "../core/entity/fields";
 
 interface SpOut {
     c_table_schema: any; // varchar,                --1

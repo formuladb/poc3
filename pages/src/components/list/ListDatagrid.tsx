@@ -5,7 +5,7 @@ import {
     ImageField, NumberField, TextField, UrlField,
     Record, useCreate, useNotify, useListContext, useTranslate, ListControllerProps,
 } from 'react-admin';
-import { ResourceFieldDef } from '../../core-domain/fields';
+import { ResourceFieldDef } from '../../core/entity/fields';
 import { cloneDeep } from 'lodash';
 
 import { FilterChangedEvent, ICellRendererParams } from '@ag-grid-community/core';

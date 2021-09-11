@@ -16,6 +16,8 @@
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,        
     "noEmit": true,
     "jsx": "react",
     "isolatedModules": true,

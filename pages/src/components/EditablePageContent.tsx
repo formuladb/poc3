@@ -8,8 +8,8 @@ import React, { useEffect, useState } from 'react';
 import { RecordMap, useDataProvider, useAuthProvider, useAuthenticated } from 'react-admin';
 import { useLocation } from 'react-router-dom';
 import { parseLocation } from '../location_utils';
-import { FrmdbResource, FrmdbResourceWithFields } from '../core-domain/core-resources/FrmdbResource';
-import { FrmdbPage } from '../core-domain/core-resources/FrmdbPage';
+import { FrmdbResource, FrmdbResourceWithFields } from '../core/entity/FrmdbResource';
+import { FrmdbPage } from '../core/entity/FrmdbPage';
 import { EditablePageProps } from './EditablePage';
 import { mapFromTree } from './editor/page-utils';
 import { defaultEditPageContent } from './defaultEditPageContent';
@@ -73,7 +73,7 @@ export default function EditablePageContent({
 
             if (page) {
                 console.log('PageContent', resourceWithFields, page);
-                setSavedPageAsTree(page.content as PageNode);
+                setSavedPageAsTree(page.content as any as PageNode);
             } else if (resources) {
 
                 let savedPageAsTree = pageType === 'List' ?

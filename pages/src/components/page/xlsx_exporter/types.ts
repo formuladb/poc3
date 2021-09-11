@@ -1,6 +1,6 @@
 import { Buffer } from 'exceljs';
 import { Record, Translate } from 'react-admin';
-import { ResourceFieldDef } from '../../../core-domain/fields';
+import { ResourceFieldDef } from '../../../core/entity/fields';
 
 export interface FrmdbExcelExportWorkerInput {
     type: "input";

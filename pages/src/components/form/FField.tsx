@@ -17,7 +17,7 @@ import {
 } from 'react-admin';
 import { makeStyles } from '@material-ui/core';
 
-import { FieldType } from "../../core-domain/fields";
+import { FieldType } from "../../core/entity/fields";
 import { CInputProps } from '../../core-domain/page';
 import { FormulaField } from './FormulaField';
 

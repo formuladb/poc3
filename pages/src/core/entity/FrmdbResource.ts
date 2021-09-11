@@ -1,4 +1,4 @@
-// import { ResourceFieldDef } from "../fields";
+import { ResourceFieldDef } from "./fields";
 
 export interface FrmdbResource {
     id: string;
@@ -13,10 +13,8 @@ export interface FrmdbResource {
     }
 }
 
-// export interface FrmdbResourceWithFields {
-//     id: string;
-//     field_defs: ResourceFieldDef[];
-//     refedResWithFields?: {[resource: string]: FrmdbResourceWithFields};
-// }
-
-
+export interface FrmdbResourceWithFields {
+    id: string;
+    field_defs: ResourceFieldDef[];
+    refedResWithFields?: {[resource: string]: FrmdbResourceWithFields};
+}

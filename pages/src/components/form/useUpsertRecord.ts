@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { ResourceFieldDef } from '../../core-domain/fields';
+import { ResourceFieldDef } from '../../core/entity/fields';
 import {
     Record, useCreate, useDataProvider,
     useNotify, useRedirect, useTranslate,
@@ -8,7 +8,7 @@ import {
 import { useRouteMatch } from 'react-router-dom';
 import { cloneDeep } from 'lodash';
 import { useResourceWithFields } from './useResourceWithFields';
-import { FrmdbResourceWithFields } from '../../core-domain/core-resources/FrmdbResource';
+import { FrmdbResourceWithFields } from '../../core/entity/FrmdbResource';
 
 export interface UseUpsertRecordRet {
     onUpsertRecord: (data: Partial<Record>, redirectTo?: string, beforeSave?: (resource, data) => void) => Promise<void>,
