@@ -1,6 +1,6 @@
 import { AfterInsert, AfterUpdate, EntitySubscriberInterface, EventSubscriber, InsertEvent, ManyToOne, OneToMany, PrimaryColumn, UpdateEvent } from "typeorm";
 import { Column, Entity } from "typeorm";
-import { Meta } from "../../../core/entity/Meta";
+import { Meta } from "../../../../../pages/src/core/entity/Meta";
 import { upsertChildren } from "../../../core/orm/upsertChildren";
 import { Section } from "./Section";
 

@@ -5,7 +5,7 @@ import { cleanupDocumentDOM } from "./page-utils";
 import { PageI } from "../../../../rows/src/apps/websites/entity/Page";
 import { SectionI, SubSectionI } from "../../../../rows/src/apps/websites/entity/Section";
 
-const BASEDIR = '/home/acr/code/frmdb/formuladb-env/frmdb-apps';
+const BASEDIR = '/home/acr/code/pagerows/old-frmdb-env/env/frmdb-apps';
 const APPS = [
     { app: 'base-app', index: 'landing-page.html' },
     { app: 'apollo-medical-center', index: 'index.html' },
@@ -13,16 +13,18 @@ const APPS = [
     { app: 'blog-add-on-app', index: 'index.html' },
     { app: 'dental-health', index: 'index.html' },
     { app: 'design-therapy', index: 'index.html' },
-    { app: 'formuladb-io', index: 'index.html' },
-    { app: 'formuladb-university', index: 'index.html' },
     { app: 'health-guardians', index: 'index.html' },
-    { app: 'hotel', index: 'index.html' },
     { app: 'it-services', index: 'index.html' },
     { app: 'kids-playground', index: 'index.html' },
     { app: 'law-firm', index: 'index.html' },
-    { app: 'online-payments', index: 'index.html' },
     { app: 'photography-services', index: 'index.html' },
-    { app: 'restaurant', index: 'index.html' },
+    { app: 'restaurant', index: 'vivaldi-restaurant.html', tenant: 'vivaldi-restaurant.html' },
+    { app: 'restaurant', index: 'luxurious-restaurant.html', tenant: 'luxurious-restaurant.html' },
+    { app: 'restaurant', index: 'local-restaurant.html', tenant: 'local-restaurant.html' },
+    { app: 'restaurant', index: 'pizza-time.html', tenant: 'pizza-time.html' },
+    { app: 'restaurant', index: 'proper-stack-house.html', tenant: 'proper-stack-house.html' },
+    { app: 'restaurant', index: 'raw-baking.html', tenant: 'raw-baking.html' },
+    { app: 'restaurant', index: 'restaurat-good-food.html', tenant: 'restaurat-good-food.html' },
     { app: 'sports', index: 'index.html' },
     { app: 'users', index: 'index.html' },
     { app: 'wellness-services', index: 'index.html' },
@@ -30,14 +32,13 @@ const APPS = [
 
 for (let aP of APPS) {
     console.log("#########################################################################")
-    console.log(`# ${aP.app}`)
+    console.log(`# ${aP.app}, ${aP.tenant}`)
     console.log("#########################################################################")
-    const ts = landingPage2sql(aP.app, `${BASEDIR}/${aP.app}/${aP.index}`);
+    const ts = landingPage2sql(aP.app, `${BASEDIR}/${aP.app}/${aP.index}`, aP.tenant || aP.app, 'index');
     fs.writeFileSync(`../../rows/src/apps/websites/data/${aP.app}.ts`, ts.join("\n"));
 }
 
-function landingPage2sql(app: string, filePath: string) {
-    const tenant = app;
+function landingPage2sql(app: string, filePath: string, tenant: string, pageId: string) {
 
     let dataTsFile = [`
     import "reflect-metadata";
@@ -65,7 +66,7 @@ function landingPage2sql(app: string, filePath: string) {
     let cleanedUpDOM = cleanupDocumentDOM(htmlTools.doc);
 
     const page: PageI = {
-        id: `index`,
+        id: pageId,
         meta: { tenant },
         title: cleanedUpDOM.querySelector(`title`)?.innerHTML || 'title-not-found',
     };
@@ -96,7 +97,7 @@ function landingPage2sql(app: string, filePath: string) {
                 mediaUrl: (sectionEl as HTMLElement)?.style?.getPropertyValue('--frmdb-bg-img')
                     .replace(/url\(['"]/, '').replace(/['"]\)/, ''),
                 mediaType: "IMAGE",
-                aside: getFragment(app, sectionEl.querySelector('frmdb-t-aside')),
+                aside: getFragment(app, sectionEl.querySelector('frmdb-t-aside'), htmlTools),
             }
         } else if (sectionEl.tagName.toLowerCase() === "frmdb-t-header") {
             section = {
@@ -109,7 +110,7 @@ function landingPage2sql(app: string, filePath: string) {
                 sectionEl.querySelector('.row .col.text-center h2') &&
                 sectionEl.querySelector('.row .col.text-center p') &&
                 sectionEl.querySelector('.row .col.text-center a'))
-        ) {
+        ) {//
             section = {
                 ...sectionPartial,
                 component: 'MEDIA',
@@ -140,18 +141,26 @@ function landingPage2sql(app: string, filePath: string) {
             "frmdb-notification-container",
             "frmdb-fe",
             "style",
-            ].includes(sectionEl.tagName.toLowerCase())
+            "header",
+            "section#app-list"
+        ].includes(sectionEl.tagName.toLowerCase())
             || sectionEl.matches('[data-frmdb-fragment="_footer.html"]')
             || sectionEl.matches('[data-frmdb-fragment="_scripts.html"]')
         ) {
             //ingnore
+        } else if (sectionEl.matches('[data-frmdb-fragment="versions.html"]')) {
+            section = {
+                ...sectionPartial,
+                component: 'HTML',
+                body: getFragment(app, sectionEl.parentElement, htmlTools),
+            }
         } else if (sectionEl.matches('[data-frmdb-fragment="_form.html"]')) {
             section = {
                 ...sectionPartial,
                 component: 'FORM',
-                body: getFragment(app, sectionEl.parentElement),
+                body: getFragment(app, sectionEl.parentElement, htmlTools),
             }
-        } else throw new Error(`Unknown section ${htmlTools.normalizeDOM2HTML(sectionEl)}`);
+        } else throw new Error(`Unknown section: ${htmlTools.normalizeDOM2HTML(sectionEl)}`);
 
         if (section) {
             dataTsFile.push(`        
@@ -244,10 +253,13 @@ function getSubsections(
     return subSections;
 }
 
-function getFragment(app: string, el: Element | null) {
+function getFragment(app: string, el: Element | null, htmlTools) {
     if (!el) return;
-    let fragmentEl = el.querySelector('[ data-frmdb-fragment="_form.html"]');
+    console.log(htmlTools.normalizeDOM2HTML(el));
+    let fragmentEl = el.matches('[data-frmdb-fragment]') ? el
+        : el.querySelector('[data-frmdb-fragment]');
+    let fileName = fragmentEl?.getAttribute('data-frmdb-fragment');
     if (fragmentEl) {
-        return fs.readFileSync(`${BASEDIR}/${app}/_form.html`, 'utf-8');
+        return fs.readFileSync(`${BASEDIR}/${app}/${fileName}`, 'utf-8');
     }
 }

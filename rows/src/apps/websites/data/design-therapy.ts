@@ -111,39 +111,49 @@
         {
             const section = await putRow(Section, {
                 id: "indexS9", title: ``, component: "FORM", subtitle: ``,
-                body: `<form class="p-3 m-3 border border-2 border-primary" data-frmdb-fragment="_form.html">
-<div class="row">
-    <div class="col-md-4">
-        <div class="form-group">
-            <div class="input-group date">
-                <input type="date" class="form-control" placeholder="Date Field">
-                <div class="input-group-append">
-                    <span class="input-group-text">
-                        <i class="frmdb-i-calendar" aria-hidden="true"></i>
-                    </span>
-                </div>
+                body: `<nav class="navbar" data-frmdb-fragment="_nav.html" data-frmdb-highlight-ignore="">
+<a class="navbar-brand" href="index.html">
+    <i class="fas fa-image" style="color: var(--primary)"></i>
+    <span>BrandName</span>
+</a>
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+    <div class="nav navbar-nav menu_nav ml-auto">
+        <a class="nav-link" href="index.html">Home</a>
+        <div class="nav-item active dropdown frmdb-dropdown-hover">
+            <a class="nav-link" href="elements.html">Elements</a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="elements.html#navbars">Navbars</a>
+                <a class="dropdown-item" href="elements.html#buttons">Buttons</a>
+                <a class="dropdown-item" href="elements.html#typography">Typography</a>
+                <a class="dropdown-item" href="elements.html#tables">Tables</a>
+                <a class="dropdown-item" href="elements.html#forms">Forms</a>
+                <a class="dropdown-item" href="elements.html#navs">Navs</a>
+                <a class="dropdown-item" href="elements.html#indicators">Indicators</a>
+                <a class="dropdown-item" href="elements.html#progress">Progress</a>
+                <a class="dropdown-item" href="elements.html#containers">Containers</a>
+                <a class="dropdown-item" href="elements.html#dialogs">Dialogs</a>
             </div>
         </div>
-        <div class="form-group"></div>
-    </div>
-    <div class="col-md-4">
-        <div class="form-group">
-            <div class="input-group">
-                <input type="number" class="form-control" placeholder="Number Field" required="" max="4">
+        <div class="nav-item dropdown frmdb-dropdown-hover">
+            <a class="nav-link" aria-haspopup="true" aria-expanded="false" href="sections.html">Sections</a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="sections.html#split-screen-form">Split Screen with Form</a>
+                <a class="dropdown-item" href="sections.html#split-screen-jumbotron">Split Screen with Jumbotron</a>
             </div>
         </div>
-        <div class="form-group">
-            <div class="input-group"></div>
+        <div class="nav-item dropdown frmdb-dropdown-hover">
+            <a class="nav-link" href="widgets.html">Widgets</a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="widgets.html#google-maps">Google Maps</a>
+                <a class="dropdown-item" href="widgets.html#instagram-feed">Instagram Feed</a>
+            </div>
         </div>
-    </div>
-    <div class="col-md-4 text-center">
-        <a class="btn btn-primary w-100" href="javascript:void(0)" data-i18n="en">book a creative meeting</a>
-    </div>
-    <div class="form-group">
-        <div class="input-group"></div>
     </div>
 </div>
-</form>`,
+</nav>`,
                 meta: { tenant: "design-therapy" }, page
             });
         }

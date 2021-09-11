@@ -42,6 +42,7 @@ export function xslx_exporter(
                 let fileName = resourceName;
 
                 if ((window as any).navigator.msSaveOrOpenBlob) {
+                    //@ts-ignore
                     window.navigator.msSaveBlob(blob, fileName);
                 }
                 else {

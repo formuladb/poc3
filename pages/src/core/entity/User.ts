@@ -4,11 +4,11 @@ import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
 export class User {
 
     @PrimaryGeneratedColumn()
-    id: number;
+    id!: number;
 
     /**@TJS-format tbd-prw */
     @Column({ nullable: false })
-    firstName: string;
+    name!: string;
 
     @Column()
     lastName?: string;

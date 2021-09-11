@@ -17,7 +17,7 @@
     },
     "include": [
         "./src/**/*",
-        "../../rows/src/core/**/*",
+        "../src/core/**/*",
         "../../rows/src/apps/**/*",
     ]
 }
