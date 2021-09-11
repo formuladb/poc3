@@ -13,7 +13,8 @@ async function httpClientTranslatePg(url, options) {
     try {
         const ret = await httpClient(url, options);
         return ret;
-    } catch (err) {
+    } catch (ex) {
+        const err: any = ex;
         console.warn(err, err.message);
         const violatedConstraint = typeof err.message === "string" && err.message.match(/(\w+__ck)\b/)?.[1];
         if (violatedConstraint) {
@@ -77,7 +78,7 @@ export default cacheDataProviderProxy(
 );
 
 async function uploadFileToObjstore(file: { rawFile: File, resource: string, columNname: string }) {
-    let url: string = `/fdb-resources/upload/${file.resource}/${file.columNname}/${file.rawFile.name}`;
+    let url: string = `/rows-obj/upload/${file.resource}/${file.columNname}/${file.rawFile.name}`;
     await fetch(url, {
         method: 'PUT',
         body: file.rawFile

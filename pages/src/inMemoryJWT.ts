@@ -9,7 +9,7 @@ export const inMemoryJWTManager = () => {
     let inMemoryJWT: string | null = null;
     let isRefreshing: Promise<boolean> | null = null;
     let logoutEventName = 'ra-logout';
-    let refreshEndpoint = '/fdb-resources/rpc/frmdb_refresh_token';
+    let refreshEndpoint = '/rows-db/rpc/frmdb_refresh_token';
     let refreshTimeOutId;
 
     let refreshIntervalSec = 60;

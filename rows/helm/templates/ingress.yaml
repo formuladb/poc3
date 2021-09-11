@@ -3,6 +3,7 @@ kind: Ingress
 metadata:
   name: pagerows-rows
   annotations:
+    kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/rewrite-target: /$2
     nginx.ingress.kubernetes.io/configuration-snippet: |
       if ($cookie_dbrestauth) {
@@ -19,14 +20,14 @@ spec:
   rules:
   - http:
       paths:
-      - path: /(fdb-resources)/(upload/.*/.*/.*)
+      - path: /(rows-obj)/(upload/.*/.*/.*)
         pathType: ImplementationSpecific
         backend:
           service:
-            name: resources
+            name: rows
             port:
-              number: 8080  
-      - path: /fdb-resources(/|$)(.*)
+              number: 8080
+      - path: /rows-db(/|$)(.*)
         pathType: ImplementationSpecific
         backend:
           service:

@@ -8,12 +8,19 @@ spec:
   rules:
   - http:
       paths:
-      - path: /
+      - path: /pages
         pathType: ImplementationSpecific
         backend:
           service: 
             name: pages
             port: 
               number: 3000  
+      - path: /rpc
+        pathType: ImplementationSpecific
+        backend:
+          service: 
+            name: db
+            port: 
+              number: 3000                
     {{ if .Values.ingress.host}}host: {{ .Values.ingress.host }}{{end}}
 

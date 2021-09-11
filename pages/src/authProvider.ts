@@ -7,13 +7,13 @@ const authProvider: AuthProvider = {
         inMemoryJWT.getRefreshedToken();
     },
     login: ({ username, password }) => {
-        const request = new Request('/fdb-resources/rpc/frmdb_login', {
+        const request = new Request('/rows-db/rpc/frmdb_login', {
             method: 'POST',
             body: JSON.stringify({ username, pass: password }),
             headers: new Headers({ 'Content-Type': 'application/json' }),
             credentials: 'include',
         });
-        inMemoryJWT.setRefreshTokenEndpoint('/fdb-resources/rpc/frmdb_refresh_token');
+        inMemoryJWT.setRefreshTokenEndpoint('/rows-db/rpc/frmdb_refresh_token');
         return fetch(request)
             .then(async (response) => {
                 if (response.status < 200 || response.status >= 300) {
@@ -29,7 +29,7 @@ const authProvider: AuthProvider = {
     },
 
     logout: () => {
-        const request = new Request('/fdb-resources/rpc/frmdb_logout', {
+        const request = new Request('/rows-db/rpc/frmdb_logout', {
             method: 'GET',
             headers: new Headers({ 'Content-Type': 'application/json' }),
             credentials: 'include',

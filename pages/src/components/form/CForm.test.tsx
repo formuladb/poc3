@@ -16,7 +16,7 @@ import { setupServer } from 'msw/node'
 import { FrmdbResourceWithFields } from "../../core/entity/FrmdbResource";
 
 const server = setupServer(
-    rest.get('/fdb-resources/rpc/frmdb_sp_table_columns',
+    rest.get('/rows-db/rpc/frmdb_sp_table_columns',
         (req, res, ctx) => {
             console.log(req.url.href);
             if (req.url.searchParams.get('p_table_name') === 'order_items') {
