@@ -8,7 +8,7 @@ import React, { useEffect, useState } from 'react';
 import { RecordMap, useDataProvider, useAuthProvider, useAuthenticated } from 'react-admin';
 import { useLocation } from 'react-router-dom';
 import { parseLocation } from '../location_utils';
-import { FrmdbResource, FrmdbResourceWithFields } from '../core/entity/FrmdbResource';
+import { FrmdbResourceI, FrmdbResourceWithFields } from '../core/entity/FrmdbResource';
 import { FrmdbPage } from '../core/entity/FrmdbPage';
 import { EditablePageProps } from './EditablePage';
 import { mapFromTree } from './editor/page-utils';
@@ -61,8 +61,8 @@ export default function EditablePageContent({
                 .catch((ex) => { console.log(ex); return null });
             let page = res?.data;
 
-            let resources: null | RecordMap<FrmdbResource> =
-                await dataProvider.getList<FrmdbResource>('frmdb_resources', {
+            let resources: null | RecordMap<FrmdbResourceI> =
+                await dataProvider.getList<FrmdbResourceI>('frmdb_resources', {
                     pagination: { page: 1, perPage: 100 },
                     sort: { field: 'id', order: 'ASC' },
                     filter: {}

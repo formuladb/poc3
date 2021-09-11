@@ -1,23 +1,23 @@
 import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
 
 @Entity()
-export class User {
+export class FrmdbUser {
 
     @PrimaryGeneratedColumn()
-    id!: number;
+    id!: string;
 
     /**@TJS-format tbd-prw */
     @Column({ nullable: false })
-    name!: string;
+    username!: string;
 
     @Column()
-    lastName?: string;
+    pass!: string;
 
     @Column()
-    age?: number;
+    role!: number;
 
 }
 
-export interface UserI extends User {
+export interface FrmdbUserI extends FrmdbUser {
 
 }

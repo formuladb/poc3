@@ -7,12 +7,16 @@
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,        
         "sourceMap": true,
+        "baseUrl": ".",
+        "paths": {
+            "@core/*": ["../pages/src/core/*"],
+        },
         "lib": [
             "ES2018"
         ]
     },
     "include": [
         "./src/**/*",
-        "../../pages/src/core/**/*",
+        "../pages/src/core/**/*",
     ]
 }

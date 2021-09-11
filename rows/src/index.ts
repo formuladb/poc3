@@ -6,6 +6,7 @@ import "reflect-metadata";
 
 import * as Minio from 'minio';
 import { spawn } from 'child_process';
+import baseData from './apps/base/data';
 
 var client = new Minio.Client({
     endPoint: 'minio',
@@ -64,6 +65,9 @@ app.put('/upload/:table/:column/:file', async (req: express.Request, res) => {
 });
 
 pgFmkInstall()
+    .then(async () => {
+        await baseData();
+    })
     .then(() => app.listen(8080))
     ;
 
@@ -83,6 +87,7 @@ pgFmkInstall()
 async function pgFmkInstall() {
     if (process.env.ENVTYPE === "localdev") {
         console.log("Migrate core pg fmk");
+        await runCmd('bash', '-c', 'ls -ltr /');
         await runCmd('timeout', '300', 'bash', '/scripts/pg-fmk.sh');
     }
 }

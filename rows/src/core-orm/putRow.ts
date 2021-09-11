@@ -12,3 +12,12 @@ export async function putRow<ENTITY>(
 
     return row;
 }
+
+export async function putRows<ENTITY>(
+    entity: ObjectType<ENTITY>,
+    attrs: { [k in keyof ENTITY]: ENTITY[k] }[]
+): Promise<void> {
+    for (let attr of attrs) {
+        await putRow(entity, attr);
+    }
+}

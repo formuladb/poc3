@@ -3,7 +3,7 @@ import Form from "@rjsf/material-ui";
 import { JSONSchema7 } from 'json-schema';
 import { useNode, Node as CraftJsNode } from '@craftjs/core';
 import { Validator, Schema } from 'jsonschema';
-import { FrmdbResource, FrmdbResourceWithFields } from '../../core/entity/FrmdbResource';
+import { FrmdbResourceI, FrmdbResourceWithFields } from '../../core/entity/FrmdbResource';
 import { DataProvider, RecordMap, useDataProvider, useGetList } from 'react-admin';
 import { cloneDeep, debounce, isEqual } from 'lodash';
 import { useLocation } from 'react-router-dom';
@@ -15,9 +15,9 @@ import { groupByUniqProp } from '../../utils';
 // import MultiSchemaField from './MultiSchemaField';
 
 export type SyncCmpSettingsCompleter = (node: CraftJsNode, schema: JSONSchema7) => JSONSchema7;
-export type AsyncCmpSettingsCompleter = (node: CraftJsNode, schema: JSONSchema7, resource: string, resourceList: RecordMap<FrmdbResource> | undefined) => Promise<JSONSchema7>;
+export type AsyncCmpSettingsCompleter = (node: CraftJsNode, schema: JSONSchema7, resource: string, resourceList: RecordMap<FrmdbResourceI> | undefined) => Promise<JSONSchema7>;
 const syncCmpSettingsCompleterDefault: SyncCmpSettingsCompleter = ((node: CraftJsNode, schema: JSONSchema7) => schema);
-const asyncCmpSettingsCompleterDefault: AsyncCmpSettingsCompleter = ((node: CraftJsNode, schema: JSONSchema7, resource: string, resourceList: RecordMap<FrmdbResource> | undefined) => Promise.resolve(schema));
+const asyncCmpSettingsCompleterDefault: AsyncCmpSettingsCompleter = ((node: CraftJsNode, schema: JSONSchema7, resource: string, resourceList: RecordMap<FrmdbResourceI> | undefined) => Promise.resolve(schema));
 export const CmpSettings = ({
     schema = {} as JSONSchema7,
     uiSchema = undefined as undefined | object,
@@ -34,7 +34,7 @@ export const CmpSettings = ({
     }));
 
     const resources = useResources();
-    const resourcesList: RecordMap<FrmdbResource> | undefined = resources.length == 0 ? undefined :
+    const resourcesList: RecordMap<FrmdbResourceI> | undefined = resources.length == 0 ? undefined :
         groupByUniqProp(resources, 'id');
 
     const jsonSchemaValidator = new Validator();
@@ -88,7 +88,7 @@ export const CmpSettings = ({
 
 async function configureDynamicEnums(
     schema: object,
-    resourceList: RecordMap<FrmdbResource>,
+    resourceList: RecordMap<FrmdbResourceI>,
     resourceCols: ResourceFieldDef[],
 ) {
     for (let [k, v] of Object.entries(schema)) {

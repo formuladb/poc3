@@ -2,8 +2,15 @@ apiVersion: skaffold/v2beta11
 kind: Config
 build:
   artifacts:
+  - image: registry.gitlab.com/pagerows/pagerows/core
+    context: ../pages
+    docker:
+      dockerfile: Dockerfile.core    
   - image: registry.gitlab.com/pagerows/pagerows/rows
     context: .
+    requires:
+      - image: registry.gitlab.com/pagerows/pagerows/core
+        alias: CORE
     sync:
       infer: ['pg/**', 'scripts/**', 'src/**']
     docker:

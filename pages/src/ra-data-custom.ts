@@ -24,7 +24,7 @@ async function httpClientTranslatePg(url, options) {
     }
 };
 
-const postgrestUrl = '/fdb-resources';
+const postgrestUrl = '/rows-db';
 const postgrestProvider = postgrestRestProvider(postgrestUrl, httpClientTranslatePg);
 const baseProvider = postgrestProvider;
 let customProvidersFactory = (window as any).$FRMDB_UI_PAGES?.CUSTOM_PROVIDERS || function (defaultDataProvider: DataProvider) {

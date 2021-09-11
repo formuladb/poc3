@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { FrmdbResource } from './core/entity/FrmdbResource';
+import { FrmdbResourceI } from './core/entity/FrmdbResource';
 import { useDataProvider } from 'react-admin';
 
-export function useResources(): FrmdbResource[] {
+export function useResources(): FrmdbResourceI[] {
 
-    const [resources, setResources] = useState<FrmdbResource[]>([]);
+    const [resources, setResources] = useState<FrmdbResourceI[]>([]);
     const dataProvider = useDataProvider();
 
     useEffect(() => {
@@ -15,7 +15,7 @@ export function useResources(): FrmdbResource[] {
         })
             .then(res => {
                 if (!res) return [{ name: "actors" }];
-                setResources(res.data as any as FrmdbResource[]);
+                setResources(res.data as any as FrmdbResourceI[]);
             });
     }, []);
 

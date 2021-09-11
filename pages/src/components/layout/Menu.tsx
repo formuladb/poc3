@@ -13,12 +13,12 @@ import {
 import { AppState } from '../../types';
 import SubMenu from './SubMenu';
 import { useResources } from '../../useResources';
-import { FrmdbResource } from '../../core/entity/FrmdbResource';
+import { FrmdbResourceI } from '../../core/entity/FrmdbResource';
 import { AppIcon } from '../generic/AppIcon';
 import { groupByUniqProp } from '../../utils';
 
 const Menu: FC<MenuProps> = ({ onMenuClick, logout, dense = false }) => {
-    const [resourceTree, setResourceTree] = useState([] as { parentRes: FrmdbResource, isOpen: boolean, childRes: FrmdbResource[] }[]);
+    const [resourceTree, setResourceTree] = useState([] as { parentRes: FrmdbResourceI, isOpen: boolean, childRes: FrmdbResourceI[] }[]);
     const translate = useTranslate();
     const isXSmall = useMediaQuery((theme: Theme) =>
         theme.breakpoints.down('xs')

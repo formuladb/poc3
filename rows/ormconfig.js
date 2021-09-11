@@ -18,7 +18,7 @@ module.exports = {
    namingStrategy: new SnakeNamingStrategy(),
    logging: true,
    entities: [
-      "src/core/entity/*.ts",
+      "../pages/src/core/entity/*.ts",
       "src/apps/*/entity/*.ts",
    ],
    "migrations": [

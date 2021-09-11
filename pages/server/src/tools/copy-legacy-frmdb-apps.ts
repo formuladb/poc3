@@ -43,8 +43,8 @@ function landingPage2sql(app: string, filePath: string, tenant: string, pageId: 
     let dataTsFile = [`
     import "reflect-metadata";
     import { createConnection, getManager, getRepository } from "typeorm";
-    import { autoMigrate } from "../../../core/orm/autoMigrate";
-    import { putRow } from "../../../core/orm/putRow";
+    import { autoMigrate } from "../../../core-orm/autoMigrate";
+    import { putRow } from "../../../core-orm/putRow";
     import { Page } from "../entity/Page";
     import { Section, SubSection } from "../entity/Section";
     

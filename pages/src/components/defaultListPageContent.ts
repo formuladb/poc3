@@ -1,11 +1,11 @@
 import { RecordMap } from "react-admin";
 import { DEFAULT_FILTER_TREE_COLS } from "../core/entity/fields";
-import { FrmdbResource, FrmdbResourceWithFields } from "../core/entity/FrmdbResource";
+import { FrmdbResourceI, FrmdbResourceWithFields } from "../core/entity/FrmdbResource";
 import { PageNode } from "../core-domain/page";
 
 export function defaultListPageContent(
     resourceWithFields: FrmdbResourceWithFields,
-    resourceList: RecordMap<FrmdbResource>
+    resourceList: RecordMap<FrmdbResourceI>
 ): PageNode {
     const resource = resourceWithFields.id;
     let filterTreeResource: undefined | string = undefined, filterTreeField: undefined | string = undefined;
