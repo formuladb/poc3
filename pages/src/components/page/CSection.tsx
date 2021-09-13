@@ -1,5 +1,6 @@
 import { useNode } from '@craftjs/core';
 import React from 'react';
+import { RichTextField, TextField } from 'react-admin';
 import { CSectionCARDS2Props, CSectionCARDSProps, CSectionCOVERProps, CSectionHEADERProps, CSectionMEDIAProps, CSectionProps } from '../../core-domain/components/CSection';
 
 export const CSection = (nP: CSectionProps) => {
@@ -17,12 +18,14 @@ export const CSectionCOVER = (nP: CSectionCOVERProps) => {
         <frmdb-t-cover style="--frmdb-bg-img: url('/formuladb-env/frmdb-apps/base-app/static/bg1.jpg')" className="">
             <frmdb-t-main className="">
                 <div className="jumbotron">
-                    <h6>Subtitle of app, can be a bit longer in words</h6>
-                    <h1 className="display-4">Title of web app</h1>
-                    <p>Lead paragraph providing a short introduction to you website or app,
-                        <br />it would be good to keep it under two lines of text
-                    </p>
-                    <a href="javascript:void(0)" className="btn btn-primary mx-auto">Call To Action</a>
+                    <h6>
+                        <TextField resource={nP.resource} source={nP.subtitleSource}></TextField></h6>
+                    <h1 className="display-4">
+                        <TextField resource={nP.resource} source={nP.titleSource}></TextField></h1>
+                    <p>
+                        <RichTextField resource={nP.resource} source={nP.bodySource}></RichTextField></p>
+                    <a href="javascript:void(0)" className="btn btn-primary mx-auto">
+                        <TextField resource={nP.resource} source={nP.actionSource}></TextField></a>
                 </div>
             </frmdb-t-main>
             <frmdb-t-aside className="">

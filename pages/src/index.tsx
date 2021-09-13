@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import React from 'react';
 import './index.scss';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';

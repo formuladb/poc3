@@ -13,6 +13,10 @@ export interface CSectionPropsBase {
     mediaUrlSource?: string;
     /**@TJS-format frmdb-resource-field-name */
     mediaTypeSource?: string;
+    /**@TJS-format frmdb-resource-field-name */
+    infoSource?: string;
+    /**@TJS-format frmdb-resource-field-name */
+    actionSource?: string;
 }
 
 export interface CSectionCOVERProps extends CSectionPropsBase {

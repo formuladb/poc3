@@ -7,4 +7,5 @@ COPY package.json /package.json
 RUN npm install --unsafe-perm
 
 ADD . /
+RUN find /src -name \*.ts | xargs sed -ie 's!from "typeorm"!from "typeorm/typeorm-model-shim"!g'
 CMD npm start

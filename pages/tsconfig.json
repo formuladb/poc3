@@ -6,7 +6,9 @@
       "dom.iterable",
       "esnext"
     ],
-    "types": ["@types/jest"],
+    "types": [
+      "@types/jest"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -17,15 +19,15 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,        
+    "experimentalDecorators": true,
     "noEmit": true,
-    "jsx": "react",
+    "jsx": "react-jsx",
     "isolatedModules": true,
     "suppressImplicitAnyIndexErrors": true,
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "noFallthroughCasesInSwitch": true
   },
   "include": [
-    "src",
-    "../rows/src/core/**/*",
+    "src"
   ]
 }
