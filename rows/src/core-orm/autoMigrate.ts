@@ -1,4 +1,4 @@
-import { Connection, getManager, ObjectType } from "typeorm";
+import { Connection, getConnection, getManager, ObjectType } from "typeorm";
 import { ColumnMetadata } from "typeorm/metadata/ColumnMetadata";
 
 function getColType(type: ColumnMetadata['type']): string {
@@ -10,10 +10,10 @@ function getColType(type: ColumnMetadata['type']): string {
 }
 
 export async function autoMigrate<ENTITY>(
-    conn: Connection,
     entity: ObjectType<ENTITY>
 ): Promise<ObjectType<ENTITY>> {
     
+    const conn = getConnection();
     const m = conn.getMetadata(entity);
 
     const mng = getManager();

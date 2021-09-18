@@ -1,6 +1,6 @@
 
 import "reflect-metadata";
-import { createConnection, getManager, getRepository } from "typeorm";
+import { createConnection, getConnection, getManager, getRepository } from "typeorm";
 import { autoMigrate } from "../../core-orm/autoMigrate";
 import { putRow } from "../../core-orm/putRow";
 import { Page } from "./entity/Page";
@@ -19,25 +19,22 @@ import app10 from './data/law-firm';
 import app11 from './data/photography-services';
 import app12 from './data/restaurant';
 
-export default () => {
-    createConnection().then(async connection => {
+export default async () => {
 
-        await autoMigrate(connection, Page);
-        await autoMigrate(connection, Section);
-        await autoMigrate(connection, SubSection);
+    await autoMigrate(Page);
+    await autoMigrate(Section);
+    await autoMigrate(SubSection);
 
-        await app1();
-        await app2();
-        await app3();
-        await app4();
-        await app5();
-        await app6();
-        await app7();
-        await app8();
-        await app9();
-        await app10();
-        await app11();
-        await app12();
-
-    }).catch(error => console.log(error));
+    await app1();
+    await app2();
+    await app3();
+    await app4();
+    await app5();
+    await app6();
+    await app7();
+    await app8();
+    await app9();
+    await app10();
+    await app11();
+    await app12();
 }

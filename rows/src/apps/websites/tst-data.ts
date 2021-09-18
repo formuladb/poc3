@@ -7,8 +7,8 @@ import { Section } from "./entity/Section";
 
 createConnection().then(async connection => {
 
-    await autoMigrate(connection, Page);
-    await autoMigrate(connection, Section);
+    await autoMigrate(Page);
+    await autoMigrate(Section);
 
     const page = await putRow(Page, {
         id: "landing-page",

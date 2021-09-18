@@ -1,4 +1,5 @@
 import "reflect-metadata";
+import { createConnection } from "typeorm";
 
 // In order to use the MinIO JavaScript API to generate the pre-signed URL, begin by instantiating
 // a `Minio.Client` object and pass in the values for your server.
@@ -68,8 +69,10 @@ app.put('/upload/:table/:column/:file', async (req: express.Request, res) => {
 
 pgFmkInstall()
     .then(async () => {
-        await baseData();
-        await websiteData();
+            await createConnection();
+
+            await baseData();
+            await websiteData();
     })
     .then(() => app.listen(8080))
     ;
