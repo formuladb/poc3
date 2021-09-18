@@ -69,6 +69,7 @@ app.put('/upload/:table/:column/:file', async (req: express.Request, res) => {
 pgFmkInstall()
     .then(async () => {
         await baseData();
+        await websiteData();
     })
     .then(() => app.listen(8080))
     ;

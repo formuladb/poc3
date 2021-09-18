@@ -2,7 +2,7 @@ const SnakeNamingStrategy = require('typeorm-naming-strategies')
    .SnakeNamingStrategy;
 
 const database = {
-   development: "dev",
+   development: 'dev',
    production: 'postgres',
    test: 'test'
 }
