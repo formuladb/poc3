@@ -48,7 +48,7 @@
   "scripts": {
     "start": "react-scripts start --no-cache",
     "build": "DISABLE_ESLINT_PLUGIN=true react-scripts build",
-    "test": "react-scripts test --env=jsdom-fifteen",
+    "test": "react-scripts test --env=jest-environment-jsdom-sixteen",
     "eject": "react-scripts eject",
     "gen-json-schema": "bash generate-json-schemas.sh"
   },
@@ -78,6 +78,7 @@
     "@types/react-final-form-listeners": "^1.0.0",
     "@types/react-router-dom": "^5.1.6",
     "install": "^0.13.0",
+    "jest-environment-jsdom-sixteen": "^2.0.0",
     "jsdom": "^16.6.0",
     "msw": "^0.25.0",
     "node-sass": "4.14.1",
