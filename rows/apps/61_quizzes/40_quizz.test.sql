@@ -158,7 +158,7 @@ BEGIN;
         'my_thrower',
         '%quiz_sessions__nb_quizzes__ck%'
     );
-    PREPARE my_thrower2 AS INSERT INTO quizzes(id, quiz_session_id, created_at) VALUES (113, 11, now() + INTERVAL '5 days');
+    PREPARE my_thrower2 AS INSERT INTO quizzes(id, quiz_session_id, meta_created_at) VALUES (113, 11, now() + INTERVAL '5 days');
     SELECT throws_ilike(
         'my_thrower2',
         '%quizzes__created_at__ck%'

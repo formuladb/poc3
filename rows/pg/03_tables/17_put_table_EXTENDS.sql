@@ -289,7 +289,7 @@ BEGIN
         v_stm := format($$ 
             INSERT INTO %I ( %s )
             VALUES (%s)
-            ON CONFLICT (id) DO UPDATE SET %s
+            ON CONFLICT (meta_tenant, id) DO UPDATE SET %s
             RETURNING %s
         $$, v_src_table, v_insert_columns_list,
             v_insert_values_list,

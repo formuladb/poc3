@@ -31,10 +31,10 @@ BEGIN
                     %I::varchar || '--' || %I::varchar) STORED,
                 %I %s NOT NULL,
                 %I %s NOT NULL,
-                created_at timestamptz DEFAULT NOW(),
-                created_by varchar DEFAULT current_setting('request.jwt.claim.username', true),
-                updated_at timestamptz DEFAULT NOW(),
-                updated_by varchar DEFAULT current_setting('request.jwt.claim.username', true),
+                meta_created_at timestamptz DEFAULT NOW(),
+                meta_created_by varchar DEFAULT current_setting('request.jwt.claim.username', true),
+                meta_updated_at timestamptz DEFAULT NOW(),
+                meta_updated_by varchar DEFAULT current_setting('request.jwt.claim.username', true),
                 PRIMARY KEY(id)
             )
         $$, p_table_name, 

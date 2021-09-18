@@ -6,10 +6,10 @@ INSERT INTO frmdb_dictionary (id, en, ro) VALUES
     ('resources.quiz_templates.fields.nb_questions', 'Nb Questions', 'Nr Intrebari'),
     ('resources.quiz_templates.fields.max_points', 'Max Points', 'Nr Maxim Puncte'),
     ('resources.quiz_templates.fields.cover_image', 'Image', 'Imagine'),
-    ('resources.quiz_templates.fields.created_at', 'Created At', 'Data Creare'),
-    ('resources.quiz_templates.fields.created_by', 'Created By', 'Creat De'),
-    ('resources.quiz_templates.fields.updated_at', 'Updated At', 'Data Modificare'),
-    ('resources.quiz_templates.fields.updated_by', 'Updated By', 'Modificat De')
+    ('resources.quiz_templates.fields.meta_created_at', 'Created At', 'Data Creare'),
+    ('resources.quiz_templates.fields.meta_created_by', 'Created By', 'Creat De'),
+    ('resources.quiz_templates.fields.meta_updated_at', 'Updated At', 'Data Modificare'),
+    ('resources.quiz_templates.fields.meta_updated_by', 'Updated By', 'Modificat De')
 ON CONFLICT(id) DO UPDATE SET en = EXCLUDED.en, ro = EXCLUDED.ro;
 
 SELECT frmdb_put_table('quiz_templates');
@@ -26,10 +26,10 @@ INSERT INTO frmdb_dictionary (id, en, ro) VALUES
     ('resources.qtmpl__results.fields.points_end', 'Points End', 'Interval Puncte End'),
     ('resources.qtmpl__results.fields.title', 'Title', 'Titlu'),
     ('resources.qtmpl__results.fields.details', 'Details', 'Detalii'),
-    ('resources.qtmpl__results.fields.created_at', 'Created At', 'Data Creare'),
-    ('resources.qtmpl__results.fields.created_by', 'Created By', 'Creat De'),
-    ('resources.qtmpl__results.fields.updated_at', 'Updated At', 'Data Modificare'),
-    ('resources.qtmpl__results.fields.updated_by', 'Updated By', 'Modificat De')
+    ('resources.qtmpl__results.fields.meta_created_at', 'Created At', 'Data Creare'),
+    ('resources.qtmpl__results.fields.meta_created_by', 'Created By', 'Creat De'),
+    ('resources.qtmpl__results.fields.meta_updated_at', 'Updated At', 'Data Modificare'),
+    ('resources.qtmpl__results.fields.meta_updated_by', 'Updated By', 'Modificat De')
 ON CONFLICT(id) DO UPDATE SET en = EXCLUDED.en, ro = EXCLUDED.ro;
 
 SELECT frmdb_put_table('qtmpl__results');
@@ -48,10 +48,10 @@ INSERT INTO frmdb_dictionary (id, en, ro) VALUES
     ('resources.qtmpl__questions.fields.question', 'Question', 'Întrebare'),
     ('resources.qtmpl__questions.fields.position', 'Position', 'Poziție'),
     ('resources.qtmpl__questions.fields.max_points', 'Max Points', 'Nr Maxim Puncte'),
-    ('resources.qtmpl__questions.fields.created_at', 'Created At', 'Data Creare'),
-    ('resources.qtmpl__questions.fields.created_by', 'Created By', 'Creat De'),
-    ('resources.qtmpl__questions.fields.updated_at', 'Updated At', 'Data Modificare'),
-    ('resources.qtmpl__questions.fields.updated_by', 'Updated By', 'Modificat De')
+    ('resources.qtmpl__questions.fields.meta_created_at', 'Created At', 'Data Creare'),
+    ('resources.qtmpl__questions.fields.meta_created_by', 'Created By', 'Creat De'),
+    ('resources.qtmpl__questions.fields.meta_updated_at', 'Updated At', 'Data Modificare'),
+    ('resources.qtmpl__questions.fields.meta_updated_by', 'Updated By', 'Modificat De')
 ON CONFLICT(id) DO UPDATE SET en = EXCLUDED.en, ro = EXCLUDED.ro;
 
 SELECT frmdb_put_table('qtmpl__questions');
@@ -67,10 +67,10 @@ INSERT INTO frmdb_dictionary (id, en, ro) VALUES
     ('resources.qtmpl__questions__answers.fields.answer', 'Answer', 'Răspuns'),
     ('resources.qtmpl__questions__answers.fields.position', 'Position', 'Poziție'),
     ('resources.qtmpl__questions__answers.fields.points', 'Points', 'Puncte'),
-    ('resources.qtmpl__questions__answers.fields.created_at', 'Created At', 'Data Creare'),
-    ('resources.qtmpl__questions__answers.fields.created_by', 'Created By', 'Creat De'),
-    ('resources.qtmpl__questions__answers.fields.updated_at', 'Updated At', 'Data Modificare'),
-    ('resources.qtmpl__questions__answers.fields.updated_by', 'Updated By', 'Modificat De')
+    ('resources.qtmpl__questions__answers.fields.meta_created_at', 'Created At', 'Data Creare'),
+    ('resources.qtmpl__questions__answers.fields.meta_created_by', 'Created By', 'Creat De'),
+    ('resources.qtmpl__questions__answers.fields.meta_updated_at', 'Updated At', 'Data Modificare'),
+    ('resources.qtmpl__questions__answers.fields.meta_updated_by', 'Updated By', 'Modificat De')
 ON CONFLICT(id) DO UPDATE SET en = EXCLUDED.en, ro = EXCLUDED.ro;
 
 SELECT frmdb_put_table('qtmpl__questions__answers');
@@ -120,10 +120,10 @@ INSERT INTO frmdb_dictionary (id, en, ro) VALUES
     ('resources.quiz_sessions.fields.max_nb_quizzes', 'Max Nb Quizzes', 'Nr Maxim Respondenți'),
     ('resources.quiz_sessions.fields.url__share', 'Share Link', 'Link'),
     ('resources.quiz_sessions.fields.nb_quizzes', 'Nb Quizzes', 'Nr Respondenți'),
-    ('resources.quiz_sessions.fields.created_at', 'Created At', 'Data Creare'),
-    ('resources.quiz_sessions.fields.created_by', 'Created By', 'Creat De'),
-    ('resources.quiz_sessions.fields.updated_at', 'Updated At', 'Data Modificare'),
-    ('resources.quiz_sessions.fields.updated_by', 'Updated By', 'Modificat De')
+    ('resources.quiz_sessions.fields.meta_created_at', 'Created At', 'Data Creare'),
+    ('resources.quiz_sessions.fields.meta_created_by', 'Created By', 'Creat De'),
+    ('resources.quiz_sessions.fields.meta_updated_at', 'Updated At', 'Data Modificare'),
+    ('resources.quiz_sessions.fields.meta_updated_by', 'Updated By', 'Modificat De')
 ON CONFLICT(id) DO UPDATE SET en = EXCLUDED.en, ro = EXCLUDED.ro;
 
 SELECT frmdb_put_table('quiz_sessions');

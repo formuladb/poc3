@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS talerts (
     _id SERIAL PRIMARY KEY,
-    updated_at timestamptz,
-    created_at timestamptz,
+    meta_updated_at timestamptz,
+    meta_created_at timestamptz,
     title varchar,
     msg varchar,
     email varchar,

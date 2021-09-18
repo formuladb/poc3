@@ -5,8 +5,8 @@ BEGIN
     CREATE OR REPLACE FUNCTION frmdb_0_set_common_cols_trg()
     RETURNS TRIGGER AS $fun$ BEGIN
         IF TG_OP = 'UPDATE' THEN
-            NEW.updated_at = now(); 
-            NEW.updated_by = current_setting('request.jwt.claim.username', true); 
+            NEW.meta_updated_at = now(); 
+            NEW.meta_updated_by = current_setting('request.jwt.claim.username', true); 
             RETURN NEW;
         ELSIF TG_OP = 'INSERT' THEN
             RETURN NEW;

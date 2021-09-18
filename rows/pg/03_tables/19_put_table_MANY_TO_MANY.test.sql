@@ -1,6 +1,8 @@
 BEGIN;
     SELECT plan( 9 );
 
+    SELECT set_config('request.jwt.claim.tenant', 'pagerows', true);
+
     CREATE TABLE test1 (id varchar NOT NULL PRIMARY KEY);
     SELECT has_table( 'public'::name, 'test1'::name );
     CREATE TABLE test2 (id serial NOT NULL PRIMARY KEY);
@@ -11,7 +13,7 @@ BEGIN;
     SELECT fk_ok( 'public', 'test', 'test1__id', 'public', 'test1', 'id' );
     SELECT has_column( 'test'::name, 'test1__id' );
     SELECT fk_ok( 'public', 'test', 'test2__id', 'public', 'test2', 'id' );
-    SELECT has_column( 'test'::name, 'created_at', '' );
+    SELECT has_column( 'test'::name, 'meta_created_at', '' );
 
     INSERT INTO test1 (id) VALUES ('a'), ('b');
     INSERT INTO test2 (id) VALUES (1), (2);

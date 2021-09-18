@@ -84,7 +84,7 @@ BEGIN
 END $$;
 
 WITH upd1 AS (
-    UPDATE quizzes SET created_at = now() WHERE id < 500 --check constraint on created_at
+    UPDATE quizzes SET meta_created_at = now() WHERE id < 500 --check constraint on meta_created_at
 ) INSERT INTO quiz_sessions (id, name, quizz_template_id, session_start, session_end, max_nb_quizzes) VALUES
         (1, 'Emotii Sesiunea 1', 1, now() - INTERVAL '15 days', now() + INTERVAL '1 days', 50),
         (2, 'Emotii Sesiunea 1', 1, now() - INTERVAL '10 days', now() + INTERVAL '2 days', 50),

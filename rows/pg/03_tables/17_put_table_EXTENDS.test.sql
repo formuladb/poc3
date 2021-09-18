@@ -1,6 +1,8 @@
 BEGIN;
     SELECT plan( 20 );
 
+    SELECT set_config('request.jwt.claim.tenant', 'pagerows', true);
+
     CREATE TABLE src_tbl (id serial PRIMARY KEY, src_col varchar);
     SELECT has_table( 'src_tbl'::name );
     SELECT has_column( 'src_tbl'::name, 'src_col'::name );
@@ -11,7 +13,7 @@ BEGIN;
     SELECT frmdb_put_table_extends('dst_tbl', 'src_tbl', '{"src_col"}'::varchar[]);
     SELECT has_table( 'public'::name, 'dst_tbl'::name );
     SELECT has_column( 'dst_tbl'::name, 'src_col', '' );
-    SELECT has_column( 'dst_tbl'::name, 'created_at', '' );
+    SELECT has_column( 'dst_tbl'::name, 'meta_created_at', '' );
 
     SELECT tgname FROM pg_trigger;
     SELECT has_trigger( 'src_tbl', '__dst_tbl__id__sdt', '' );

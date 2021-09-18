@@ -9,7 +9,10 @@ import * as Minio from 'minio';
 import { spawn } from 'child_process';
 
 import baseData from './apps/base/data';
-import websiteData from './apps/websites/data';
+import websitesData from './apps/websites/data';
+
+import basePermissions from './apps/base/permissions';
+import websitesPermissions from './apps/websites/permissions';
 
 var client = new Minio.Client({
     endPoint: 'minio',
@@ -72,7 +75,10 @@ pgFmkInstall()
             await createConnection();
 
             await baseData();
-            await websiteData();
+            await websitesData();
+
+            await basePermissions();
+            await websitesPermissions();
     })
     .then(() => app.listen(8080))
     ;

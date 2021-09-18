@@ -85,7 +85,7 @@ BEGIN
 
         IF v_to_add THEN
             v_stm := format($$ ALTER TABLE %I ADD CONSTRAINT %I
-                FOREIGN KEY (%I) REFERENCES %I(id) ON UPDATE CASCADE ON DELETE %s
+                FOREIGN KEY (meta_tenant, %I) REFERENCES %I(meta_tenant, id) ON UPDATE CASCADE ON DELETE %s
             $$, p_table_name, v_constraint_name,
                 p_col_name, p_ref_table_name, p_on_delete
             );

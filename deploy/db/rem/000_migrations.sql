@@ -12,7 +12,7 @@ create temporary sequence migration_steps;
 --
 create table if not exists migrations (
 	id integer primary key,
-	created_at timestamptz not null default now()
+	meta_created_at timestamptz not null default now()
 );
 
 -- Migration procedure.
@@ -40,7 +40,7 @@ $$ language plpgsql;
 call migrate($$
 	create table sample (
 		id serial primary key,
-		created_at timestamptz not null default now(),
+		meta_created_at timestamptz not null default now(),
 		name text
 	);
 $$);

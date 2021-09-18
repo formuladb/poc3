@@ -10,12 +10,19 @@ export async function setPermission<ENTITY>(
 ): Promise<void> {
     
     const conn = getConnection();
-    const m = conn.getMetadata(entity);
     const mng = getManager();
 
-    await mng.query(`SELECT ${"ALL-TABLES" === entity ? 'frmdb_set_permission_on_all_tables' : 'frmdb_set_permission'}(
+    let tableArg = '';
+    let funcName = 'frmdb_set_permission_on_all_tables';
+    if ("ALL-TABLES" !== entity) {
+        const m = conn.getMetadata(entity);
+        tableArg = `'${m.tableName}',`;
+        funcName = 'frmdb_set_permission';
+    }
+
+    await mng.query(`SELECT ${funcName}(
         '${role}',
-        ${"ALL-TABLES" === entity ? `'${m.tableName}',` : ''}
+        ${tableArg}
         '${selectPerm === "IS-OWNER" ? `frmdb_is_owner(username)` : selectPerm + ''}',
         '${insertPerm === "IS-OWNER" ? `frmdb_is_owner(username)` : insertPerm + ''}',
         '${updatePerm === "IS-OWNER" ? `frmdb_is_owner(username)` : updatePerm + ''}',

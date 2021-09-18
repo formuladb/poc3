@@ -4,10 +4,10 @@ INSERT INTO frmdb_dictionary (id, en, ro) VALUES
     ('resources.pages.fields.tenant', 'Tenant', 'Tenant'),
     ('resources.pages.fields.name', 'Name', 'Nume'),
     ('resources.pages.fields.title', 'Title', 'Titlu'),
-    ('resources.pages.fields.created_at', 'Created At', 'Data Creare'),
-    ('resources.pages.fields.created_by', 'Created By', 'Creat De'),
-    ('resources.pages.fields.updated_at', 'Updated At', 'Data Modificare'),
-    ('resources.pages.fields.updated_by', 'Updated By', 'Modificat De')
+    ('resources.pages.fields.meta_created_at', 'Created At', 'Data Creare'),
+    ('resources.pages.fields.meta_created_by', 'Created By', 'Creat De'),
+    ('resources.pages.fields.meta_updated_at', 'Updated At', 'Data Modificare'),
+    ('resources.pages.fields.meta_updated_by', 'Updated By', 'Modificat De')
 ON CONFLICT(id) DO UPDATE SET en = EXCLUDED.en, ro = EXCLUDED.ro;
 
 SELECT frmdb_put_table('page', 'text');
@@ -25,10 +25,10 @@ INSERT INTO frmdb_dictionary (id, en, ro) VALUES
     ('resources.sections.fields.component', 'Component', 'Componentă'),
     ('resources.sections.fields.media_url', 'Media URL', 'Media URL'),
     ('resources.sections.fields.media_type', 'Media Type', 'Tip Media'),
-    ('resources.sections.fields.created_at', 'Created At', 'Data Creare'),
-    ('resources.sections.fields.created_by', 'Created By', 'Creat De'),
-    ('resources.sections.fields.updated_at', 'Updated At', 'Data Modificare'),
-    ('resources.sections.fields.updated_by', 'Updated By', 'Modificat De')
+    ('resources.sections.fields.meta_created_at', 'Created At', 'Data Creare'),
+    ('resources.sections.fields.meta_created_by', 'Created By', 'Creat De'),
+    ('resources.sections.fields.meta_updated_at', 'Updated At', 'Data Modificare'),
+    ('resources.sections.fields.meta_updated_by', 'Updated By', 'Modificat De')
 ON CONFLICT(id) DO UPDATE SET en = EXCLUDED.en, ro = EXCLUDED.ro;
 
 SELECT frmdb_put_table('sections', 'body');
@@ -48,10 +48,10 @@ INSERT INTO frmdb_dictionary (id, en, ro) VALUES
     ('resources.subsections.fields.title', 'Title', 'Titlu'),
     ('resources.subsections.fields.subtitle', 'Subtitle', 'Sub Titlu'),
     ('resources.subsections.fields.text', 'Text', 'Text'),
-    ('resources.subsections.fields.created_at', 'Created At', 'Data Creare'),
-    ('resources.subsections.fields.created_by', 'Created By', 'Creat De'),
-    ('resources.subsections.fields.updated_at', 'Updated At', 'Data Modificare'),
-    ('resources.subsections.fields.updated_by', 'Updated By', 'Modificat De')
+    ('resources.subsections.fields.meta_created_at', 'Created At', 'Data Creare'),
+    ('resources.subsections.fields.meta_created_by', 'Created By', 'Creat De'),
+    ('resources.subsections.fields.meta_updated_at', 'Updated At', 'Data Modificare'),
+    ('resources.subsections.fields.meta_updated_by', 'Updated By', 'Modificat De')
 ON CONFLICT(id) DO UPDATE SET en = EXCLUDED.en, ro = EXCLUDED.ro;
 
 SELECT frmdb_put_table('subsections');

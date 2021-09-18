@@ -1,9 +1,11 @@
 BEGIN;
     SELECT plan( 12 );
 
-    CREATE TABLE ref_tbl (id serial PRIMARY KEY);
+    SELECT set_config('request.jwt.claim.tenant', 'pagerows', true);
 
-    CREATE TABLE src_tbl (id serial PRIMARY KEY);
+    SELECT frmdb_put_table('ref_tbl');
+
+    SELECT frmdb_put_table('src_tbl');
     SELECT has_table( 'src_tbl'::name );
     SELECT frmdb_put_column_REFERENCE_TO('src_tbl', 'ref', 'ref_tbl', null, null);
     SELECT has_column( 'src_tbl'::name, 'ref' );
@@ -14,7 +16,7 @@ BEGIN;
     SELECT frmdb_put_table_extends('dst_tbl', 'src_tbl', '{"ref"}'::varchar[]);
     SELECT has_table( 'public'::name, 'dst_tbl'::name );
     SELECT has_column( 'dst_tbl'::name, 'ref', '' );
-    SELECT has_column( 'dst_tbl'::name, 'created_at', '' );
+    SELECT has_column( 'dst_tbl'::name, 'meta_created_at', '' );
     SELECT results_eq(
         $$ SELECT frmdb_get_reference_to('dst_tbl', 'ref') $$,
         $$ VALUES ( 'ref_tbl'::varchar ) $$

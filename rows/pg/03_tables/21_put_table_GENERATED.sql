@@ -137,7 +137,7 @@ BEGIN
         v_stm := format($$ 
             INSERT INTO %I ( id %s )
             VALUES ($1 %s)
-            ON CONFLICT (id) %s
+            ON CONFLICT (meta_tenant, id) %s
         $$, v_dst_table, v_insert_columns_list,
             v_insert_values_list,
             v_insert_on_conflict_list

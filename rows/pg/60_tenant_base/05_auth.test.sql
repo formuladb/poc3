@@ -3,7 +3,7 @@ BEGIN;
 
 	SELECT has_table( 'public'::name, 'frmdb_users'::name );
 	SELECT col_type_is( 'public', 'frmdb_users', 'id', 'pg_catalog', 'integer', '' );
-	SELECT has_column( 'frmdb_users'::name, 'created_at', '' );
+	SELECT has_column( 'frmdb_users'::name, 'meta_created_at', '' );
 
     SELECT frmdb_create_role('testrole');
     INSERT INTO frmdb_users (id, username, pass, role)

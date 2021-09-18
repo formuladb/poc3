@@ -10,10 +10,10 @@ INSERT INTO frmdb_dictionary (id, en, ro) VALUES
     ('resources.quizzes.fields.quizz_template_id__.name', 'Quiz Template', 'Model Chestionar'),
     ('resources.quizzes.fields.state', 'State', 'Stare'),
     ('quizzes__created_at__ck', 'Quiz Session Expired', 'Sesiunea a Expirat'),
-    ('resources.quizzes.fields.created_at', 'Created At', 'Data Creare'),
-    ('resources.quizzes.fields.created_by', 'Created By', 'Creat De'),
-    ('resources.quizzes.fields.updated_at', 'Updated At', 'Data Modificare'),
-    ('resources.quizzes.fields.updated_by', 'Updated By', 'Modificat De')
+    ('resources.quizzes.fields.meta_created_at', 'Created At', 'Data Creare'),
+    ('resources.quizzes.fields.meta_created_by', 'Created By', 'Creat De'),
+    ('resources.quizzes.fields.meta_updated_at', 'Updated At', 'Data Modificare'),
+    ('resources.quizzes.fields.meta_updated_by', 'Updated By', 'Modificat De')
 ON CONFLICT(id) DO UPDATE SET en = EXCLUDED.en, ro = EXCLUDED.ro;
 
 SELECT frmdb_put_table('quizzes');
@@ -23,7 +23,7 @@ SELECT frmdb_put_column_REFERENCE_TO('quizzes', 'quizz_template_id', 'quiz_templ
 SELECT frmdb_put_column('quizzes', 'state', 'text', '_and(is_not_null(state), is_enum(state, ''IN_PROGRESS'', ''FINALIZED''))', '''IN_PROGRESS''');
 SELECT frmdb_put_column_HLOOKUP('quizzes', 'session_start', 'quiz_session_id', 'session_start'); 
 SELECT frmdb_put_column_HLOOKUP('quizzes', 'session_end', 'quiz_session_id', 'session_end'); 
-SELECT frmdb_set_check('quizzes', 'created_at', $$ _AND(session_start <= created_at, created_at <= session_end) $$);
+SELECT frmdb_set_check('quizzes', 'meta_created_at', $$ _AND(session_start <= meta_created_at, meta_created_at <= session_end) $$);
 
 --quiz_sessions
 SELECT frmdb_put_column_ROLLUP('quiz_sessions', 'nb_quizzes', 'quizzes', 'id', 'COUNT', 'quiz_session_id', 'true'); 
@@ -43,10 +43,10 @@ INSERT INTO frmdb_dictionary (id, en, ro) VALUES
     ('resources.quizzes_results__frmdbvw.fields.result_title', '', ''),
     ('resources.quizzes_results__frmdbvw.fields.result_details', '', ''),
     ('resources.quizzes_results__frmdbvw.fields.points', 'Points', 'Puncte'),
-    ('resources.quizzes_results.fields.created_at', 'Created At', 'Data Creare'),
-    ('resources.quizzes_results.fields.created_by', 'Created By', 'Creat De'),
-    ('resources.quizzes_results.fields.updated_at', 'Updated At', 'Data Modificare'),
-    ('resources.quizzes_results.fields.updated_by', 'Updated By', 'Modificat De')
+    ('resources.quizzes_results.fields.meta_created_at', 'Created At', 'Data Creare'),
+    ('resources.quizzes_results.fields.meta_created_by', 'Created By', 'Creat De'),
+    ('resources.quizzes_results.fields.meta_updated_at', 'Updated At', 'Data Modificare'),
+    ('resources.quizzes_results.fields.meta_updated_by', 'Updated By', 'Modificat De')
 ON CONFLICT(id) DO UPDATE SET en = EXCLUDED.en, ro = EXCLUDED.ro;
 
 -- SELECT frmdb_put_table_GENERATED (
@@ -122,10 +122,10 @@ CREATE OR REPLACE VIEW quizzes_results AS
 INSERT INTO frmdb_dictionary (id, en, ro) VALUES
     ('resources.quiz_sessions_res__frmdbvw.name', 'Session Results', 'Rezultate Sesiune'),
     ('resources.quiz_sessions_res__frmdbvw.fields.id', 'Id', 'Id'),
-    ('resources.quiz_sessions_res__frmdbvw.fields.created_at', 'Created At', 'Data Creare'),
-    ('resources.quiz_sessions_res__frmdbvw.fields.created_by', 'Created By', 'Creat De'),
-    ('resources.quiz_sessions_res__frmdbvw.fields.updated_at', 'Updated At', 'Data Modificare'),
-    ('resources.quiz_sessions_res__frmdbvw.fields.updated_by', 'Updated By', 'Modificat De')
+    ('resources.quiz_sessions_res__frmdbvw.fields.meta_created_at', 'Created At', 'Data Creare'),
+    ('resources.quiz_sessions_res__frmdbvw.fields.meta_created_by', 'Created By', 'Creat De'),
+    ('resources.quiz_sessions_res__frmdbvw.fields.meta_updated_at', 'Updated At', 'Data Modificare'),
+    ('resources.quiz_sessions_res__frmdbvw.fields.meta_updated_by', 'Updated By', 'Modificat De')
 ON CONFLICT(id) DO UPDATE SET en = EXCLUDED.en, ro = EXCLUDED.ro;
 
 CREATE OR REPLACE VIEW quiz_sessions_res__frmdbvw AS 
@@ -174,10 +174,10 @@ INSERT INTO frmdb_dictionary (id, en, ro) VALUES
     ('resources.quiz_questions_frmdbvw.fields.quiz_session_id__.name', 'Quiz Session', 'Sesiune'),
     ('resources.quiz_questions_frmdbvw.fields.quizz_template_id', 'Quiz Template Id', 'Id Model Chestionar'),
     ('resources.quiz_questions_frmdbvw.fields.quizz_template_id__.name', 'Quiz Template', 'Model Chestionar'),
-    ('resources.quiz_questions_frmdbvw.fields.created_at', 'Created At', 'Data Creare'),
-    ('resources.quiz_questions_frmdbvw.fields.created_by', 'Created By', 'Creat De'),
-    ('resources.quiz_questions_frmdbvw.fields.updated_at', 'Updated At', 'Data Modificare'),
-    ('resources.quiz_questions_frmdbvw.fields.updated_by', 'Updated By', 'Modificat De')
+    ('resources.quiz_questions_frmdbvw.fields.meta_created_at', 'Created At', 'Data Creare'),
+    ('resources.quiz_questions_frmdbvw.fields.meta_created_by', 'Created By', 'Creat De'),
+    ('resources.quiz_questions_frmdbvw.fields.meta_updated_at', 'Updated At', 'Data Modificare'),
+    ('resources.quiz_questions_frmdbvw.fields.meta_updated_by', 'Updated By', 'Modificat De')
 ON CONFLICT(id) DO UPDATE SET en = EXCLUDED.en, ro = EXCLUDED.ro;
 
 CREATE OR REPLACE VIEW quiz_questions_frmdbvw AS 

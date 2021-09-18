@@ -1,8 +1,6 @@
 
 import "reflect-metadata";
-import { createConnection, getConnection, getManager, getRepository } from "typeorm";
 import { autoMigrate } from "../../core-orm/autoMigrate";
-import { putRow } from "../../core-orm/putRow";
 import { Page } from "./entity/Page";
 import { Section, SubSection } from "./entity/Section";
 
@@ -18,6 +16,7 @@ import app9 from './data/kids-playground';
 import app10 from './data/law-firm';
 import app11 from './data/photography-services';
 import app12 from './data/restaurant';
+import { putRole } from "src/core-orm/putRole";
 
 export default async () => {
 
@@ -37,4 +36,7 @@ export default async () => {
     await app10();
     await app11();
     await app12();
+
+    await putRole('administrator');
+    await putRole('operator');
 }

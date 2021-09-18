@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryColumn } from "typeorm";
 
-@Entity()
+@Entity({name: "frmdb_pages"})
 export class FrmdbPage {
     @PrimaryColumn() id!: string;
     @Column() icon!: string;

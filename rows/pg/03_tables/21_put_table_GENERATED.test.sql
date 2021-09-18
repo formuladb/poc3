@@ -1,6 +1,8 @@
 BEGIN;
     SELECT plan( 9 );
 
+    SELECT set_config('request.jwt.claim.tenant', 'pagerows', true);
+
     CREATE TABLE src_tbl (id serial PRIMARY KEY, src_col varchar, src_col2 integer);
     SELECT has_table( 'src_tbl'::name );
     SELECT has_column( 'src_tbl'::name, 'src_col'::name );
@@ -8,7 +10,7 @@ BEGIN;
     SELECT frmdb_put_table_GENERATED('dst_tbl', 'src_tbl', 'src_col', '{}'::varchar[]);
     SELECT has_table( 'public'::name, 'dst_tbl'::name );
     SELECT col_type_is( 'public', 'dst_tbl', 'id', 'pg_catalog', 'character varying', 'check-id-type' );
-    SELECT has_column( 'dst_tbl'::name, 'created_at', '' );
+    SELECT has_column( 'dst_tbl'::name, 'meta_created_at', '' );
 
     INSERT INTO src_tbl (id, src_col) VALUES (1, 'a');
     SELECT results_eq(
