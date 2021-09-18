@@ -1,16 +1,29 @@
 BEGIN;
-    SELECT plan( 35 );
+    SELECT plan( 37 );
 
-    CREATE TABLE src_tbl (id serial NOT NULL PRIMARY KEY, src_col varchar);
+    SELECT set_config('request.jwt.claim.tenant', 'pagerows', true);
+
+    CREATE TABLE IF NOT EXISTS src_tbl (
+        meta_tenant text NOT NULL DEFAULT current_setting('request.jwt.claim.tenant', true),
+        id serial NOT NULL,
+        src_col varchar,
+        PRIMARY KEY(meta_tenant, id)
+    );
     SELECT has_table( 'public'::name, 'src_tbl'::name );
+    SELECT has_column( 'src_tbl', 'meta_tenant' );
 
-    CREATE TABLE dst_tbl (id serial NOT NULL PRIMARY KEY);
+    CREATE TABLE IF NOT EXISTS dst_tbl (
+        meta_tenant text NOT NULL DEFAULT current_setting('request.jwt.claim.tenant', true),
+        id serial NOT NULL,
+        PRIMARY KEY(meta_tenant, id)
+    );
     SELECT has_table( 'public'::name, 'dst_tbl'::name );
+    SELECT has_column( 'dst_tbl', 'meta_tenant' );
 
     SELECT frmdb_put_column_REFERENCE_TO('dst_tbl', 'dst_ref', 'src_tbl', null, null);
     SELECT has_column( 'dst_tbl', 'dst_ref' );
     SELECT has_fk( 'dst_tbl', 'dst_tbl__dst_ref__fk' );
-    SELECT fk_ok( 'public', 'dst_tbl', 'dst_ref', 'public', 'src_tbl', 'id' );
+    SELECT fk_ok( 'public', 'dst_tbl', ARRAY['meta_tenant', 'dst_ref'], 'public', 'src_tbl', ARRAY['meta_tenant', 'id'] );
 
     SELECT frmdb_put_column_HLOOKUP('dst_tbl', 'dst_col', 'dst_ref', 'src_col');
 
@@ -25,11 +38,12 @@ BEGIN;
 
     SELECT has_trigger( 'dst_tbl', '10__dst_tbl__dst_col__dt', '' );
 
-    INSERT INTO src_tbl VALUES (1, 'a');
-    INSERT INTO src_tbl VALUES (2, 'b');
+    INSERT INTO src_tbl (id, src_col) VALUES (1, 'a');
+    INSERT INTO src_tbl (id, src_col) VALUES (2, 'b');
 
     CREATE VIEW srv_v AS SELECT * FROM src_tbl;
 
+    SELECT * FROM src_tbl;
     INSERT INTO dst_tbl (id, dst_ref) VALUES (1, 1);
 
     \echo =========================================================================
@@ -38,19 +52,19 @@ BEGIN;
 
     SELECT * FROM dst_tbl;
     SELECT results_eq(
-        $$ SELECT * FROM dst_tbl $$,
+        $$ SELECT id, dst_ref, dst_col FROM dst_tbl $$,
         $$ VALUES ( 1, 1, 'a'::varchar ) $$
     );
 
     UPDATE dst_tbl SET dst_ref = 2;
     SELECT results_eq(
-        $$ SELECT * FROM dst_tbl $$,
+        $$ SELECT id, dst_ref, dst_col FROM dst_tbl $$,
         $$ VALUES ( 1, 2, 'b'::varchar ) $$
     );
 
     UPDATE src_tbl SET src_col = 'bb' WHERE id = 2;
     SELECT results_eq(
-        $$ SELECT * FROM dst_tbl $$,
+        $$ SELECT id, dst_ref, dst_col FROM dst_tbl $$,
         $$ VALUES ( 1, 2, 'bb'::varchar ) $$
     );
 
@@ -77,7 +91,7 @@ BEGIN;
 
     UPDATE src_tbl2 SET src_col = 'bbb' WHERE id = 2;
     SELECT results_eq(
-        $$ SELECT * FROM dst_tbl $$,
+        $$ SELECT id, dst_ref, dst_col FROM dst_tbl $$,
         $$ VALUES ( 1, 2, 'bbb'::varchar ) $$
     );
 
@@ -93,13 +107,13 @@ BEGIN;
 
     UPDATE src_tbl2 SET src_col = 'bbb2' WHERE id = 2;
     SELECT results_eq(
-        $$ SELECT * FROM dst_tbl2 $$,
+        $$ SELECT id, dst_ref, dst_col FROM dst_tbl2 $$,
         $$ VALUES ( 1, 2, 'bbb2'::varchar ) $$
     );
 
     INSERT INTO dst_tbl2 (id, dst_ref) VALUES (2, 1);
     SELECT results_eq(
-        $$ SELECT * FROM dst_tbl2 $$,
+        $$ SELECT id, dst_ref, dst_col FROM dst_tbl2 $$,
         $$ VALUES ( 1, 2, 'bbb2'::varchar ), ( 2, 1, 'a'::varchar ) $$
     );
 
@@ -115,7 +129,7 @@ BEGIN;
 
     UPDATE src_tbl2 SET src_col2 = 'a2' WHERE id = 1;
     SELECT results_eq(
-        $$ SELECT * FROM dst_tbl2 $$,
+        $$ SELECT id, dst_ref, dst_col FROM dst_tbl2 $$,
         $$ VALUES ( 1, 2, 'bbb2'::varchar ), ( 2, 1, 'a2'::varchar ) $$
     );
 
@@ -132,7 +146,7 @@ BEGIN;
 
     UPDATE src_tbl2 SET src_col2 = 'a22' WHERE id = 1;
     SELECT results_eq(
-        $$ SELECT * FROM dst_tbl2 $$,
+        $$ SELECT id, dst_ref, dst_col2 FROM dst_tbl2 $$,
         $$ VALUES ( 1, 2, 'bbb2'::varchar ), ( 2, 1, 'a22'::varchar ) $$
     );
 
@@ -148,19 +162,19 @@ BEGIN;
 
     UPDATE src_tbl2 SET src_col2 = 'a222' WHERE id = 1;
     SELECT results_eq(
-        $$ SELECT * FROM dst_tbl2 $$,
+        $$ SELECT id, dst_ref2, dst_col2 FROM dst_tbl2 $$,
         $$ VALUES ( 1, 2, 'bbb2'::varchar ), ( 2, 1, 'a222'::varchar ) $$
     );
 
     UPDATE dst_tbl2 SET dst_ref2 = 2 WHERE id = 2;
     SELECT results_eq(
-        $$ SELECT * FROM dst_tbl2 $$,
+        $$ SELECT id, dst_ref2, dst_col2 FROM dst_tbl2 $$,
         $$ VALUES ( 1, 2, 'bbb2'::varchar ), ( 2, 2, 'bbb2'::varchar ) $$
     );
 
     INSERT INTO dst_tbl2 (id, dst_ref2) VALUES (3, 1);
     SELECT results_eq(
-        $$ SELECT * FROM dst_tbl2 $$,
+        $$ SELECT id, dst_ref2, dst_col2 FROM dst_tbl2 $$,
         $$ VALUES ( 1, 2, 'bbb2'::varchar ), ( 2, 2, 'bbb2'::varchar ), ( 3, 1, 'a222'::varchar ) $$
     );
 
@@ -169,7 +183,7 @@ BEGIN;
     select * from dst_tbl2;
     UPDATE src_tbl2 SET src_col2 = 'B2' WHERE id = 2;
     SELECT results_eq(
-        $$ SELECT * FROM dst_tbl2 ORDER BY id $$,
+        $$ SELECT id, dst_ref2, dst_col2 FROM dst_tbl2 ORDER BY id $$,
         $$ VALUES ( 1, 2, 'B2'::varchar ), ( 2, 2, 'B2'::varchar ), ( 3, 1, 'a222'::varchar ) $$
     );
 
