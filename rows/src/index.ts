@@ -6,7 +6,9 @@ import "reflect-metadata";
 
 import * as Minio from 'minio';
 import { spawn } from 'child_process';
+
 import baseData from './apps/base/data';
+import websiteData from './apps/websites/data';
 
 var client = new Minio.Client({
     endPoint: 'minio',

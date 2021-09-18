@@ -1,16 +1,10 @@
 
-    import "reflect-metadata";
-    import { createConnection, getManager, getRepository } from "typeorm";
-    import { autoMigrate } from "../../../core-orm/autoMigrate";
     import { putRow } from "../../../core-orm/putRow";
     import { Page } from "../entity/Page";
     import { Section, SubSection } from "../entity/Section";
     
-    export default createConnection().then(async connection => {
+    export default async () => {
     
-        await autoMigrate(connection, Page);
-        await autoMigrate(connection, Section);        
-        await autoMigrate(connection, SubSection);        
         
 
         const page = await putRow(Page, {
@@ -90,5 +84,5 @@
             });
         }
 
-}).catch(error => console.log(error));
+}
     
