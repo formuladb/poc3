@@ -6,7 +6,7 @@ default:
     - apk add --no-cache bash git make gcc g++ python3
 
 include:
-- local: './pages/.gitlab.ci.yml'
-- local: './rows/.gitlab.ci.yml'
-- local: './obj/.gitlab.ci.yml'
-- local: './db/.gitlab.ci.yml'
+- local: './pages/.gitlab-ci.yml'
+- local: './rows/.gitlab-ci.yml'
+- local: './obj/.gitlab-ci.yml'
+- local: './db/.gitlab-ci.yml'
