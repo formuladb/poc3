@@ -1,0 +1,23 @@
+cache:
+  key: ${CI_PIPELINE_ID}-pages
+  paths:
+    - pages/node_modules/
+  policy: pull-push
+
+install_pages:
+  stage: install
+  script:
+    - cd pages
+    - npm install
+
+build_pages:
+  stage: build
+  script:
+    - cd pages
+    - npm run build
+
+test_pages:
+  stage: test
+  script:
+    - cd pages
+    - npm test

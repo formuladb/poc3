@@ -1,0 +1,23 @@
+cache:
+  key: ${CI_PIPELINE_ID}-db
+  paths:
+    - db/node_modules/
+  policy: pull-push
+
+install_db:
+  stage: install
+  script:
+    - cd db
+    - npm install
+
+build_db:
+  stage: build
+  script:
+    - cd db
+    - npm run build
+
+test_db:
+  stage: test
+  script:
+    - cd db
+    - npm test

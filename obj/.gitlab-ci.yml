@@ -1,0 +1,23 @@
+cache:
+  key: ${CI_PIPELINE_ID}-obj
+  paths:
+    - obj/node_modules/
+  policy: pull-push
+
+install_obj:
+  stage: install
+  script:
+    - cd obj
+    - npm install
+
+build_obj:
+  stage: build
+  script:
+    - cd obj
+    - npm run build
+
+test_obj:
+  stage: test
+  script:
+    - cd obj
+    - npm test

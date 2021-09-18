@@ -5,48 +5,8 @@ default:
   before_script:
     - apk add --no-cache bash git make gcc g++ python3
 
-cache:
-  key: ${CI_PIPELINE_ID}
-  paths:
-    - pages/node_modules/
-    - rows/node_modules/
-  policy: pull-push
-
-stages:
-  - install
-  - build
-  - test
-
-install:
-  stage: install
-  script:
-    - cd pages
-    - npm install
-    - cd ../rows
-    - npm install
-
-build_pages:
-  stage: build
-  script:
-    - cd pages
-    - npm run build
-
-build_rows:
-  stage: build
-  script:
-    - cd rows
-    - npm run build
-
-test_pages:
-  stage: test
-  script:
-    - cd pages
-    - npm test
-
-test_rows:
-  services:
-    - registry.gitlab.com/pagerows/pagerows/dbplv8:12.3-2.3.15-1
-  stage: test
-  script:
-    - cd rows
-    - npm test
+include:
+- local: './pages/.gitlab.ci.yml'
+- local: './rows/.gitlab.ci.yml'
+- local: './obj/.gitlab.ci.yml'
+- local: './db/.gitlab.ci.yml'

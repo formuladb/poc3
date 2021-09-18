@@ -1,0 +1,23 @@
+cache:
+  key: ${CI_PIPELINE_ID}-rows
+  paths:
+    - rows/node_modules/
+  policy: pull-push
+
+install_rows:
+  stage: install
+  script:
+    - cd rows
+    - npm install
+
+build_rows:
+  stage: build
+  script:
+    - cd rows
+    - npm run build
+
+test_rows:
+  stage: test
+  script:
+    - cd rows
+    - npm test
