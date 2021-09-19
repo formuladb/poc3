@@ -17,6 +17,7 @@ module.exports = {
    port: 5432,
    namingStrategy: new SnakeNamingStrategy(),
    logging: true,
+   extra: { max: 10 },
    entities: [
       "../pages/src/core/entity/*.ts",
       "src/apps/*/entity/*.ts",
@@ -25,6 +26,6 @@ module.exports = {
       "src/migration/**/*.ts"
    ],
    "subscribers": [
-      "src/subscriber/**/*.ts"
+      "src/core-orm/SetTenantSubscriber.ts",
    ],
 }

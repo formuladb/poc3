@@ -1,3 +1,5 @@
+SELECT set_config('request.jwt.claim.tenant', 'pagerows', true);
+
 --Diacritice (ă â î ș ț) (Ă Â Î Ș Ț)
 --truncate table frmdb_dictionary
 INSERT INTO frmdb_dictionary (id, en, ro) VALUES
@@ -17,7 +19,7 @@ INSERT INTO frmdb_dictionary (id, en, ro) VALUES
     ('frmdb.action.result', 'Result', 'Resultat'),
     ('frmdb.action.stop', 'Stop', 'Stop'),
     ('no elements yet', ' . . . (+ for adding)', ' . . . (+ pt a adăuga)')
-ON CONFLICT(id) DO UPDATE SET
+ON CONFLICT(meta_tenant, id) DO UPDATE SET
     en = EXCLUDED.en, 
     ro = EXCLUDED.ro
 ;

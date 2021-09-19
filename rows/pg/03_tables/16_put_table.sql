@@ -8,6 +8,7 @@ BEGIN
     ) RETURNS void AS $fun$ 
     DECLARE
         v_stm varchar;
+        v_existing_policy varchar;
     BEGIN
         RAISE NOTICE 'frmdb_put_table: p_table_name=%, p_id_type={%}', p_table_name, p_id_type;
         
@@ -26,12 +27,16 @@ BEGIN
         $$, p_table_name);
         EXECUTE v_stm;
 
-        v_stm := format($$ 
-            CREATE POLICY %I_rls ON %I
-            USING (meta_tenant = current_setting('request.jwt.claim.tenant', true))
-            WITH CHECK (meta_tenant = current_setting('request.jwt.claim.tenant', true))
-        $$, p_table_name, p_table_name);
-        EXECUTE v_stm;
+        SELECT policyname INTO v_existing_policy FROM pg_policies
+            WHERE policyname = p_table_name || '_rls';
+        IF v_existing_policy IS NULL THEN
+            v_stm := format($$ 
+                CREATE POLICY %I_rls ON %I
+                USING (meta_tenant = current_setting('request.jwt.claim.tenant', true))
+                WITH CHECK (meta_tenant = current_setting('request.jwt.claim.tenant', true))
+            $$, p_table_name, p_table_name);
+            EXECUTE v_stm;
+        END IF;
 
         PERFORM frmdb_put_column(p_table_name, 'meta_created_at', 'timestamptz', null, 'now()');
         PERFORM frmdb_put_column(p_table_name, 'meta_created_by', 'character varying', null, $$current_setting('request.jwt.claim.username', true)$$);
