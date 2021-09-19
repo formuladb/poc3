@@ -15,7 +15,9 @@ import app8 from './data/it-services';
 import app9 from './data/kids-playground';
 import app10 from './data/law-firm';
 import app11 from './data/photography-services';
-import app12 from './data/restaurant';
+import app12 from './data/vivaldi-restaurant';
+import app13 from './data/luxurious-restauran';
+
 import { putRole } from "src/core-orm/putRole";
 
 export default async () => {
@@ -36,6 +38,7 @@ export default async () => {
     await app10();
     await app11();
     await app12();
+    await app13();
 
     await putRole('administrator');
     await putRole('operator');

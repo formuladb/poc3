@@ -18,24 +18,25 @@ const APPS = [
     { app: 'kids-playground', index: 'index.html' },
     { app: 'law-firm', index: 'index.html' },
     { app: 'photography-services', index: 'index.html' },
-    { app: 'restaurant', index: 'vivaldi-restaurant.html', tenant: 'vivaldi-restaurant.html' },
-    { app: 'restaurant', index: 'luxurious-restaurant.html', tenant: 'luxurious-restaurant.html' },
-    { app: 'restaurant', index: 'local-restaurant.html', tenant: 'local-restaurant.html' },
-    { app: 'restaurant', index: 'pizza-time.html', tenant: 'pizza-time.html' },
-    { app: 'restaurant', index: 'proper-stack-house.html', tenant: 'proper-stack-house.html' },
-    { app: 'restaurant', index: 'raw-baking.html', tenant: 'raw-baking.html' },
-    { app: 'restaurant', index: 'restaurat-good-food.html', tenant: 'restaurat-good-food.html' },
+    { app: 'restaurant', index: 'vivaldi-restaurant.html', tenant: 'vivaldi-restaurant' },
+    { app: 'restaurant', index: 'luxurious-restaurant.html', tenant: 'luxurious-restaurant' },
+    { app: 'restaurant', index: 'local-restaurant.html', tenant: 'local-restaurant' },
+    { app: 'restaurant', index: 'pizza-time.html', tenant: 'pizza-time' },
+    { app: 'restaurant', index: 'proper-stack-house.html', tenant: 'proper-stack-house' },
+    { app: 'restaurant', index: 'raw-baking.html', tenant: 'raw-baking' },
+    { app: 'restaurant', index: 'restaurat-good-food.html', tenant: 'restaurat-good-food' },
     { app: 'sports', index: 'index.html' },
     { app: 'users', index: 'index.html' },
     { app: 'wellness-services', index: 'index.html' },
 ]
 
 for (let aP of APPS) {
+    if (!aP.tenant) aP.tenant = aP.app;
     console.log("#########################################################################")
     console.log(`# ${aP.app}, ${aP.tenant}`)
     console.log("#########################################################################")
-    const ts = landingPage2sql(aP.app, `${BASEDIR}/${aP.app}/${aP.index}`, aP.tenant || aP.app, 'index');
-    fs.writeFileSync(`../../rows/src/apps/websites/data/${aP.app}.ts`, ts.join("\n"));
+    const ts = landingPage2sql(aP.app, `${BASEDIR}/${aP.app}/${aP.index}`, aP.tenant, 'index');
+    fs.writeFileSync(`../../rows/src/apps/websites/data/${aP.tenant}.ts`, ts.join("\n"));
 }
 
 function landingPage2sql(app: string, filePath: string, tenant: string, pageId: string) {
@@ -46,7 +47,6 @@ function landingPage2sql(app: string, filePath: string, tenant: string, pageId: 
     import { Section, SubSection } from "../entity/Section";
     
     export default async () => {
-    
         `];
 
     let html = fs.readFileSync(filePath).toString();

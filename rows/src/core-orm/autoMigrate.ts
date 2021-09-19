@@ -23,7 +23,7 @@ export async function autoMigrate<ENTITY>(
 
     await mng.query(`SELECT frmdb_put_table('${m.tableName}', '${getColType(idM.type)}')`);
     for (let colM of m.columns) {
-        if (colM.databaseName === 'id') continue;
+        if (colM.databaseName === 'id' || colM.databaseName.startsWith('meta_')) continue;
 
         const constraintsList: string[] = [];
         if (colM.isNullable) {

@@ -4,7 +4,6 @@
     import { Section, SubSection } from "../entity/Section";
     
     export default async () => {
-    
         
 
         const page = await putRow(Page, {
