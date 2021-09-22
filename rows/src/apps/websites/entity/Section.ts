@@ -6,6 +6,7 @@ import { Page } from "./Page";
 
 const MediaTypes = {IMAGE:0, ICON:0 };
 class SectionBase {
+    @PrimaryColumn() tenant: string;
     @PrimaryColumn() id: string;
     @Column() name?: string;
     @Column() title?: string;
@@ -17,7 +18,7 @@ class SectionBase {
     @Column() info?: string;
     @Column() action?: string;
     @Column() aside?: string;
-    @Column(() => Meta) meta: Meta;
+    @Column(() => Meta) meta?: Meta;
 }
 
 const SectionComponentTypes = {COVER:0, HEADER:0, MEDIA:0, CARDS_IMG:0, CARDS_ICO:0, FORM:0, HTML:0};

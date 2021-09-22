@@ -2,8 +2,8 @@ import { JSDOM } from 'jsdom';
 import { HTMLTools, isHTMLElement } from "./html-tools";
 import * as fs from 'fs';
 import { cleanupDocumentDOM } from "./page-utils";
-import { PageI } from "../../../../rows/src/apps/websites/entity/Page";
-import { SectionI, SubSectionI } from "../../../../rows/src/apps/websites/entity/Section";
+import { PageJSON, SectionJSON, SubSectionJSON } from "../../../../rows/src/apps/websites/entity/Page";
+import { jsonStringifyCircular } from '../../../src/core/utils/jsonStringify';
 
 const BASEDIR = '/home/acr/code/pagerows/old-frmdb-env/env/frmdb-apps';
 const APPS = [
@@ -35,19 +35,12 @@ for (let aP of APPS) {
     console.log("#########################################################################")
     console.log(`# ${aP.app}, ${aP.tenant}`)
     console.log("#########################################################################")
-    const ts = landingPage2sql(aP.app, `${BASEDIR}/${aP.app}/${aP.index}`, aP.tenant, 'index');
-    fs.writeFileSync(`../../rows/src/apps/websites/data/${aP.tenant}.ts`, ts.join("\n"));
+    const page = landingPage2PageI(aP.app, `${BASEDIR}/${aP.app}/${aP.index}`, aP.tenant, 'index');
+    fs.writeFileSync(`../../rows/src/apps/websites/data/${aP.tenant}.ts`,
+        `export default ${JSON.stringify(page, null, 2)}`);
 }
 
-function landingPage2sql(app: string, filePath: string, tenant: string, pageId: string) {
-
-    let dataTsFile = [`
-    import { putRow } from "../../../core-orm/putRow";
-    import { Page } from "../entity/Page";
-    import { Section, SubSection } from "../entity/Section";
-    
-    export default async () => {
-        `];
+function landingPage2PageI(app: string, filePath: string, tenant: string, pageId: string): PageJSON {
 
     let html = fs.readFileSync(filePath).toString();
     const jsdom = new JSDOM(html, {
@@ -59,27 +52,19 @@ function landingPage2sql(app: string, filePath: string, tenant: string, pageId: 
     const htmlTools = new HTMLTools(jsdom.window.document, new jsdom.window.DOMParser());
     let cleanedUpDOM = cleanupDocumentDOM(htmlTools.doc);
 
-    const page: PageI = {
+    const page: PageJSON = {
         id: pageId,
-        meta: { tenant },
+        tenant,
         title: cleanedUpDOM.querySelector(`title`)?.innerHTML || 'title-not-found',
     };
-
-    dataTsFile.push(`
-        const page = await putRow(Page, {
-            id: "${page.id}", title: "${page.title}", meta: { tenant: "${tenant}" },
-        });`);
 
     let sectionIdx = 0;
     for (let sectionEl of Array.from(cleanedUpDOM.querySelectorAll(`body > *`))) {
         sectionIdx++;
         const sectionPartial = {
-            meta: { tenant },
-            pageId: page.id,
             id: page.id + 'S' + sectionIdx,
-            page,
         };
-        let section: SectionI | null = null;
+        let section: SectionJSON | null = null;
 
         if (sectionEl.tagName.toLowerCase() === "frmdb-t-cover") {
             section = {
@@ -157,52 +142,35 @@ function landingPage2sql(app: string, filePath: string, tenant: string, pageId: 
         } else throw new Error(`Unknown section: ${htmlTools.normalizeDOM2HTML(sectionEl)}`);
 
         if (section) {
-            dataTsFile.push(`        
-        {
-            const section = await putRow(Section, {
-                id: "${section.id}", title: \`${section.title || ''}\`, component: "${section.component}", subtitle: \`${section.subtitle || ''}\`,
-                body: \`${section.body || ''}\`,
-                ${section.mediaUrl ? `mediaUrl: "${section.mediaUrl}",` : ''}${section.mediaType ? `mediaType: "${section.mediaType}",` : ''}meta: { tenant: "${tenant}" }, page
-            });`);
+            page.sections = page.sections || [];
+            page.sections.push(section);
 
-            let subSections: SubSectionI[] = [];
+            let subSections: SubSectionJSON[] = [];
             if (section.component === "CARDS_IMG") {
-                subSections = getSubsections(sectionEl, "CARDS_IMG", tenant, section)
+                subSections = getSubsections(sectionEl, "CARDS_IMG", section)
             } else if (section.component === "CARDS_ICO") {
-                subSections = getSubsections(sectionEl, "CARDS_ICO", tenant, section)
+                subSections = getSubsections(sectionEl, "CARDS_ICO", section)
             }
 
             if (subSections.length > 0) {
+                section.subSections = section.subSections || [];
                 for (let subSection of subSections) {
-                    dataTsFile.push(`       
-                    await putRow(SubSection, {
-                        id: "${subSection.id}", title: \`${subSection.title || ''}\`, component: "${subSection.component}", subtitle: \`${subSection.subtitle || ''}\`,
-                        body: \`${subSection.body || ''}\`,
-                        ${subSection.mediaUrl ? `mediaUrl: "${subSection.mediaUrl}",` : ''}${subSection.mediaType ? `mediaType: "${subSection.mediaType}",` : ''}meta: { tenant: "${tenant}" }
-                        , section
-                    });`);
+                    section.subSections.push(subSection);
                 }
             }
-            dataTsFile.push(`        }`);
         }
     }
 
-    dataTsFile.push(`
-}
-    `);
-
-
-    return dataTsFile;
+    return page;
 }
 
 
 function getSubsections(
     sectionEl: Element,
     sectionType: 'CARDS_IMG' | 'CARDS_ICO',
-    tenant: string,
-    section: SectionI
-): SubSectionI[] {
-    const subSections: SubSectionI[] = [];
+    section: SectionJSON
+): SubSectionJSON[] {
+    const subSections: SubSectionJSON[] = [];
 
     const subSectionSelector = sectionType === "CARDS_IMG" ? 'frmdb-t-card-media-main'
         : 'frmdb-t-card-icon-main';
@@ -211,13 +179,11 @@ function getSubsections(
     for (let subSectionEl of Array.from(sectionEl.querySelectorAll(subSectionSelector))) {
         subSectionIdx++;
         const subSectionPartial = {
-            meta: { tenant },
             id: section.id + 'sS' + subSectionIdx,
-            section,
         };
 
         if (subSectionEl.tagName.toLowerCase() === "frmdb-t-card-media-main") {
-            const subSection: SubSectionI = {
+            const subSection: SubSectionJSON = {
                 ...subSectionPartial,
                 component: 'CARD_IMG',
                 title: subSectionEl.querySelector('h5')?.innerHTML,
@@ -231,7 +197,7 @@ function getSubsections(
             }
             subSections.push(subSection);
         } else if (subSectionEl.tagName.toLowerCase() === "frmdb-t-card-icon-main") {
-            const subSection: SubSectionI = {
+            const subSection: SubSectionJSON = {
                 ...subSectionPartial,
                 component: 'CARD_ICON',
                 title: subSectionEl.querySelector('frmdb-icon span')?.innerHTML,

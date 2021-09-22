@@ -1,5 +1,6 @@
 import "reflect-metadata";
 import { createConnection } from "typeorm";
+import * as fs from 'fs';
 
 // In order to use the MinIO JavaScript API to generate the pre-signed URL, begin by instantiating
 // a `Minio.Client` object and pass in the values for your server.
@@ -72,24 +73,24 @@ app.put('/upload/:table/:column/:file', async (req: express.Request, res) => {
 
 pgFmkInstall()
     .then(async () => {
-            await createConnection();
+        await createConnection();
 
-            await baseData();
-            await websitesData();
+        await baseData();
+        await websitesData();
 
-            await basePermissions();
-            await websitesPermissions();
+        await basePermissions();
+        await websitesPermissions();
     })
     .then(() => app.listen(8080))
     ;
 
 async function pgFmkInstall() {
     if (process.env.ENVTYPE === "localdev") {
-        console.log("Migrate core pg fmk");
-        await runCmd('bash', '-c', 'ls -ltr /');
-        await runCmd('timeout', '300', 'bash', '/scripts/pg-fmk.sh');
+        var nodemon = require('nodemon');
+        nodemon(`-e 'bash /scripts/pg-fmk.sh' /pg`);
     }
 }
+
 
 function runCmd(cmd: string, ...args: string[]): Promise<void> {
     return new Promise((resolve, reject) => {

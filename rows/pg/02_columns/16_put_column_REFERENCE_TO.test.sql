@@ -4,17 +4,17 @@ BEGIN;
     SELECT set_config('request.jwt.claim.tenant', 'pagerows', true);
 
     CREATE TABLE IF NOT EXISTS src_tbl (
-        meta_tenant text NOT NULL DEFAULT current_setting('request.jwt.claim.tenant', true),
+        tenant text NOT NULL DEFAULT current_setting('request.jwt.claim.tenant', true),
         id varchar NOT NULL,
-        PRIMARY KEY(meta_tenant, id)
+        PRIMARY KEY(tenant, id)
     );
 
     SELECT has_table( 'public'::name, 'src_tbl'::name );
 
     CREATE TABLE IF NOT EXISTS dst_tbl (
-        meta_tenant text NOT NULL DEFAULT current_setting('request.jwt.claim.tenant', true),
+        tenant text NOT NULL DEFAULT current_setting('request.jwt.claim.tenant', true),
         id varchar NOT NULL,
-        PRIMARY KEY(meta_tenant, id)
+        PRIMARY KEY(tenant, id)
     );
     SELECT has_table( 'public'::name, 'dst_tbl'::name );
 
@@ -22,8 +22,8 @@ BEGIN;
     SELECT has_column( 'src_tbl', 'ref' );
 
     SELECT has_fk( 'src_tbl', 'test_ref_fk' );
-    SELECT col_is_fk( 'src_tbl', ARRAY['meta_tenant', 'ref'] );
-    SELECT fk_ok( 'public', 'src_tbl', ARRAY['meta_tenant', 'ref'], 'public', 'dst_tbl', ARRAY['meta_tenant', 'id'] );
+    SELECT col_is_fk( 'src_tbl', ARRAY['tenant', 'ref'] );
+    SELECT fk_ok( 'public', 'src_tbl', ARRAY['tenant', 'ref'], 'public', 'dst_tbl', ARRAY['tenant', 'id'] );
 
     SELECT * FROM finish();
     SELECT * FROM frmdb_check_nb_failures();

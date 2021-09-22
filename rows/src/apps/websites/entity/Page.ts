@@ -2,18 +2,23 @@ import { AfterInsert, AfterUpdate, EntitySubscriberInterface, EventSubscriber, I
 import { Column, Entity } from "typeorm";
 import { Meta } from "@core/entity/Meta";
 import { upsertChildren } from "../../../core-orm/upsertChildren";
-import { Section } from "./Section";
+import { Section, SectionI, SubSectionI } from "./Section";
 
 @Entity()
 export class Page {
+    @PrimaryColumn() tenant: string;
     @PrimaryColumn() id: string;
     @Column() title: string;
-    @Column(() => Meta) meta: Meta;
+    @Column(() => Meta) meta?: Meta;
     @OneToMany(() => Section, section => section.page)
     sections?: Section[];
 }
 
 export interface PageI extends Page {}
+
+export type SubSectionJSON = Omit<SubSectionI, 'tenant' | 'section'>;
+export type SectionJSON = Omit<SectionI, 'tenant' | 'page' | 'subSections'> & {subSections?: SubSectionJSON[]};
+export type PageJSON = Omit<PageI, 'sections'> & {sections?: SectionJSON[]}
 
 @EventSubscriber()
 export class PageSubscriber implements EntitySubscriberInterface<Page> {

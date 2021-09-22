@@ -4,7 +4,8 @@ BEGIN
     
     CREATE OR REPLACE FUNCTION frmdb_put_table (
         p_table_name varchar, 
-        p_id_type varchar default 'serial NOT NULL'
+        p_id_type varchar default 'serial NOT NULL',
+        p_with_tenant boolean default false
     ) RETURNS void AS $fun$ 
     DECLARE
         v_stm varchar;
@@ -13,13 +14,22 @@ BEGIN
         RAISE NOTICE 'frmdb_put_table: p_table_name=%, p_id_type={%}', p_table_name, p_id_type;
         
         --TODO: if id type has changed perform idempotent culumn migration
-        v_stm := format($$ 
-            CREATE TABLE IF NOT EXISTS %I (
-                meta_tenant text NOT NULL DEFAULT current_setting('request.jwt.claim.tenant', true),
-                id %s NOT NULL,
-                PRIMARY KEY(meta_tenant, id)
-            )
-        $$, p_table_name, p_id_type);
+        IF p_with_tenant = true THEN 
+            v_stm := format($$ 
+                CREATE TABLE IF NOT EXISTS %I (
+                    tenant text NOT NULL DEFAULT current_setting('request.jwt.claim.tenant', true),
+                    id %s NOT NULL,
+                    PRIMARY KEY(tenant, id)
+                )
+            $$, p_table_name, p_id_type);
+        ELSE
+            v_stm := format($$ 
+                CREATE TABLE IF NOT EXISTS %I (
+                    id %s NOT NULL,
+                    PRIMARY KEY(id)
+                )
+            $$, p_table_name, p_id_type);
+        END IF;
         EXECUTE v_stm;
         
         v_stm := format($$ 
@@ -27,15 +37,17 @@ BEGIN
         $$, p_table_name);
         EXECUTE v_stm;
 
-        SELECT policyname INTO v_existing_policy FROM pg_policies
-            WHERE policyname = p_table_name || '_rls';
-        IF v_existing_policy IS NULL THEN
-            v_stm := format($$ 
-                CREATE POLICY %I_rls ON %I
-                USING (meta_tenant = current_setting('request.jwt.claim.tenant', true))
-                WITH CHECK (meta_tenant = current_setting('request.jwt.claim.tenant', true))
-            $$, p_table_name, p_table_name);
-            EXECUTE v_stm;
+        IF p_with_tenant = true THEN 
+            SELECT policyname INTO v_existing_policy FROM pg_policies
+                WHERE policyname = p_table_name || '_rls';
+            IF v_existing_policy IS NULL THEN
+                v_stm := format($$ 
+                    CREATE POLICY %I_rls ON %I
+                    USING (tenant = current_setting('request.jwt.claim.tenant', true))
+                    WITH CHECK (tenant = current_setting('request.jwt.claim.tenant', true))
+                $$, p_table_name, p_table_name);
+                EXECUTE v_stm;
+            END IF;
         END IF;
 
         PERFORM frmdb_put_column(p_table_name, 'meta_created_at', 'timestamptz', null, 'now()');

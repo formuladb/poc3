@@ -1,4 +1,4 @@
-export function jsonStringify(obj, indent = 2) {
+export function jsonStringifyCircular(obj, indent = 2) {
     let cache: any[] = [];
     const retVal = JSON.stringify(
         obj,

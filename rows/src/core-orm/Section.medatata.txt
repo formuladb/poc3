@@ -679,9 +679,9 @@ EntityMetadata {
       type: [Function: String],
       precision: undefined,
       propertyPath: 'meta.tenant',
-      propertyAliasName: 'meta_tenant',
-      databaseName: 'meta_tenant',
-      databasePath: 'meta.meta_tenant',
+      propertyAliasName: 'tenant',
+      databaseName: 'tenant',
+      databasePath: 'meta.tenant',
       databaseNameWithoutPrefixes: 'tenant'
     }
   ],
@@ -1000,9 +1000,9 @@ EntityMetadata {
       type: [Function: String],
       precision: undefined,
       propertyPath: 'meta.tenant',
-      propertyAliasName: 'meta_tenant',
-      databaseName: 'meta_tenant',
-      databasePath: 'meta.meta_tenant',
+      propertyAliasName: 'tenant',
+      databaseName: 'tenant',
+      databasePath: 'meta.tenant',
       databaseNameWithoutPrefixes: 'tenant'
     }
   ],

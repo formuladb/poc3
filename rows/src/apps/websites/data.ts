@@ -26,19 +26,19 @@ export default async () => {
     await autoMigrate(Section);
     await autoMigrate(SubSection);
 
-    await app1();
-    await app2();
-    await app3();
-    await app4();
-    await app5();
-    await app6();
-    await app7();
-    await app8();
-    await app9();
-    await app10();
-    await app11();
-    await app12();
-    await app13();
+    // await app1();
+    // await app2();
+    // await app3();
+    // await app4();
+    // await app5();
+    // await app6();
+    // await app7();
+    // await app8();
+    // await app9();
+    // await app10();
+    // await app11();
+    // await app12();
+    // await app13();
 
     await putRole('administrator');
     await putRole('operator');

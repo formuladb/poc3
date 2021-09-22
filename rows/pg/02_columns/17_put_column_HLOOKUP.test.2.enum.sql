@@ -6,18 +6,18 @@ BEGIN;
     CREATE TYPE tenum AS ENUM ('E1', 'E2');
 
     CREATE TABLE IF NOT EXISTS src_tbl (
-        meta_tenant text NOT NULL DEFAULT current_setting('request.jwt.claim.tenant', true),
+        tenant text NOT NULL DEFAULT current_setting('request.jwt.claim.tenant', true),
         id serial NOT NULL,
         src_col tenum,
-        PRIMARY KEY(meta_tenant, id)
+        PRIMARY KEY(tenant, id)
     );
     CREATE TABLE IF NOT EXISTS dst_tbl (
-        meta_tenant text NOT NULL DEFAULT current_setting('request.jwt.claim.tenant', true),
+        tenant text NOT NULL DEFAULT current_setting('request.jwt.claim.tenant', true),
         id serial NOT NULL,
-        PRIMARY KEY(meta_tenant, id)
+        PRIMARY KEY(tenant, id)
     );
     SELECT frmdb_put_column_REFERENCE_TO('dst_tbl', 'dst_ref', 'src_tbl', null, null);
-    SELECT fk_ok( 'public', 'dst_tbl', ARRAY['meta_tenant', 'dst_ref'], 'public', 'src_tbl', ARRAY['meta_tenant', 'id'] );
+    SELECT fk_ok( 'public', 'dst_tbl', ARRAY['tenant', 'dst_ref'], 'public', 'src_tbl', ARRAY['tenant', 'id'] );
 
     INSERT INTO src_tbl (id, src_col) VALUES (1, 'E1');
 

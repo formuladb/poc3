@@ -21,7 +21,9 @@ export async function autoMigrate<ENTITY>(
     const idM = m.columns.find(c => c.databaseName === 'id');
     if (!idM) throw new Error(`Cannot find id column for table ${m.tableName}`);
 
-    await mng.query(`SELECT frmdb_put_table('${m.tableName}', '${getColType(idM.type)}')`);
+    const tenantM = m.columns.find(c => c.databaseName === 'tenant');
+
+    await mng.query(`SELECT frmdb_put_table('${m.tableName}', '${getColType(idM.type)}'${tenantM ? ", true" : ""})`);
     for (let colM of m.columns) {
         if (colM.databaseName === 'id' || colM.databaseName.startsWith('meta_')) continue;
 
