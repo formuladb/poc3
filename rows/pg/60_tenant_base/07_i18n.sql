@@ -19,7 +19,7 @@ INSERT INTO frmdb_dictionary (id, en, ro) VALUES
     ('frmdb.action.result', 'Result', 'Resultat'),
     ('frmdb.action.stop', 'Stop', 'Stop'),
     ('no elements yet', ' . . . (+ for adding)', ' . . . (+ pt a adăuga)')
-ON CONFLICT(tenant, id) DO UPDATE SET
+ON CONFLICT(id) DO UPDATE SET
     en = EXCLUDED.en, 
     ro = EXCLUDED.ro
 ;

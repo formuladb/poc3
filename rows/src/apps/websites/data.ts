@@ -19,12 +19,22 @@ import app12 from './data/vivaldi-restaurant';
 import app13 from './data/luxurious-restaurant';
 
 import { putRole } from "src/core-orm/putRole";
+import { putRows } from "src/core-orm/putRow";
+import { FrmdbResource } from "@core/entity/FrmdbResource";
+import { entityMetadata } from "src/core-orm/entityMetadata";
 
 export default async () => {
 
     await autoMigrate(Page);
     await autoMigrate(Section);
     await autoMigrate(SubSection);
+
+    await putRows(FrmdbResource, [
+        { id: "websites", icon: "material-design-icons/settings", resource_type: "GROUP", menu_order: 1 },
+        { id: entityMetadata(Page).tableName, parent: "websites", icon: "TBD", resource_type: "RESOURCE", menu_order: 1 },
+        { id: entityMetadata(Section).tableName, parent: "websites", icon: "TBD", resource_type: "RESOURCE", menu_order: 2 },
+        { id: entityMetadata(SubSection).tableName, parent: "websites", icon: "material-design-icons/settings", resource_type: "RESOURCE", menu_order: 3 },
+    ]);
 
     // await app1();
     // await app2();
@@ -40,6 +50,4 @@ export default async () => {
     // await app12();
     // await app13();
 
-    await putRole('administrator');
-    await putRole('operator');
 }

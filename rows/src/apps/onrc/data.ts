@@ -1,19 +1,15 @@
-import "reflect-metadata";
-import { createConnection, getManager, getRepository } from "typeorm";
-import { putRows } from "../../core-orm/putRow";
 import { FrmdbResource } from "@core/entity/FrmdbResource";
-import { FrmdbSystemParam } from "@core/entity/FrmdbSystemParam";
+import { autoMigrate } from "src/core-orm/autoMigrate";
+import { entityMetadata } from "src/core-orm/entityMetadata";
+import { putRows } from "src/core-orm/putRow";
+import { Form11_10_181 } from "./entity/Form11_10_181";
 
 export default async () => {
+    await autoMigrate(Form11_10_181);
 
     await putRows(FrmdbResource, [
-        { id: "frmdb_resources", parent: "TBD", icon: "TBD", resource_type: "RESOURCE", menu_order: 0 },
-        { id: "frmdb_pages", parent: "TBD", icon: "TBD", resource_type: "RESOURCE", menu_order: 0 },
-        { id: "administer", icon: "material-design-icons/settings", resource_type: "GROUP", menu_order: 1 },
-        { id: "operate", icon: "material-design-icons/person", resource_type: "GROUP", menu_order: 2 },
+        { id: "onrc", icon: "material-design-icons/settings", resource_type: "GROUP", menu_order: 1 },
+        { id: entityMetadata(Form11_10_181).tableName, parent: "onrc", icon: "TBD", resource_type: "RESOURCE", menu_order: 0 },
     ]);
 
-    await putRows(FrmdbSystemParam, [
-        { id: "LOCALE", val: "en" },
-    ]);
 }

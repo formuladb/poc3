@@ -33,7 +33,6 @@ const Menu: FC<MenuProps> = ({ onMenuClick, logout, dense = false }) => {
         const resByParent = groupBy(resources, 'parent');
         let menuResources: typeof resourceTree = [];
         for (let [parentResName, childRes] of Object.entries(resByParent)) {
-            // //console.debug('parentResName', parentResName, 'childRes', childRes);
             let parentRes = resById[parentResName];
             if (parentRes) {
                 childRes = sortBy(childRes, 'menu_order');
@@ -41,6 +40,7 @@ const Menu: FC<MenuProps> = ({ onMenuClick, logout, dense = false }) => {
             }
         }
         menuResources = sortBy(menuResources, 'parentRes.menu_order');
+        console.error('menuResources!!!!', menuResources);
         setResourceTree(menuResources);    
     }, [resources]);
 

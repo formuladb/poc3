@@ -14,6 +14,8 @@ export function useResources(): FrmdbResourceI[] {
             filter: {}
         })
             .then(res => {
+                console.error('menuResources', res);
+
                 if (!res) return [{ name: "actors" }];
                 setResources(res.data as any as FrmdbResourceI[]);
             });

@@ -11,9 +11,11 @@ import { spawn } from 'child_process';
 
 import baseData from './apps/base/data';
 import websitesData from './apps/websites/data';
+import onrcData from './apps/onrc/data';
 
 import basePermissions from './apps/base/permissions';
 import websitesPermissions from './apps/websites/permissions';
+import onrcPermissions from './apps/onrc/permissions';
 
 var client = new Minio.Client({
     endPoint: 'minio',
@@ -77,17 +79,21 @@ pgFmkInstall()
 
         await baseData();
         await websitesData();
+        await onrcData();
 
         await basePermissions();
         await websitesPermissions();
+        await onrcPermissions();
     })
     .then(() => app.listen(8080))
     ;
 
 async function pgFmkInstall() {
+    await runCmd('timeout', '300', 'bash', '/scripts/pg-fmk.sh');
+
     if (process.env.ENVTYPE === "localdev") {
         var nodemon = require('nodemon');
-        nodemon(`-e 'bash /scripts/pg-fmk.sh' /pg`);
+        nodemon(`--exec 'bash /scripts/pg-fmk.sh' -e sql --watch /pg`);
     }
 }
 

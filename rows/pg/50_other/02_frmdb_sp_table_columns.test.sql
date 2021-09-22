@@ -3,11 +3,11 @@ BEGIN;
 
     SELECT set_config('request.jwt.claim.tenant', 'pagerows', true);
 
-    SELECT frmdb_put_table('src_tbl', default, true);
+    SELECT frmdb_put_table('src_tbl', 'serial NOT NULL', true);
     ALTER TABLE src_tbl ADD COLUMN some_col varchar;
     SELECT has_table( 'public'::name, 'src_tbl'::name );
 
-    SELECT frmdb_put_table('dst_tbl', default, true);
+    SELECT frmdb_put_table('dst_tbl', 'serial NOT NULL', true);
     SELECT has_table( 'public'::name, 'dst_tbl'::name );
 
     SELECT frmdb_put_column_REFERENCE_TO('dst_tbl', 'dst_ref', 'src_tbl', null, null);
