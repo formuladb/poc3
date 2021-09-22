@@ -19,12 +19,6 @@ import { groupByUniqProp } from '../../utils';
 
 const Menu: FC<MenuProps> = ({ onMenuClick, logout, dense = false }) => {
     const [resourceTree, setResourceTree] = useState([] as { parentRes: FrmdbResourceI, isOpen: boolean, childRes: FrmdbResourceI[] }[]);
-    const translate = useTranslate();
-    const isXSmall = useMediaQuery((theme: Theme) =>
-        theme.breakpoints.down('xs')
-    );
-    const open = useSelector((state: AppState) => state.admin.ui.sidebarOpen);
-    useSelector((state: AppState) => state.theme); // force rerender on theme change
 
     const handleToggle = (resId: string) => {
         let newState = [...resourceTree];
@@ -50,8 +44,19 @@ const Menu: FC<MenuProps> = ({ onMenuClick, logout, dense = false }) => {
         setResourceTree(menuResources);    
     }, [resources]);
 
-    console.log(resourceTree);
-    // //console.debug('resByParent', resByParent, 'resById', resById, 'resources', resources, 'menuResources', menuResources);
+    return <MenuInner resourceTree={resourceTree} handleToggle={handleToggle}
+    onMenuClick={onMenuClick} logout={logout} dense={dense} />;
+    
+};
+
+
+function MenuInner({resourceTree, handleToggle, onMenuClick, logout, dense}) {
+    const translate = useTranslate();
+    const isXSmall = useMediaQuery((theme: Theme) =>
+        theme.breakpoints.down('xs')
+    );
+    const open = useSelector((state: AppState) => state.admin.ui.sidebarOpen);
+    useSelector((state: AppState) => state.theme); // force rerender on theme change
 
     return (
         <div style={{marginTop: "10px"}}>
@@ -96,6 +101,6 @@ const Menu: FC<MenuProps> = ({ onMenuClick, logout, dense = false }) => {
             {isXSmall && logout}
         </div>
     );
-};
+}
 
 export default Menu;

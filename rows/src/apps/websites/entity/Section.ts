@@ -23,7 +23,7 @@ class SectionBase {
 const SectionComponentTypes = {COVER:0, HEADER:0, MEDIA:0, CARDS_IMG:0, CARDS_ICO:0, FORM:0, HTML:0};
 @Entity()
 export class Section extends SectionBase {
-    @ManyToOne(() => Page, page => page.sections)
+    @ManyToOne(() => Page, page => page.sections, )
     page: Page;
 
     @Column({type: "enum", enum: Object.keys(SectionComponentTypes)}) 

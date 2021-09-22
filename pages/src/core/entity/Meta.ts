@@ -1,6 +1,5 @@
-import { Column } from "typeorm";
+import { Column, PrimaryColumn } from "typeorm";
 export class Meta {
-    @Column() tenant!: string;
     @Column() createdAt?: Date;
     @Column() createdBy?: string;
     @Column() updatedAt?: Date;

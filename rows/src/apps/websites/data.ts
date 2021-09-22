@@ -16,7 +16,7 @@ import app9 from './data/kids-playground';
 import app10 from './data/law-firm';
 import app11 from './data/photography-services';
 import app12 from './data/vivaldi-restaurant';
-import app13 from './data/luxurious-restauran';
+import app13 from './data/luxurious-restaurant';
 
 import { putRole } from "src/core-orm/putRole";
 

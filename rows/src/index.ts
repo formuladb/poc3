@@ -83,19 +83,6 @@ pgFmkInstall()
     .then(() => app.listen(8080))
     ;
 
-// function startGitSync() {
-//     console.log("Starting git-sync each 5 sec");
-//     setInterval(() => {
-//         runCmd('timeout', '30', 'bash', '/scripts/sync-git.sh');
-//     }, 30000)
-// }
-// function startBackupDb() {
-//     console.log("Starting backup-db every day");
-//     setInterval(() => {
-//         runCmd('timeout', '600', 'bash', '/scripts/backup-db.sh');
-//     }, 24 * 3600000)
-// }
-
 async function pgFmkInstall() {
     if (process.env.ENVTYPE === "localdev") {
         console.log("Migrate core pg fmk");
