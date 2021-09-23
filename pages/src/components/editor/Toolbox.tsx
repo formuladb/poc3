@@ -7,6 +7,13 @@ import {
 } from '@material-ui/core';
 import React from 'react';
 
+import ActionIcon from '@material-ui/icons/CallToActionOutlined';
+import FieldIcon from '@material-ui/icons/InputOutlined';
+import SectionIcon from '@material-ui/icons/ViewDayOutlined';
+import LayoutIcon from '@material-ui/icons/ViewModuleOutlined';
+import ListIcon from '@material-ui/icons/ListAltOutlined';
+import FormIcon from '@material-ui/icons/WidgetsOutlined';
+
 import { CButton } from '../page/CButton';
 import { CSection } from '../page/CSection';
 import { CRow } from '../page/CRow';
@@ -31,7 +38,7 @@ export const Toolbox = () => {
                         }
                         variant="contained"
                     >
-                        Action
+                        <ActionIcon /> Action
                     </MuiButton>
                 </Grid>
                 <Grid md={6} container direction="column" item>
@@ -39,7 +46,7 @@ export const Toolbox = () => {
                         ref={(ref) => connectors.create(ref, <CSection cSectionType="COVER" resource="frmdb_pages" titleSource="id" />)}
                         variant="contained"
                     >
-                        Section
+                        <SectionIcon /> Section
                     </MuiButton>
                 </Grid>
                 <Grid md={6} container direction="column" item>
@@ -47,7 +54,7 @@ export const Toolbox = () => {
                         ref={(ref) => connectors.create(ref, <Element canvas is={CRow} padding={20}><CText text="Add CCol components here" /></Element>)}
                         variant="contained"
                     >
-                        Row
+                        <LayoutIcon /> Layout
                     </MuiButton>
                 </Grid>
                 <Grid md={6} container direction="column" item>
@@ -55,7 +62,7 @@ export const Toolbox = () => {
                         ref={(ref) => connectors.create(ref, <Element canvas is={CForm} resource="frmdb_pages">Add children here</Element>)}
                         variant="contained"
                     >
-                        Form
+                        <FormIcon /> Form
                     </MuiButton>
                 </Grid>
                 <Grid md={6} container direction="column" item>
@@ -63,7 +70,7 @@ export const Toolbox = () => {
                         ref={(ref) => connectors.create(ref, <CInput resource="frmdb_pages" source="id" cInputType='TextField' />)}
                         variant="contained"
                     >
-                        Input
+                        <FieldIcon /> Field
                     </MuiButton>
                 </Grid>
                 
@@ -72,7 +79,7 @@ export const Toolbox = () => {
                         ref={(ref) => connectors.create(ref, <Element canvas is={CList} cListType="Datagrid" resource="frmdb_pages" labelSource="id" children={null} />)}
                         variant="contained"
                     >
-                        List
+                        <ListIcon /> List
                     </MuiButton>
                 </Grid>
             </Grid>

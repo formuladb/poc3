@@ -20,9 +20,9 @@ import { Grid } from '@material-ui/core';
 import { LookupInput, FReferenceInput, FReferenceInputAsync } from './LookupReferenceInput';
 import { CList } from '../list/CList';
 import { CInputProps } from '../../core-domain/page';
-import CInputPropsSchema from '../../core-domain/json-schemas/CInputProps.json';
 import { useRawFormContext } from './useRawFormContext';
 import { useValidators } from './useValidators';
+import { getCInputSchema } from './post-processed-schemas';
 
 export const CInput = (nP: CInputProps) => {
     const { query } = useEditor();
@@ -79,10 +79,12 @@ export const CInput = (nP: CInputProps) => {
 };
 CInput.displayName = 'CInput';
 
-const CInputSettingSchema = CInputPropsSchema as JSONSchema7;
-console.log('CInputPropsSchema=', CInputPropsSchema);
+
+const CInputSettingSchema = getCInputSchema() as JSONSchema7;
 const uiSchema = {
-    'ui:anyOfDiscriminatorField': 'cInputType',
+    cInputType: {
+        "ui:widget": "hidden",
+    }
 }
 export const CInputSettings = () => {
     return <CmpSettings uiSchema={uiSchema} schema={CInputSettingSchema} />

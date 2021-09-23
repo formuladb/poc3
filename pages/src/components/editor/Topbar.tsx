@@ -48,7 +48,7 @@ export const Topbar = ({ editorEnabled }: { editorEnabled: boolean }) => {
     let pageData = parseLocation(location.pathname);
 
     return (
-        <div style={{backgroundColor: "#cbe8e7", padding: "10px", marginTop: "40px", marginBottom: "10px"}}>
+        <div style={{backgroundColor: "#cbe8e7", padding: "5px"}}>
             <Grid container alignItems="center">
                 <Grid item xs>
                     <ButtonGroup variant="text">
@@ -67,9 +67,6 @@ export const Topbar = ({ editorEnabled }: { editorEnabled: boolean }) => {
                             <RedoIcon />
                         </MaterialButton>
                         <SavePageButton pageId={pageData.pageId} pageIcon="TBDIcon" />
-                        <MaterialButton disabled>
-                            <AppIcon name="font-awesome/fontawesome-solid-database-computer-development-directory-memory-storage" />
-                        </MaterialButton>
                     </ButtonGroup>
                 </Grid>
                 {/* <Grid item>

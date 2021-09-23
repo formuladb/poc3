@@ -30,12 +30,12 @@ import { parseLocation } from '../../location_utils';
 import { Grid } from '@material-ui/core';
 import { useUpsertRecord } from '../form/useUpsertRecord';
 import { CListProps } from '../../core-domain/page';
-import CListPropsSchema from '../../core-domain/json-schemas/CListProps.json';
 import { ListActions } from './ListActions';
 import { getCInputPropsFromFieldDef, getDefaultReferenceText } from '../defaultEditPageContent';
 import { useRawFormContext } from '../form/useRawFormContext';
 import { FrmdbResourceWithFields } from '../../core/entity/FrmdbResource';
 import { isEqual } from 'lodash';
+import { getCListSchema } from '../form/post-processed-schemas';
 
 export function CList(nP: CListProps & { children: null | React.ReactNode }) {
     const craftNode = useNode();
@@ -257,20 +257,23 @@ function RawListInternal(props: CListProps & {
 }
 RawListInternal.displayName = 'RawListInternal';
 
-const CListSettingSchema = CListPropsSchema as JSONSchema7;
-console.log('CListPropsSchema=', CListPropsSchema);
+const CListSettingSchema = getCListSchema() as JSONSchema7;
 const uiSchema = {
-    fields: {
-        items: {
-            'ui:anyOfDiscriminatorField': 'cInputType',
-        }
-    },
-    enabledActions: {
-        items: {
-            'ui:anyOfDiscriminatorField': 'actionType',
-        }
+    cListType: {
+        "ui:widget": "hidden",
     }
+    // fields: {
+    //     items: {
+    //         'ui:anyOfDiscriminatorField': 'cInputType',
+    //     }
+    // },
+    // enabledActions: {
+    //     items: {
+    //         'ui:anyOfDiscriminatorField': 'actionType',
+    //     }
+    // }
 }
+
 export const CListSettings = () => {
     return <CmpSettings uiSchema={uiSchema} schema={CListSettingSchema} />
 };

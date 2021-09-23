@@ -39,7 +39,7 @@ export function CRow({
 };
 
 CRow.craft = {
-    displayName: 'Row',
+    displayName: 'Layout',
     props: ContainerDefaultProps,
     related: {
         settings: ContainerSettings,

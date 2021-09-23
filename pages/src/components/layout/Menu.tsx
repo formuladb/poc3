@@ -40,7 +40,6 @@ const Menu: FC<MenuProps> = ({ onMenuClick, logout, dense = false }) => {
             }
         }
         menuResources = sortBy(menuResources, 'parentRes.menu_order');
-        console.error('menuResources!!!!', menuResources);
         setResourceTree(menuResources);    
     }, [resources]);
 

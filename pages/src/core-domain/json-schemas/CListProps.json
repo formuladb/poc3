@@ -148,7 +148,7 @@
                         },
                         {
                             "enum": [
-                                "list"
+                                "LIST"
                             ],
                             "type": "string"
                         }
@@ -594,9 +594,6 @@
                             "$ref": "#/definitions/CInputTextFieldProps"
                         },
                         {
-                            "$ref": "#/definitions/CInputRichTextFieldProps"
-                        },
-                        {
                             "$ref": "#/definitions/CInputBooleanFieldProps"
                         },
                         {
@@ -619,6 +616,9 @@
                         },
                         {
                             "$ref": "#/definitions/CInputNumberFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputRichTextFieldProps"
                         },
                         {
                             "$ref": "#/definitions/CInputUrlFieldProps"
@@ -1355,9 +1355,6 @@
                                 "$ref": "#/definitions/CInputTextFieldProps"
                             },
                             {
-                                "$ref": "#/definitions/CInputRichTextFieldProps"
-                            },
-                            {
                                 "$ref": "#/definitions/CInputBooleanFieldProps"
                             },
                             {
@@ -1380,6 +1377,9 @@
                             },
                             {
                                 "$ref": "#/definitions/CInputNumberFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputRichTextFieldProps"
                             },
                             {
                                 "$ref": "#/definitions/CInputUrlFieldProps"
@@ -1523,9 +1523,6 @@
                                 "$ref": "#/definitions/CInputTextFieldProps"
                             },
                             {
-                                "$ref": "#/definitions/CInputRichTextFieldProps"
-                            },
-                            {
                                 "$ref": "#/definitions/CInputBooleanFieldProps"
                             },
                             {
@@ -1548,6 +1545,9 @@
                             },
                             {
                                 "$ref": "#/definitions/CInputNumberFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputRichTextFieldProps"
                             },
                             {
                                 "$ref": "#/definitions/CInputUrlFieldProps"
@@ -1664,9 +1664,6 @@
                                 "$ref": "#/definitions/CInputTextFieldProps"
                             },
                             {
-                                "$ref": "#/definitions/CInputRichTextFieldProps"
-                            },
-                            {
                                 "$ref": "#/definitions/CInputBooleanFieldProps"
                             },
                             {
@@ -1689,6 +1686,9 @@
                             },
                             {
                                 "$ref": "#/definitions/CInputNumberFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputRichTextFieldProps"
                             },
                             {
                                 "$ref": "#/definitions/CInputUrlFieldProps"
@@ -1805,9 +1805,6 @@
                                 "$ref": "#/definitions/CInputTextFieldProps"
                             },
                             {
-                                "$ref": "#/definitions/CInputRichTextFieldProps"
-                            },
-                            {
                                 "$ref": "#/definitions/CInputBooleanFieldProps"
                             },
                             {
@@ -1830,6 +1827,9 @@
                             },
                             {
                                 "$ref": "#/definitions/CInputNumberFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputRichTextFieldProps"
                             },
                             {
                                 "$ref": "#/definitions/CInputUrlFieldProps"
@@ -1946,9 +1946,6 @@
                                 "$ref": "#/definitions/CInputTextFieldProps"
                             },
                             {
-                                "$ref": "#/definitions/CInputRichTextFieldProps"
-                            },
-                            {
                                 "$ref": "#/definitions/CInputBooleanFieldProps"
                             },
                             {
@@ -1971,6 +1968,9 @@
                             },
                             {
                                 "$ref": "#/definitions/CInputNumberFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputRichTextFieldProps"
                             },
                             {
                                 "$ref": "#/definitions/CInputUrlFieldProps"

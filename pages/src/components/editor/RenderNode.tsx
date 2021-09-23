@@ -102,7 +102,7 @@ export const RenderNode = ({ render }) => {
         };
     }, [scroll]);
 
-    // console.log("RenderNode:", getPos(dom!).left, getPos(dom!).top, isHover, isActive, dom);
+    console.log("RenderNode:", getPos(dom!).left, getPos(dom!).top, isHover, isActive, dom);
 
     return (
         <>

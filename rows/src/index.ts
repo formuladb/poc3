@@ -78,11 +78,11 @@ pgFmkInstall()
         await createConnection();
 
         await baseData();
-        await websitesData();
+        // await websitesData();
         await onrcData();
 
         await basePermissions();
-        await websitesPermissions();
+        // await websitesPermissions();
         await onrcPermissions();
     })
     .then(() => app.listen(8080))

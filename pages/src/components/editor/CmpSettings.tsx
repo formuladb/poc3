@@ -9,10 +9,8 @@ import { cloneDeep, debounce, isEqual } from 'lodash';
 import { useLocation } from 'react-router-dom';
 import { parseLocation } from '../../location_utils';
 import { ResourceFieldDef } from '../../core/entity/fields';
-import MultiSchemaField from './MultiSchemaField';
 import { useResources } from '../../useResources';
 import { groupByUniqProp } from '../../utils';
-// import MultiSchemaField from './MultiSchemaField';
 
 export type SyncCmpSettingsCompleter = (node: CraftJsNode, schema: JSONSchema7) => JSONSchema7;
 export type AsyncCmpSettingsCompleter = (node: CraftJsNode, schema: JSONSchema7, resource: string, resourceList: RecordMap<FrmdbResourceI> | undefined) => Promise<JSONSchema7>;
@@ -67,7 +65,9 @@ export const CmpSettings = ({
 
     console.log(resourcesList, (dynSchema as any)?.properties?.resource?.enum, 'dynSchema=', dynSchema, props, uiSchema);
 
-    const customFields = { AnyOfField: MultiSchemaField as any };
+    const customFields = { 
+        // AnyOfField: MultiSchemaField as any ,
+    };
 
     const updateComponent = ({ formData }) => {
         setProp((props) => {
@@ -77,12 +77,12 @@ export const CmpSettings = ({
         });
         //console.debug("CmpSettings submitted: ", formData, dynSchema);
     };
-    // const debouncedUpdateComponent = debounce(updateComponent, 500);
+    const debouncedUpdateComponent = debounce(updateComponent, 350);
 
     console.log('CmpSettings render', props);
     return (
         <Form uiSchema={uiSchema} schema={dynSchema} formData={props}
-            fields={customFields} onSubmit={updateComponent} />
+            fields={customFields} onChange={debouncedUpdateComponent} />
     );
 }
 
