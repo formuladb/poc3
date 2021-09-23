@@ -261,17 +261,29 @@ const CListSettingSchema = getCListSchema() as JSONSchema7;
 const uiSchema = {
     cListType: {
         "ui:widget": "hidden",
-    }
-    // fields: {
-    //     items: {
-    //         'ui:anyOfDiscriminatorField': 'cInputType',
-    //     }
-    // },
-    // enabledActions: {
-    //     items: {
-    //         'ui:anyOfDiscriminatorField': 'actionType',
-    //     }
-    // }
+    },
+    enabledActions: {
+        classNames: "rjsf-no-title",
+        items: {
+            actionType: {
+                "ui:widget": "hidden",
+            },
+        }
+    },
+    fields: {
+        items: {
+            cListType: {
+                "ui:widget": "hidden",
+            },
+        }
+    },
+    formActions: {
+        items: {
+            actionType: {
+                "ui:widget": "hidden",
+            },
+        }
+    },
 }
 
 export const CListSettings = () => {

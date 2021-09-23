@@ -25,6 +25,33 @@ function fixAnyOfRecursive(obj: object) {
     }
 }
 
+export function generateUiSchema(schema: object) {
+    let uiSchema: object = {};
+    generateUiSchemaRecursive(uiSchema, schema);
+    return uiSchema;
+}
+
+function generateUiSchemaRecursive(uiSchema: object, obj: object) {
+    for (let [k, v] of Object.entries(obj)) {
+        if (k === "cInputType") {
+            uiSchema["cInputType"] = {
+                "ui:widget": "hidden",
+            }
+        } else if (k === "cListType") {
+            uiSchema["cListType"] = {
+                "ui:widget": "hidden",
+            }
+        } else if (k === "actionType") {
+            uiSchema["actionType"] = {
+                "ui:widget": "hidden",
+            }
+        } else if (typeof v === "object") {
+            uiSchema[k] = {};
+            generateUiSchemaRecursive(uiSchema[k], v);
+        }
+    }
+}
+
 function postProcessSchemas(schema: typeof CListPropsSchema | typeof CInputPropsSchema) {
 
     fixAnyOfRecursive(schema);
@@ -35,16 +62,19 @@ function postProcessSchemas(schema: typeof CListPropsSchema | typeof CInputProps
             def.properties.cListType.type = "string";
             def.properties.cListType["readOnly"] = true;
             def.properties.cListType["const"] = cListType;
+            def.properties.cListType["default"] = cListType;
         } else if ("actionType" in def?.properties) {
             const actionType = name.replace(/^Action/, '');
             def.properties.actionType.type = "string";
             def.properties.actionType["readOnly"] = true;
             def.properties.actionType["const"] = actionType;
+            def.properties.actionType["default"] = actionType;
         } else if ("cInputType" in def?.properties) {
             const cInputType = name.replace(/^CInput/, '').replace(/Props$/, '');
             def.properties.cInputType.type = "string";
             (def.properties.cInputType as any).readOnly = true;
             (def.properties.cInputType as any).const = cInputType;
+            (def.properties.cInputType as any).default = cInputType;
         }
     }
 
@@ -54,7 +84,13 @@ function postProcessSchemas(schema: typeof CListPropsSchema | typeof CInputProps
 export function getCInputSchema() {
     return postProcessSchemas(CInputPropsSchema);
 }
+export function getCInputUiSchema() {
+    return generateUiSchema(CInputPropsSchema);
+}
 
 export function getCListSchema() {
     return postProcessSchemas(CListPropsSchema);
+}
+export function getCListUiSchema() {
+    return generateUiSchema(CListPropsSchema);
 }
