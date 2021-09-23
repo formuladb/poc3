@@ -6,6 +6,9 @@ import EditPageIcon from '@material-ui/icons/Brush';
 import { Topbar } from './Topbar';
 import { SettingsPanel } from './SettingsPanel';
 import { Toolbox } from './Toolbox';
+import { useDispatch } from 'react-redux';
+import { toggleEditor } from './actions';
+
 
 const useStyles = makeStyles((theme: Theme) => ({
     fab: {
@@ -22,12 +25,14 @@ export function EditorSidebar(props: any) {
     const [snackbarMessage, setSnackbarMessage] = useState(null as string | null);
 
     useEffect(() => {
-        if (editorOpen) document.body.style.paddingRight = '280px';
+        if (editorOpen) document.body.style.paddingRight = '320px';
         else document.body.style.paddingRight = '0px';
     }, [editorOpen]);
 
+    const dispatch = useDispatch();
+
     return (<>
-        <Fab onClick={() => setEditorOpen(!editorOpen)}
+        <Fab onClick={() => { dispatch(toggleEditor(editorOpen)); setEditorOpen(!editorOpen) }}
             className={classes.fab}
             color={editorOpen ? undefined : "primary"} aria-label="edit" size="small"
             data-testid="FrmdbTogglePageEditorBtn"
@@ -37,7 +42,7 @@ export function EditorSidebar(props: any) {
         <Drawer variant="persistent" anchor="right" open={editorOpen}
             onClose={() => setEditorOpen(false)}
         >
-            {editorOpen && <div style={{ width: '280px' }}>
+            {editorOpen && <div style={{ width: '320px' }}>
                 <Topbar editorEnabled={editorOpen} />
                 <Toolbox />
                 <SettingsPanel />

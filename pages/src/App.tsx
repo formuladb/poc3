@@ -20,6 +20,7 @@ import { Dashboard } from './components/layout/Dashboard';
 import { useSystemParams } from './useSystemParams';
 import { LOCALE } from './core/entity/FrmdbSystemParam';
 import i18nProviderBuilder from './i18nProviderBuilder';
+import editorOpenedReducer from './components/editor/editorOpenedReducer';
 
 const history = createBrowserHistory({
     basename: window.location.pathname.split('/').filter(i => i)[0] || '',
@@ -53,7 +54,7 @@ function App(props: AppProps) {
         { EMPTY_LOCALE !== locale &&
             <AdminContext {...props}
                 i18nProvider={i18nProvider}
-                customReducers={{ theme: themeReducer }}
+                customReducers={{ theme: themeReducer, editorOpened: editorOpenedReducer }}
                 history={history}
             >
                 <AsyncResources />

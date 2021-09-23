@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useCallback } from 'react';
+import { useSelector } from 'react-redux';
 import { useNode, useEditor } from '@craftjs/core';
 import styled from '@emotion/styled';
 
@@ -7,6 +8,7 @@ import Move from '@material-ui/icons/OpenWith';
 import Delete from '@material-ui/icons/Delete';
 import ReactDOM from 'react-dom';
 import { ROOT_NODE } from '@craftjs/utils';
+import { AppState } from '../../types';
 
 const IndicatorDiv = styled.div`
   height: 30px;
@@ -57,11 +59,12 @@ export const RenderNode = ({ render }) => {
     }));
 
     const currentRef = useRef<HTMLDivElement>(null);
+    const editorOpened = useSelector((state: AppState) => state.editorOpened);
 
     useEffect(() => {
         if (dom) {
             dom.classList.add('border', 'border-dashed');
-            if (isActive || isHover) {
+            if (editorOpened && (isActive || isHover)) {
                 dom.classList.add('border-primary');
                 dom.classList.remove('border-transparent');
             } else { 
@@ -69,7 +72,7 @@ export const RenderNode = ({ render }) => {
                 dom.classList.remove('border-primary');
             }
         }
-    }, [dom, isActive, isHover]);
+    }, [dom, isActive, isHover, editorOpened]);
 
     const getPos = useCallback((dom: HTMLElement) => {
         const { top, left, bottom } = dom
@@ -102,11 +105,11 @@ export const RenderNode = ({ render }) => {
         };
     }, [scroll]);
 
-    console.log("RenderNode:", getPos(dom!).left, getPos(dom!).top, isHover, isActive, dom);
+    console.log("RenderNode:", getPos(dom!).left, getPos(dom!).top, isHover, isActive, dom, editorOpened);
 
     return (
         <>
-            {isHover || isActive
+            {editorOpened && (isHover || isActive)
                 ? ReactDOM.createPortal(
                     <IndicatorDiv
                         id="IndicatorDiv"

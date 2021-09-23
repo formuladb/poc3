@@ -419,7 +419,7 @@ export interface CPaperNode extends CPaperProps, PageNodeBase {
 }
 export interface CRowProps {
     background?: string;
-    padding?: number;
+    padding?: 0 | 1 | 2 | 3 | 4;
 }
 export interface CRowNode extends CRowProps, PageNodeBase {
     _tag: 'CRow';

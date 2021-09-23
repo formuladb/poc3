@@ -8,7 +8,7 @@ import {
 import React from 'react';
 
 import ActionIcon from '@material-ui/icons/CallToActionOutlined';
-import FieldIcon from '@material-ui/icons/InputOutlined';
+import FieldIcon from '@material-ui/icons/DnsOutlined';
 import SectionIcon from '@material-ui/icons/ViewDayOutlined';
 import LayoutIcon from '@material-ui/icons/ViewModuleOutlined';
 import ListIcon from '@material-ui/icons/ListAltOutlined';
