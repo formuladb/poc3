@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Form from "@rjsf/material-ui";
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { JSONSchema7 } from 'json-schema';
 import { useNode, Node as CraftJsNode } from '@craftjs/core';
 import { Validator, Schema } from 'jsonschema';
@@ -65,7 +66,7 @@ export const CmpSettings = ({
 
     console.log(resourcesList, (dynSchema as any)?.properties?.resource?.enum, 'dynSchema=', dynSchema, props, uiSchema);
 
-    const customFields = { 
+    const customFields = {
         // AnyOfField: MultiSchemaField as any ,
     };
 
@@ -81,10 +82,19 @@ export const CmpSettings = ({
 
     console.log('CmpSettings render', props);
     return (
-        <Form uiSchema={uiSchema} schema={dynSchema} formData={props}
-            fields={customFields} onChange={debouncedUpdateComponent} />
+        <ThemeProvider theme={Theme}>
+            <Form uiSchema={uiSchema} schema={dynSchema} formData={props}
+                fields={customFields} onChange={debouncedUpdateComponent} />
+        </ThemeProvider>
     );
 }
+
+const Theme = createMuiTheme({
+    spacing: 2,
+    typography: {
+        fontSize: 12
+    }
+});
 
 async function configureDynamicEnums(
     schema: object,

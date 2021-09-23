@@ -259,12 +259,13 @@ RawListInternal.displayName = 'RawListInternal';
 
 const CListSettingSchema = getCListSchema() as JSONSchema7;
 const uiSchema = {
+    "ui:title": " ",
     cListType: {
         "ui:widget": "hidden",
     },
     enabledActions: {
-        classNames: "rjsf-no-title",
         items: {
+            "ui:title": " ",
             actionType: {
                 "ui:widget": "hidden",
             },
@@ -272,13 +273,15 @@ const uiSchema = {
     },
     fields: {
         items: {
-            cListType: {
+            "ui:title": " ",
+            cInputType: {
                 "ui:widget": "hidden",
             },
         }
     },
     formActions: {
         items: {
+            "ui:title": " ",
             actionType: {
                 "ui:widget": "hidden",
             },

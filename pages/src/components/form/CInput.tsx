@@ -82,7 +82,7 @@ CInput.displayName = 'CInput';
 
 const CInputSettingSchema = getCInputSchema() as JSONSchema7;
 const uiSchema = {
-    classNames: "rjsf-no-title",
+    "ui:title": " ",
     cInputType: {
         "ui:widget": "hidden",
     }
