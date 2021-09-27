@@ -9,12 +9,13 @@ export default async () => {
     await autoMigrate(Form11_10_181);
 
     await putRows(FrmdbResource, [
-        { id: "onrc", icon: "material-design-icons/settings", resource_type: "GROUP", menu_order: 1 },
-        { id: entityMetadata(Form11_10_181).tableName, parent: "onrc", icon: "TBD", resource_type: "RESOURCE", menu_order: 0 },
+        { id: "onrc", icon: "material-design-icons-list", resource_type: "GROUP", menu_order: 2 },
+        { id: entityMetadata(Form11_10_181).tableName, parent: "onrc", icon: "material-design-icons-dynamic_form", resource_type: "RESOURCE", menu_order: 0 },
     ]);
 
     const tblName = entityMetadata(Form11_10_181).tableName;
     await putRows(FrmdbDictionary, [
+        { id: `resources.onrc.name`,  en: 'ONRC Forms', ro: 'Formulare ONRC'},
         { id: `resources.${tblName}.name`,  en: 'Form 11-10-181', ro: 'Formular 11-10-181'},
         { id: `resources.${tblName}.fields.id`,  en: 'Id', ro: 'Id'},
         { id: 'resources.quizzes.fields.meta_created_at', en: 'Created At', ro: 'Data Creare' },

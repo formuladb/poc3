@@ -51,6 +51,9 @@ const CustomAppBar = (props: any) => {
                 id="react-admin-title"
             />
             <img src="/frmdb-bucket/images/logo.png" style={{ height: '35px' }} />
+            <span style={{paddingLeft: "5px"}}>
+                Oficiul Național al Registrului Comerțului
+            </span>
             <span className={classes.spacer} />
         </AppBar>
     );

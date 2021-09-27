@@ -1,4 +1,12 @@
-TODOs for demo:
+TODOs for internal demo:
 
-* ro i18n for editor sidebar
-* have the data tables/column created automatically while manipulating the forms?
+* Add column
+* Remove Column
+* Shortcut form page editor to Add/remove column
+* Editing frmdb_dictionary
+* Add Resource/Page
+* Remove Resource/Page
+
+* CSection component
+* Image editor
+* Icon editor

@@ -75,6 +75,9 @@ app.put('/upload/:table/:column/:file', async (req: express.Request, res) => {
 
 pgFmkInstall()
     .then(async () => {
+        console.log("################################################");
+        console.log("## App data ");
+        console.log("################################################");
         await createConnection();
 
         await baseData();
@@ -93,7 +96,9 @@ async function pgFmkInstall() {
 
     if (process.env.ENVTYPE === "localdev") {
         var nodemon = require('nodemon');
-        nodemon(`--exec 'bash /scripts/pg-fmk.sh' -e sql --watch /pg`);
+        setTimeout(() => {
+            nodemon(`--exec 'bash /scripts/pg-fmk.sh' -e sql --watch /pg`);
+        }, 2500);
     }
 }
 

@@ -1,6 +1,6 @@
 import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
 
-@Entity()
+@Entity({name: "frmdb_users"})
 export class FrmdbUser {
 
     @PrimaryGeneratedColumn()
@@ -14,7 +14,7 @@ export class FrmdbUser {
     pass!: string;
 
     @Column()
-    role!: number;
+    role!: string;
 
 }
 
