@@ -43,6 +43,25 @@ export default async () => {
         ...metaColumnsDictionary(tblName),
     ]);
 
+    //Diacritice (ă â î ș ț) (Ă Â Î Ș Ț)
+    tblName = entityMetadata(FrmdbResourceField).tableName;
+    await putRows(FrmdbDictionary, [
+        { id: `resources.${tblName}.name`,  en: 'Resource Fields', ro: 'Câmpuri Resursă'},
+        { id: `resources.${tblName}.fields.id`,  en: 'Id', ro: 'Id'},
+        { id: `resources.${tblName}.fields.c_table_schema`, en: 'c_table_schema', ro: 'c_table_schema'}, 
+        { id: `resources.${tblName}.fields.c_column_name`, en: 'c_column_name', ro: 'c_column_name'}, 
+        { id: `resources.${tblName}.fields.c_data_type`, en: 'c_data_type', ro: 'c_data_type'}, 
+        { id: `resources.${tblName}.fields.c_check`, en: 'c_check', ro: 'c_check'}, 
+        { id: `resources.${tblName}.fields.c_default`, en: 'c_default', ro: 'c_default'}, 
+        { id: `resources.${tblName}.fields.c_column_description`, en: 'c_column_description', ro: 'c_column_description'}, 
+        { id: `resources.${tblName}.fields.c_is_updatable`, en: 'c_is_updatable', ro: 'c_is_updatable'}, 
+        { id: `resources.${tblName}.fields.c_reference_to`, en: 'c_reference_to', ro: 'c_reference_to'}, 
+        { id: `resources.${tblName}.fields.c_formula`, en: 'c_formula', ro: 'c_formula'}, 
+        { id: `resources.${tblName}.fields.c_idx`, en: 'c_idx', ro: 'c_idx'}, 
+    
+        ...metaColumnsDictionary(tblName),
+    ]);
+
     tblName = entityMetadata(FrmdbPage).tableName;
     await putRows(FrmdbDictionary, [
         { id: `resources.${tblName}.name`,  en: 'Pages', ro: 'Pagini'},

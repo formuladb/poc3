@@ -22,7 +22,8 @@ export const frmdb_resources__id: CPageNode = {
                             "cInputType": "TextField",
                             "resource": "frmdb_resources",
                             "source": "id",
-                            "variant": "standard"
+                            "variant": "standard",
+                            "disabled": false
                         },
                         {
                             "_tag": "CInput",
@@ -30,7 +31,8 @@ export const frmdb_resources__id: CPageNode = {
                             "cInputType": "DateTimeField",
                             "resource": "frmdb_resources",
                             "source": "meta_created_at",
-                            "variant": "standard"
+                            "variant": "standard",
+                            "disabled": false
                         },
                         {
                             "_tag": "CInput",
@@ -38,7 +40,8 @@ export const frmdb_resources__id: CPageNode = {
                             "cInputType": "TextField",
                             "resource": "frmdb_resources",
                             "source": "meta_created_by",
-                            "variant": "standard"
+                            "variant": "standard",
+                            "disabled": false
                         },
                         {
                             "_tag": "CInput",
@@ -46,7 +49,8 @@ export const frmdb_resources__id: CPageNode = {
                             "cInputType": "DateTimeField",
                             "resource": "frmdb_resources",
                             "source": "meta_updated_at",
-                            "variant": "standard"
+                            "variant": "standard",
+                            "disabled": false
                         },
                         {
                             "_tag": "CInput",
@@ -54,7 +58,8 @@ export const frmdb_resources__id: CPageNode = {
                             "cInputType": "TextField",
                             "resource": "frmdb_resources",
                             "source": "meta_updated_by",
-                            "variant": "standard"
+                            "variant": "standard",
+                            "disabled": false
                         },
                         {
                             "_tag": "CInput",
@@ -62,7 +67,8 @@ export const frmdb_resources__id: CPageNode = {
                             "cInputType": "TextField",
                             "resource": "frmdb_resources",
                             "source": "parent",
-                            "variant": "standard"
+                            "variant": "standard",
+                            "disabled": false
                         },
                         {
                             "_tag": "CInput",
@@ -70,7 +76,8 @@ export const frmdb_resources__id: CPageNode = {
                             "cInputType": "TextField",
                             "resource": "frmdb_resources",
                             "source": "resource_type",
-                            "variant": "standard"
+                            "variant": "standard",
+                            "disabled": false
                         },
                         {
                             "_tag": "CInput",
@@ -78,7 +85,8 @@ export const frmdb_resources__id: CPageNode = {
                             "cInputType": "TextField",
                             "resource": "frmdb_resources",
                             "source": "icon",
-                            "variant": "standard"
+                            "variant": "standard",
+                            "disabled": false
                         },
                         {
                             "_tag": "CInput",
@@ -86,7 +94,8 @@ export const frmdb_resources__id: CPageNode = {
                             "cInputType": "NumberField",
                             "resource": "frmdb_resources",
                             "source": "menu_order",
-                            "variant": "standard"
+                            "variant": "standard",
+                            "disabled": false
                         },
                         {
                             "_tag": "CInput",
@@ -94,7 +103,8 @@ export const frmdb_resources__id: CPageNode = {
                             "cInputType": "Json",
                             "resource": "frmdb_resources",
                             "source": "options",
-                            "variant": "standard"
+                            "variant": "standard",
+                            "disabled": false
                         }
                     ]
                 }
@@ -109,6 +119,16 @@ export const frmdb_resources__id: CPageNode = {
             "editable": false,
             "isSubListOf": "frmdb_resources",
             "refToParentListFieldName": "resource_id"
+        },
+        {
+            "_tag": "CList",
+            "_id": "lUQUqXjYa",
+            "cListType": "Datagrid",
+            "resource": "frmdb_resources_fields",
+            "labelSource": "id",
+            "editable": false,
+            "refToParentListFieldName": "resource_id",
+            "isSubListOf": "frmdb_resources"
         }
     ]
 };

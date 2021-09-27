@@ -6,7 +6,6 @@ export class FrmdbResourceField {
     @PrimaryColumn() id!: string;
 
     @Column() c_table_schema!: string;
-    @Column() c_table_name!: string;
     @Column() c_column_name!: string;
     @Column() c_data_type!: string;
     @Column() c_check!: string;

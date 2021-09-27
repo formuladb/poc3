@@ -96,6 +96,7 @@ BEGIN
         v_idx integer;
         v_stm varchar;
         v_seq_name text;
+        v_is_view boolean;
     BEGIN
         v_idx := 1;
 
@@ -129,62 +130,68 @@ BEGIN
             EXECUTE v_stm;
         END IF;        
 
-        FOREACH v_perm IN ARRAY ARRAY[
-            p_select_perm, 
-            p_insert_perm,
-            p_update_perm,
-            p_delete_perm
-        ] LOOP
-            v_op := v_ops[v_idx];
-            v_policyname := p_table_name::oid || '_' || v_op || '_' || p_role_name::oid;
+        SELECT TRUE INTO v_is_view FROM information_schema.tables t
+            WHERE t.table_name = p_table_name::information_schema.sql_identifier
+                AND t.table_type = 'VIEW';
 
-            IF v_op = 'INSERT' THEN
-                v_policy := format('WITH CHECK (%s)', v_perm);
-                SELECT with_check INTO v_exiting_perm FROM pg_catalog.pg_policies
-                        WHERE  policyname = v_policyname;
-            ELSE
-                IF v_op = 'UPDATE' THEN
-                    v_policy := format('USING (%s) WITH CHECK (%s)', v_perm, v_perm);
+        IF v_is_view IS NULL THEN
+            FOREACH v_perm IN ARRAY ARRAY[
+                p_select_perm, 
+                p_insert_perm,
+                p_update_perm,
+                p_delete_perm
+            ] LOOP
+                v_op := v_ops[v_idx];
+                v_policyname := p_table_name::oid || '_' || v_op || '_' || p_role_name::oid;
+
+                IF v_op = 'INSERT' THEN
+                    v_policy := format('WITH CHECK (%s)', v_perm);
+                    SELECT with_check INTO v_exiting_perm FROM pg_catalog.pg_policies
+                            WHERE  policyname = v_policyname;
                 ELSE
-                    v_policy := format('USING (%s)', v_perm);
+                    IF v_op = 'UPDATE' THEN
+                        v_policy := format('USING (%s) WITH CHECK (%s)', v_perm, v_perm);
+                    ELSE
+                        v_policy := format('USING (%s)', v_perm);
+                    END IF;
+
+                    SELECT qual INTO v_exiting_perm FROM pg_catalog.pg_policies
+                            WHERE  policyname = v_policyname;
                 END IF;
 
-                SELECT qual INTO v_exiting_perm FROM pg_catalog.pg_policies
-                        WHERE  policyname = v_policyname;
-            END IF;
 
-
-            RAISE NOTICE 'frmdb_set_permission v_op=%, v_policy=%, v_policyname=%, v_exiting_perm=%', v_op, v_policy, v_policyname, v_exiting_perm;
-            IF v_exiting_perm IS NOT NULL THEN
-                IF v_exiting_perm <> v_perm THEN
+                RAISE NOTICE 'frmdb_set_permission v_op=%, v_policy=%, v_policyname=%, v_exiting_perm=%', v_op, v_policy, v_policyname, v_exiting_perm;
+                IF v_exiting_perm IS NOT NULL THEN
+                    IF v_exiting_perm <> v_perm THEN
+                        v_stm := format($$ 
+                            ALTER POLICY %I ON %I 
+                                TO %I
+                                %s;
+                        $$, v_policyname, p_table_name,
+                            p_role_name,
+                            v_policy
+                        );
+                        RAISE NOTICE 'frmdb_set_permission %', v_stm;
+                        EXECUTE v_stm;
+                    ELSE
+                        RAISE NOTICE 'frmdb_set_permission policy % % already exists', v_policyname, v_exiting_perm;
+                    END IF;
+                ELSE
                     v_stm := format($$ 
-                        ALTER POLICY %I ON %I 
-                            TO %I
+                        CREATE POLICY %I ON %I 
+                            FOR %s TO %I
                             %s;
                     $$, v_policyname, p_table_name,
-                        p_role_name,
+                        v_op, p_role_name,
                         v_policy
                     );
                     RAISE NOTICE 'frmdb_set_permission %', v_stm;
                     EXECUTE v_stm;
-                ELSE
-                    RAISE NOTICE 'frmdb_set_permission policy % % already exists', v_policyname, v_exiting_perm;
                 END IF;
-            ELSE
-                v_stm := format($$ 
-                    CREATE POLICY %I ON %I 
-                        FOR %s TO %I
-                        %s;
-                $$, v_policyname, p_table_name,
-                    v_op, p_role_name,
-                    v_policy
-                );
-                RAISE NOTICE 'frmdb_set_permission %', v_stm;
-                EXECUTE v_stm;
-            END IF;
 
-            v_idx := v_idx + 1;
-        END LOOP;
+                v_idx := v_idx + 1;
+            END LOOP;
+        END IF;
 
     END; $fun$ language 'plpgsql';
 END;
@@ -211,7 +218,7 @@ DECLARE
 BEGIN
 
     FOR v_rec IN SELECT relname, relrowsecurity, relforcerowsecurity
-        FROM pg_class WHERE relrowsecurity=true
+        FROM pg_class WHERE relrowsecurity=true OR reltype = 29883
     LOOP
         PERFORM frmdb_set_permission(
             p_role_name, 
