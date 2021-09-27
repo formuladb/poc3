@@ -1,4 +1,4 @@
-import { CInputProps } from "../core-domain/page";
+import { CInputProps } from "../core/entity/page";
 
 export function getFieldLabel(resource: string, field: CInputProps) {
     return `resources.${resource}.fields.${field.source}` +

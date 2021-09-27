@@ -20,7 +20,7 @@ import { EditorSidebar } from './editor/EditorSidebar';
 import { Create, Edit } from 'react-admin';
 import { CPage } from './page/CPage';
 import { ListPage } from './page/ListPage';
-import { CPageProps } from '../core-domain/page';
+import { CPageProps } from '../core/entity/page';
 import { useCurrentUser } from './form/useCurrentUser';
 
 export interface EditablePageProps {

@@ -93,13 +93,6 @@ pgFmkInstall()
 
 async function pgFmkInstall() {
     await runCmd('timeout', '300', 'bash', '/scripts/pg-fmk.sh');
-
-    if (process.env.ENVTYPE === "localdev") {
-        var nodemon = require('nodemon');
-        setTimeout(() => {
-            nodemon(`--exec 'bash /scripts/pg-fmk.sh' -e sql --watch /pg`);
-        }, 2500);
-    }
 }
 
 

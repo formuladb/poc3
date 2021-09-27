@@ -2,7 +2,7 @@ import React from 'react';
 import { ListControllerProps, useTranslate, Record } from "react-admin";
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import { CInputProps } from '../../core-domain/page';
+import { CInputProps } from '../../core/entity/page';
 import { FField } from '../form/FField';
 import { EditButtonPopoverField } from './buttons/EditButtonPopoverFieldProps';
 import { ListContextMemoizer } from './ListContextMemoizer';

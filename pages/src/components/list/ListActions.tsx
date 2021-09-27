@@ -10,7 +10,7 @@ import {
     ListControllerProps, Record,
 } from 'react-admin';
 import { EditButtonPopoverField } from './buttons/EditButtonPopoverFieldProps';
-import { CListPropsBase } from '../../core-domain/page';
+import { CListPropsBase } from '../../core/entity/page';
 import { ImportButton } from './buttons/ImportButton';
 import { ListContextMemoizer } from './ListContextMemoizer';
 

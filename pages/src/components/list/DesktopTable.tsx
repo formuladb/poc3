@@ -9,7 +9,7 @@ import {
     Typography,
 } from '@material-ui/core';
 import React from 'react';
-import { CInputProps } from '../../core-domain/page';
+import { CInputProps } from '../../core/entity/page';
 import { ListContextMemoizer } from './ListContextMemoizer';
 import { ListControllerProps, useTranslate, Record, translate } from "react-admin";
 import { FField } from '../form/FField';

@@ -14,7 +14,7 @@ import { ClientSideRowModelModule } from "@ag-grid-community/client-side-row-mod
 
 import '@ag-grid-community/core/dist/styles/ag-grid.css';
 import '@ag-grid-community/core/dist/styles/ag-theme-alpine.css';
-import { CInputProps, CListPropsBase } from '../../core-domain/page';
+import { CInputProps, CListPropsBase } from '../../core/entity/page';
 
 import { GoToEditPageButton } from './buttons/GoToEditPageButton';
 import { FField } from '../form/FField';

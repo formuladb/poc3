@@ -9,7 +9,7 @@ import {
     useLocation
 } from "react-router-dom";
 import { useRedirect, Record } from 'react-admin';
-import { CListPropsBase } from '../../core-domain/page';
+import { CListPropsBase } from '../../core/entity/page';
 
 import TabIcon1 from '@material-ui/icons/Filter1';
 import TabIcon2 from '@material-ui/icons/Filter2';

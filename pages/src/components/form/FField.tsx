@@ -18,7 +18,7 @@ import {
 import { makeStyles } from '@material-ui/core';
 
 import { FieldType } from "../../core/entity/fields";
-import { CInputProps } from '../../core-domain/page';
+import { CInputProps } from '../../core/entity/page';
 import { FormulaField } from './FormulaField';
 
 const useStyles = makeStyles({
@@ -49,6 +49,7 @@ export function FField({ field, ...props }: { field: CInputProps, record? }) {
         { field.cInputType == 'NumberField' && <NumberField source={field.source}  {...props} />}
         { field.cInputType == 'RichTextField' && <RichTextField source={field.source}  {...props} />}
         { field.cInputType == 'UrlField' && <UrlField source={field.source}  {...props} />}
+        { field.cInputType == 'Json' && <TextField source={field.source}  {...props} />}
         { field.cInputType == 'Reference' &&
             <ReferenceField source={field.source}  {...props} reference={field.reference} >
                 <TextField source={field.referenceText} />

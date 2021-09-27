@@ -9,7 +9,7 @@ import { CButton } from '../page/CButton';
 import { CText } from '../page/CText';
 import { useLocation } from 'react-router-dom';
 import { parseLocation } from '../../location_utils';
-import { CFormProps } from '../../core-domain/page';
+import { CFormProps } from '../../core/entity/page';
 import CFormPropsSchema from '../../core-domain/json-schemas/CFormProps.json';
 import { CmpSettings } from '../editor/CmpSettings';
 import { JSONSchema7 } from 'json-schema';

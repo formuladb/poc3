@@ -1,2 +1,4 @@
+ingress:
+  host: null
 image_for_db: registry.gitlab.com/pagerows/pagerows/dbplv8:12.3-2.3.15-1
 image_db_backup: registry.gitlab.com/pagerows/pagerows/db-backup:b5bdc51b-dirty@sha256:b0180c51255839678e591b097af0fbb0db71cdd9a8f80481c16be82db2704211

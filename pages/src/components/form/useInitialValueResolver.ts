@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { required, useGetIdentity } from 'react-admin';
-import { CInputProps } from '../../core-domain/page';
+import { CInputProps } from '../../core/entity/page';
 
 const requiredFn = required();
 

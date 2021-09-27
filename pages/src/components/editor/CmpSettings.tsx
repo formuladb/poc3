@@ -76,11 +76,11 @@ export const CmpSettings = ({
                 props[k] = v;
             }
         });
-        //console.debug("CmpSettings submitted: ", formData, dynSchema);
+        console.debug("CmpSettings submitted: ", formData, dynSchema);
     };
     const debouncedUpdateComponent = debounce(updateComponent, 350);
 
-    console.log('CmpSettings render', props);
+    console.log('CmpSettings render', props, dynSchema, uiSchema);
     return (
         <ThemeProvider theme={Theme}>
             <Form uiSchema={uiSchema} schema={dynSchema} formData={props}

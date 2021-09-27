@@ -9,7 +9,7 @@ import {
     Validator,
 } from "react-admin";
 import { cloneDeep } from 'lodash';
-import { CInputLookupProps, CInputProps, CInputReferenceProps } from "../../core-domain/page";
+import { CInputLookupProps, CInputProps, CInputReferenceProps } from "../../core/entity/page";
 import { RawFormContext, RawFormContextData, useRawFormContext } from "./useRawFormContext";
 import { useResourceWithFields } from "./useResourceWithFields";
 import { getDefaultReferenceText } from "../defaultEditPageContent";

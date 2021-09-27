@@ -10,6 +10,9 @@ spec:
   - name: "dbrest"
     port: 3000
     targetPort: 3000
+  # - name: "dbweb"
+  #   port: 8081
+  #   targetPort: 8081
   selector:
     service: db
 status:

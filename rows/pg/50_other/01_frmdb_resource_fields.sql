@@ -1,7 +1,18 @@
 CREATE OR REPLACE VIEW frmdb_resources_fiels AS
 
+    WITH info_schema_cols AS (
+        SELECT * FROM information_schema.columns
+        WHERE table_schema = 'public' -- this needs fixing for schema based multi-tenancy
+    ),
+    mat_views AS (
+        SELECT s.nspname, t.* FROM pg_class t 
+            INNER JOIN pg_namespace s ON t.relnamespace = s.oid
+            INNER JOIN pg_matviews m ON t.relname::name = m.matviewname
+        WHERE s.nspname = 'public' -- this needs fixing for schema based multi-tenancy
+    )
     --Tables and Regular Views
     SELECT
+        table_name::text || '--' || column_name::text as id,
         table_schema::varchar as c_table_schema, --1
         table_name::regclass as c_table_name, --2
         column_name::varchar as c_column_name, --3
@@ -19,14 +30,14 @@ CREATE OR REPLACE VIEW frmdb_resources_fiels AS
             ELSE frmdb_get_complex_formulas(table_name::regclass, column_name::varchar)::varchar
         END as c_formula, --10
         ordinal_position as c_idx --11
-    FROM information_schema.columns
-    WHERE table_schema = 'public' -- this needs fixing for schema based multi-tenancy
+    FROM info_schema_cols
     
     UNION ALL
 
     --Materialized Views
     SELECT 
-        s.nspname::varchar as c_table_schema, --1
+        t.relname::text || '--' || attname::text as id,
+        t.nspname::varchar as c_table_schema, --1
         t.relname::regclass as c_table_name, --2
         attname::varchar as c_column_name, --3
         pg_catalog.format_type(a.atttypid, a.atttypmod)::varchar as c_data_type, --4
@@ -41,11 +52,7 @@ CREATE OR REPLACE VIEW frmdb_resources_fiels AS
         null::varchar as c_formula, --10
         a.attnum as c_idx --11
     FROM pg_attribute a
-    JOIN pg_class t on a.attrelid = t.oid
-    JOIN pg_namespace s on t.relnamespace = s.oid
+    JOIN mat_views t on a.attrelid = t.oid
     WHERE a.attnum > 0 
     AND NOT a.attisdropped
-    AND t.reltype = 31944
-    AND s.nspname = 'public' -- this needs fixing for schema based multi-tenancy
-    AND (t.relname::name) in (select matviewname from pg_matviews)
 ;

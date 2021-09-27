@@ -1,7 +1,7 @@
 import React, { ReactElement, } from 'react';
 import { Record } from 'react-admin';
 import { evaluateFormula } from '../../core-functions/evaluateFormula';
-import { CInputFormulaProps } from '../../core-domain/page';
+import { CInputFormulaProps } from '../../core/entity/page';
 import { FField } from './FField';
 
 interface Props {

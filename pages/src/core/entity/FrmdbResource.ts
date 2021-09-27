@@ -1,5 +1,7 @@
-import {Entity, Column, PrimaryColumn} from "typeorm";
+import {Entity, Column, PrimaryColumn, OneToMany} from "typeorm";
 import { ResourceFieldDef } from "./fields";
+import { FrmdbPage } from "./FrmdbPage";
+import { FrmdbResourceField } from "./FrmdbResourceFields";
 
 const FrmdbResourceTypes = {GROUP:0, PAGE:0, RESOURCE:0};
 
@@ -15,7 +17,11 @@ export class FrmdbResource {
         [role: string]: {
             layoutType: "ONE_PAGE" | "ADMIN";//TODO: | "LANDING_PAGE" | "ARTICLE_PAGE";
         }
-    }
+    };
+    @OneToMany(() => FrmdbPage, page => page.resource)
+    pages?: FrmdbPage[];
+    @OneToMany(() => FrmdbResourceField, field => field.resource)
+    fields?: FrmdbResourceField[];
 }
 
 export interface FrmdbResourceI extends FrmdbResource {

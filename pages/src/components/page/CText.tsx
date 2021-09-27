@@ -2,7 +2,7 @@ import { useNode } from '@craftjs/core';
 import { Grid } from '@material-ui/core';
 import React, { useState, useEffect } from 'react';
 import ContentEditable from 'react-contenteditable';
-import { CTextProps } from '../../core-domain/page';
+import { CTextProps } from '../../core/entity/page';
 import CTextPropsSchema from '../../core-domain/json-schemas/CTextProps.json';
 import { JSONSchema7 } from 'json-schema';
 import { CmpSettings } from '../editor/CmpSettings';

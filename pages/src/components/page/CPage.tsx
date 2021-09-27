@@ -2,7 +2,7 @@ import { Node as CraftJsNode, useEditor, useNode } from '@craftjs/core';
 import React, { useEffect, useState } from 'react';
 import { Grid } from '@material-ui/core';
 import { CmpCraftStatic, isGridContainerNode } from '../utils';
-import { CPageProps } from '../../core-domain/page';
+import { CPageProps } from '../../core/entity/page';
 import { CmpSettings } from '../editor/CmpSettings';
 import { JSONSchema7 } from 'json-schema';
 import CPagePropsSchema from '../../core-domain/json-schemas/CPageProps.json';

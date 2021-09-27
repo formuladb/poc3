@@ -1,5 +1,5 @@
 import { ROOT_NODE, SerializedNode } from '@craftjs/core';
-import { PageNode } from '../../core-domain/page';
+import { PageNode } from '../../core/entity/page';
 import { mapToTree, mapFromTree } from './page-utils';
 
 test('should convert to/from tree', () => {

@@ -2,10 +2,10 @@ TODOs for internal demo:
 
 * Add column
 * Remove Column
-* Shortcut form page editor to Add/remove column
-* Editing frmdb_dictionary
 * Add Resource/Page
 * Remove Resource/Page
+* Editing frmdb_dictionary
+* Shortcut form page editor to Add/remove column
 
 * CSection component
 * Image editor

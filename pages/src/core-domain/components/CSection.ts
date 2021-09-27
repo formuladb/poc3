@@ -1,4 +1,4 @@
-import { PageNodeBase } from "../page";
+import { PageNodeBase } from "../../core/entity/page";
 
 export interface CSectionPropsBase {
     /**@TJS-format frmdb-resource-name */

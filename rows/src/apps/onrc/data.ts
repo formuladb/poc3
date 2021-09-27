@@ -17,7 +17,7 @@ export default async () => {
     await putRows(FrmdbDictionary, [
         { id: `resources.onrc.name`,  en: 'ONRC Forms', ro: 'Formulare ONRC'},
         { id: `resources.${tblName}.name`,  en: 'Form 11-10-181', ro: 'Formular 11-10-181'},
-        { id: `resources.${tblName}.fields.id`,  en: 'Id', ro: 'Id'},
+        { id: `resources.${tblName}.fields.tribunal`,  en: 'en:Tribunal', ro: 'Tribunal'},
         { id: 'resources.quizzes.fields.meta_created_at', en: 'Created At', ro: 'Data Creare' },
         { id: 'resources.quizzes.fields.meta_created_by', en: 'Created By', ro: 'Creat De' },
         { id: 'resources.quizzes.fields.meta_updated_at', en: 'Updated At', ro: 'Data Modificare' },

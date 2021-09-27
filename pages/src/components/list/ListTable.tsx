@@ -8,7 +8,7 @@ import {
 } from 'react-admin';
 import { ResourceFieldDef } from '../../core/entity/fields';
 import { FField } from '../form/FField';
-import { CInputProps, CListPropsBase } from '../../core-domain/page';
+import { CInputProps, CListPropsBase } from '../../core/entity/page';
 import { GoToEditPageButton } from './buttons/GoToEditPageButton';
 import { EditButtonPopoverField } from './buttons/EditButtonPopoverFieldProps';
 import { FieldType } from '../../core/entity/fields';

@@ -7,7 +7,7 @@ import { Toolbar, Grid } from '@material-ui/core';
 import { useLocation, useRouteMatch } from 'react-router-dom';
 import { useUpsertRecord } from './useUpsertRecord';
 import { FormWithRedirectProps } from 'react-admin';
-import { ActionSAVE, ActionDELETE, CFormProps, ActionREDIRECT, ActionSET } from '../../core-domain/page';
+import { ActionSAVE, ActionDELETE, CFormProps, ActionREDIRECT, ActionSET } from '../../core/entity/page';
 import { RawFormContext, RawFormContextData } from './useRawFormContext';
 import { groupByUniqProp } from '../../utils';
 import { useValidators } from './useValidators';

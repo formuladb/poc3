@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { ResourceFieldDef } from '../../core/entity/fields';
-import { CInputProps } from '../../core-domain/page';
+import { CInputProps } from '../../core/entity/page';
 import { Record } from 'react-admin';
 
 export interface RawFormContextData {

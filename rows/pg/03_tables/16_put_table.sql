@@ -50,9 +50,9 @@ BEGIN
             END IF;
         END IF;
 
-        PERFORM frmdb_put_column(p_table_name, 'meta_created_at', 'timestamptz', null, 'now()');
+        PERFORM frmdb_put_column(p_table_name, 'meta_created_at', 'timestamp with time zone', null, 'now()');
         PERFORM frmdb_put_column(p_table_name, 'meta_created_by', 'character varying', null, $$current_setting('request.jwt.claim.username', true)$$);
-        PERFORM frmdb_put_column(p_table_name, 'meta_updated_at', 'timestamptz', null, 'now()');
+        PERFORM frmdb_put_column(p_table_name, 'meta_updated_at', 'timestamp with time zone', null, 'now()');
         PERFORM frmdb_put_column(p_table_name, 'meta_updated_by', 'character varying', null, $$current_setting('request.jwt.claim.username', true)$$);
 
         PERFORM frmdb_install_common_columns_trg(p_table_name::regclass);

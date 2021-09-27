@@ -14,7 +14,7 @@ import {
     PieProps,
 } from 'recharts';
 import { Record } from 'react-admin';
-import { CListChartProps } from '../../core-domain/page';
+import { CListChartProps } from '../../core/entity/page';
 import { entries, groupBy } from 'lodash';
 
 interface ListChartProps extends CListChartProps {

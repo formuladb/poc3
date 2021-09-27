@@ -11,7 +11,7 @@ import {
     useLocation
 } from "react-router-dom";
 import { useRedirect, Record } from 'react-admin';
-import { CListPropsBase, FormAction } from '../../core-domain/page';
+import { CListPropsBase, FormAction } from '../../core/entity/page';
 import { toString } from 'lodash';
 
 interface ListTabsProps {

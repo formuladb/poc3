@@ -9,7 +9,7 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { Fab } from '@material-ui/core';
 import { RawForm, RawFormProps } from '../../form/RawForm';
-import { CInputProps, CListPropsBase } from '../../../core-domain/page';
+import { CInputProps, CListPropsBase } from '../../../core/entity/page';
 import { CInput } from '../../form/CInput';
 import { useResourceWithFields } from '../../form/useResourceWithFields';
 import { defaultEditPageFields } from '../../defaultEditPageContent';

@@ -1,5 +1,5 @@
 import { SerializedNode } from '@craftjs/core';
-import { PageNodeMetadata, PageNode, isCanvasNode } from '../../core-domain/page';
+import { PageNodeMetadata, PageNode, isCanvasNode } from '../../core/entity/page';
 import { omitProps } from '../utils';
 
 export function mapToTree(parentId: string, parentNode: SerializedNode, nodes: Record<string, SerializedNode>): PageNode {

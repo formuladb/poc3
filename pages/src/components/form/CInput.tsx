@@ -19,10 +19,11 @@ import { CmpCraftStatic } from '../utils';
 import { Grid } from '@material-ui/core';
 import { LookupInput, FReferenceInput, FReferenceInputAsync } from './LookupReferenceInput';
 import { CList } from '../list/CList';
-import { CInputProps } from '../../core-domain/page';
+import { CInputProps } from '../../core/entity/page';
 import { useRawFormContext } from './useRawFormContext';
 import { useValidators } from './useValidators';
 import { getCInputSchema } from './post-processed-schemas';
+import { JsonInput } from './JsonInput';
 
 export const CInput = (nP: CInputProps) => {
     const { query } = useEditor();
@@ -75,6 +76,10 @@ export const CInput = (nP: CInputProps) => {
             <FReferenceInputAsync {...nP} validate={validationFn} />}
         {nP.cInputType == 'Lookup' &&
             <LookupInput {...nP} validate={validationFn} />}
+        {nP.cInputType == 'Json' && <JsonInput size={nP.size} resource={nP.resource} source={nP.source}
+            variant={nP.variant} disabled={isDisabled} fullWidth={true} 
+            multiline={true} rowsMax={20}
+            validate={validationFn} />}
     </Grid>;
 };
 CInput.displayName = 'CInput';

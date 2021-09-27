@@ -14,7 +14,7 @@ deploy:
       # artifactOverrides:
       #   image_db_backup: registry.gitlab.com/pagerows/pagerows/db-backup
       setValues: 
-        ingress.host: frmdb.localhost
+        #ingress.host: "{{ .PRW_INGRESS_HOST }}"
         envtype: localdev
       #namespace: "{{ .PRW_NAMESPACE }}"
       namespace: prw

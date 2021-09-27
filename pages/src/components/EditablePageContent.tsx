@@ -14,7 +14,7 @@ import { EditablePageProps } from './EditablePage';
 import { mapFromTree } from './editor/page-utils';
 import { defaultEditPageContent } from './defaultEditPageContent';
 import { defaultListPageContent } from './defaultListPageContent';
-import { PageNode } from '../core-domain/page';
+import { PageNode } from '../core/entity/page';
 import { groupByUniqProp } from '../utils';
 
 const useStyles = makeStyles((theme: Theme) => ({

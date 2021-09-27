@@ -19,7 +19,7 @@ import FdbPagination from '../list/FdbPagination';
 import { FilterTree } from '../list/FilterTree';
 import { ListActions } from '../list/ListActions';
 import { ROOT_NODE, useEditor } from '@craftjs/core';
-import { CPageListProps } from '../../core-domain/page';
+import { CPageListProps } from '../../core/entity/page';
 import { xslx_exporter } from './xlsx_exporter/xlsx_exporter';
 import { ResourceFieldDef } from '../../core/entity/fields';
 import { FInput } from '../form/FInput';

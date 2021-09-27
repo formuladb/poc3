@@ -9,28 +9,34 @@ import { FrmdbPage } from "@core/entity/FrmdbPage";
 import { FrmdbDictionary } from "@core/entity/FrmdbDictionary";
 import { metaColumnsDictionary } from "./metaColumnsDictonary";
 import { FrmdbUser } from "@core/entity/FrmdbUser";
+import { FrmdbResourceField } from "@core/entity/FrmdbResourceFields";
 
 export default async () => {
 
     await putRows(FrmdbResource, [
-        { id: "administer", icon: "material-design-icons-settings", resource_type: "GROUP", menu_order: 1 },
+        { id: "debug", icon: "material-design-icons-settings_applications", resource_type: "GROUP", menu_order: 1 },
+        { id: entityMetadata(FrmdbPage).tableName, parent: "debug", icon: "material-design-icons-list_alt", resource_type: "RESOURCE", menu_order: 1 },
+        { id: entityMetadata(FrmdbResourceField).tableName, parent: "debug", icon: "material-design-icons-table_rows", resource_type: "RESOURCE", menu_order: 2 },
+        { id: "administer", icon: "material-design-icons-settings", resource_type: "GROUP", menu_order: 2 },
         { id: entityMetadata(FrmdbResource).tableName, parent: "administer", icon: "material-design-icons-table_rows", resource_type: "RESOURCE", menu_order: 1 },
-        { id: entityMetadata(FrmdbPage).tableName, parent: "administer", icon: "material-design-icons-list_alt", resource_type: "RESOURCE", menu_order: 2 },
-        { id: entityMetadata(FrmdbDictionary).tableName, parent: "administer", icon: "material-design-icons-translate", resource_type: "RESOURCE", menu_order: 3 },
-        { id: entityMetadata(FrmdbSystemParam).tableName, parent: "administer", icon: "material-design-icons-settings_applications", resource_type: "RESOURCE", menu_order: 4 },
-        { id: entityMetadata(FrmdbUser).tableName, parent: "administer", icon: "material-design-icons-people", resource_type: "RESOURCE", menu_order: 5 },
+        { id: entityMetadata(FrmdbDictionary).tableName, parent: "administer", icon: "material-design-icons-translate", resource_type: "RESOURCE", menu_order: 4 },
+        { id: entityMetadata(FrmdbSystemParam).tableName, parent: "administer", icon: "material-design-icons-settings_applications", resource_type: "RESOURCE", menu_order: 5 },
+        { id: entityMetadata(FrmdbUser).tableName, parent: "administer", icon: "material-design-icons-people", resource_type: "RESOURCE", menu_order: 6 },
     ]);
 
     await putRows(FrmdbSystemParam, [
         { id: "LOCALE", val: "en" },
     ]);
     
+    await putRole('administrator');
+    await putRole('operator');
     await putRows(FrmdbUser, [
-        { id: "1", username: "admin", pass: "admin", role: "administrator" },
+        { id: "100", username: "admin", pass: "admin", role: "administrator" },
     ]);
 
     let tblName = entityMetadata(FrmdbResource).tableName;
     await putRows(FrmdbDictionary, [
+        { id: `resources.debug.name`,  en: 'Sys Admin', ro: 'Admin Sistem'},
         { id: `resources.administer.name`,  en: 'Administration', ro: 'Administrare'},
         { id: `resources.${tblName}.name`,  en: 'Resources', ro: 'Resurse'},
         { id: `resources.${tblName}.fields.id`,  en: 'Id', ro: 'Id'},
@@ -70,7 +76,4 @@ export default async () => {
         { id: `resources.${tblName}.fields.pass`,  en: 'Pass', ro: 'Parolă'},
         ...metaColumnsDictionary(tblName),
     ]);
-
-    await putRole('administrator');
-    await putRole('operator');
 }

@@ -29,7 +29,7 @@ import { useLocation } from 'react-router-dom';
 import { parseLocation } from '../../location_utils';
 import { Grid } from '@material-ui/core';
 import { useUpsertRecord } from '../form/useUpsertRecord';
-import { CListProps } from '../../core-domain/page';
+import { CListProps } from '../../core/entity/page';
 import { ListActions } from './ListActions';
 import { getCInputPropsFromFieldDef, getDefaultReferenceText } from '../defaultEditPageContent';
 import { useRawFormContext } from '../form/useRawFormContext';
@@ -261,7 +261,7 @@ const CListSettingSchema = getCListSchema() as JSONSchema7;
 const uiSchema = {
     "ui:title": " ",
     cListType: {
-        "ui:widget": "hidden",
+        // "ui:widget": "hidden",
     },
     enabledActions: {
         items: {

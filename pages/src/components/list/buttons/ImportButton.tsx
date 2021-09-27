@@ -8,7 +8,7 @@ import Popper from '@material-ui/core/Popper';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Tooltip from '@material-ui/core/Tooltip';
-import { ActionIMPORTDATA, CInputProps, CListPropsBase } from '../../../core-domain/page';
+import { ActionIMPORTDATA, CInputProps, CListPropsBase } from '../../../core/entity/page';
 import { useResourceWithFields } from '../../form/useResourceWithFields';
 import { Form, Field } from 'react-final-form';
 import parse from 'csv-parse/lib/es5';

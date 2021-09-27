@@ -1,6 +1,6 @@
 import { DEFAULT_COLS, ResourceFieldDef } from "../core/entity/fields";
 import { FrmdbResourceWithFields } from "../core/entity/FrmdbResource";
-import { CInputFormulaProps, CInputProps, CInputReferenceProps, CInputUrlFieldProps, PageNode } from "../core-domain/page";
+import { CInputFormulaProps, CInputProps, CInputReferenceProps, CInputUrlFieldProps, PageNode } from "../core/entity/page";
 import { isFieldRequired } from "../core-functions/validateAndConvertFields";
 
 export function defaultEditPageContent(

@@ -9,7 +9,7 @@ import { renderWithRedux } from 'ra-test';
 import { EditablePage } from "../EditablePage";
 import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
-import { PageNode } from "../../core-domain/page";
+import { PageNode } from "../../core/entity/page";
 import { ThemeProvider, createMuiTheme } from '@material-ui/core';
 import { rest } from 'msw'
 import { setupServer } from 'msw/node'
