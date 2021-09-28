@@ -217,12 +217,11 @@ DECLARE
     v_stm varchar;
 BEGIN
 
-    FOR v_rec IN SELECT relname, relrowsecurity, relforcerowsecurity
-        FROM pg_class WHERE relrowsecurity=true OR reltype = 29883
+    FOR v_rec IN SELECT table_name from information_schema.tables where table_schema = 'public'
     LOOP
         PERFORM frmdb_set_permission(
             p_role_name, 
-            v_rec.relname::regclass, 
+            v_rec.table_name::regclass, 
             p_select_perm,
             p_insert_perm,
             p_update_perm,

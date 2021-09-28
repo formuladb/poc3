@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import { createConnection, getManager, getRepository } from "typeorm";
-import { putRows } from "../../core-orm/putRow";
+import { putRow, putRows } from "../../core-orm/putRow";
 import { FrmdbResource } from "@core/entity/FrmdbResource";
 import { FrmdbSystemParam } from "@core/entity/FrmdbSystemParam";
 import { putRole } from "src/core-orm/putRole";
@@ -10,18 +10,24 @@ import { FrmdbDictionary } from "@core/entity/FrmdbDictionary";
 import { metaColumnsDictionary } from "./metaColumnsDictonary";
 import { FrmdbUser } from "@core/entity/FrmdbUser";
 import { FrmdbResourceField } from "@core/entity/FrmdbResourceFields";
+import { frmdb_resources__id } from "./frmdb_resources__id";
 
 export default async () => {
+
+    const res1 = await putRow(FrmdbResource, { id: entityMetadata(FrmdbResource).tableName, parent: "administer", icon: "material-design-icons-table_rows", resource_type: "RESOURCE", menu_order: 1 });
 
     await putRows(FrmdbResource, [
         { id: "debug", icon: "material-design-icons-settings_applications", resource_type: "GROUP", menu_order: 1 },
         { id: entityMetadata(FrmdbPage).tableName, parent: "debug", icon: "material-design-icons-list_alt", resource_type: "RESOURCE", menu_order: 1 },
         { id: entityMetadata(FrmdbResourceField).tableName, parent: "debug", icon: "material-design-icons-table_rows", resource_type: "RESOURCE", menu_order: 2 },
         { id: "administer", icon: "material-design-icons-settings", resource_type: "GROUP", menu_order: 2 },
-        { id: entityMetadata(FrmdbResource).tableName, parent: "administer", icon: "material-design-icons-table_rows", resource_type: "RESOURCE", menu_order: 1 },
         { id: entityMetadata(FrmdbDictionary).tableName, parent: "administer", icon: "material-design-icons-translate", resource_type: "RESOURCE", menu_order: 4 },
         { id: entityMetadata(FrmdbSystemParam).tableName, parent: "administer", icon: "material-design-icons-settings_applications", resource_type: "RESOURCE", menu_order: 5 },
         { id: entityMetadata(FrmdbUser).tableName, parent: "administer", icon: "material-design-icons-people", resource_type: "RESOURCE", menu_order: 6 },
+    ]);
+
+    await putRows(FrmdbPage, [
+        { id: "frmdb_resources__id", content: frmdb_resources__id, resource: res1 },
     ]);
 
     await putRows(FrmdbSystemParam, [

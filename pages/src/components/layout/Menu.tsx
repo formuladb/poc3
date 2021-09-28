@@ -35,6 +35,7 @@ const Menu: FC<MenuProps> = ({ onMenuClick, logout, dense = false }) => {
         for (let [parentResName, childRes] of Object.entries(resByParent)) {
             let parentRes = resById[parentResName];
             if (parentRes) {
+                //@ts-ignore
                 childRes = sortBy(childRes, 'menu_order');
                 menuResources.push({ parentRes, childRes, isOpen: true });
             }

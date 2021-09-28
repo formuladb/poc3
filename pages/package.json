@@ -42,8 +42,8 @@
     "react-final-form-listeners": "^1.0.2",
     "react-scripts": "^4.0.2",
     "recharts": "^2.0.9",
-    "typeorm": "^0.2.37",
-    "reflect-metadata": "^0.1.13"
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.2.37"
   },
   "scripts": {
     "start": "react-scripts start --no-cache",

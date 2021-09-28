@@ -261,7 +261,7 @@ const CListSettingSchema = getCListSchema() as JSONSchema7;
 const uiSchema = {
     "ui:title": " ",
     cListType: {
-        // "ui:widget": "hidden",
+        "ui:widget": "hidden",
     },
     enabledActions: {
         items: {

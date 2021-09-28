@@ -31,7 +31,7 @@ const TestPageAsTree: PageNode = {
                 {
                     _tag: "CRow",
                     _id: "s0To1_oLI",
-                    padding: 20,
+                    padding: 2,
                     children: [
                         {
                             _tag: "CInput",
@@ -57,7 +57,7 @@ const TestPageAsTree: PageNode = {
                     _tag: "CRow",
                     _id: "PZDQ-bBtC",
                     background: "#ffffff",
-                    padding: 20,
+                    padding: 2,
                 },
             ],
         },
@@ -149,7 +149,7 @@ const TestPage = {
         },
         isCanvas: true,
         props: {
-            padding: 20
+            padding: 2
         },
         displayName: "Row",
         custom: {},
@@ -169,7 +169,7 @@ const TestPage = {
         isCanvas: true,
         props: {
             background: "#ffffff",
-            padding: 20
+            padding: 2
         },
         displayName: "Row",
         custom: {},
