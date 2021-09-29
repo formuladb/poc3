@@ -1,6 +1,6 @@
 import { PageNodeBase } from "../../core/entity/page";
 
-export interface CSectionPropsBase {
+export interface CDesignBlockPropsBase {
     /**@TJS-format frmdb-resource-name */
     resource: string;
     /**@TJS-format frmdb-resource-field-name */
@@ -19,48 +19,48 @@ export interface CSectionPropsBase {
     actionSource?: string;
 }
 
-export interface CSectionCOVERProps extends CSectionPropsBase {
+export interface CDesignBlockCOVERProps extends CDesignBlockPropsBase {
     cSectionType: 'COVER';
 }
-export interface CSectionCOVERNode extends PageNodeBase, CSectionCOVERProps {
-    _tag: 'CSection';
+export interface CDesignBlockCOVERNode extends PageNodeBase, CDesignBlockCOVERProps {
+    _tag: 'CDesignBlock';
 }
-export interface CSectionHEADERProps extends CSectionPropsBase {
+export interface CDesignBlockHEADERProps extends CDesignBlockPropsBase {
     cSectionType: 'HEADER';
 }
-export interface CSectionHEADERNode extends PageNodeBase, CSectionHEADERProps {
-    _tag: 'CSection';
+export interface CDesignBlockHEADERNode extends PageNodeBase, CDesignBlockHEADERProps {
+    _tag: 'CDesignBlock';
 }
-export interface CSectionMEDIAProps extends CSectionPropsBase {
+export interface CDesignBlockMEDIAProps extends CDesignBlockPropsBase {
     cSectionType: 'MEDIA';
 }
-export interface CSectionMEDIANode extends PageNodeBase, CSectionMEDIAProps {
-    _tag: 'CSection';
+export interface CDesignBlockMEDIANode extends PageNodeBase, CDesignBlockMEDIAProps {
+    _tag: 'CDesignBlock';
 }
-export interface CSectionCARDSProps extends CSectionPropsBase {
+export interface CDesignBlockCARDSProps extends CDesignBlockPropsBase {
     cSectionType: 'CARDS_IMG';
 }
-export interface CSectionCARDSNode extends PageNodeBase, CSectionCARDSProps {
-    _tag: 'CSection';
+export interface CDesignBlockCARDSNode extends PageNodeBase, CDesignBlockCARDSProps {
+    _tag: 'CDesignBlock';
 }
-export interface CSectionCARDS2Props extends CSectionPropsBase {
+export interface CDesignBlockCARDS2Props extends CDesignBlockPropsBase {
     cSectionType: 'CARDS_ICO';
 }
-export interface CSectionCARDS2Node extends PageNodeBase, CSectionCARDS2Props {
-    _tag: 'CSection';
+export interface CDesignBlockCARDS2Node extends PageNodeBase, CDesignBlockCARDS2Props {
+    _tag: 'CDesignBlock';
 }
 
-export type CSectionProps = 
-    | CSectionCOVERProps
-    | CSectionHEADERProps
-    | CSectionMEDIAProps
-    | CSectionCARDSProps
-    | CSectionCARDS2Props
+export type CDesignBlockProps = 
+    | CDesignBlockCOVERProps
+    | CDesignBlockHEADERProps
+    | CDesignBlockMEDIAProps
+    | CDesignBlockCARDSProps
+    | CDesignBlockCARDS2Props
 ;
-export type CSectionNode = 
-    | CSectionCOVERNode
-    | CSectionHEADERNode
-    | CSectionMEDIANode
-    | CSectionCARDSNode
-    | CSectionCARDS2Node
+export type CDesignBlockNode = 
+    | CDesignBlockCOVERNode
+    | CDesignBlockHEADERNode
+    | CDesignBlockMEDIANode
+    | CDesignBlockCARDSNode
+    | CDesignBlockCARDS2Node
 ;

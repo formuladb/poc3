@@ -11,10 +11,8 @@ export const frmdb_resources__id: CPageNode = {
             "resource": "frmdb_resources",
             "children": [
                 {
-                    "_tag": "CRow",
+                    "_tag": "CLayout",
                     "_id": "MainRowId",
-                    "background": "#ffffff",
-                    "padding": 3,
                     "children": [
                         {
                             "_tag": "CInput",
@@ -112,23 +110,28 @@ export const frmdb_resources__id: CPageNode = {
         },
         {
             "_tag": "CList",
-            "_id": "JiQJ_ri5t",
-            "cListType": "Table",
-            "resource": "frmdb_pages",
-            "labelSource": "id",
-            "editable": false,
-            "isSubListOf": "frmdb_resources",
-            "refToParentListFieldName": "resource_id"
-        },
-        {
-            "_tag": "CList",
             "_id": "lUQUqXjYa",
             "cListType": "Datagrid",
             "resource": "frmdb_resources_fields",
             "labelSource": "id",
             "editable": false,
             "refToParentListFieldName": "resource_id",
-            "isSubListOf": "frmdb_resources"
+            "isSubListOf": "frmdb_resources",
+            "enabledActions": [
+                {
+                    "actionType": "CREATE"
+                }
+            ]
+        },
+        {
+            "_tag": "CList",
+            "_id": "JiQJ_ri5t",
+            "cListType": "Datagrid",
+            "resource": "frmdb_pages",
+            "labelSource": "id",
+            "editable": false,
+            "isSubListOf": "frmdb_resources",
+            "refToParentListFieldName": "resource_id"
         }
     ]
 };

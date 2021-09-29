@@ -10,7 +10,7 @@
             "resource": "quiz_sessions",
             "children": [
                 {
-                    "_tag": "CRow",
+                    "_tag": "CLayout",
                     "_id": "MainRowId",
                     "background": "#ffffff",
                     "padding": 3,

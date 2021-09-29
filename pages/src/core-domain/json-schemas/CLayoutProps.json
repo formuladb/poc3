@@ -1,0 +1,291 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionalProperties": false,
+    "definitions": {
+        "Borders": {
+            "additionalProperties": false,
+            "properties": {
+                "border": {
+                    "enum": [
+                        1,
+                        2,
+                        3,
+                        4
+                    ],
+                    "type": "number"
+                },
+                "borderBottom": {
+                    "enum": [
+                        1,
+                        2,
+                        3,
+                        4
+                    ],
+                    "type": "number"
+                },
+                "borderColor": {
+                    "enum": [
+                        "error.main",
+                        "info.main",
+                        "primary.main",
+                        "secondary.main",
+                        "success.main",
+                        "text.disabled",
+                        "text.primary",
+                        "text.secondary",
+                        "warning.main"
+                    ],
+                    "type": "string"
+                },
+                "borderLeft": {
+                    "enum": [
+                        1,
+                        2,
+                        3,
+                        4
+                    ],
+                    "type": "number"
+                },
+                "borderRadius": {
+                    "enum": [
+                        10,
+                        20,
+                        30,
+                        40,
+                        5,
+                        50
+                    ],
+                    "type": "number"
+                },
+                "borderRight": {
+                    "enum": [
+                        1,
+                        2,
+                        3,
+                        4
+                    ],
+                    "type": "number"
+                },
+                "borderTop": {
+                    "enum": [
+                        1,
+                        2,
+                        3,
+                        4
+                    ],
+                    "type": "number"
+                }
+            },
+            "type": "object"
+        },
+        "BoxProps": {
+            "additionalProperties": false,
+            "properties": {
+                "borders": {
+                    "$ref": "#/definitions/Borders"
+                },
+                "spacing": {
+                    "$ref": "#/definitions/Spacing"
+                }
+            },
+            "type": "object"
+        },
+        "Spacing": {
+            "additionalProperties": false,
+            "properties": {
+                "margin": {
+                    "enum": [
+                        0,
+                        0.5,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                    ],
+                    "type": "number"
+                },
+                "marginBottom": {
+                    "enum": [
+                        0,
+                        0.5,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                    ],
+                    "type": "number"
+                },
+                "marginLeft": {
+                    "enum": [
+                        0,
+                        0.5,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                    ],
+                    "type": "number"
+                },
+                "marginRight": {
+                    "enum": [
+                        0,
+                        0.5,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                    ],
+                    "type": "number"
+                },
+                "marginTop": {
+                    "enum": [
+                        0,
+                        0.5,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                    ],
+                    "type": "number"
+                },
+                "marginX": {
+                    "enum": [
+                        0,
+                        0.5,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                    ],
+                    "type": "number"
+                },
+                "marginY": {
+                    "enum": [
+                        0,
+                        0.5,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                    ],
+                    "type": "number"
+                },
+                "padding": {
+                    "enum": [
+                        0,
+                        0.5,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                    ],
+                    "type": "number"
+                },
+                "paddingBottom": {
+                    "enum": [
+                        0,
+                        0.5,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                    ],
+                    "type": "number"
+                },
+                "paddingLeft": {
+                    "enum": [
+                        0,
+                        0.5,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                    ],
+                    "type": "number"
+                },
+                "paddingRight": {
+                    "enum": [
+                        0,
+                        0.5,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                    ],
+                    "type": "number"
+                },
+                "paddingTop": {
+                    "enum": [
+                        0,
+                        0.5,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                    ],
+                    "type": "number"
+                },
+                "paddingX": {
+                    "enum": [
+                        0,
+                        0.5,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                    ],
+                    "type": "number"
+                },
+                "paddingY": {
+                    "enum": [
+                        0,
+                        0.5,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                    ],
+                    "type": "number"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "properties": {
+        "box": {
+            "$ref": "#/definitions/BoxProps"
+        },
+        "direction": {
+            "enum": [
+                "column",
+                "row"
+            ],
+            "type": "string"
+        },
+        "spacing": {
+            "enum": [
+                1,
+                2,
+                3,
+                4
+            ],
+            "type": "number"
+        }
+    },
+    "type": "object"
+}
+

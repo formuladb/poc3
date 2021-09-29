@@ -7,9 +7,9 @@ import React, { ReactElement } from 'react';
 import { CButton } from './page/CButton';
 import { Card, CardBottom, CardTop } from './page/Card';
 import { CPaper } from './page/CPaper';
-import { CSection } from './page/CSection';
+import { CDesignBlock } from './page/CDesignBlock';
 import { CText } from './page/CText';
-import { CRow } from './page/CRow';
+import { CLayout } from './page/CLayout';
 import { CColumn } from './page/CColumn';
 import { CForm } from './form/CForm';
 import { CInput } from './form/CInput';
@@ -42,10 +42,10 @@ export function EditablePage({
                     CButton,
                     CText,
                     CPaper,
-                    CSection,
+                    CDesignBlock,
                     CardTop,
                     CardBottom,
-                    CRow,
+                    CLayout,
                     CColumn,
                     CForm,
                     CInput,

@@ -5,8 +5,7 @@ TODOs for internal demo:
 * Add Resource/Page
 * Remove Resource/Page
 * Editing frmdb_dictionary
-* Shortcut form page editor to Add/remove column
 
-* CSection component
+* CDesignBlock component
 * Image editor
 * Icon editor

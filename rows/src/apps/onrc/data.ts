@@ -1,26 +1,66 @@
 import { FrmdbDictionary } from "@core/entity/FrmdbDictionary";
+import { FrmdbPage } from "@core/entity/FrmdbPage";
 import { FrmdbResource } from "@core/entity/FrmdbResource";
 import { autoMigrate } from "src/core-orm/autoMigrate";
 import { entityMetadata } from "src/core-orm/entityMetadata";
-import { putRows } from "src/core-orm/putRow";
+import { putRow, putRows } from "src/core-orm/putRow";
+import { metaColumnsDictionary } from "../base/metaColumnsDictonary";
+import { Doc11_10_181 } from "./entity/Doc11_10_181";
 import { Form11_10_181 } from "./entity/Form11_10_181";
+import { form11_10_181__id } from "./form11_10_181__id";
 
 export default async () => {
     await autoMigrate(Form11_10_181);
+    await autoMigrate(Doc11_10_181);
+
+    const res1 = await putRow(FrmdbResource, 
+        { id: entityMetadata(Form11_10_181).tableName, parent: "onrc", icon: "material-design-icons-dynamic_form", resource_type: "RESOURCE", menu_order: 0 });
 
     await putRows(FrmdbResource, [
-        { id: "onrc", icon: "material-design-icons-list", resource_type: "GROUP", menu_order: 2 },
-        { id: entityMetadata(Form11_10_181).tableName, parent: "onrc", icon: "material-design-icons-dynamic_form", resource_type: "RESOURCE", menu_order: 0 },
+        { id: "onrc", icon: "material-design-icons-list", resource_type: "GROUP", menu_order: 5 },
+        { id: entityMetadata(Doc11_10_181).tableName, parent: "_hidden_", icon: "material-design-icons-dynamic_form", resource_type: "RESOURCE", menu_order: 0 },
     ]);
 
-    const tblName = entityMetadata(Form11_10_181).tableName;
+    await putRows(FrmdbPage, [
+        { id: "form11_10_181__id", content: form11_10_181__id, resource: res1 },
+    ]);
+
+    let tblName = entityMetadata(Form11_10_181).tableName;
     await putRows(FrmdbDictionary, [
         { id: `resources.onrc.name`,  en: 'ONRC Forms', ro: 'Formulare ONRC'},
+        { id: `resources.${tblName}.fields.id`,  en: 'Id', ro: 'Id'},
         { id: `resources.${tblName}.name`,  en: 'Form 11-10-181', ro: 'Formular 11-10-181'},
-        { id: `resources.${tblName}.fields.tribunal`,  en: 'en:Tribunal', ro: 'Tribunal'},
-        { id: 'resources.quizzes.fields.meta_created_at', en: 'Created At', ro: 'Data Creare' },
-        { id: 'resources.quizzes.fields.meta_created_by', en: 'Created By', ro: 'Creat De' },
-        { id: 'resources.quizzes.fields.meta_updated_at', en: 'Updated At', ro: 'Data Modificare' },
-        { id: 'resources.quizzes.fields.meta_updated_by', en: 'Updated By', ro: 'Modificat De' },
+        { id: `resources.${tblName}.fields.tribunal`,  en: 'Court', ro: 'Tribunal'},
+
+        { id: `resources.${tblName}.fields.subsemnat_nume`, en: 'nam', ro: 'nume'},
+        { id: `resources.${tblName}.fields.subsemnat_domiciliat_in`, en: 'living in', ro: 'domiciliat_in'},
+        { id: `resources.${tblName}.fields.subsemnat_str`, en: 'street', ro: 'str'},
+        { id: `resources.${tblName}.fields.subsemnat_nr`, en: 'No.', ro: 'nr'},
+        { id: `resources.${tblName}.fields.subsemnat_bloc`, en: 'block', ro: 'bloc'},
+        { id: `resources.${tblName}.fields.subsemnat_scara`, en: 'scale', ro: 'scara'},
+        { id: `resources.${tblName}.fields.subsemnat_etaj`, en: 'floor', ro: 'etaj'},
+        { id: `resources.${tblName}.fields.subsemnat_apartament`, en: 'apartment', ro: 'apartament'},
+
+        { id: `resources.${tblName}.fields.autorizare`, en: 'authorization of incorporation and registration', ro: 'autorizare constituire şi înmatriculare'},
+        { id: `resources.${tblName}.fields.prelungire`, en: 'company name reservation extension', ro: 'prelungire rezervare denumire firmă'},
+        { id: `resources.${tblName}.fields.schimbare_denumire`, en: 'name change', ro: 'schimbare denumire'},
+        { id: `resources.${tblName}.fields.schimbare_sediu`, en: 'change of headquarters from / to another county', ro: 'schimbare sediu din/în alt judeţ'},
+        { id: `resources.${tblName}.fields.renuntare`, en: 'Give up the facility', ro: 'Renunțare la facilitate'},
+        
+        { id: `resources.${tblName}.fields.denumire_1`, en: 'name', ro: 'nume' },
+        { id: `resources.${tblName}.fields.denumire_2`, en: 'name', ro: 'nume' },
+        { id: `resources.${tblName}.fields.denumire_3`, en: 'name', ro: 'nume' },
+
+        ...metaColumnsDictionary(tblName),
+    ]);
+
+    tblName = entityMetadata(Doc11_10_181).tableName;
+    await putRows(FrmdbDictionary, [
+        { id: `resources.${tblName}.name`,  en: 'Documents 11-10-181', ro: 'Documente 11-10-181'},
+        { id: `resources.${tblName}.fields.id`,  en: 'Id', ro: 'Id'},
+        { id: `resources.${tblName}.fields.denumirea_actului`,  en: 'Document Name', ro: 'Denumirea Actului'},
+        { id: `resources.${tblName}.fields.nr_file`,  en: 'Nb Pages', ro: 'Nr File'},
+
+        ...metaColumnsDictionary(tblName),
     ]);
 }

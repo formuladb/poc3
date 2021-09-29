@@ -11,7 +11,7 @@ export type CmpCraftStatic = {
 };
 
 export function isGridContainerNode(nodeName: string): boolean {
-    return ['CForm', 'CRow'].includes(nodeName);
+    return ['CForm', 'CLayout'].includes(nodeName);
 }
 
 export function omitProps<T extends object>(obj: T, props: Array<keyof T>) {

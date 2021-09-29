@@ -15,8 +15,8 @@ import ListIcon from '@material-ui/icons/ListAltOutlined';
 import FormIcon from '@material-ui/icons/WidgetsOutlined';
 
 import { CButton } from '../page/CButton';
-import { CSection } from '../page/CSection';
-import { CRow } from '../page/CRow';
+import { CDesignBlock } from '../page/CDesignBlock';
+import { CLayout } from '../page/CLayout';
 import { CText } from '../page/CText';
 import { CForm } from '../form/CForm';
 import { CInput } from '../form/CInput';
@@ -43,15 +43,15 @@ export const Toolbox = () => {
                 </Grid>
                 <Grid md={6} container direction="column" item>
                     <MuiButton style={{ textTransform: 'none' }}
-                        ref={(ref) => connectors.create(ref, <CSection cSectionType="COVER" resource="frmdb_pages" titleSource="id" />)}
+                        ref={(ref) => connectors.create(ref, <CDesignBlock />)}
                         variant="contained"
                     >
-                        <SectionIcon /> Section
+                        <SectionIcon /> Design Block
                     </MuiButton>
                 </Grid>
                 <Grid md={6} container direction="column" item>
                     <MuiButton style={{ textTransform: 'none' }}
-                        ref={(ref) => connectors.create(ref, <Element canvas is={CRow} padding={20}><CText text="Add CCol components here" /></Element>)}
+                        ref={(ref) => connectors.create(ref, <Element canvas is={CLayout} ><CText text="Add CCol components here" /></Element>)}
                         variant="contained"
                     >
                         <LayoutIcon /> Layout

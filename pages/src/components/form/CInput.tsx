@@ -40,7 +40,7 @@ export const CInput = (nP: CInputProps) => {
     const isDisabled = nP.disabled || fieldDef?.c_is_computed /*|| nP.source === "id"*/;
     const initialValueFromUrl = rawFormContext.recordFieldsInUrl?.[nP.source];
 
-    return <Grid item md={nP.width || 3} className="" ref={connect as (instance: HTMLDivElement | null) => void}>
+    return <Grid item md={nP?.item?.width || 3} className="" ref={connect as (instance: HTMLDivElement | null) => void}>
         {nP.cInputType == 'TextField' && <TextInput size={nP.size} resource={nP.resource} source={nP.source} initialValue={nP.initialValue || initialValueFromUrl}
             variant={nP.variant} disabled={isDisabled} fullWidth={true} multiline={nP.multiline}
             validate={validationFn} />}

@@ -22,7 +22,7 @@ export default async () => {
         { id: entityMetadata(FrmdbResourceField).tableName, parent: "debug", icon: "material-design-icons-table_rows", resource_type: "RESOURCE", menu_order: 2 },
         { id: "administer", icon: "material-design-icons-settings", resource_type: "GROUP", menu_order: 2 },
         { id: entityMetadata(FrmdbDictionary).tableName, parent: "administer", icon: "material-design-icons-translate", resource_type: "RESOURCE", menu_order: 4 },
-        { id: entityMetadata(FrmdbSystemParam).tableName, parent: "administer", icon: "material-design-icons-settings_applications", resource_type: "RESOURCE", menu_order: 5 },
+        { id: entityMetadata(FrmdbSystemParam).tableName, parent: "administer", icon: "material-design-icons-edit_attributes", resource_type: "RESOURCE", menu_order: 5 },
         { id: entityMetadata(FrmdbUser).tableName, parent: "administer", icon: "material-design-icons-people", resource_type: "RESOURCE", menu_order: 6 },
     ]);
 
@@ -81,12 +81,24 @@ export default async () => {
         { id: `resources.${tblName}.fields.id`,  en: 'Id', ro: 'Id'},
         { id: `resources.${tblName}.fields.en`,  en: 'English', ro: 'Engleză'},
         { id: `resources.${tblName}.fields.ro`,  en: 'Romanian', ro: 'Română'},
+        { id: `resources.${tblName}.fields.fr`, en: 'fr', ro: 'fr'},
+        { id: `resources.${tblName}.fields.de`, en: 'de', ro: 'de'},
+        { id: `resources.${tblName}.fields.it`, en: 'it', ro: 'it'},
+        { id: `resources.${tblName}.fields.es`, en: 'es', ro: 'es'},
+        { id: `resources.${tblName}.fields.pl`, en: 'pl', ro: 'pl'},
+        { id: `resources.${tblName}.fields.el`, en: 'el', ro: 'el'},
+        { id: `resources.${tblName}.fields.bg`, en: 'bg', ro: 'bg'},
+        { id: `resources.${tblName}.fields.da`, en: 'da', ro: 'da'},
+        { id: `resources.${tblName}.fields.sv`, en: 'sv', ro: 'sv'},
+        { id: `resources.${tblName}.fields.no`, en: 'no', ro: 'no'},
+        { id: `resources.${tblName}.fields.nl`, en: 'nl', ro: 'nl'},
+    
         ...metaColumnsDictionary(tblName),
     ]);
     
     tblName = entityMetadata(FrmdbSystemParam).tableName;
     await putRows(FrmdbDictionary, [
-        { id: `resources.${tblName}.name`,  en: 'System Params', ro: 'Parametri Sistem'},
+        { id: `resources.${tblName}.name`,  en: 'Parameters', ro: 'Parametri'},
         { id: `resources.${tblName}.fields.id`,  en: 'Id', ro: 'Id'},
         { id: `resources.${tblName}.fields.val`,  en: 'Value', ro: 'Valoare'},
         ...metaColumnsDictionary(tblName),

@@ -18,7 +18,7 @@ export function defaultEditPageContent(
                 resource: resourceWithFields.id,
                 children: [
                     {
-                        _tag: "CRow",
+                        _tag: "CLayout",
                         _id: "MainRowId",
                         children: defaultEditPageFields(resourceWithFields, isCreate)
                             .map(props => ({

@@ -203,6 +203,128 @@
             ],
             "type": "object"
         },
+        "Borders": {
+            "additionalProperties": false,
+            "properties": {
+                "border": {
+                    "enum": [
+                        1,
+                        2,
+                        3,
+                        4
+                    ],
+                    "type": "number"
+                },
+                "borderBottom": {
+                    "enum": [
+                        1,
+                        2,
+                        3,
+                        4
+                    ],
+                    "type": "number"
+                },
+                "borderColor": {
+                    "enum": [
+                        "error.main",
+                        "info.main",
+                        "primary.main",
+                        "secondary.main",
+                        "success.main",
+                        "text.disabled",
+                        "text.primary",
+                        "text.secondary",
+                        "warning.main"
+                    ],
+                    "type": "string"
+                },
+                "borderLeft": {
+                    "enum": [
+                        1,
+                        2,
+                        3,
+                        4
+                    ],
+                    "type": "number"
+                },
+                "borderRadius": {
+                    "enum": [
+                        10,
+                        20,
+                        30,
+                        40,
+                        5,
+                        50
+                    ],
+                    "type": "number"
+                },
+                "borderRight": {
+                    "enum": [
+                        1,
+                        2,
+                        3,
+                        4
+                    ],
+                    "type": "number"
+                },
+                "borderTop": {
+                    "enum": [
+                        1,
+                        2,
+                        3,
+                        4
+                    ],
+                    "type": "number"
+                }
+            },
+            "type": "object"
+        },
+        "BoxProps": {
+            "additionalProperties": false,
+            "properties": {
+                "borders": {
+                    "$ref": "#/definitions/Borders"
+                },
+                "spacing": {
+                    "$ref": "#/definitions/Spacing"
+                }
+            },
+            "type": "object"
+        },
+        "CDesignBlockNode": {
+            "additionalProperties": false,
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "_tag": {
+                    "enum": [
+                        "CDesignBlock"
+                    ],
+                    "type": "string"
+                },
+                "body": {
+                    "type": "string"
+                },
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                },
+                "subtitle": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "_id",
+                "_tag"
+            ],
+            "type": "object"
+        },
         "CFormNode": {
             "additionalProperties": false,
             "properties": {
@@ -267,6 +389,9 @@
                     ],
                     "type": "string"
                 },
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
                 "cInputType": {
                     "enum": [
                         "BooleanField"
@@ -278,6 +403,9 @@
                 },
                 "initialValue": {
                     "type": "boolean"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
                 },
                 "resource": {
                     "format": "frmdb-resource-name",
@@ -300,18 +428,6 @@
                         "standard"
                     ],
                     "type": "string"
-                },
-                "width": {
-                    "enum": [
-                        10,
-                        12,
-                        2,
-                        3,
-                        4,
-                        6,
-                        8
-                    ],
-                    "type": "number"
                 }
             },
             "required": [
@@ -326,6 +442,9 @@
         "CInputBooleanFieldProps": {
             "additionalProperties": false,
             "properties": {
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
                 "cInputType": {
                     "enum": [
                         "BooleanField"
@@ -337,6 +456,9 @@
                 },
                 "initialValue": {
                     "type": "boolean"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
                 },
                 "resource": {
                     "format": "frmdb-resource-name",
@@ -359,18 +481,6 @@
                         "standard"
                     ],
                     "type": "string"
-                },
-                "width": {
-                    "enum": [
-                        10,
-                        12,
-                        2,
-                        3,
-                        4,
-                        6,
-                        8
-                    ],
-                    "type": "number"
                 }
             },
             "required": [
@@ -392,6 +502,9 @@
                     ],
                     "type": "string"
                 },
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
                 "cInputType": {
                     "enum": [
                         "ChipField"
@@ -400,6 +513,9 @@
                 },
                 "disabled": {
                     "type": "boolean"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
                 },
                 "resource": {
                     "format": "frmdb-resource-name",
@@ -422,18 +538,6 @@
                         "standard"
                     ],
                     "type": "string"
-                },
-                "width": {
-                    "enum": [
-                        10,
-                        12,
-                        2,
-                        3,
-                        4,
-                        6,
-                        8
-                    ],
-                    "type": "number"
                 }
             },
             "required": [
@@ -448,6 +552,9 @@
         "CInputChipFieldProps": {
             "additionalProperties": false,
             "properties": {
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
                 "cInputType": {
                     "enum": [
                         "ChipField"
@@ -456,6 +563,9 @@
                 },
                 "disabled": {
                     "type": "boolean"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
                 },
                 "resource": {
                     "format": "frmdb-resource-name",
@@ -478,18 +588,6 @@
                         "standard"
                     ],
                     "type": "string"
-                },
-                "width": {
-                    "enum": [
-                        10,
-                        12,
-                        2,
-                        3,
-                        4,
-                        6,
-                        8
-                    ],
-                    "type": "number"
                 }
             },
             "required": [
@@ -511,6 +609,9 @@
                     ],
                     "type": "string"
                 },
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
                 "cInputType": {
                     "enum": [
                         "DateField"
@@ -535,6 +636,9 @@
                         }
                     ]
                 },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                },
                 "resource": {
                     "format": "frmdb-resource-name",
                     "type": "string"
@@ -556,18 +660,6 @@
                         "standard"
                     ],
                     "type": "string"
-                },
-                "width": {
-                    "enum": [
-                        10,
-                        12,
-                        2,
-                        3,
-                        4,
-                        6,
-                        8
-                    ],
-                    "type": "number"
                 }
             },
             "required": [
@@ -582,6 +674,9 @@
         "CInputDateFieldProps": {
             "additionalProperties": false,
             "properties": {
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
                 "cInputType": {
                     "enum": [
                         "DateField"
@@ -606,6 +701,9 @@
                         }
                     ]
                 },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                },
                 "resource": {
                     "format": "frmdb-resource-name",
                     "type": "string"
@@ -627,18 +725,6 @@
                         "standard"
                     ],
                     "type": "string"
-                },
-                "width": {
-                    "enum": [
-                        10,
-                        12,
-                        2,
-                        3,
-                        4,
-                        6,
-                        8
-                    ],
-                    "type": "number"
                 }
             },
             "required": [
@@ -660,6 +746,9 @@
                     ],
                     "type": "string"
                 },
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
                 "cInputType": {
                     "enum": [
                         "DateTimeField"
@@ -684,6 +773,9 @@
                         }
                     ]
                 },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                },
                 "resource": {
                     "format": "frmdb-resource-name",
                     "type": "string"
@@ -705,18 +797,6 @@
                         "standard"
                     ],
                     "type": "string"
-                },
-                "width": {
-                    "enum": [
-                        10,
-                        12,
-                        2,
-                        3,
-                        4,
-                        6,
-                        8
-                    ],
-                    "type": "number"
                 }
             },
             "required": [
@@ -731,6 +811,9 @@
         "CInputDateTimeFieldProps": {
             "additionalProperties": false,
             "properties": {
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
                 "cInputType": {
                     "enum": [
                         "DateTimeField"
@@ -755,6 +838,9 @@
                         }
                     ]
                 },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                },
                 "resource": {
                     "format": "frmdb-resource-name",
                     "type": "string"
@@ -776,18 +862,6 @@
                         "standard"
                     ],
                     "type": "string"
-                },
-                "width": {
-                    "enum": [
-                        10,
-                        12,
-                        2,
-                        3,
-                        4,
-                        6,
-                        8
-                    ],
-                    "type": "number"
                 }
             },
             "required": [
@@ -809,6 +883,9 @@
                     ],
                     "type": "string"
                 },
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
                 "cInputType": {
                     "enum": [
                         "EmailField"
@@ -817,6 +894,9 @@
                 },
                 "disabled": {
                     "type": "boolean"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
                 },
                 "resource": {
                     "format": "frmdb-resource-name",
@@ -839,18 +919,6 @@
                         "standard"
                     ],
                     "type": "string"
-                },
-                "width": {
-                    "enum": [
-                        10,
-                        12,
-                        2,
-                        3,
-                        4,
-                        6,
-                        8
-                    ],
-                    "type": "number"
                 }
             },
             "required": [
@@ -865,6 +933,9 @@
         "CInputEmailFieldProps": {
             "additionalProperties": false,
             "properties": {
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
                 "cInputType": {
                     "enum": [
                         "EmailField"
@@ -873,6 +944,9 @@
                 },
                 "disabled": {
                     "type": "boolean"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
                 },
                 "resource": {
                     "format": "frmdb-resource-name",
@@ -895,18 +969,6 @@
                         "standard"
                     ],
                     "type": "string"
-                },
-                "width": {
-                    "enum": [
-                        10,
-                        12,
-                        2,
-                        3,
-                        4,
-                        6,
-                        8
-                    ],
-                    "type": "number"
                 }
             },
             "required": [
@@ -928,6 +990,9 @@
                     ],
                     "type": "string"
                 },
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
                 "cInputType": {
                     "enum": [
                         "FileField"
@@ -936,6 +1001,9 @@
                 },
                 "disabled": {
                     "type": "boolean"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
                 },
                 "resource": {
                     "format": "frmdb-resource-name",
@@ -958,18 +1026,6 @@
                         "standard"
                     ],
                     "type": "string"
-                },
-                "width": {
-                    "enum": [
-                        10,
-                        12,
-                        2,
-                        3,
-                        4,
-                        6,
-                        8
-                    ],
-                    "type": "number"
                 }
             },
             "required": [
@@ -984,6 +1040,9 @@
         "CInputFileFieldProps": {
             "additionalProperties": false,
             "properties": {
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
                 "cInputType": {
                     "enum": [
                         "FileField"
@@ -992,6 +1051,9 @@
                 },
                 "disabled": {
                     "type": "boolean"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
                 },
                 "resource": {
                     "format": "frmdb-resource-name",
@@ -1014,18 +1076,6 @@
                         "standard"
                     ],
                     "type": "string"
-                },
-                "width": {
-                    "enum": [
-                        10,
-                        12,
-                        2,
-                        3,
-                        4,
-                        6,
-                        8
-                    ],
-                    "type": "number"
                 }
             },
             "required": [
@@ -1047,6 +1097,9 @@
                     ],
                     "type": "string"
                 },
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
                 "cInputType": {
                     "enum": [
                         "Formula"
@@ -1111,6 +1164,9 @@
                 "formula": {
                     "type": "string"
                 },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                },
                 "resource": {
                     "format": "frmdb-resource-name",
                     "type": "string"
@@ -1132,18 +1188,6 @@
                         "standard"
                     ],
                     "type": "string"
-                },
-                "width": {
-                    "enum": [
-                        10,
-                        12,
-                        2,
-                        3,
-                        4,
-                        6,
-                        8
-                    ],
-                    "type": "number"
                 }
             },
             "required": [
@@ -1160,6 +1204,9 @@
         "CInputFormulaProps": {
             "additionalProperties": false,
             "properties": {
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
                 "cInputType": {
                     "enum": [
                         "Formula"
@@ -1224,6 +1271,9 @@
                 "formula": {
                     "type": "string"
                 },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                },
                 "resource": {
                     "format": "frmdb-resource-name",
                     "type": "string"
@@ -1245,18 +1295,6 @@
                         "standard"
                     ],
                     "type": "string"
-                },
-                "width": {
-                    "enum": [
-                        10,
-                        12,
-                        2,
-                        3,
-                        4,
-                        6,
-                        8
-                    ],
-                    "type": "number"
                 }
             },
             "required": [
@@ -1280,6 +1318,9 @@
                     ],
                     "type": "string"
                 },
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
                 "cInputType": {
                     "enum": [
                         "ImageField"
@@ -1288,6 +1329,9 @@
                 },
                 "disabled": {
                     "type": "boolean"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
                 },
                 "resource": {
                     "format": "frmdb-resource-name",
@@ -1310,18 +1354,6 @@
                         "standard"
                     ],
                     "type": "string"
-                },
-                "width": {
-                    "enum": [
-                        10,
-                        12,
-                        2,
-                        3,
-                        4,
-                        6,
-                        8
-                    ],
-                    "type": "number"
                 }
             },
             "required": [
@@ -1336,6 +1368,9 @@
         "CInputImageFieldProps": {
             "additionalProperties": false,
             "properties": {
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
                 "cInputType": {
                     "enum": [
                         "ImageField"
@@ -1344,6 +1379,9 @@
                 },
                 "disabled": {
                     "type": "boolean"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
                 },
                 "resource": {
                     "format": "frmdb-resource-name",
@@ -1366,18 +1404,6 @@
                         "standard"
                     ],
                     "type": "string"
-                },
-                "width": {
-                    "enum": [
-                        10,
-                        12,
-                        2,
-                        3,
-                        4,
-                        6,
-                        8
-                    ],
-                    "type": "number"
                 }
             },
             "required": [
@@ -1399,6 +1425,9 @@
                     ],
                     "type": "string"
                 },
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
                 "cInputType": {
                     "enum": [
                         "IntervalField"
@@ -1407,6 +1436,9 @@
                 },
                 "disabled": {
                     "type": "boolean"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
                 },
                 "resource": {
                     "format": "frmdb-resource-name",
@@ -1429,18 +1461,6 @@
                         "standard"
                     ],
                     "type": "string"
-                },
-                "width": {
-                    "enum": [
-                        10,
-                        12,
-                        2,
-                        3,
-                        4,
-                        6,
-                        8
-                    ],
-                    "type": "number"
                 }
             },
             "required": [
@@ -1455,6 +1475,9 @@
         "CInputIntervalFieldProps": {
             "additionalProperties": false,
             "properties": {
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
                 "cInputType": {
                     "enum": [
                         "IntervalField"
@@ -1463,6 +1486,9 @@
                 },
                 "disabled": {
                     "type": "boolean"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
                 },
                 "resource": {
                     "format": "frmdb-resource-name",
@@ -1485,18 +1511,6 @@
                         "standard"
                     ],
                     "type": "string"
-                },
-                "width": {
-                    "enum": [
-                        10,
-                        12,
-                        2,
-                        3,
-                        4,
-                        6,
-                        8
-                    ],
-                    "type": "number"
                 }
             },
             "required": [
@@ -1518,6 +1532,9 @@
                     ],
                     "type": "string"
                 },
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
                 "cInputType": {
                     "enum": [
                         "Json"
@@ -1526,6 +1543,9 @@
                 },
                 "disabled": {
                     "type": "boolean"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
                 },
                 "resource": {
                     "format": "frmdb-resource-name",
@@ -1548,18 +1568,6 @@
                         "standard"
                     ],
                     "type": "string"
-                },
-                "width": {
-                    "enum": [
-                        10,
-                        12,
-                        2,
-                        3,
-                        4,
-                        6,
-                        8
-                    ],
-                    "type": "number"
                 }
             },
             "required": [
@@ -1574,6 +1582,9 @@
         "CInputJsonProps": {
             "additionalProperties": false,
             "properties": {
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
                 "cInputType": {
                     "enum": [
                         "Json"
@@ -1582,6 +1593,9 @@
                 },
                 "disabled": {
                     "type": "boolean"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
                 },
                 "resource": {
                     "format": "frmdb-resource-name",
@@ -1604,18 +1618,6 @@
                         "standard"
                     ],
                     "type": "string"
-                },
-                "width": {
-                    "enum": [
-                        10,
-                        12,
-                        2,
-                        3,
-                        4,
-                        6,
-                        8
-                    ],
-                    "type": "number"
                 }
             },
             "required": [
@@ -1637,6 +1639,9 @@
                     ],
                     "type": "string"
                 },
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
                 "cInputType": {
                     "enum": [
                         "Lookup"
@@ -1645,6 +1650,9 @@
                 },
                 "disabled": {
                     "type": "boolean"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
                 },
                 "referenceField": {
                     "type": "string"
@@ -1673,18 +1681,6 @@
                         "standard"
                     ],
                     "type": "string"
-                },
-                "width": {
-                    "enum": [
-                        10,
-                        12,
-                        2,
-                        3,
-                        4,
-                        6,
-                        8
-                    ],
-                    "type": "number"
                 }
             },
             "required": [
@@ -1701,6 +1697,9 @@
         "CInputLookupProps": {
             "additionalProperties": false,
             "properties": {
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
                 "cInputType": {
                     "enum": [
                         "Lookup"
@@ -1709,6 +1708,9 @@
                 },
                 "disabled": {
                     "type": "boolean"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
                 },
                 "referenceField": {
                     "type": "string"
@@ -1737,18 +1739,6 @@
                         "standard"
                     ],
                     "type": "string"
-                },
-                "width": {
-                    "enum": [
-                        10,
-                        12,
-                        2,
-                        3,
-                        4,
-                        6,
-                        8
-                    ],
-                    "type": "number"
                 }
             },
             "required": [
@@ -1772,6 +1762,9 @@
                     ],
                     "type": "string"
                 },
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
                 "cInputType": {
                     "enum": [
                         "NumberField"
@@ -1783,6 +1776,9 @@
                 },
                 "initialValue": {
                     "type": "number"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
                 },
                 "resource": {
                     "format": "frmdb-resource-name",
@@ -1805,18 +1801,6 @@
                         "standard"
                     ],
                     "type": "string"
-                },
-                "width": {
-                    "enum": [
-                        10,
-                        12,
-                        2,
-                        3,
-                        4,
-                        6,
-                        8
-                    ],
-                    "type": "number"
                 }
             },
             "required": [
@@ -1831,6 +1815,9 @@
         "CInputNumberFieldProps": {
             "additionalProperties": false,
             "properties": {
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
                 "cInputType": {
                     "enum": [
                         "NumberField"
@@ -1842,6 +1829,9 @@
                 },
                 "initialValue": {
                     "type": "number"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
                 },
                 "resource": {
                     "format": "frmdb-resource-name",
@@ -1864,18 +1854,6 @@
                         "standard"
                     ],
                     "type": "string"
-                },
-                "width": {
-                    "enum": [
-                        10,
-                        12,
-                        2,
-                        3,
-                        4,
-                        6,
-                        8
-                    ],
-                    "type": "number"
                 }
             },
             "required": [
@@ -1897,6 +1875,9 @@
                     ],
                     "type": "string"
                 },
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
                 "cInputType": {
                     "enum": [
                         "Reference"
@@ -1912,6 +1893,9 @@
                         "CURRENT_USER_ID"
                     ],
                     "type": "string"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
                 },
                 "layout": {
                     "enum": [
@@ -1970,18 +1954,6 @@
                         "standard"
                     ],
                     "type": "string"
-                },
-                "width": {
-                    "enum": [
-                        10,
-                        12,
-                        2,
-                        3,
-                        4,
-                        6,
-                        8
-                    ],
-                    "type": "number"
                 }
             },
             "required": [
@@ -1997,6 +1969,9 @@
         "CInputReferenceProps": {
             "additionalProperties": false,
             "properties": {
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
                 "cInputType": {
                     "enum": [
                         "Reference"
@@ -2012,6 +1987,9 @@
                         "CURRENT_USER_ID"
                     ],
                     "type": "string"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
                 },
                 "layout": {
                     "enum": [
@@ -2070,18 +2048,6 @@
                         "standard"
                     ],
                     "type": "string"
-                },
-                "width": {
-                    "enum": [
-                        10,
-                        12,
-                        2,
-                        3,
-                        4,
-                        6,
-                        8
-                    ],
-                    "type": "number"
                 }
             },
             "required": [
@@ -2104,6 +2070,9 @@
                     ],
                     "type": "string"
                 },
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
                 "cInputType": {
                     "enum": [
                         "RichTextField"
@@ -2115,6 +2084,9 @@
                 },
                 "initialValue": {
                     "type": "string"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
                 },
                 "resource": {
                     "format": "frmdb-resource-name",
@@ -2137,18 +2109,6 @@
                         "standard"
                     ],
                     "type": "string"
-                },
-                "width": {
-                    "enum": [
-                        10,
-                        12,
-                        2,
-                        3,
-                        4,
-                        6,
-                        8
-                    ],
-                    "type": "number"
                 }
             },
             "required": [
@@ -2163,6 +2123,9 @@
         "CInputRichTextFieldProps": {
             "additionalProperties": false,
             "properties": {
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
                 "cInputType": {
                     "enum": [
                         "RichTextField"
@@ -2174,6 +2137,9 @@
                 },
                 "initialValue": {
                     "type": "string"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
                 },
                 "resource": {
                     "format": "frmdb-resource-name",
@@ -2196,18 +2162,6 @@
                         "standard"
                     ],
                     "type": "string"
-                },
-                "width": {
-                    "enum": [
-                        10,
-                        12,
-                        2,
-                        3,
-                        4,
-                        6,
-                        8
-                    ],
-                    "type": "number"
                 }
             },
             "required": [
@@ -2229,6 +2183,9 @@
                     ],
                     "type": "string"
                 },
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
                 "cInputType": {
                     "enum": [
                         "Select"
@@ -2246,6 +2203,9 @@
                 },
                 "initialValue": {
                     "type": "string"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
                 },
                 "resource": {
                     "format": "frmdb-resource-name",
@@ -2275,18 +2235,6 @@
                         "standard"
                     ],
                     "type": "string"
-                },
-                "width": {
-                    "enum": [
-                        10,
-                        12,
-                        2,
-                        3,
-                        4,
-                        6,
-                        8
-                    ],
-                    "type": "number"
                 }
             },
             "required": [
@@ -2302,6 +2250,9 @@
         "CInputSelectProps": {
             "additionalProperties": false,
             "properties": {
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
                 "cInputType": {
                     "enum": [
                         "Select"
@@ -2319,6 +2270,9 @@
                 },
                 "initialValue": {
                     "type": "string"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
                 },
                 "resource": {
                     "format": "frmdb-resource-name",
@@ -2348,18 +2302,6 @@
                         "standard"
                     ],
                     "type": "string"
-                },
-                "width": {
-                    "enum": [
-                        10,
-                        12,
-                        2,
-                        3,
-                        4,
-                        6,
-                        8
-                    ],
-                    "type": "number"
                 }
             },
             "required": [
@@ -2382,6 +2324,9 @@
                     ],
                     "type": "string"
                 },
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
                 "cInputType": {
                     "enum": [
                         "TextField"
@@ -2393,6 +2338,9 @@
                 },
                 "initialValue": {
                     "type": "string"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
                 },
                 "multiline": {
                     "type": "boolean"
@@ -2418,18 +2366,6 @@
                         "standard"
                     ],
                     "type": "string"
-                },
-                "width": {
-                    "enum": [
-                        10,
-                        12,
-                        2,
-                        3,
-                        4,
-                        6,
-                        8
-                    ],
-                    "type": "number"
                 }
             },
             "required": [
@@ -2444,6 +2380,9 @@
         "CInputTextFieldProps": {
             "additionalProperties": false,
             "properties": {
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
                 "cInputType": {
                     "enum": [
                         "TextField"
@@ -2455,6 +2394,9 @@
                 },
                 "initialValue": {
                     "type": "string"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
                 },
                 "multiline": {
                     "type": "boolean"
@@ -2480,18 +2422,6 @@
                         "standard"
                     ],
                     "type": "string"
-                },
-                "width": {
-                    "enum": [
-                        10,
-                        12,
-                        2,
-                        3,
-                        4,
-                        6,
-                        8
-                    ],
-                    "type": "number"
                 }
             },
             "required": [
@@ -2513,6 +2443,9 @@
                     ],
                     "type": "string"
                 },
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
                 "cInputType": {
                     "enum": [
                         "UrlField"
@@ -2521,6 +2454,9 @@
                 },
                 "disabled": {
                     "type": "boolean"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
                 },
                 "resource": {
                     "format": "frmdb-resource-name",
@@ -2543,18 +2479,6 @@
                         "standard"
                     ],
                     "type": "string"
-                },
-                "width": {
-                    "enum": [
-                        10,
-                        12,
-                        2,
-                        3,
-                        4,
-                        6,
-                        8
-                    ],
-                    "type": "number"
                 }
             },
             "required": [
@@ -2569,6 +2493,9 @@
         "CInputUrlFieldProps": {
             "additionalProperties": false,
             "properties": {
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
                 "cInputType": {
                     "enum": [
                         "UrlField"
@@ -2577,6 +2504,9 @@
                 },
                 "disabled": {
                     "type": "boolean"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
                 },
                 "resource": {
                     "format": "frmdb-resource-name",
@@ -2599,24 +2529,56 @@
                         "standard"
                     ],
                     "type": "string"
-                },
-                "width": {
-                    "enum": [
-                        10,
-                        12,
-                        2,
-                        3,
-                        4,
-                        6,
-                        8
-                    ],
-                    "type": "number"
                 }
             },
             "required": [
                 "cInputType",
                 "resource",
                 "source"
+            ],
+            "type": "object"
+        },
+        "CLayoutNode": {
+            "additionalProperties": false,
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "_tag": {
+                    "enum": [
+                        "CLayout"
+                    ],
+                    "type": "string"
+                },
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
+                "children": {
+                    "items": {
+                        "$ref": "#/definitions/PageNode"
+                    },
+                    "type": "array"
+                },
+                "direction": {
+                    "enum": [
+                        "column",
+                        "row"
+                    ],
+                    "type": "string"
+                },
+                "spacing": {
+                    "enum": [
+                        1,
+                        2,
+                        3,
+                        4
+                    ],
+                    "type": "number"
+                }
+            },
+            "required": [
+                "_id",
+                "_tag"
             ],
             "type": "object"
         },
@@ -3617,37 +3579,6 @@
             ],
             "type": "object"
         },
-        "CRowNode": {
-            "additionalProperties": false,
-            "properties": {
-                "_id": {
-                    "type": "string"
-                },
-                "_tag": {
-                    "enum": [
-                        "CRow"
-                    ],
-                    "type": "string"
-                },
-                "background": {
-                    "type": "string"
-                },
-                "children": {
-                    "items": {
-                        "$ref": "#/definitions/PageNode"
-                    },
-                    "type": "array"
-                },
-                "padding": {
-                    "type": "number"
-                }
-            },
-            "required": [
-                "_id",
-                "_tag"
-            ],
-            "type": "object"
-        },
         "CTextNode": {
             "additionalProperties": false,
             "properties": {
@@ -3689,6 +3620,24 @@
                 "_tag",
                 "text"
             ],
+            "type": "object"
+        },
+        "GridItemProps": {
+            "additionalProperties": false,
+            "properties": {
+                "width": {
+                    "enum": [
+                        10,
+                        12,
+                        2,
+                        3,
+                        4,
+                        6,
+                        8
+                    ],
+                    "type": "number"
+                }
+            },
             "type": "object"
         },
         "PageNode": {
@@ -3778,9 +3727,186 @@
                     "$ref": "#/definitions/CPaperNode"
                 },
                 {
-                    "$ref": "#/definitions/CRowNode"
+                    "$ref": "#/definitions/CLayoutNode"
+                },
+                {
+                    "$ref": "#/definitions/CDesignBlockNode"
                 }
             ]
+        },
+        "Spacing": {
+            "additionalProperties": false,
+            "properties": {
+                "margin": {
+                    "enum": [
+                        0,
+                        0.5,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                    ],
+                    "type": "number"
+                },
+                "marginBottom": {
+                    "enum": [
+                        0,
+                        0.5,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                    ],
+                    "type": "number"
+                },
+                "marginLeft": {
+                    "enum": [
+                        0,
+                        0.5,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                    ],
+                    "type": "number"
+                },
+                "marginRight": {
+                    "enum": [
+                        0,
+                        0.5,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                    ],
+                    "type": "number"
+                },
+                "marginTop": {
+                    "enum": [
+                        0,
+                        0.5,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                    ],
+                    "type": "number"
+                },
+                "marginX": {
+                    "enum": [
+                        0,
+                        0.5,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                    ],
+                    "type": "number"
+                },
+                "marginY": {
+                    "enum": [
+                        0,
+                        0.5,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                    ],
+                    "type": "number"
+                },
+                "padding": {
+                    "enum": [
+                        0,
+                        0.5,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                    ],
+                    "type": "number"
+                },
+                "paddingBottom": {
+                    "enum": [
+                        0,
+                        0.5,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                    ],
+                    "type": "number"
+                },
+                "paddingLeft": {
+                    "enum": [
+                        0,
+                        0.5,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                    ],
+                    "type": "number"
+                },
+                "paddingRight": {
+                    "enum": [
+                        0,
+                        0.5,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                    ],
+                    "type": "number"
+                },
+                "paddingTop": {
+                    "enum": [
+                        0,
+                        0.5,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                    ],
+                    "type": "number"
+                },
+                "paddingX": {
+                    "enum": [
+                        0,
+                        0.5,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                    ],
+                    "type": "number"
+                },
+                "paddingY": {
+                    "enum": [
+                        0,
+                        0.5,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                    ],
+                    "type": "number"
+                }
+            },
+            "type": "object"
         }
     }
 }

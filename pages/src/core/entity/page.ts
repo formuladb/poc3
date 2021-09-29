@@ -1,3 +1,5 @@
+import { BoxProps } from "./styles";
+
 export interface FormulaInUI {
     expression: string;
 }
@@ -195,7 +197,7 @@ interface GridItemProps {
     width?: 2 | 3 | 4 | 6 | 8 | 10 | 12;
 }
 
-interface CInputPropsBase extends GridItemProps {
+interface CInputPropsBase {
     /**@TJS-format frmdb-resource-name */
     resource: string;
     /**@TJS-format frmdb-resource-field-name */
@@ -204,6 +206,9 @@ interface CInputPropsBase extends GridItemProps {
     variant?: 'standard' | 'filled' | 'outlined';
     size?: 'small';
     disabled?: boolean;
+
+    box?: BoxProps;
+    item?: GridItemProps;
 }
 
 /**@TJS-title TextField */
@@ -417,13 +422,26 @@ export interface CPaperNode extends CPaperProps, PageNodeBase {
     _tag: 'CPaper';
     children?: PageNode[];
 }
-export interface CRowProps {
-    background?: string;
-    padding?: 0 | 1 | 2 | 3 | 4;
+export interface CLayoutProps {
+    direction?: "row" | "column";
+    spacing?: 1 | 2 | 3 | 4;
+
+    box?: BoxProps;
 }
-export interface CRowNode extends CRowProps, PageNodeBase {
-    _tag: 'CRow';
+export interface CLayoutNode extends CLayoutProps, PageNodeBase {
+    _tag: 'CLayout';
     children?: PageNode[];
+}
+
+export interface CDesignBlockProps {
+    title?: string;
+    subtitle?: string;
+    body?: string;
+    box?: BoxProps;
+    item?: GridItemProps;
+}
+export interface CDesignBlockNode extends CDesignBlockProps, PageNodeBase {
+    _tag: 'CDesignBlock';
 }
 
 export const PageNodeMetadata = {
@@ -431,7 +449,8 @@ export const PageNodeMetadata = {
     CList: { isCanvas: true, displayName: 'List' },
     CInput: { isCanvas: false, displayName: 'Input' },
     CForm: { isCanvas: true, displayName: 'Form' },
-    CRow: { isCanvas: true, displayName: 'Row' },
+    CLayout: { isCanvas: true, displayName: 'Row' },
+    CDesignBlock: { isCanvas: false, displayName: 'DesignBlock' },
     CPaper: { isCanvas: true, displayName: 'Paper' },
     CText: { isCanvas: false, displayName: 'Text' },
 }
@@ -441,7 +460,7 @@ export type CanvasPageNode =
     | CListNode
     | CFormNode
     | CPaperNode
-    | CRowNode
+    | CLayoutNode
 ;
 export function isCanvasNode(node: PageNode): node is CanvasPageNode {
     return Object.entries(PageNodeMetadata).filter(([tag, n]) => n.isCanvas).find(([tag, n]) => tag === node._tag) != undefined;
@@ -450,4 +469,5 @@ export type PageNode =
     | CanvasPageNode
     | CInputNode
     | CTextNode
+    | CDesignBlockNode
     ;

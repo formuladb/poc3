@@ -34,7 +34,7 @@
             ],
             "children": [
                 {
-                    "_tag": "CRow",
+                    "_tag": "CLayout",
                     "_id": "MainRowId",
                     "background": "#ffffff",
                     "padding": 3,
@@ -109,7 +109,7 @@
                     "resource": "quiz_questions_frmdbvw",
                     "source": "question",
                     "disabled": true,
-                    "width": 12
+                    "item": {"width": 12}
                 },
                 {
                     "_tag": "CInput",
@@ -121,7 +121,7 @@
                     "referenceText": "answer",
                     "matchingColumn": "qtmpl__questions__id",
                     "referenceInputType": "radio_button",
-                    "width": 12,
+                    "item": {"width": 12},
                     "sortField": "position"
                 }
             ]

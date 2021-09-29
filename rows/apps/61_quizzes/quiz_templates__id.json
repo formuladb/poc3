@@ -10,7 +10,7 @@
             "resource": "quiz_templates",
             "children": [
                 {
-                    "_tag": "CRow",
+                    "_tag": "CLayout",
                     "_id": "MainRowId",
                     "background": "#ffffff",
                     "padding": 3,
@@ -22,7 +22,7 @@
                             "resource": "quiz_templates",
                             "source": "id",
                             "variant": "standard",
-                            "width": 2
+                            "item": {"width": 2}
                         },
                         {
                             "_tag": "CInput",
@@ -72,14 +72,14 @@
                     "resource": "qtmpl__results",
                     "source": "points_start",
                     "variant": "standard",
-                    "width": 2
+                    "item": {"width": 2}
                 },
                 {
                     "cInputType": "NumberField",
                     "resource": "qtmpl__results",
                     "source": "points_end",
                     "variant": "standard",
-                    "width": 2
+                    "item": {"width": 2}
                 },
                 {
                     "cInputType": "TextField",
@@ -92,7 +92,7 @@
                     "resource": "qtmpl__results",
                     "source": "details",
                     "variant": "standard",
-                    "width": 12
+                    "item": {"width": 12}
                 }
             ]
         },
@@ -118,7 +118,7 @@
                     "cInputType": "RichTextField",
                     "resource": "qtmpl__questions",
                     "source": "question",
-                    "width": 12
+                    "item": {"width": 12}
                 },
                 {
                     "_tag": "CList",
@@ -139,25 +139,25 @@
                             "cInputType": "TextField",
                             "resource": "qtmpl__questions__answers",
                             "source": "id",
-                            "width": 8
+                            "item": {"width": 8}
                         },
                         {
                             "cInputType": "TextField",
                             "resource": "qtmpl__questions__answers",
                             "source": "answer",
-                            "width": 8
+                            "item": {"width": 8}
                         },
                         {
                             "cInputType": "NumberField",
                             "resource": "qtmpl__questions__answers",
                             "source": "points",
-                            "width": 2
+                            "item": {"width": 2}
                         },
                         {
                             "cInputType": "NumberField",
                             "resource": "qtmpl__questions__answers",
                             "source": "position",
-                            "width": 2
+                            "item": {"width": 2}
                         }
                     ]
                 }

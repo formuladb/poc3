@@ -4,7 +4,7 @@ import {
     useNotify, Record, useGetOne,
     CRUD_GET_ONE,
 } from 'react-admin';
-import { CRow } from '../page/CRow';
+import { CLayout } from '../page/CLayout';
 import { CButton } from '../page/CButton';
 import { CText } from '../page/CText';
 import { useLocation } from 'react-router-dom';
@@ -78,7 +78,7 @@ CForm.craft = {
     rules: {
         canMoveIn: (incomingNode) => {
             console.log('CForm.canMoveIn', incomingNode.data.type, incomingNode);
-            return [CRow, CForm, CButton, CText].includes(incomingNode.data.type);
+            return [CLayout, CForm, CButton, CText].includes(incomingNode.data.type);
         }
     },
 };

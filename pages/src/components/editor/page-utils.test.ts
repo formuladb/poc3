@@ -29,7 +29,7 @@ const TestPageAsTree: PageNode = {
             resource: "some-resource",
             children: [
                 {
-                    _tag: "CRow",
+                    _tag: "CLayout",
                     _id: "s0To1_oLI",
                     padding: 2,
                     children: [
@@ -54,7 +54,7 @@ const TestPageAsTree: PageNode = {
                     ]
                 },
                 {
-                    _tag: "CRow",
+                    _tag: "CLayout",
                     _id: "PZDQ-bBtC",
                     background: "#ffffff",
                     padding: 2,
@@ -145,7 +145,7 @@ const TestPage = {
     },
     s0To1_oLI: {
         type: {
-            resolvedName: "CRow"
+            resolvedName: "CLayout"
         },
         isCanvas: true,
         props: {
@@ -164,7 +164,7 @@ const TestPage = {
 
     "PZDQ-bBtC": {
         type: {
-            resolvedName: "CRow"
+            resolvedName: "CLayout"
         },
         isCanvas: true,
         props: {

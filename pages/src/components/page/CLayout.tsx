@@ -1,21 +1,19 @@
 import { JSONSchema7 } from 'json-schema';
 import { Element, useEditor, useNode, Node as CraftJsNode } from '@craftjs/core';
 import React from 'react';
-import { Grid } from '@material-ui/core';
+import { Grid, Box } from '@material-ui/core';
+
 import { ContainerDefaultProps, ContainerSettings } from './CPaper';
-import { Paper, FormControl, FormLabel } from '@material-ui/core';
 import { CColumn } from './CColumn';
 import { CInput } from '../form/CInput';
 import { CText } from './CText';
 import { CButton } from './CButton';
 import { isGridContainerNode } from '../utils';
+import { CLayoutProps } from '../../core/entity/page';
 import { CList } from '../list/CList';
 
-export function CRow({
-    background = "transparent",
-    padding = null as null | number | string,
-    children = null as null | React.ReactNode,
-}) {
+export function CLayout(nP: CLayoutProps & { children: null | React.ReactNode }) {
+
     const { query } = useEditor();
     const {
         connectors: { connect },
@@ -29,16 +27,18 @@ export function CRow({
     }
 
     return (
-        <Grid container direction="row" spacing={2}
-            {...extraProps}
-            ref={connect as (instance: HTMLDivElement | null) => void}
-        >
-            {children}
-        </Grid>
+        <Box {...nP.box?.borders} {...nP.box?.spacing}>
+            <Grid container direction={nP.direction || "row"} spacing={nP.spacing || 2}
+                {...extraProps}
+                ref={connect as (instance: HTMLDivElement | null) => void}
+            >
+                {nP.children}
+            </Grid>
+        </Box>
     );
 };
 
-CRow.craft = {
+CLayout.craft = {
     displayName: 'Layout',
     props: ContainerDefaultProps,
     related: {

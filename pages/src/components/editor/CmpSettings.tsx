@@ -84,10 +84,23 @@ export const CmpSettings = ({
     return (
         <ThemeProvider theme={Theme}>
             <Form uiSchema={uiSchema} schema={dynSchema} formData={props}
-                fields={customFields} onChange={debouncedUpdateComponent} />
+                fields={customFields} onChange={debouncedUpdateComponent} 
+                customFormats={customFormats}
+                noValidate={true} />
         </ThemeProvider>
     );
 }
+
+const customFormats = {
+    'frmdb-category-field-name': /.*/,
+    'frmdb-category-resource-name': /.*/,
+    'frmdb-multiple-choice': /.*/,
+    'frmdb-reference-field-name': /.*/,
+    'frmdb-reference-matching-field-name': /.*/,
+    'frmdb-reference-resource-name': /.*/,
+    'frmdb-resource-field-name': /.*/,
+    'frmdb-resource-name': /.*/,
+};
 
 const Theme = createMuiTheme({
     spacing: 2,

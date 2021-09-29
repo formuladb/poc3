@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --watch src --exitcrash --exec 'ts-node -r tsconfig-paths/register' src/index.ts",
+    "start": "nodemon --watch src --exec 'ts-node -r tsconfig-paths/register' src/index.ts",
     "build": "tsc",
     "_rem_test": "cp -ar core /core && mkdir -p /tenants/default && cp -ar apps/* /tenants/default/ && make -f scripts/migrate.mk",
     "test": "jest"
