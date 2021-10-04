@@ -1,15 +1,15 @@
-SELECT frmdb_put_table('frmdb_users');
-SELECT frmdb_put_column('frmdb_users', 'username', 'character varying', 'is_not_null(username)', null);
-SELECT frmdb_put_column('frmdb_users', 'pass', 'character varying', 'is_not_null(pass)', null);
-SELECT frmdb_put_column('frmdb_users', 'role', 'regrole', 'is_not_null(role)', null);
+SELECT frmdb_put_table('prw_users');
+SELECT frmdb_put_column('prw_users', 'username', 'character varying', 'is_not_null(username)', null);
+SELECT frmdb_put_column('prw_users', 'pass', 'character varying', 'is_not_null(pass)', null);
+SELECT frmdb_put_column('prw_users', 'role', 'regrole', 'is_not_null(role)', null);
 --------
 DO $migration$
 BEGIN
   IF NOT EXISTS(SELECT * FROM information_schema.triggers 
-    WHERE event_object_table = 'frmdb_users' AND trigger_name = 'users_common_trg')
+    WHERE event_object_table = 'prw_users' AND trigger_name = 'users_common_trg')
   THEN
     CREATE TRIGGER users_common_trg 
-      BEFORE UPDATE ON frmdb_users FOR EACH ROW EXECUTE PROCEDURE frmdb_0_set_common_cols_trg();
+      BEFORE UPDATE ON prw_users FOR EACH ROW EXECUTE PROCEDURE frmdb_0_set_common_cols_trg();
   END IF;
 END;
 $migration$;
@@ -55,9 +55,9 @@ end
 $$ language plpgsql;
 
 
-drop trigger if exists encrypt_pass on frmdb_users;
+drop trigger if exists encrypt_pass on prw_users;
 create trigger encrypt_pass
-  before insert or update on frmdb_users
+  before insert or update on prw_users
   for each row
   execute procedure frmdb_encrypt_pass();
 
@@ -69,15 +69,15 @@ create trigger encrypt_pass
 
 
 create or replace function
-frmdb_get_user(username text, pass text) returns frmdb_users
+frmdb_get_user(username text, pass text) returns prw_users
   language plpgsql
   as $$
 declare
-  v_ret frmdb_users;
+  v_ret prw_users;
 begin
-  SELECT * INTO v_ret FROM frmdb_users
-   WHERE frmdb_users.username = frmdb_get_user.username
-     AND frmdb_users.pass = frmdb_encrypt_pass_fun(frmdb_get_user.pass);
+  SELECT * INTO v_ret FROM prw_users
+   WHERE prw_users.username = frmdb_get_user.username
+     AND prw_users.pass = frmdb_encrypt_pass_fun(frmdb_get_user.pass);
   
   RETURN v_ret;
 end;
@@ -103,7 +103,7 @@ CREATE EXTENSION IF NOT EXISTS pgjwt;
 create or replace function
 frmdb_login(username text, pass text) returns frmdb_jwt_token as $$
 declare
-  _user frmdb_users;
+  _user prw_users;
   _cookie varchar;
   result frmdb_jwt_token;
 begin
@@ -149,7 +149,7 @@ $fun$ language plpgsql;
 create or replace function
 frmdb_sql_unit_test_login(username text, pass text) returns void as $fun$
 declare
-  _user frmdb_users;
+  _user prw_users;
   v_stm varchar;
 begin
   -- check username and password
@@ -172,7 +172,7 @@ $fun$ language plpgsql;
 
 create or replace function frmdb_sql_unit_test_logout() returns void as $fun$
 declare
-  _user frmdb_users;
+  _user prw_users;
   v_stm varchar;
 begin
   RESET ROLE;

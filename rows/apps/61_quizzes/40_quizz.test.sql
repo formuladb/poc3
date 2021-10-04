@@ -4,14 +4,14 @@ BEGIN;
     INSERT INTO users (id, username, pass, role)
         VALUES (1, 'enduser1', 'pass1', 'enduser');
     SELECT results_eq(
-        $$ SELECT username, pass FROM frmdb_users $$,
+        $$ SELECT username, pass FROM prw_users $$,
         $$ VALUES ( 'enduser1'::varchar, 'frmdb_encrypted:a722c63db8ec8625af6cf71cb8c2d939'::varchar ) $$
     );
 
     INSERT INTO users (id, username, pass, role)
         VALUES (2, 'oper1', 'pass1', 'operator');
     SELECT results_eq(
-        $$ SELECT username, pass FROM frmdb_users WHERE id = 2 $$,
+        $$ SELECT username, pass FROM prw_users WHERE id = 2 $$,
         $$ VALUES ( 'oper1'::varchar, 'frmdb_encrypted:a722c63db8ec8625af6cf71cb8c2d939'::varchar ) $$
     );
 

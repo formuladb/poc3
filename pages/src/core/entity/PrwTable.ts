@@ -1,7 +1,8 @@
 import {Entity, Column, PrimaryColumn, OneToMany} from "typeorm";
 import { ResourceFieldDef } from "./fields";
 import { PrwPage } from "./PrwPage";
-import { FrmdbResourceField } from "./PrwTableColumn";
+import { PrwPermission } from "./PrwPermission";
+import { PrwTableColumn } from "./PrwTableColumn";
 
 const FrmdbResourceTypes = {GROUP:0, PAGE:0, RESOURCE:0};
 
@@ -18,10 +19,12 @@ export class PrwTable {
             layoutType: "ONE_PAGE" | "ADMIN";//TODO: | "LANDING_PAGE" | "ARTICLE_PAGE";
         }
     };
-    @OneToMany(() => PrwPage, page => page.resource)
+    @OneToMany(() => PrwPage, page => page.prwTable)
     pages?: PrwPage[];
-    @OneToMany(() => FrmdbResourceField, field => field.resource)
-    fields?: FrmdbResourceField[];
+    @OneToMany(() => PrwTableColumn, field => field.prwTable)
+    columns?: PrwTableColumn[];
+    @OneToMany(() => PrwPermission, perm => perm.prwTable)
+    permissions?: PrwPermission[];
 }
 
 export interface FrmdbResourceI extends PrwTable {

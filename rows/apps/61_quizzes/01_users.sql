@@ -18,4 +18,4 @@ INSERT INTO frmdb_dictionary (id, en, ro) VALUES
     ('resources.users.fields.meta_updated_by', 'Updated By', 'Modificat De')
 ON CONFLICT(id) DO UPDATE SET en = EXCLUDED.en, ro = EXCLUDED.ro;
 
-select frmdb_put_table_EXTENDS('users', 'frmdb_users', '{"username", "pass", "role"}');
+select frmdb_put_table_EXTENDS('users', 'prw_users', '{"username", "pass", "role"}');

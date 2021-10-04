@@ -8,8 +8,8 @@ import { entityMetadata } from "src/core-orm/entityMetadata";
 import { PrwPage } from "@core/entity/PrwPage";
 import { PrwDictionary } from "@core/entity/PrwDictionary";
 import { metaColumnsDictionary } from "./metaColumnsDictonary";
-import { FrmdbUser } from "@core/entity/FrmdbUser";
-import { FrmdbResourceField } from "@core/entity/PrwTableColumn";
+import { PrwUser } from "@core/entity/PrwUser";
+import { PrwTableColumn } from "@core/entity/PrwTableColumn";
 import { frmdb_resources__id } from "./frmdb_resources__id";
 
 export default async () => {
@@ -19,11 +19,11 @@ export default async () => {
     await putRows(PrwTable, [
         { id: "debug", icon: "material-design-icons-settings_applications", resource_type: "GROUP", menu_order: 1 },
         { id: entityMetadata(PrwPage).tableName, parent: "debug", icon: "material-design-icons-list_alt", resource_type: "RESOURCE", menu_order: 1 },
-        { id: entityMetadata(FrmdbResourceField).tableName, parent: "debug", icon: "material-design-icons-table_rows", resource_type: "RESOURCE", menu_order: 2 },
+        { id: entityMetadata(PrwTableColumn).tableName, parent: "debug", icon: "material-design-icons-table_rows", resource_type: "RESOURCE", menu_order: 2 },
         { id: "administer", icon: "material-design-icons-settings", resource_type: "GROUP", menu_order: 2 },
         { id: entityMetadata(PrwDictionary).tableName, parent: "administer", icon: "material-design-icons-translate", resource_type: "RESOURCE", menu_order: 4 },
         { id: entityMetadata(FrmdbSystemParam).tableName, parent: "administer", icon: "material-design-icons-edit_attributes", resource_type: "RESOURCE", menu_order: 5 },
-        { id: entityMetadata(FrmdbUser).tableName, parent: "administer", icon: "material-design-icons-people", resource_type: "RESOURCE", menu_order: 6 },
+        { id: entityMetadata(PrwUser).tableName, parent: "administer", icon: "material-design-icons-people", resource_type: "RESOURCE", menu_order: 6 },
     ]);
 
     await putRows(PrwPage, [
@@ -36,7 +36,7 @@ export default async () => {
     
     await putRole('administrator');
     await putRole('operator');
-    await putRows(FrmdbUser, [
+    await putRows(PrwUser, [
         { id: "100", username: "admin", pass: "admin", role: "administrator" },
     ]);
 
@@ -50,7 +50,7 @@ export default async () => {
     ]);
 
     //Diacritice (ă â î ș ț) (Ă Â Î Ș Ț)
-    tblName = entityMetadata(FrmdbResourceField).tableName;
+    tblName = entityMetadata(PrwTableColumn).tableName;
     await putRows(PrwDictionary, [
         { id: `resources.${tblName}.name`,  en: 'Resource Fields', ro: 'Câmpuri Resursă'},
         { id: `resources.${tblName}.fields.id`,  en: 'Id', ro: 'Id'},
@@ -104,7 +104,7 @@ export default async () => {
         ...metaColumnsDictionary(tblName),
     ]);
     
-    tblName = entityMetadata(FrmdbUser).tableName;
+    tblName = entityMetadata(PrwUser).tableName;
     await putRows(PrwDictionary, [
         { id: `resources.${tblName}.name`,  en: 'Users', ro: 'Utilizatori'},
         { id: `resources.${tblName}.fields.id`,  en: 'Id', ro: 'Id'},

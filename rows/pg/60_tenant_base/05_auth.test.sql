@@ -3,12 +3,12 @@ BEGIN;
 
     SELECT set_config('request.jwt.claim.tenant', 'pagerows', true);
 
-	SELECT has_table( 'public'::name, 'frmdb_users'::name );
-	SELECT col_type_is( 'public', 'frmdb_users', 'id', 'pg_catalog', 'integer', '' );
-	SELECT has_column( 'frmdb_users'::name, 'meta_created_at', '' );
+	SELECT has_table( 'public'::name, 'prw_users'::name );
+	SELECT col_type_is( 'public', 'prw_users', 'id', 'pg_catalog', 'integer', '' );
+	SELECT has_column( 'prw_users'::name, 'meta_created_at', '' );
 
     SELECT frmdb_create_role('testrole');
-    INSERT INTO frmdb_users (id, username, pass, role)
+    INSERT INTO prw_users (id, username, pass, role)
 		VALUES (1, 'user1', 'pass1', 'testrole');
 		
     SELECT frmdb_sql_unit_test_login('user1', 'pass1');

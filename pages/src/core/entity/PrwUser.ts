@@ -1,7 +1,7 @@
 import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
 
-@Entity({name: "frmdb_users"})
-export class FrmdbUser {
+@Entity({name: "prw_users"})
+export class PrwUser {
 
     @PrimaryGeneratedColumn()
     id!: string;
@@ -18,6 +18,6 @@ export class FrmdbUser {
 
 }
 
-export interface FrmdbUserI extends FrmdbUser {
+export interface FrmdbUserI extends PrwUser {
 
 }

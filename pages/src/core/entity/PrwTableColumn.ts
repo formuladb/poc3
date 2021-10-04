@@ -2,7 +2,7 @@ import { Entity, Column, PrimaryColumn, ManyToOne } from "typeorm";
 import { PrwTable } from "./PrwTable";
 
 @Entity({name: "prw_table_columns"})
-export class FrmdbResourceField {
+export class PrwTableColumn {
     @PrimaryColumn() id!: string;
 
     @Column() c_table_schema!: string;
