@@ -22,7 +22,7 @@ export default async () => {
     ]);
 
     await putRows(PrwPage, [
-        { id: "form11_10_181__id", content: form11_10_181__id, resource: res1 },
+        { id: "form11_10_181__id", content: form11_10_181__id, prwTable: res1 },
     ]);
 
     let tblName = entityMetadata(Form11_10_181).tableName;

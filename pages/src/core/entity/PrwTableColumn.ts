@@ -16,6 +16,6 @@ export class PrwTableColumn {
     @Column() c_formula!: string;
     @Column() c_idx!: string;
 
-    @ManyToOne(() => PrwTable, resource => resource.fields, )
+    @ManyToOne(() => PrwTable, resource => resource.columns, )
     prwTable!: PrwTable;    
 };

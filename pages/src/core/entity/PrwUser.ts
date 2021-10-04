@@ -1,4 +1,5 @@
-import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, ManyToOne} from "typeorm";
+import { PrwRole } from "./PrwRole";
 
 @Entity({name: "prw_users"})
 export class PrwUser {
@@ -13,9 +14,8 @@ export class PrwUser {
     @Column()
     pass!: string;
 
-    @Column()
-    role!: string;
-
+    @ManyToOne(() => PrwRole )
+    prwRole!: PrwRole; 
 }
 
 export interface FrmdbUserI extends PrwUser {

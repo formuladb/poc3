@@ -11,6 +11,7 @@ import { metaColumnsDictionary } from "./metaColumnsDictonary";
 import { PrwUser } from "@core/entity/PrwUser";
 import { PrwTableColumn } from "@core/entity/PrwTableColumn";
 import { frmdb_resources__id } from "./frmdb_resources__id";
+import { PrwRole } from "@core/entity/PrwRole";
 
 export default async () => {
 
@@ -27,17 +28,17 @@ export default async () => {
     ]);
 
     await putRows(PrwPage, [
-        { id: "frmdb_resources__id", content: frmdb_resources__id, resource: res1 },
+        { id: "frmdb_resources__id", content: frmdb_resources__id, prwTable: res1 },
     ]);
 
     await putRows(FrmdbSystemParam, [
         { id: "LOCALE", val: "en" },
     ]);
     
-    await putRole('administrator');
-    await putRole('operator');
+    const admin = await putRow(PrwRole, {id: 'administrator'});
+    const oper = await putRow(PrwRole, {id: 'operator'});
     await putRows(PrwUser, [
-        { id: "100", username: "admin", pass: "admin", role: "administrator" },
+        { id: "100", username: "admin", pass: "admin", prwRole: admin },
     ]);
 
     let tblName = entityMetadata(PrwTable).tableName;
