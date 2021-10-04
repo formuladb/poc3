@@ -1,6 +1,6 @@
-import { FrmdbDictionary } from "@core/entity/FrmdbDictionary";
-import { FrmdbPage } from "@core/entity/FrmdbPage";
-import { FrmdbResource } from "@core/entity/FrmdbResource";
+import { PrwDictionary } from "@core/entity/PrwDictionary";
+import { PrwPage } from "@core/entity/PrwPage";
+import { PrwTable } from "@core/entity/PrwTable";
 import { autoMigrate } from "src/core-orm/autoMigrate";
 import { entityMetadata } from "src/core-orm/entityMetadata";
 import { putRow, putRows } from "src/core-orm/putRow";
@@ -13,20 +13,20 @@ export default async () => {
     await autoMigrate(Form11_10_181);
     await autoMigrate(Doc11_10_181);
 
-    const res1 = await putRow(FrmdbResource, 
+    const res1 = await putRow(PrwTable, 
         { id: entityMetadata(Form11_10_181).tableName, parent: "onrc", icon: "material-design-icons-dynamic_form", resource_type: "RESOURCE", menu_order: 0 });
 
-    await putRows(FrmdbResource, [
+    await putRows(PrwTable, [
         { id: "onrc", icon: "material-design-icons-list", resource_type: "GROUP", menu_order: 5 },
         { id: entityMetadata(Doc11_10_181).tableName, parent: "_hidden_", icon: "material-design-icons-dynamic_form", resource_type: "RESOURCE", menu_order: 0 },
     ]);
 
-    await putRows(FrmdbPage, [
+    await putRows(PrwPage, [
         { id: "form11_10_181__id", content: form11_10_181__id, resource: res1 },
     ]);
 
     let tblName = entityMetadata(Form11_10_181).tableName;
-    await putRows(FrmdbDictionary, [
+    await putRows(PrwDictionary, [
         { id: `resources.onrc.name`,  en: 'ONRC Forms', ro: 'Formulare ONRC'},
         { id: `resources.${tblName}.fields.id`,  en: 'Id', ro: 'Id'},
         { id: `resources.${tblName}.name`,  en: 'Form 11-10-181', ro: 'Formular 11-10-181'},
@@ -55,7 +55,7 @@ export default async () => {
     ]);
 
     tblName = entityMetadata(Doc11_10_181).tableName;
-    await putRows(FrmdbDictionary, [
+    await putRows(PrwDictionary, [
         { id: `resources.${tblName}.name`,  en: 'Documents 11-10-181', ro: 'Documente 11-10-181'},
         { id: `resources.${tblName}.fields.id`,  en: 'Id', ro: 'Id'},
         { id: `resources.${tblName}.fields.denumirea_actului`,  en: 'Document Name', ro: 'Denumirea Actului'},

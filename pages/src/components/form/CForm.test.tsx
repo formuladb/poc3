@@ -13,7 +13,7 @@ import { PageNode } from "../../core/entity/page";
 import { ThemeProvider, createMuiTheme } from '@material-ui/core';
 import { rest } from 'msw'
 import { setupServer } from 'msw/node'
-import { FrmdbResourceWithFields } from "../../core/entity/FrmdbResource";
+import { FrmdbResourceWithFields } from "../../core/entity/PrwTable";
 
 const server = setupServer(
     rest.get('/rows-db/rpc/frmdb_sp_table_columns',
@@ -74,7 +74,7 @@ test('CForm test', async () => {
                 return Promise.resolve({
                     data: { id: 1, name: 'product1' },
                 });
-            } else if (resource === "frmdb_pages") {
+            } else if (resource === "prw_pages") {
                 return Promise.resolve({
                     data: { id: 'order_items__id', icon: 'tbd', content: TestEditPage },
                 });
@@ -100,7 +100,7 @@ test('CForm test', async () => {
                     data: [{ id: 111, name: 'product1' }],
                     total: 1,
                 });
-            } else if (resource === "frmdb_resources") {
+            } else if (resource === "prw_tables") {
                 return Promise.resolve({
                     data: [{ id: 'products' }, { id: 'order_items' }],
                     total: 2,

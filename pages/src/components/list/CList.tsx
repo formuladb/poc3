@@ -33,7 +33,7 @@ import { CListProps } from '../../core/entity/page';
 import { ListActions } from './ListActions';
 import { getCInputPropsFromFieldDef, getDefaultReferenceText } from '../defaultEditPageContent';
 import { useRawFormContext } from '../form/useRawFormContext';
-import { FrmdbResourceWithFields } from '../../core/entity/FrmdbResource';
+import { FrmdbResourceWithFields } from '../../core/entity/PrwTable';
 import { isEqual } from 'lodash';
 import { getCListSchema } from '../form/post-processed-schemas';
 
@@ -295,7 +295,7 @@ export const CListSettings = () => {
 
 const CListDefaultProps: CListProps = {
     cListType: 'Table',
-    resource: 'frmdb_pages',
+    resource: 'prw_pages',
     labelSource: 'id',
     editable: false as boolean,
 };

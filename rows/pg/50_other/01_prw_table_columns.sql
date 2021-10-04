@@ -1,4 +1,4 @@
-CREATE OR REPLACE VIEW frmdb_resources_fields AS
+CREATE OR REPLACE VIEW prw_table_columns AS
 
     WITH info_schema_cols AS (
         SELECT * FROM information_schema.columns
@@ -14,7 +14,7 @@ CREATE OR REPLACE VIEW frmdb_resources_fields AS
     SELECT
         table_name::text || '--' || column_name::text as id,
         table_schema::text as c_table_schema, --1
-        table_name::text as resource_id, --2
+        table_name::text as prw_table_id, --2
         column_name::text as c_column_name, --3
         data_type::text as c_data_type, --4
         COALESCE(
@@ -38,7 +38,7 @@ CREATE OR REPLACE VIEW frmdb_resources_fields AS
     SELECT 
         t.relname::text || '--' || attname::text as id,
         t.nspname::text as c_table_schema, --1
-        t.relname::text as resource_id, --2
+        t.relname::text as prw_table_id, --2
         attname::text as c_column_name, --3
         pg_catalog.format_type(a.atttypid, a.atttypmod)::text as c_data_type, --4
         CASE 

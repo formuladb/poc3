@@ -27,7 +27,7 @@ export default ({ pageId, pageIcon }) => {
 
     const savePage = () => {
         let serializedNodes = query.getSerializedNodes();
-        dataProvider.create("frmdb_pages", {
+        dataProvider.create("prw_pages", {
             data: {
                 id: pageId,
                 // icon: pageIcon,

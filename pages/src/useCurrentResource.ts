@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FrmdbResourceI } from './core/entity/FrmdbResource';
+import { FrmdbResourceI } from './core/entity/PrwTable';
 import { useLocation } from 'react-router-dom';
 import { parseLocation } from './location_utils';
 import { useResources } from './useResources';

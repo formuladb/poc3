@@ -1,12 +1,12 @@
 import {Entity, Column, PrimaryColumn, OneToMany} from "typeorm";
 import { ResourceFieldDef } from "./fields";
-import { FrmdbPage } from "./FrmdbPage";
-import { FrmdbResourceField } from "./FrmdbResourceFields";
+import { PrwPage } from "./PrwPage";
+import { FrmdbResourceField } from "./PrwTableColumn";
 
 const FrmdbResourceTypes = {GROUP:0, PAGE:0, RESOURCE:0};
 
-@Entity({name: "frmdb_resources"})
-export class FrmdbResource {
+@Entity({name: "prw_tables"})
+export class PrwTable {
     @PrimaryColumn() id!: string;
     @Column() parent?: string;
     @Column() icon?: string;
@@ -18,13 +18,13 @@ export class FrmdbResource {
             layoutType: "ONE_PAGE" | "ADMIN";//TODO: | "LANDING_PAGE" | "ARTICLE_PAGE";
         }
     };
-    @OneToMany(() => FrmdbPage, page => page.resource)
-    pages?: FrmdbPage[];
+    @OneToMany(() => PrwPage, page => page.resource)
+    pages?: PrwPage[];
     @OneToMany(() => FrmdbResourceField, field => field.resource)
     fields?: FrmdbResourceField[];
 }
 
-export interface FrmdbResourceI extends FrmdbResource {
+export interface FrmdbResourceI extends PrwTable {
 }
 
 export interface FrmdbResourceWithFields {

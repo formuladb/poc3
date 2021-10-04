@@ -18,7 +18,7 @@ import { createBrowserHistory } from 'history';
 import { EMPTY_LOCALE } from './i18nProviderBuilder';
 import { Dashboard } from './components/layout/Dashboard';
 import { useSystemParams } from './useSystemParams';
-import { LOCALE } from './core/entity/FrmdbSystemParam';
+import { LOCALE } from './core/entity/PrwSystemParam';
 import i18nProviderBuilder from './i18nProviderBuilder';
 import editorOpenedReducer from './components/editor/editorOpenedReducer';
 

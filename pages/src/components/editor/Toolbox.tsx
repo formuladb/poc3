@@ -59,7 +59,7 @@ export const Toolbox = () => {
                 </Grid>
                 <Grid md={6} container direction="column" item>
                     <MuiButton style={{ textTransform: 'none' }}
-                        ref={(ref) => connectors.create(ref, <Element canvas is={CForm} resource="frmdb_pages">Add children here</Element>)}
+                        ref={(ref) => connectors.create(ref, <Element canvas is={CForm} resource="prw_pages">Add children here</Element>)}
                         variant="contained"
                     >
                         <FormIcon /> Form
@@ -67,7 +67,7 @@ export const Toolbox = () => {
                 </Grid>
                 <Grid md={6} container direction="column" item>
                     <MuiButton style={{ textTransform: 'none' }}
-                        ref={(ref) => connectors.create(ref, <CInput resource="frmdb_pages" source="id" cInputType='TextField' />)}
+                        ref={(ref) => connectors.create(ref, <CInput resource="prw_pages" source="id" cInputType='TextField' />)}
                         variant="contained"
                     >
                         <FieldIcon /> Field
@@ -76,7 +76,7 @@ export const Toolbox = () => {
                 
                 <Grid md={6} container direction="column" item>
                     <MuiButton style={{ textTransform: 'none' }}
-                        ref={(ref) => connectors.create(ref, <Element canvas is={CList} cListType="Datagrid" resource="frmdb_pages" labelSource="id" children={null} />)}
+                        ref={(ref) => connectors.create(ref, <Element canvas is={CList} cListType="Datagrid" resource="prw_pages" labelSource="id" children={null} />)}
                         variant="contained"
                     >
                         <ListIcon /> List

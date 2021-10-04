@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FrmdbResourceI } from './core/entity/FrmdbResource';
+import { FrmdbResourceI } from './core/entity/PrwTable';
 import { useDataProvider } from 'react-admin';
 
 export function useResources(): FrmdbResourceI[] {
@@ -8,7 +8,7 @@ export function useResources(): FrmdbResourceI[] {
     const dataProvider = useDataProvider();
 
     useEffect(() => {
-        dataProvider.getList("frmdb_resources", {
+        dataProvider.getList("prw_tables", {
             pagination: { page: 1, perPage: 100 },
             sort: { field: 'id', order: 'ASC' },
             filter: {}

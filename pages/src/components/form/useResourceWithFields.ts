@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAuthenticated } from 'react-admin';
 import { useDataProvider } from 'react-admin';
 import { ResourceFieldDef } from '../../core/entity/fields';
-import { FrmdbResourceWithFields } from '../../core/entity/FrmdbResource';
+import { FrmdbResourceWithFields } from '../../core/entity/PrwTable';
 
 export function useResourceWithFields(resource: string): FrmdbResourceWithFields {
 

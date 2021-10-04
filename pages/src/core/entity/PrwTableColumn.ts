@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryColumn, ManyToOne } from "typeorm";
-import { FrmdbResource } from "./FrmdbResource";
+import { PrwTable } from "./PrwTable";
 
-@Entity({name: "frmdb_resources_fields"})
+@Entity({name: "prw_table_columns"})
 export class FrmdbResourceField {
     @PrimaryColumn() id!: string;
 
@@ -16,6 +16,6 @@ export class FrmdbResourceField {
     @Column() c_formula!: string;
     @Column() c_idx!: string;
 
-    @ManyToOne(() => FrmdbResource, resource => resource.fields, )
-    resource!: FrmdbResource;    
+    @ManyToOne(() => PrwTable, resource => resource.fields, )
+    prwTable!: PrwTable;    
 };

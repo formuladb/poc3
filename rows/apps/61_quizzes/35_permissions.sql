@@ -2,10 +2,10 @@ SELECT frmdb_set_permission_on_all_tables('administrator', 'true', 'true', 'true
 
 -- SELECT frmdb_set_permission_on_all_tables('enduser', 'true', 'false', 'false', 'false');
 -- SELECT frmdb_set_permission('enduser', 'users', 'true', 'false', 'frmdb_is_owner(username)', 'false');
-SELECT frmdb_set_permission('frmdb_anon', 'frmdb_resources', 'true', 'false', 'false', 'false');
-SELECT frmdb_set_permission('frmdb_anon', 'frmdb_pages', 'true', 'false', 'false', 'false');
+SELECT frmdb_set_permission('frmdb_anon', 'prw_tables', 'true', 'false', 'false', 'false');
+SELECT frmdb_set_permission('frmdb_anon', 'prw_pages', 'true', 'false', 'false', 'false');
 SELECT frmdb_set_permission('frmdb_anon', 'frmdb_dictionary', 'true', 'false', 'false', 'false');
-SELECT frmdb_set_permission('frmdb_anon', 'frmdb_system_params', 'true', 'false', 'false', 'false');
+SELECT frmdb_set_permission('frmdb_anon', 'prw_system_params', 'true', 'false', 'false', 'false');
 SELECT frmdb_set_permission('frmdb_anon', 'quiz_sessions', 'true', 'false', 'true', 'false');
 SELECT frmdb_set_permission('frmdb_anon', 'quizzes', 'true', 'true', 'true', 'false');
 -- SELECT frmdb_set_permission('frmdb_anon', 'quizzes_results', 'true', 'true', 'true', 'false');

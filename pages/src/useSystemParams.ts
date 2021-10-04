@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { groupByUniqProp } from './utils';
-import { FrmdbSystemParamI } from './core/entity/FrmdbSystemParam';
+import { FrmdbSystemParamI } from './core/entity/PrwSystemParam';
 import { DataProvider, useDataProvider } from 'react-admin';
 import { Dictionary } from 'lodash';
 
@@ -9,7 +9,7 @@ export function useSystemParams(dataProvider: DataProvider): Dictionary<FrmdbSys
     const [systemParams, setSystemParams] = useState<Dictionary<FrmdbSystemParamI>>({});
 
     useEffect(() => {
-        dataProvider.getList("frmdb_system_params", {
+        dataProvider.getList("prw_system_params", {
             pagination: { page: 1, perPage: 100 },
             sort: { field: 'id', order: 'ASC' },
             filter: {}

@@ -6,7 +6,7 @@ import {
 import postgrestRestProvider from './ra-data-postgrest';
 import httpClient from './http-client';
 import { frmdb_sp_table_columns } from './custom-api/frmdb_sp_table_columns';
-import { FrmdbResourceWithFields } from './core/entity/FrmdbResource';
+import { FrmdbResourceWithFields } from './core/entity/PrwTable';
 import { avoidDuplicatesDataProviderProxy } from './ra-data-avoid-duplicates-proxy';
 
 async function httpClientTranslatePg(url, options) {

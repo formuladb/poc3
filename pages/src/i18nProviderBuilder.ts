@@ -1,7 +1,7 @@
 import lodashGet from 'lodash/get';
 import lodashSet from 'lodash/set';
 import { DataProvider, I18nProvider, AuthProvider } from 'react-admin';
-import { FrmdbDictionary } from './core/entity/FrmdbDictionary';
+import { PrwDictionary } from './core/entity/PrwDictionary';
 import polyglotI18nProvider from 'ra-i18n-polyglot';
 
 import englishMessages from 'ra-language-english';
@@ -30,7 +30,7 @@ async function changeLocale(locale: string, dataProvider: DataProvider, authProv
     await authProvider.checkAuth(null);
     console.log(`changing locale to `, locale);
 
-    let dict = await dataProvider.getList<FrmdbDictionary>("frmdb_dictionary", {
+    let dict = await dataProvider.getList<PrwDictionary>("frmdb_dictionary", {
         pagination: { page: 1, perPage: 5000 },
         sort: { field: 'id', order: 'ASC' },
         filter: {}

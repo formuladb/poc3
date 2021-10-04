@@ -1,5 +1,5 @@
 import { DEFAULT_COLS, ResourceFieldDef } from "../core/entity/fields";
-import { FrmdbResourceWithFields } from "../core/entity/FrmdbResource";
+import { FrmdbResourceWithFields } from "../core/entity/PrwTable";
 import { CInputFormulaProps, CInputProps, CInputReferenceProps, CInputUrlFieldProps, PageNode } from "../core/entity/page";
 import { isFieldRequired } from "../core-functions/validateAndConvertFields";
 

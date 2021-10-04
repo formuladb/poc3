@@ -99,7 +99,7 @@ export const CInputSettings = () => {
 
 const CInputDefaultProps: CInputProps = {
     cInputType: "TextField",
-    resource: "frmdb_resources",
+    resource: "prw_tables",
     source: "id",
     variant: "standard",
     disabled: false,

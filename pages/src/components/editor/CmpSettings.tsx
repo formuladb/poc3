@@ -4,7 +4,7 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { JSONSchema7 } from 'json-schema';
 import { useNode, Node as CraftJsNode } from '@craftjs/core';
 import { Validator, Schema } from 'jsonschema';
-import { FrmdbResourceI, FrmdbResourceWithFields } from '../../core/entity/FrmdbResource';
+import { FrmdbResourceI, FrmdbResourceWithFields } from '../../core/entity/PrwTable';
 import { DataProvider, RecordMap, useDataProvider, useGetList } from 'react-admin';
 import { cloneDeep, debounce, isEqual } from 'lodash';
 import { useLocation } from 'react-router-dom';

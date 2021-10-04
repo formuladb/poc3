@@ -71,7 +71,7 @@ export const CFormSettings = () => {
 
 CForm.craft = {
     displayName: 'Form',
-    props: { resource: "frmdb_pages" } as CFormProps,
+    props: { resource: "prw_pages" } as CFormProps,
     related: {
         settings: CFormSettings,
     },

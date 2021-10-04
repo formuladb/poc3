@@ -8,7 +8,7 @@ export const frmdb_resources__id: CPageNode = {
         {
             "_tag": "CForm",
             "_id": "Ek4N5ig9v",
-            "resource": "frmdb_resources",
+            "resource": "prw_tables",
             "children": [
                 {
                     "_tag": "CLayout",
@@ -18,7 +18,7 @@ export const frmdb_resources__id: CPageNode = {
                             "_tag": "CInput",
                             "_id": "3Ubid",
                             "cInputType": "TextField",
-                            "resource": "frmdb_resources",
+                            "resource": "prw_tables",
                             "source": "id",
                             "variant": "standard",
                             "disabled": false
@@ -27,7 +27,7 @@ export const frmdb_resources__id: CPageNode = {
                             "_tag": "CInput",
                             "_id": "3Ubmeta_created_at",
                             "cInputType": "DateTimeField",
-                            "resource": "frmdb_resources",
+                            "resource": "prw_tables",
                             "source": "meta_created_at",
                             "variant": "standard",
                             "disabled": false
@@ -36,7 +36,7 @@ export const frmdb_resources__id: CPageNode = {
                             "_tag": "CInput",
                             "_id": "3Ubmeta_created_by",
                             "cInputType": "TextField",
-                            "resource": "frmdb_resources",
+                            "resource": "prw_tables",
                             "source": "meta_created_by",
                             "variant": "standard",
                             "disabled": false
@@ -45,7 +45,7 @@ export const frmdb_resources__id: CPageNode = {
                             "_tag": "CInput",
                             "_id": "3Ubmeta_updated_at",
                             "cInputType": "DateTimeField",
-                            "resource": "frmdb_resources",
+                            "resource": "prw_tables",
                             "source": "meta_updated_at",
                             "variant": "standard",
                             "disabled": false
@@ -54,7 +54,7 @@ export const frmdb_resources__id: CPageNode = {
                             "_tag": "CInput",
                             "_id": "3Ubmeta_updated_by",
                             "cInputType": "TextField",
-                            "resource": "frmdb_resources",
+                            "resource": "prw_tables",
                             "source": "meta_updated_by",
                             "variant": "standard",
                             "disabled": false
@@ -63,7 +63,7 @@ export const frmdb_resources__id: CPageNode = {
                             "_tag": "CInput",
                             "_id": "3Ubparent",
                             "cInputType": "TextField",
-                            "resource": "frmdb_resources",
+                            "resource": "prw_tables",
                             "source": "parent",
                             "variant": "standard",
                             "disabled": false
@@ -72,7 +72,7 @@ export const frmdb_resources__id: CPageNode = {
                             "_tag": "CInput",
                             "_id": "3Ubresource_type",
                             "cInputType": "TextField",
-                            "resource": "frmdb_resources",
+                            "resource": "prw_tables",
                             "source": "resource_type",
                             "variant": "standard",
                             "disabled": false
@@ -81,7 +81,7 @@ export const frmdb_resources__id: CPageNode = {
                             "_tag": "CInput",
                             "_id": "3Ubicon",
                             "cInputType": "TextField",
-                            "resource": "frmdb_resources",
+                            "resource": "prw_tables",
                             "source": "icon",
                             "variant": "standard",
                             "disabled": false
@@ -90,7 +90,7 @@ export const frmdb_resources__id: CPageNode = {
                             "_tag": "CInput",
                             "_id": "3Ubmenu_order",
                             "cInputType": "NumberField",
-                            "resource": "frmdb_resources",
+                            "resource": "prw_tables",
                             "source": "menu_order",
                             "variant": "standard",
                             "disabled": false
@@ -99,7 +99,7 @@ export const frmdb_resources__id: CPageNode = {
                             "_tag": "CInput",
                             "_id": "3Uboptions",
                             "cInputType": "Json",
-                            "resource": "frmdb_resources",
+                            "resource": "prw_tables",
                             "source": "options",
                             "variant": "standard",
                             "disabled": false
@@ -109,14 +109,19 @@ export const frmdb_resources__id: CPageNode = {
             ]
         },
         {
+            "_tag": "CDesignBlock",
+            "_id": "jW9Z3",
+            "title": "Columns",
+        },
+        {
             "_tag": "CList",
             "_id": "lUQUqXjYa",
-            "cListType": "Datagrid",
-            "resource": "frmdb_resources_fields",
+            "cListType": "Table",
+            "resource": "prw_table_columns",
             "labelSource": "id",
             "editable": false,
-            "refToParentListFieldName": "resource_id",
-            "isSubListOf": "frmdb_resources",
+            "refToParentListFieldName": "prw_table_id",
+            "isSubListOf": "prw_tables",
             "enabledActions": [
                 {
                     "actionType": "CREATE"
@@ -124,14 +129,19 @@ export const frmdb_resources__id: CPageNode = {
             ]
         },
         {
+            "_tag": "CDesignBlock",
+            "_id": "jW9Z3",
+            "title": "Pages",
+        },
+        {
             "_tag": "CList",
             "_id": "JiQJ_ri5t",
-            "cListType": "Datagrid",
-            "resource": "frmdb_pages",
+            "cListType": "Table",
+            "resource": "prw_pages",
             "labelSource": "id",
             "editable": false,
-            "isSubListOf": "frmdb_resources",
-            "refToParentListFieldName": "resource_id"
+            "isSubListOf": "prw_tables",
+            "refToParentListFieldName": "prw_table_id"
         }
     ]
 };

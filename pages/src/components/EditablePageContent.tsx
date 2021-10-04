@@ -8,8 +8,8 @@ import React, { useEffect, useState } from 'react';
 import { RecordMap, useDataProvider, useAuthProvider, useAuthenticated } from 'react-admin';
 import { useLocation } from 'react-router-dom';
 import { parseLocation } from '../location_utils';
-import { FrmdbResourceI, FrmdbResourceWithFields } from '../core/entity/FrmdbResource';
-import { FrmdbPage } from '../core/entity/FrmdbPage';
+import { FrmdbResourceI, FrmdbResourceWithFields } from '../core/entity/PrwTable';
+import { PrwPage } from '../core/entity/PrwPage';
 import { EditablePageProps } from './EditablePage';
 import { mapFromTree } from './editor/page-utils';
 import { defaultEditPageContent } from './defaultEditPageContent';
@@ -57,12 +57,12 @@ export default function EditablePageContent({
             if (! tmp?.data) { console.warn(`cannot get columns for ${resource}`, tmp); return };
             let resourceWithFields = tmp.data;
         
-            let res = await dataProvider.getOne<FrmdbPage>('frmdb_pages', { id: pageData.pageId })
+            let res = await dataProvider.getOne<PrwPage>('prw_pages', { id: pageData.pageId })
                 .catch((ex) => { console.log(ex); return null });
             let page = res?.data;
 
             let resources: null | RecordMap<FrmdbResourceI> =
-                await dataProvider.getList<FrmdbResourceI>('frmdb_resources', {
+                await dataProvider.getList<FrmdbResourceI>('prw_tables', {
                     pagination: { page: 1, perPage: 100 },
                     sort: { field: 'id', order: 'ASC' },
                     filter: {}

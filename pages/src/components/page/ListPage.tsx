@@ -23,7 +23,7 @@ import { CPageListProps } from '../../core/entity/page';
 import { xslx_exporter } from './xlsx_exporter/xlsx_exporter';
 import { ResourceFieldDef } from '../../core/entity/fields';
 import { FInput } from '../form/FInput';
-import { FrmdbResourceWithFields } from '../../core/entity/FrmdbResource';
+import { FrmdbResourceWithFields } from '../../core/entity/PrwTable';
 
 function PageFilter(props: object) {
     const { resource } = useListContext();

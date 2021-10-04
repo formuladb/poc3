@@ -1,7 +1,7 @@
-INSERT INTO frmdb_resources (id, parent, icon, resource_type, menu_order, options) VALUES
+INSERT INTO prw_tables (id, parent, icon, resource_type, menu_order, options) VALUES
     ('frmdb_homepage', '', '', 'PAGE', 0, '{"frmdb_anon": {"layoutType": "ONE_PAGE"}}'),
-    ('frmdb_resources', 'TBD', 'List', 'RESOURCE', 0, null),
-    ('frmdb_pages', 'TBD', 'List', 'RESOURCE', 0, null),
+    ('prw_tables', 'TBD', 'List', 'RESOURCE', 0, null),
+    ('prw_pages', 'TBD', 'List', 'RESOURCE', 0, null),
     ('administer', null, 'material-design-icons/settings', 'GROUP', 1, null),
     ('users', 'administer', 'material-design-icons/person', 'RESOURCE', 0, null),
     ('operate', null, 'material-design-icons/perm_data_setting', 'GROUP', 2, null),

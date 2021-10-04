@@ -13,7 +13,7 @@ import {
 import { AppState } from '../../types';
 import SubMenu from './SubMenu';
 import { useResources } from '../../useResources';
-import { FrmdbResourceI } from '../../core/entity/FrmdbResource';
+import { FrmdbResourceI } from '../../core/entity/PrwTable';
 import { AppIcon } from '../generic/AppIcon';
 import { groupByUniqProp } from '../../utils';
 

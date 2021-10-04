@@ -8,7 +8,7 @@ import {
 import { useRouteMatch } from 'react-router-dom';
 import { cloneDeep } from 'lodash';
 import { useResourceWithFields } from './useResourceWithFields';
-import { FrmdbResourceWithFields } from '../../core/entity/FrmdbResource';
+import { FrmdbResourceWithFields } from '../../core/entity/PrwTable';
 
 export interface UseUpsertRecordRet {
     onUpsertRecord: (data: Partial<Record>, redirectTo?: string, beforeSave?: (resource, data) => void) => Promise<void>,

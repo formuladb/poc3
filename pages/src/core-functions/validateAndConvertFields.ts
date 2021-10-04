@@ -1,6 +1,6 @@
 import { Record } from "react-admin";
 import { ResourceFieldDef } from "../core/entity/fields";
-import { FrmdbResourceWithFields } from "../core/entity/FrmdbResource";
+import { FrmdbResourceWithFields } from "../core/entity/PrwTable";
 import { IS_NOT_NULL } from "./ScalarFunctions";
 
 export interface FieldValidationError {

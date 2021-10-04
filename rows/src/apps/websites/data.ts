@@ -20,7 +20,7 @@ import app13 from './data/luxurious-restaurant';
 
 import { putRole } from "src/core-orm/putRole";
 import { putRows } from "src/core-orm/putRow";
-import { FrmdbResource } from "@core/entity/FrmdbResource";
+import { PrwTable } from "@core/entity/PrwTable";
 import { entityMetadata } from "src/core-orm/entityMetadata";
 
 export default async () => {
@@ -29,7 +29,7 @@ export default async () => {
     await autoMigrate(Section);
     await autoMigrate(SubSection);
 
-    await putRows(FrmdbResource, [
+    await putRows(PrwTable, [
         { id: "websites", icon: "material-design-icons/settings", resource_type: "GROUP", menu_order: 1 },
         { id: entityMetadata(Page).tableName, parent: "websites", icon: "TBD", resource_type: "RESOURCE", menu_order: 1 },
         { id: entityMetadata(Section).tableName, parent: "websites", icon: "TBD", resource_type: "RESOURCE", menu_order: 2 },
