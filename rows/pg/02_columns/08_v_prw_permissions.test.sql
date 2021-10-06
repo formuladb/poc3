@@ -14,11 +14,13 @@ BEGIN;
     SELECT frmdb_set_permission('testrole', 'test', 'true', 'frmdb_is_owner(username)', 'frmdb_is_owner(username)', 'false');
 
     SELECT * FROM information_schema.role_table_grants WHERE table_name = 'test';
-    SELECT * FROM pg_policy WHERE polrelid = 'test'::regclass::oid;
+    SELECT * FROM pg_policies WHERE tablename = 'test';
+
+    SELECT * FROM prw_permissions WHERE id = 'testrole/test';
 
     SELECT results_eq(
-        $$ SELECT * FROM prw_premissions $$,
-        $$ VALUES ('testrole', 'test', 'true', 'frmdb_is_owner(username)', 'frmdb_is_owner(username)', 'false') $$
+        $$ SELECT * FROM prw_permissions WHERE id = 'testrole/test' $$,
+        $$ VALUES ('testrole/test', 'testrole', 'test', 'true', 'frmdb_is_owner(username)', 'frmdb_is_owner(username)', 'false') $$
     );
 
     SELECT * FROM finish();

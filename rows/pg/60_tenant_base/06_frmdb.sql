@@ -11,6 +11,7 @@ SELECT frmdb_put_column('prw_tables', 'options', 'json');
 SELECT frmdb_put_table('prw_pages', 'text');
 SELECT frmdb_put_column('prw_pages', 'prw_table_id', 'text');
 SELECT frmdb_put_column('prw_pages', 'content', 'json');
+SELECT frmdb_put_column('prw_pages', 'schema', 'json');
 
 SELECT frmdb_put_table('frmdb_dictionary', 'text');
 SELECT frmdb_put_column('frmdb_dictionary', 'en', 'text');
