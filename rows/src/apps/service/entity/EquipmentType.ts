@@ -9,7 +9,7 @@ export class EquipmentType {
 
     @Column({default: "ALTELE"}) category: string;
     @Column({default: "MODEL-INEXISTENT"}) model: string;
-    @Column() product_group: string;
+    @Column() equipment_group: string;
     @Column({type: "enum", enum: Object.keys(States)}) 
     state!: keyof typeof States;
 

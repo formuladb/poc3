@@ -11,17 +11,32 @@ BEGIN;
     INSERT INTO test VALUES ('b', 'user2');
 
     ALTER TABLE test ENABLE ROW LEVEL SECURITY;
-    SELECT frmdb_set_permission('testrole', 'test', 'true', 'frmdb_is_owner(username)', 'frmdb_is_owner(username)', 'false');
+    SELECT frmdb_set_permission(
+        'testrole', 
+        'test', 
+        'true', 
+        'frmdb_is_owner(username)', 
+        'frmdb_is_owner(username)', 
+        'false'
+    );
 
     SELECT * FROM information_schema.role_table_grants WHERE table_name = 'test';
     SELECT * FROM pg_policies WHERE tablename = 'test';
 
     SELECT * FROM prw_permissions WHERE id = 'testrole/test';
 
-    -- SELECT results_eq(
-    --     $$ SELECT * FROM prw_permissions WHERE id = 'testrole/test' $$,
-    --     $$ VALUES ('testrole/test', 'testrole', 'test', 'true', 'frmdb_is_owner(username)', 'frmdb_is_owner(username)', 'false') $$
-    -- );
+    SELECT results_eq(
+        $$ SELECT * FROM prw_permissions WHERE id = 'testrole/test' $$,
+        $$ VALUES (
+            'testrole/test'::text collate "C", 
+            'testrole'::text collate "C", 
+            'test'::text collate "C", 
+            'true'::text collate "C", 
+            'frmdb_is_owner(username)'::text collate "C", 
+            'frmdb_is_owner(username)'::text collate "C", 
+            'false'::text collate "C"
+        ) $$
+    );
 
     SELECT * FROM finish();
     SELECT * FROM frmdb_check_nb_failures();

@@ -1,10 +1,10 @@
-CREATE OR REPLACE VIEW prw_roles AS SELECT rolname as id FROM pg_roles;
+CREATE OR REPLACE VIEW prw_roles AS SELECT rolname::text collate "C" as id FROM pg_roles;
 
 CREATE OR REPLACE FUNCTION prw_roles_set()
   RETURNS trigger AS
 $func$
 BEGIN
-   SELECT frmdb_create_role(NEW.id);
+   PERFORM frmdb_create_role(NEW.id);
 
    RETURN NEW;
 END

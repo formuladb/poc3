@@ -13,10 +13,10 @@ export class PrwPermission {
     @ManyToOne(() => PrwRole, role => role.permissions, )
     prwRole!: PrwRole;    
 
-    @Column() selectPerm!: boolean | 'IS-OWNER';
-    @Column() insertPerm!: boolean | 'IS-OWNER';
-    @Column() updatePerm!: boolean | 'IS-OWNER';
-    @Column() deletePerm!: boolean | 'IS-OWNER';
+    @Column() selectPerm!: "true" | "false" | 'IS-OWNER';
+    @Column() insertPerm!: "true" | "false" | 'IS-OWNER';
+    @Column() updatePerm!: "true" | "false" | 'IS-OWNER';
+    @Column() deletePerm!: "true" | "false" | 'IS-OWNER';
 
 }
 

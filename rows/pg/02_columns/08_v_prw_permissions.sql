@@ -16,7 +16,8 @@ WITH tmp AS (
         (COUNT(*) FILTER 
                 (WHERE rtg.privilege_type = 'DELETE')
             ) > 0 as base_delete_perm,
-        MIN(pol.qual) FILTER (WHERE pol.cmd = 'SELECT') as select_perm,
+        string_agg(pol.cmd, '|') as select_perm,
+        -- MIN('pol.qual') FILTER (WHERE pol.cmd = 'SELECT') as select_perm,
         MIN(pol.with_check) FILTER (WHERE pol.cmd = 'INSERT') as insert_perm,
         MIN(pol.with_check) FILTER (WHERE pol.cmd = 'UPDATE') as update_perm,
         MIN(pol.qual) FILTER (WHERE pol.cmd = 'DELETE') as delete_perm
@@ -28,13 +29,13 @@ WITH tmp AS (
     GROUP BY grantee, table_name
 ) 
 SELECT 
-    tmp.id,
-    tmp.prw_role_id,
-    tmp.prw_table_id,
-    CASE WHEN tmp.base_select_perm = TRUE THEN tmp.select_perm ELSE 'false' END as select_perm,
-    CASE WHEN tmp.base_insert_perm = TRUE THEN tmp.insert_perm ELSE 'false' END as insert_perm,
-    CASE WHEN tmp.base_update_perm = TRUE THEN tmp.update_perm ELSE 'false' END as update_perm,
-    CASE WHEN tmp.base_delete_perm = TRUE THEN tmp.delete_perm ELSE 'false' END as delete_perm
+    tmp.id::text collate "C",
+    tmp.prw_role_id::text collate "C",
+    tmp.prw_table_id::text collate "C",
+    CASE WHEN tmp.base_select_perm = TRUE THEN tmp.select_perm::text collate "C" ELSE 'false' END as select_perm,
+    CASE WHEN tmp.base_insert_perm = TRUE THEN tmp.insert_perm::text collate "C" ELSE 'false' END as insert_perm,
+    CASE WHEN tmp.base_update_perm = TRUE THEN tmp.update_perm::text collate "C" ELSE 'false' END as update_perm,
+    CASE WHEN tmp.base_delete_perm = TRUE THEN tmp.delete_perm::text collate "C" ELSE 'false' END as delete_perm
 FROM tmp
 ;
 
@@ -43,7 +44,7 @@ CREATE OR REPLACE FUNCTION prw_permissions_set()
   RETURNS trigger AS
 $func$
 BEGIN
-   SELECT frmdb_set_permission(
+   PERFORM frmdb_set_permission(
         NEW.prw_role_id,
         NEW.prw_table_id,
         NEW.select_perm,
