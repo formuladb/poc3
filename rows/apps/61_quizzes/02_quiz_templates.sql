@@ -1,4 +1,4 @@
-INSERT INTO frmdb_dictionary (id, en, ro) VALUES
+INSERT INTO prw_dictionary (id, en, ro) VALUES
     ('resources.quiz_templates.name', 'Quiz Templates', 'Modele Chestionar'),
     ('resources.quiz_templates.fields.id', 'Id', 'Id'),
     ('resources.quiz_templates.fields.name', 'Name', 'Nume'),
@@ -18,7 +18,7 @@ SELECT frmdb_put_column('quiz_templates', 'description', $$ text $$, 'is_not_nul
 SELECT frmdb_put_column('quiz_templates', 'cover_image', $$ text $$);
 
 
-INSERT INTO frmdb_dictionary (id, en, ro) VALUES
+INSERT INTO prw_dictionary (id, en, ro) VALUES
     ('resources.qtmpl__results.name', 'Quiz Result Templates', 'Modele Rezultate Chestionare'),
     ('resources.qtmpl__results.fields.id', 'Id', 'Id'),
     ('resources.qtmpl__results.fields.quizz_template_id', 'Quiz Templates', 'Modele Chestionar'),
@@ -40,7 +40,7 @@ SELECT frmdb_put_column('qtmpl__results', 'title', $$ text $$, 'is_not_null(titl
 SELECT frmdb_put_column('qtmpl__results', 'details', $$ text $$,'is_not_null(details)');
 
 
-INSERT INTO frmdb_dictionary (id, en, ro) VALUES
+INSERT INTO prw_dictionary (id, en, ro) VALUES
     ('resources.qtmpl__questions.name', 'Question Templates', 'Modele Întrebări'),
     ('resources.qtmpl__questions.fields.id', 'Id', 'Id'),
     ('resources.qtmpl__questions.fields.quizz_template_id', 'Quizz Template Id', 'Id Model Chestionar'),
@@ -61,7 +61,7 @@ SELECT frmdb_put_column('qtmpl__questions', 'position', $$ double precision $$, 
 
 
 
-INSERT INTO frmdb_dictionary (id, en, ro) VALUES
+INSERT INTO prw_dictionary (id, en, ro) VALUES
     ('resources.qtmpl__questions__answers.name', 'Question Templates', 'Modele Răspunsuri'),
     ('resources.qtmpl__questions__answers.fields.id', 'Id', 'Id'),
     ('resources.qtmpl__questions__answers.fields.answer', 'Answer', 'Răspuns'),
@@ -108,7 +108,7 @@ SELECT frmdb_put_column_ROLLUP(
     p_filter_expr := 'true'
 );
 
-INSERT INTO frmdb_dictionary (id, en, ro) VALUES
+INSERT INTO prw_dictionary (id, en, ro) VALUES
     ('resources.quiz_sessions.name', 'Quiz Sessions', 'Sesiuni'),
     ('resources.quiz_sessions.fields.id', 'Id', 'Id'),
     ('resources.quiz_sessions.fields.name', 'Name', 'Nume'),

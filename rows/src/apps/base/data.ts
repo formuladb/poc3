@@ -13,8 +13,13 @@ import { PrwTableColumn } from "@core/entity/PrwTableColumn";
 import { frmdb_resources__id } from "./frmdb_resources__id";
 import { PrwRole } from "@core/entity/PrwRole";
 import { Currency } from "./entity/Currency";
+import { autoMigrate } from "src/core-orm/autoMigrate";
+import { ExchangeRate } from "./entity/ExchangeRate";
 
 export default async () => {
+
+    autoMigrate(Currency);
+    autoMigrate(ExchangeRate);
 
     const res1 = await putRow(PrwTable, { id: entityMetadata(PrwTable).tableName, parent: "administer", icon: "material-design-icons-table_rows", resource_type: "RESOURCE", menu_order: 1 });
 

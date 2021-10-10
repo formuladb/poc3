@@ -1,5 +1,5 @@
 BEGIN;
-    SELECT plan( 1 );
+    SELECT plan( 2 );
 
     select frmdb_create_role('testrole');
 
@@ -32,8 +32,8 @@ BEGIN;
             'testrole'::text collate "C", 
             'test'::text collate "C", 
             'true'::text collate "C", 
-            'frmdb_is_owner(username)'::text collate "C", 
-            'frmdb_is_owner(username)'::text collate "C", 
+            'frmdb_is_owner((username)::character varying)'::text collate "C", 
+            'frmdb_is_owner((username)::character varying)'::text collate "C", 
             'false'::text collate "C"
         ) $$
     );

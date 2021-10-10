@@ -1,7 +1,7 @@
 SELECT frmdb_put_table('prw_users');
 SELECT frmdb_put_column('prw_users', 'username', 'character varying', 'is_not_null(username)', null);
 SELECT frmdb_put_column('prw_users', 'pass', 'character varying', 'is_not_null(pass)', null);
-SELECT frmdb_put_column('prw_users', 'role', 'regrole', 'is_not_null(role)', null);
+SELECT frmdb_put_column('prw_users', 'prw_role_id', 'regrole', 'is_not_null(prw_role_id)', null);
 --------
 DO $migration$
 BEGIN
@@ -115,7 +115,7 @@ begin
 
   result.token = sign(
       json_build_object(
-        'role', _user.role,
+        'prw_role_id', _user.prw_role_id,
         'user_id', _user.id,
         'username', _user.username,
         'exp', extract(epoch from now())::integer + 3600
@@ -141,7 +141,7 @@ begin
 
   PERFORM set_config('request.jwt.claim.user_id', NULL, true);
   PERFORM set_config('request.jwt.claim.username', NULL, true);
-  PERFORM set_config('request.jwt.claim.role', 'frmdb_anon', true);
+  PERFORM set_config('request.jwt.claim.prw_role_id', 'frmdb_anon', true);
 end;
 $fun$ language plpgsql;
 
@@ -158,12 +158,12 @@ begin
     raise invalid_password using message = 'invalid user or password';
   end if;
 
-  v_stm := format($$ SET ROLE %I $$, _user.role);
+  v_stm := format($$ SET ROLE %I $$, _user.prw_role_id);
   EXECUTE v_stm;
 
   PERFORM set_config('request.jwt.claim.user_id', _user.id::text, true);
   PERFORM set_config('request.jwt.claim.username', _user.username, true);
-  PERFORM set_config('request.jwt.claim.role', _user.role::text, true);
+  PERFORM set_config('request.jwt.claim.prw_role_id', _user.prw_role_id::text, true);
 end;
 $fun$ language plpgsql;
 
@@ -179,7 +179,7 @@ begin
 
   PERFORM set_config('request.jwt.claim.user_id', NULL, true);
   PERFORM set_config('request.jwt.claim.username', NULL, true);
-  PERFORM set_config('request.jwt.claim.role', NULL, true);
+  PERFORM set_config('request.jwt.claim.prw_role_id', NULL, true);
 end;
 $fun$ language plpgsql;
 
@@ -200,7 +200,7 @@ begin
       row_to_json(r), 'asd1238d140dhoicoiqhewodqhed81-312d'
     ) as token
     from (
-      select current_user as role, 
+      select current_user as prw_role_id, 
       (select current_setting('request.jwt.claim.user_id', true)) as user_id,
       (select current_setting('request.jwt.claim.username', true)) as username,
       extract(epoch from now())::integer + 3600 as exp

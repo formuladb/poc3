@@ -8,8 +8,8 @@ BEGIN;
 	SELECT has_column( 'prw_users'::name, 'meta_created_at', '' );
 
     SELECT frmdb_create_role('testrole');
-    INSERT INTO prw_users (id, username, pass, role)
-		VALUES (1, 'user1', 'pass1', 'testrole');
+    INSERT INTO prw_users (id, username, pass, prw_role_id)
+		VALUES (11, 'user1', 'pass1', 'testrole');
 		
     SELECT frmdb_sql_unit_test_login('user1', 'pass1');
     SELECT frmdb_sql_unit_test_logout();

@@ -4,7 +4,7 @@ select frmdb_create_role('enduser');
 select frmdb_create_role('reviewer');
 
 
-INSERT INTO frmdb_dictionary (id, en, ro) VALUES
+INSERT INTO prw_dictionary (id, en, ro) VALUES
     ('resources.users.name', 'Users', 'Utilizatori'),
     ('resources.users.fields.id', 'Id', 'Id'),
     ('resources.users.fields.code', 'Code', 'Cod'),

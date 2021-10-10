@@ -16,14 +16,13 @@ WITH tmp AS (
         (COUNT(*) FILTER 
                 (WHERE rtg.privilege_type = 'DELETE')
             ) > 0 as base_delete_perm,
-        string_agg(pol.cmd, '|') as select_perm,
-        -- MIN('pol.qual') FILTER (WHERE pol.cmd = 'SELECT') as select_perm,
+        MIN(pol.qual) FILTER (WHERE pol.cmd = 'SELECT') as select_perm,
         MIN(pol.with_check) FILTER (WHERE pol.cmd = 'INSERT') as insert_perm,
         MIN(pol.with_check) FILTER (WHERE pol.cmd = 'UPDATE') as update_perm,
         MIN(pol.qual) FILTER (WHERE pol.cmd = 'DELETE') as delete_perm
     FROM information_schema.role_table_grants rtg
         LEFT OUTER JOIN pg_policies pol 
-            ON rtg.grantee::name = pol.roles[0] 
+            ON rtg.grantee::name = pol.roles[1] 
                 AND rtg.table_name = pol.tablename
                 AND rtg.privilege_type = pol.cmd
     GROUP BY grantee, table_name

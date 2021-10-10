@@ -1,5 +1,5 @@
 --#####################################################################
-INSERT INTO frmdb_dictionary (id, en, ro) VALUES
+INSERT INTO prw_dictionary (id, en, ro) VALUES
     ('resources.quizzes.name', 'Quizzes', 'Chestionare'),
     ('resources.quizzes.fields.id', 'Id', 'Id'),
     ('resources.quizzes.fields.points', 'Points', 'Puncte'),
@@ -34,7 +34,7 @@ SELECT frmdb_set_check('quiz_sessions', 'nb_quizzes', $$ nb_quizzes <= max_nb_qu
 --# quizzes_results
 --#####################################################################
 
-INSERT INTO frmdb_dictionary (id, en, ro) VALUES
+INSERT INTO prw_dictionary (id, en, ro) VALUES
     ('resources.quizzes_results__frmdbvw.name', 'Quizzes Results', 'Rezultate Chestionare'),
     ('resources.quizzes_results__frmdbvw.fields.id', 'Id', 'Id'),
     ('resources.quizzes_results__frmdbvw.fields.quizz_template_id__.name', 'Quiz Template', 'Model Chestionar'),
@@ -119,7 +119,7 @@ CREATE OR REPLACE VIEW quizzes_results AS
 
 
 --#####################################################################
-INSERT INTO frmdb_dictionary (id, en, ro) VALUES
+INSERT INTO prw_dictionary (id, en, ro) VALUES
     ('resources.quiz_sessions_res__frmdbvw.name', 'Session Results', 'Rezultate Sesiune'),
     ('resources.quiz_sessions_res__frmdbvw.fields.id', 'Id', 'Id'),
     ('resources.quiz_sessions_res__frmdbvw.fields.meta_created_at', 'Created At', 'Data Creare'),
@@ -162,7 +162,7 @@ CREATE OR REPLACE VIEW quiz_sessions_res__frmdbvw AS
 -- );
 
 --#####################################################################
-INSERT INTO frmdb_dictionary (id, en, ro) VALUES
+INSERT INTO prw_dictionary (id, en, ro) VALUES
     ('resources.quiz_questions_frmdbvw.name', 'Quizzes', 'Chestionare'),
     ('resources.quiz_questions_frmdbvw.fields.id', 'Id', 'Id'),
     ('resources.quiz_questions_frmdbvw.fields.points', 'Points', 'Puncte'),

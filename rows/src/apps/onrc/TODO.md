@@ -4,7 +4,7 @@ TODOs for internal demo:
 * Remove Column
 * Add Resource/Page
 * Remove Resource/Page
-* Editing frmdb_dictionary
+* Editing prw_dictionary
 
 * CDesignBlock component
 * Image editor

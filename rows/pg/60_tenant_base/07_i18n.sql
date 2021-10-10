@@ -1,8 +1,8 @@
 SELECT set_config('request.jwt.claim.tenant', 'pagerows', true);
 
 --Diacritice (ă â î ș ț) (Ă Â Î Ș Ț)
---truncate table frmdb_dictionary
-INSERT INTO frmdb_dictionary (id, en, ro) VALUES
+--truncate table prw_dictionary
+INSERT INTO prw_dictionary (id, en, ro) VALUES
     ('saved', 'Saved', 'Salvat'),
     ('page.configuration', 'Configuration', 'Configurare'),
     ('pos.language', 'Language', 'Limbă'),

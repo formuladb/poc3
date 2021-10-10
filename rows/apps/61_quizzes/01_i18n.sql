@@ -1,5 +1,5 @@
 --Diacritice (ă â î ș ț) (Ă Â Î Ș Ț)
-INSERT INTO frmdb_dictionary (id, en, ro) VALUES
+INSERT INTO prw_dictionary (id, en, ro) VALUES
     ('saved', 'Saved', 'Salvat'),
     ('page.configuration', 'Configuration', 'Configurare'),
     ('pos.language', 'Language', 'Limbă'),
