@@ -28,7 +28,7 @@ export async function autoMigrate<ENTITY>(
         if (colM.databaseName === 'id' || colM.databaseName.startsWith('meta_')) continue;
 
         const constraintsList: string[] = [];
-        if (colM.isNullable) {
+        if (!colM.isNullable) {
             constraintsList.push(`is_not_null(${colM.databaseName})`);
         }
         if (colM.type === "enum") {

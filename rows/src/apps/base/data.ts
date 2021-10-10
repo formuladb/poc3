@@ -12,6 +12,7 @@ import { PrwUser } from "@core/entity/PrwUser";
 import { PrwTableColumn } from "@core/entity/PrwTableColumn";
 import { frmdb_resources__id } from "./frmdb_resources__id";
 import { PrwRole } from "@core/entity/PrwRole";
+import { Currency } from "./entity/Currency";
 
 export default async () => {
 
@@ -114,4 +115,11 @@ export default async () => {
         { id: `resources.${tblName}.fields.pass`,  en: 'Pass', ro: 'Parolă'},
         ...metaColumnsDictionary(tblName),
     ]);
+
+
+    await putRows(Currency, [
+        { id: "RON" },
+        { id: "EUR" },
+    ]);
+    
 }
