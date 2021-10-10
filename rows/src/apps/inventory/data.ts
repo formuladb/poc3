@@ -1,11 +1,12 @@
 import "reflect-metadata";
+import { autoMigrate } from "src/core-orm/autoMigrate";
 import { putRow, putRows } from "../../core-orm/putRow";
+import { InventoryTransaction } from "./entity/InventoryTransaction";
+import { ProductCategory } from "./entity/ProductCategory";
+import { ProductType } from "./entity/ProductType";
+
 export default async () => {
-    // select frmdb_create_role('client');
-    // select frmdb_create_role('operator');
-    // select frmdb_create_role('supplier');
-    // select frmdb_create_role('technician');
-    // select frmdb_create_role('administrator');
-    // select frmdb_create_role('depozit');
-    // select frmdb_create_role('client_manager');    
+    await autoMigrate(ProductType);
+    await autoMigrate(ProductCategory);
+    await autoMigrate(InventoryTransaction);
 }

@@ -1,6 +1,5 @@
 import { Column, Entity, ManyToOne, PrimaryColumn } from "typeorm";
 import { Meta } from "@core/entity/Meta";
-import { Currency } from "../base/entity/Currency";
 
 const States = {ACTIVE:0, INACTIVE:0};
 

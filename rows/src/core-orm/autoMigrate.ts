@@ -34,6 +34,10 @@ export async function autoMigrate<ENTITY>(
         if (colM.type === "enum") {
             constraintsList.push(`is_enum(${colM.databaseName}, ${colM.enum.map(e => "''"+e+"''").join(', ')})`);
         }
+        const check = m.checks.find(c => c.name === colM.propertyName);
+        if (check) {
+            constraintsList.push(check.expression);
+        }
         const constraints = constraintsList.length === 1 ? constraintsList[0] : (
             constraintsList.length > 1 ? `_and(${constraintsList.join(', ')})` : 'null'
         );

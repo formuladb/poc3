@@ -11,6 +11,9 @@ import { spawn } from 'child_process';
 
 import baseData from './apps/base/data';
 import websitesData from './apps/websites/data';
+import crmData from './apps/crm/data';
+import inventoryData from './apps/inventory/data';
+import serviceData from './apps/service/data';
 import onrcData from './apps/onrc/data';
 
 import basePermissions from './apps/base/permissions';

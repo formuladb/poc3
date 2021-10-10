@@ -1,7 +1,7 @@
 import { Column, Entity, ManyToOne, PrimaryColumn } from "typeorm";
 import { Meta } from "@core/entity/Meta";
 import { EquipmentType } from "./EquipmentType";
-import { Customer } from "src/apps/crm/Customer";
+import { Customer } from "src/apps/crm/entity/Customer";
 
 const States = {ACTIVE:0, INACTIVE:0};
 
@@ -26,13 +26,6 @@ export class Equipment {
 
     @Column({type: "enum", enum: Object.keys(States)}) 
     state!: keyof typeof States;
-
-    @Column({asExpression: /*sql*/`HLOOKUP('product__id', 'model')`}) 
-    product_model!: string;
-    @Column({asExpression: /*sql*/`HLOOKUP('product__id', 'product_group')`}) 
-    product_group!: string;
-    @Column({asExpression: /*sql*/`HLOOKUP('product__id', 'category')`}) 
-    product_category!: string;
 
     @Column(() => Meta) meta: Meta;
 }
