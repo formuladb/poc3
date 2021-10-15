@@ -15,10 +15,8 @@ import crmData from './apps/crm/data';
 import inventoryData from './apps/inventory/data';
 import serviceData from './apps/service/data';
 import onrcData from './apps/onrc/data';
+import frfData from './apps/frf/data';
 
-import basePermissions from './apps/base/permissions';
-import websitesPermissions from './apps/websites/permissions';
-import onrcPermissions from './apps/onrc/permissions';
 
 var client = new Minio.Client({
     endPoint: 'minio',
@@ -85,11 +83,9 @@ pgFmkInstall()
 
         await baseData();
         // await websitesData();
-        await onrcData();
+        // await onrcData();
+        await frfData();
 
-        await basePermissions();
-        // await websitesPermissions();
-        await onrcPermissions();
     })
     .then(() => app.listen(8080))
     ;
