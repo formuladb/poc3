@@ -1,6 +1,7 @@
 import { AfterInsert, AfterUpdate, EntitySubscriberInterface, EventSubscriber, InsertEvent, ManyToOne, OneToMany, PrimaryColumn, UpdateEvent } from "typeorm";
 import { Column, Entity } from "typeorm";
 import { Meta } from "@core/entity/Meta";
+import { Playfield } from "./Playfield";
 
 @Entity()
 export class Isf {
@@ -31,6 +32,8 @@ export class Isf {
     @Column() acord_pers_nume: string;
     @Column() acord_pers_data: string;
 
+    @OneToMany(() => Playfield, d => d.isf)
+    playfields?: Playfield[];
 
     @Column(() => Meta) meta: Meta;
 }
