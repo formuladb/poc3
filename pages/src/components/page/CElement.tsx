@@ -1,4 +1,4 @@
-import { Grid, Box, Button } from '@material-ui/core';
+import { Grid, Box, Button, Typography } from '@material-ui/core';
 import React, { useState, useEffect } from 'react';
 import { Node as CraftJsNode, useNode, useEditor } from '@craftjs/core';
 import { CElementProps } from '../../core/entity/page';
@@ -22,7 +22,7 @@ export const CElement = (nP: CElementProps) => {
   return <Grid item md={nP?.item?.width || 3} className="" ref={connect as (instance: HTMLDivElement | null) => void}>
     <Box {...nP.box?.borders} {...nP.box?.spacing}>
       {nP.cElementType == 'Text' &&
-        <div dangerouslySetInnerHTML={{__html: nP.content}}></div>}
+        <Typography {...nP.typography} dangerouslySetInnerHTML={{__html: nP.content}}></Typography>}
       {nP.cElementType == 'Action' &&
         <Button size={nP.size} variant={nP.variant} color={nP.color} href={nP.navigateTo}>{nP.title}</Button>}
       {nP.cElementType == 'Icon' && <AppIcon name={nP.name} />}
@@ -46,6 +46,9 @@ export const CElementSettings = () => {
 const CElementDefaultProps: CElementProps = {
     cElementType: "Text",
     content: "edit me...",
+    typography: {
+      variant: "body1",
+    },
 };
 const craft: CmpCraftStatic = {
     displayName: 'Element',
