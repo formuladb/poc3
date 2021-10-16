@@ -1,4 +1,4 @@
-import { BoxProps } from "./styles";
+import { BoxProps, TypographyProps } from "./styles";
 
 export interface FormulaInUI {
     expression: string;
@@ -194,7 +194,7 @@ export type FormAction =
 
 
 interface GridItemProps {
-    width?: 2 | 3 | 4 | 6 | 8 | 10 | 12;
+    width?: 1 | 2 | 3 | 4 | 6 | 8 | 10 | 12;
 }
 
 interface CInputPropsBase {
@@ -430,6 +430,7 @@ interface ButtonProps {
 export interface CElementTextProps extends CElementPropsBase {
     cElementType: "Text";
     content: string;
+    typography?: TypographyProps;
 }
 export interface CElementTextNode extends PageNodeBase, CElementTextProps {
     _tag: "CElement";

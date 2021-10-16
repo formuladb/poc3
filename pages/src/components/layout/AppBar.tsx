@@ -52,7 +52,7 @@ const CustomAppBar = (props: any) => {
             />
             <img src="/frmdb-bucket/images/logo.png" style={{ height: '35px' }} />
             <span style={{paddingLeft: "5px"}}>
-                Oficiul Național al Registrului Comerțului
+                Federația Română de Fotbal
             </span>
             <span className={classes.spacer} />
         </AppBar>

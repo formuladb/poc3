@@ -25,6 +25,7 @@ export default async () => {
         { id: "form11_10_181__id", content: form11_10_181__id, prwTable: res1 },
     ]);
 
+    // Diacritice (ă â î ș ț) (Ă Â Î Ș Ț)
     let tblName = entityMetadata(Form11_10_181).tableName;
     await putRows(PrwDictionary, [
         { id: `resources.onrc.name`,  en: 'ONRC Forms', ro: 'Formulare ONRC'},

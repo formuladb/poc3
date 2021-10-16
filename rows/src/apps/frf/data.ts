@@ -8,7 +8,7 @@ import { setPermission } from "src/core-orm/setPermision";
 import { metaColumnsDictionary } from "../base/metaColumnsDictonary";
 import { Isf } from "./entity/Isf";
 import { Playfield } from "./entity/Playfield";
-import { isf__id } from "./isf";
+import { isf__id } from "./isf__id";
 
 export default async () => {
     await autoMigrate(Isf);

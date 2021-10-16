@@ -20,6 +20,7 @@
             "properties": {
                 "border": {
                     "enum": [
+                        0,
                         1,
                         2,
                         3,
@@ -29,6 +30,7 @@
                 },
                 "borderBottom": {
                     "enum": [
+                        0,
                         1,
                         2,
                         3,
@@ -52,6 +54,7 @@
                 },
                 "borderLeft": {
                     "enum": [
+                        0,
                         1,
                         2,
                         3,
@@ -61,6 +64,7 @@
                 },
                 "borderRadius": {
                     "enum": [
+                        0,
                         10,
                         20,
                         30,
@@ -72,6 +76,7 @@
                 },
                 "borderRight": {
                     "enum": [
+                        0,
                         1,
                         2,
                         3,
@@ -81,6 +86,7 @@
                 },
                 "borderTop": {
                     "enum": [
+                        0,
                         1,
                         2,
                         3,
@@ -226,6 +232,9 @@
                 },
                 "item": {
                     "$ref": "#/definitions/GridItemProps"
+                },
+                "typography": {
+                    "$ref": "#/definitions/TypographyProps"
                 }
             },
             "required": [
@@ -239,6 +248,7 @@
             "properties": {
                 "width": {
                     "enum": [
+                        1,
                         10,
                         12,
                         2,
@@ -424,6 +434,74 @@
                     "type": "number"
                 }
             },
+            "type": "object"
+        },
+        "TypographyProps": {
+            "additionalProperties": false,
+            "properties": {
+                "fontStyle": {
+                    "enum": [
+                        "italic",
+                        "normal",
+                        "oblique"
+                    ],
+                    "type": "string"
+                },
+                "fontWeight": {
+                    "enum": [
+                        "",
+                        "500",
+                        "Bold",
+                        "Light",
+                        "Medium",
+                        "Regular"
+                    ],
+                    "type": "string"
+                },
+                "letterSpacing": {
+                    "enum": [
+                        0,
+                        1,
+                        10,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7,
+                        8,
+                        9
+                    ],
+                    "type": "number"
+                },
+                "lineHeight": {
+                    "enum": [
+                        0,
+                        1,
+                        10,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7,
+                        8,
+                        9,
+                        "normal"
+                    ]
+                },
+                "textAlign": {
+                    "enum": [
+                        "center",
+                        "left",
+                        "right"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "fontStyle"
+            ],
             "type": "object"
         }
     }

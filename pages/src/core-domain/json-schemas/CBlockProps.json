@@ -17,6 +17,7 @@
             "properties": {
                 "border": {
                     "enum": [
+                        0,
                         1,
                         2,
                         3,
@@ -26,6 +27,7 @@
                 },
                 "borderBottom": {
                     "enum": [
+                        0,
                         1,
                         2,
                         3,
@@ -49,6 +51,7 @@
                 },
                 "borderLeft": {
                     "enum": [
+                        0,
                         1,
                         2,
                         3,
@@ -58,6 +61,7 @@
                 },
                 "borderRadius": {
                     "enum": [
+                        0,
                         10,
                         20,
                         30,
@@ -69,6 +73,7 @@
                 },
                 "borderRight": {
                     "enum": [
+                        0,
                         1,
                         2,
                         3,
@@ -78,6 +83,7 @@
                 },
                 "borderTop": {
                     "enum": [
+                        0,
                         1,
                         2,
                         3,
@@ -195,6 +201,7 @@
             "properties": {
                 "width": {
                     "enum": [
+                        1,
                         10,
                         12,
                         2,

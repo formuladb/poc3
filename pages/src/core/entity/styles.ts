@@ -39,3 +39,28 @@ export interface BoxProps {
     borders?: Borders;
     spacing?: Spacing;
 }
+
+export interface TypographyProps {
+    // | 'fontFamily'
+    // | 'fontSize'
+    fontStyle:
+    | "normal"
+    | "italic"
+    | "oblique"
+    ;
+    fontWeight?:
+    | ""
+    | "Light"
+    | "Regular"
+    | "Medium"
+    | "500"
+    | "Bold"
+    ;
+    letterSpacing?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
+    lineHeight?: "normal" | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
+    textAlign ?: 
+    | "left"
+    | "center"
+    | "right"
+    ;
+}

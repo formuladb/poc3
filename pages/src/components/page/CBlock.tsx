@@ -1,6 +1,5 @@
 import { useNode } from '@craftjs/core';
 import React from 'react';
-import { RichTextField, TextField } from 'react-admin';
 import { CBlockProps } from '../../core/entity/page';
 import { Grid, Box } from '@material-ui/core';
 import { getCBlockSchema } from '../form/post-processed-schemas';
