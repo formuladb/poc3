@@ -17,6 +17,7 @@ import FormIcon from '@material-ui/icons/WidgetsOutlined';
 
 import TipIcon from '@material-ui/icons/EmojiObjects';
 
+import ElementTextIcon from '@material-ui/icons/TextFormat';
 import ElementActionIcon from '@material-ui/icons/Crop75';
 import ElementIconIcon from '@material-ui/icons/SentimentSatisfied';
 import ElementImageIcon from '@material-ui/icons/Image';
@@ -71,6 +72,7 @@ export const Toolbox = () => {
                 <Grid md={6} container direction="column" item>
                     <Tooltip arrow title={<>
                         <div>Drag new Element onto the page: </div>
+                        <span><ElementTextIcon style={{ fontSize: 12 }} /> Text</span>,&nbsp;
                         <span><ElementActionIcon style={{ fontSize: 12 }} /> Action</span>,&nbsp;
                         <span><ElementIconIcon style={{ fontSize: 12 }} /> Icon</span>,&nbsp;
                         <span><ElementImageIcon style={{ fontSize: 12 }} /> Image</span>
