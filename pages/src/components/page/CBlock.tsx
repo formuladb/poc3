@@ -1,10 +1,10 @@
 import { useNode } from '@craftjs/core';
 import React from 'react';
 import { RichTextField, TextField } from 'react-admin';
-import { CDesignBlockProps } from '../../core/entity/page';
+import { CBlockProps } from '../../core/entity/page';
 import { Grid, Box } from '@material-ui/core';
 
-export const CDesignBlock = (nP: CDesignBlockProps) => {
+export const CBlock = (nP: CBlockProps) => {
     const {
         connectors: { connect, drag },
     } = useNode();
@@ -20,7 +20,7 @@ export const CDesignBlock = (nP: CDesignBlockProps) => {
     );
 };
 
-// export const CDesignBlockCOVER = (nP: CDesignBlockCOVERProps) => {
+// export const CBlockCOVER = (nP: CBlockCOVERProps) => {
 //     return <>
 //         <frmdb-t-cover style="--frmdb-bg-img: url('/formuladb-env/frmdb-apps/base-app/static/bg1.jpg')" className="">
 //             <frmdb-t-main className="">
@@ -42,7 +42,7 @@ export const CDesignBlock = (nP: CDesignBlockProps) => {
 //         </frmdb-t-cover>
 //     </>;
 // }
-// export const CDesignBlockHEADER = (nP: CDesignBlockHEADERProps) => {
+// export const CBlockHEADER = (nP: CBlockHEADERProps) => {
 //     return <>
 //         <frmdb-t-header className="frmdb-t-header" style="--frmdb-bg-img: url('/formuladb-env/frmdb-apps/base-app/static/bg1.jpg')">
 //             <div className="jumbotron">
@@ -55,7 +55,7 @@ export const CDesignBlock = (nP: CDesignBlockProps) => {
 //         </frmdb-t-header>
 //     </>;
 // }
-// export const CDesignBlockMEDIA = (nP: CDesignBlockMEDIAProps) => {
+// export const CBlockMEDIA = (nP: CBlockMEDIAProps) => {
 //     return <>
 
 //         <frmdb-t-media-section-main style="--frmdb-bg-img: url('/formuladb-env/frmdb-apps/base-app/static/bg-right.jpg')" className="">
@@ -109,7 +109,7 @@ export const CDesignBlock = (nP: CDesignBlockProps) => {
 //         </section>
 //     </>;
 // }
-// export const CDesignBlockCARDS = (nP: CDesignBlockCARDSProps) => {
+// export const CBlockCARDS = (nP: CBlockCARDSProps) => {
 //     return <>
 //         <section className="frmdb-section-light container py-5">
 //             <frmdb-t-section-divider></frmdb-t-section-divider>
@@ -187,7 +187,7 @@ export const CDesignBlock = (nP: CDesignBlockProps) => {
 //         </section>
 //     </>;
 // }
-// export const CDesignBlockCARDS2 = (nP: CDesignBlockCARDS2Props) => {
+// export const CBlockCARDS2 = (nP: CBlockCARDS2Props) => {
 //     return <>
 
 //         <frmdb-t-section-cards-icon style="--frmdb-bg-img: url('/formuladb-env/frmdb-apps/base-app/static/bg3.jpg')" className="">

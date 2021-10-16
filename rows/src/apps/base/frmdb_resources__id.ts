@@ -109,7 +109,7 @@ export const frmdb_resources__id: CPageNode = {
             ]
         },
         {
-            "_tag": "CDesignBlock",
+            "_tag": "CBlock",
             "_id": "jW9Z3",
             "title": "Columns",
         },
@@ -129,7 +129,7 @@ export const frmdb_resources__id: CPageNode = {
             ]
         },
         {
-            "_tag": "CDesignBlock",
+            "_tag": "CBlock",
             "_id": "jW9Z3",
             "title": "Pages",
         },

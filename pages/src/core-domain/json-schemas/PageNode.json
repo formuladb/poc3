@@ -291,7 +291,7 @@
             },
             "type": "object"
         },
-        "CDesignBlockNode": {
+        "CBlockNode": {
             "additionalProperties": false,
             "properties": {
                 "_id": {
@@ -299,7 +299,7 @@
                 },
                 "_tag": {
                     "enum": [
-                        "CDesignBlock"
+                        "CBlock"
                     ],
                     "type": "string"
                 },
@@ -322,6 +322,110 @@
             "required": [
                 "_id",
                 "_tag"
+            ],
+            "type": "object"
+        },
+        "CElementActionNode": {
+            "additionalProperties": false,
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "_tag": {
+                    "enum": [
+                        "CElement"
+                    ],
+                    "type": "string"
+                },
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
+                "cElementType": {
+                    "enum": [
+                        "Action"
+                    ],
+                    "type": "string"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                }
+            },
+            "required": [
+                "_id",
+                "_tag",
+                "cElementType"
+            ],
+            "type": "object"
+        },
+        "CElementIconNode": {
+            "additionalProperties": false,
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "_tag": {
+                    "enum": [
+                        "CElement"
+                    ],
+                    "type": "string"
+                },
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
+                "cElementType": {
+                    "enum": [
+                        "Icon"
+                    ],
+                    "type": "string"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                },
+                "name": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "_id",
+                "_tag",
+                "cElementType",
+                "name"
+            ],
+            "type": "object"
+        },
+        "CElementImageNode": {
+            "additionalProperties": false,
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "_tag": {
+                    "enum": [
+                        "CElement"
+                    ],
+                    "type": "string"
+                },
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
+                "cElementType": {
+                    "enum": [
+                        "Image"
+                    ],
+                    "type": "string"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                },
+                "url": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "_id",
+                "_tag",
+                "cElementType",
+                "url"
             ],
             "type": "object"
         },
@@ -3548,80 +3652,6 @@
             ],
             "type": "object"
         },
-        "CPaperNode": {
-            "additionalProperties": false,
-            "properties": {
-                "_id": {
-                    "type": "string"
-                },
-                "_tag": {
-                    "enum": [
-                        "CPaper"
-                    ],
-                    "type": "string"
-                },
-                "background": {
-                    "type": "string"
-                },
-                "children": {
-                    "items": {
-                        "$ref": "#/definitions/PageNode"
-                    },
-                    "type": "array"
-                },
-                "padding": {
-                    "type": "number"
-                }
-            },
-            "required": [
-                "_id",
-                "_tag"
-            ],
-            "type": "object"
-        },
-        "CTextNode": {
-            "additionalProperties": false,
-            "properties": {
-                "_id": {
-                    "type": "string"
-                },
-                "_tag": {
-                    "enum": [
-                        "CText"
-                    ],
-                    "type": "string"
-                },
-                "fontWeight": {
-                    "enum": [
-                        "bold",
-                        "bolder",
-                        "lighter"
-                    ],
-                    "type": "string"
-                },
-                "text": {
-                    "type": "string"
-                },
-                "textAlign": {
-                    "enum": [
-                        "center",
-                        "end",
-                        "justify",
-                        "left",
-                        "match-parent",
-                        "right",
-                        "start"
-                    ],
-                    "type": "string"
-                }
-            },
-            "required": [
-                "_id",
-                "_tag",
-                "text"
-            ],
-            "type": "object"
-        },
         "GridItemProps": {
             "additionalProperties": false,
             "properties": {
@@ -3721,16 +3751,19 @@
                     "$ref": "#/definitions/CFormNode"
                 },
                 {
-                    "$ref": "#/definitions/CTextNode"
+                    "$ref": "#/definitions/CElementActionNode"
                 },
                 {
-                    "$ref": "#/definitions/CPaperNode"
+                    "$ref": "#/definitions/CElementIconNode"
+                },
+                {
+                    "$ref": "#/definitions/CElementImageNode"
                 },
                 {
                     "$ref": "#/definitions/CLayoutNode"
                 },
                 {
-                    "$ref": "#/definitions/CDesignBlockNode"
+                    "$ref": "#/definitions/CBlockNode"
                 }
             ]
         },

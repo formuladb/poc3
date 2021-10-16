@@ -6,7 +6,7 @@ import {
 } from 'react-admin';
 import { CLayout } from '../page/CLayout';
 import { CButton } from '../page/CButton';
-import { CText } from '../page/CText';
+import { CElement } from '../page/CElement';
 import { useLocation } from 'react-router-dom';
 import { parseLocation } from '../../location_utils';
 import { CFormProps } from '../../core/entity/page';
@@ -78,7 +78,7 @@ CForm.craft = {
     rules: {
         canMoveIn: (incomingNode) => {
             console.log('CForm.canMoveIn', incomingNode.data.type, incomingNode);
-            return [CLayout, CForm, CButton, CText].includes(incomingNode.data.type);
+            return [CLayout, CForm, CButton, CElement].includes(incomingNode.data.type);
         }
     },
 };

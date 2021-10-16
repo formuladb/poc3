@@ -34,7 +34,7 @@ export const form11_10_181__id: CPageNode = {
                             "disabled": false
                         },
                         {
-                            "_tag": "CDesignBlock",
+                            "_tag": "CBlock",
                             "_id": "jW9ZraEAL2",
                             "title": "C E R E R E",
                             "subtitle": "de verificare disponibilitate și<br/> rezervare denumire firmă",
@@ -65,7 +65,7 @@ export const form11_10_181__id: CPageNode = {
                     },
                     "children": [
                         {
-                            "_tag": "CDesignBlock",
+                            "_tag": "CBlock",
                             "_id": "jW9ZraEAL4",
                             "subtitle": "Rezervarea firmei are caracter administrativ şi prealabil, asupra legalității formale a firmei urmând a se pronunța directorul ORCT/persoana desemnată ORCT, cu ocazia soluționării cererii de înregistrare în registrul comerțului. Denumirea rezervată nu este constitutivă de drepturi în sensul Legii nr.84/1998.",
                             item: {width: 12},
@@ -96,7 +96,7 @@ export const form11_10_181__id: CPageNode = {
                         { source: "subsemnat_etaj", "cInputType": "TextField", "_tag": "CInput", _id: "sub7", resource: "form11_10_181"},
 
                         {
-                            "_tag": "CDesignBlock",
+                            "_tag": "CBlock",
                             "_id": "sec5",
                             "body": "2. <b>solicit</b> verificare disponibilitate și rezervare firmă(2) pentru",
                             item: { width: 12 }
@@ -111,7 +111,7 @@ export const form11_10_181__id: CPageNode = {
                     ]
                 },
                 {
-                    "_tag": "CDesignBlock",
+                    "_tag": "CBlock",
                     "_id": "sec6",
                     "title": "Denumiri propuse în ordinea preferințelor solicitantului",
                     box: {
@@ -144,7 +144,7 @@ export const form11_10_181__id: CPageNode = {
             ]
         },
         {
-            "_tag": "CDesignBlock",
+            "_tag": "CBlock",
             "_id": "jW9ZraEAL3",
             "title": "OPIS DOCUMENTE DEPUSE",
             box: {

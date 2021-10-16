@@ -34,7 +34,7 @@ export interface CPageListProps {
     noFilters?: boolean;
     noPagination?: boolean;
     largePages?: boolean;
-    
+
 }
 export interface CPageListNode extends CPageNodeBase, CPageListProps {
     _tag: 'CPage';
@@ -101,10 +101,10 @@ export interface CListFormListNode extends PageNodeBase, CListFormListProps {
 
 export interface CListChartProps extends CListPropsBase {
     cListType: 'Chart';
-    chartType: "Line" | "Bar" | "Pie";    
+    chartType: "Line" | "Bar" | "Pie";
     /**@TJS-format frmdb-resource-field-name */
     xAxisSource: string;
-    
+
     /**@TJS-format frmdb-resource-field-name */
     yAxisSource: string;
     /**@TJS-format frmdb-resource-field-name */
@@ -122,20 +122,20 @@ export interface CListChartNode extends PageNodeBase, CListChartProps {
     children?: PageNode[];
 }
 
-export type CListProps = 
+export type CListProps =
     | CListTabsProps
     | CListTableProps
     | CListDatagridProps
     | CListFormListProps
     | CListChartProps
-;
-export type CListNode = 
+    ;
+export type CListNode =
     | CListTabsNode
     | CListTableNode
     | CListDatagridNode
     | CListFormListNode
     | CListChartNode
-;
+    ;
 
 interface ActionCREATE {
     actionType: 'CREATE';
@@ -145,7 +145,7 @@ export interface ActionEXPORT {
 }
 export interface ActionIMPORTDATA {
     actionType: 'IMPORTDATA';
-    fieldMappings: {importedField: string, field: string}[];
+    fieldMappings: { importedField: string, field: string }[];
 }
 
 export interface ActionPRINT {
@@ -153,12 +153,12 @@ export interface ActionPRINT {
 }
 
 
-export type ListAction = 
+export type ListAction =
     | ActionCREATE
     | ActionEXPORT
     | ActionIMPORTDATA
     | ActionPRINT
-;
+    ;
 
 
 export interface ActionSET {
@@ -173,7 +173,7 @@ export interface ActionREDIRECT {
     to: 'LIST' | {
         resource: string;
         referenceField: string;
-    } 
+    }
 }
 
 export interface ActionSAVE {
@@ -186,11 +186,11 @@ export interface ActionDELETE {
     disabled?: boolean;
 }
 
-export type FormAction = 
+export type FormAction =
     | ActionPRINT
     | ActionSAVE
     | ActionDELETE
-;
+    ;
 
 
 interface GridItemProps {
@@ -275,7 +275,7 @@ export interface CInputNumberFieldNode extends PageNodeBase, CInputNumberFieldPr
 }
 export interface CInputRichTextFieldProps extends CInputPropsBase {
     readonly cInputType: "RichTextField";
-    initialValue?: string;    
+    initialValue?: string;
 }
 export interface CInputRichTextFieldNode extends PageNodeBase, CInputRichTextFieldProps {
     _tag: "CInput";
@@ -369,7 +369,7 @@ export type CInputPropsNoFormulas =
 export type CInputProps =
     | CInputPropsNoFormulas
     | CInputFormulaProps
-;
+    ;
 
 export type CInputNode =
     | CInputTextFieldNode
@@ -405,23 +405,64 @@ export interface CFormNode extends CFormProps, PageNodeBase {
     children?: PageNode[];
 }
 
-export interface CTextProps {
-    text: string;
-    fontWeight?: "bold" | "bolder" | "lighter";
-    textAlign?: "center" | "end" | "justify" | "left" | "match-parent" | "right" | "start";
-}
-export interface CTextNode extends CTextProps, PageNodeBase {
-    _tag: 'CText';
+
+interface CElementPropsBase {
+    box?: BoxProps;
+    item?: GridItemProps;
 }
 
-export interface CPaperProps {
-    background?: string;
-    padding?: number;
+interface ButtonProps {
+    title: string;
+    color?: 'default'
+    | 'inherit'
+    | 'primary'
+    | 'secondary';
+    variant?: 'contained'
+    | 'outlined'
+    | 'text';
+    size?: 'large'
+    | 'medium'
+    | 'small';
+    startIconName?: string;
+    navigateTo?: string;//TODO: allow only page names, if id or other parameters are required check validity
 }
-export interface CPaperNode extends CPaperProps, PageNodeBase {
-    _tag: 'CPaper';
-    children?: PageNode[];
+
+export interface CElementActionProps extends CElementPropsBase, ButtonProps {
+    cElementType: "Action";
 }
+export interface CElementActionNode extends PageNodeBase, CElementActionProps {
+    _tag: "CElement";
+}
+
+export interface CElementIconProps extends CElementPropsBase {
+    cElementType: "Icon";
+    name: string;
+}
+export interface CElementIconNode extends PageNodeBase, CElementIconProps {
+    _tag: "CElement";
+}
+
+export interface CElementImageProps extends CElementPropsBase {
+    cElementType: "Image";
+    url: string;
+}
+export interface CElementImageNode extends PageNodeBase, CElementImageProps {
+    _tag: "CElement";
+}
+
+export type CElementProps =
+    | CElementActionProps
+    | CElementIconProps
+    | CElementImageProps
+    ;
+
+export type CElementNode =
+    | CElementActionNode
+    | CElementIconNode
+    | CElementImageNode
+    ;
+
+
 export interface CLayoutProps {
     direction?: "row" | "column";
     spacing?: 1 | 2 | 3 | 4;
@@ -433,16 +474,46 @@ export interface CLayoutNode extends CLayoutProps, PageNodeBase {
     children?: PageNode[];
 }
 
-export interface CDesignBlockProps {
+interface CBlockPropsBase {
     title?: string;
     subtitle?: string;
     body?: string;
     box?: BoxProps;
     item?: GridItemProps;
 }
-export interface CDesignBlockNode extends CDesignBlockProps, PageNodeBase {
-    _tag: 'CDesignBlock';
+
+export interface CBlockHeadingProps extends CBlockPropsBase {
+    cBlockType: "Heading";
 }
+export interface CBlockHeadingNode extends PageNodeBase, CBlockHeadingProps {
+    _tag: "CBlock";
+}
+
+export interface CBlockMediaProps extends CBlockPropsBase {
+    cBlockType: "Media";
+}
+export interface CBlockMediaNode extends PageNodeBase, CBlockMediaProps {
+    _tag: "CBlock";
+}
+
+export interface CBlockCardsProps extends CBlockPropsBase {
+    cBlockType: "Cards";
+}
+export interface CBlockCardsNode extends PageNodeBase, CBlockCardsProps {
+    _tag: "CBlock";
+}
+
+export type CBlockProps =
+    | CBlockHeadingProps
+    | CBlockMediaProps
+    | CBlockCardsProps
+    ;
+
+export type CBlockNode =
+    | CBlockHeadingNode
+    | CBlockMediaNode
+    | CBlockCardsNode
+    ;
 
 export const PageNodeMetadata = {
     CPage: { isCanvas: true, displayName: 'Page' },
@@ -450,24 +521,22 @@ export const PageNodeMetadata = {
     CInput: { isCanvas: false, displayName: 'Input' },
     CForm: { isCanvas: true, displayName: 'Form' },
     CLayout: { isCanvas: true, displayName: 'Row' },
-    CDesignBlock: { isCanvas: false, displayName: 'DesignBlock' },
-    CPaper: { isCanvas: true, displayName: 'Paper' },
-    CText: { isCanvas: false, displayName: 'Text' },
+    CBlock: { isCanvas: false, displayName: 'Block' },
+    CElement: { isCanvas: false, displayName: 'Element' },
 }
 
 export type CanvasPageNode =
     | CPageNode
     | CListNode
     | CFormNode
-    | CPaperNode
     | CLayoutNode
-;
+    ;
 export function isCanvasNode(node: PageNode): node is CanvasPageNode {
     return Object.entries(PageNodeMetadata).filter(([tag, n]) => n.isCanvas).find(([tag, n]) => tag === node._tag) != undefined;
 }
 export type PageNode =
     | CanvasPageNode
     | CInputNode
-    | CTextNode
-    | CDesignBlockNode
+    | CElementNode
+    | CBlockNode
     ;

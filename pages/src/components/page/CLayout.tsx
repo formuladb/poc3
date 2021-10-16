@@ -6,7 +6,7 @@ import { Grid, Box } from '@material-ui/core';
 import { ContainerDefaultProps, ContainerSettings } from './CPaper';
 import { CColumn } from './CColumn';
 import { CInput } from '../form/CInput';
-import { CText } from './CText';
+import { CElement } from './CElement';
 import { CButton } from './CButton';
 import { isGridContainerNode } from '../utils';
 import { CLayoutProps } from '../../core/entity/page';
@@ -47,7 +47,7 @@ CLayout.craft = {
     rules: {
         canMoveIn: (incomingNode) => {
             console.log(incomingNode.data.type, incomingNode);
-            return [CColumn, CInput, CList, CText, CButton].includes(incomingNode.data.type);
+            return [CColumn, CInput, CList, CElement, CButton].includes(incomingNode.data.type);
         }
     },
 };

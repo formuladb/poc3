@@ -4,13 +4,9 @@ import {
 } from '@material-ui/core';
 import React, { ReactElement } from 'react';
 
-import { CButton } from './page/CButton';
-import { Card, CardBottom, CardTop } from './page/Card';
-import { CPaper } from './page/CPaper';
-import { CDesignBlock } from './page/CDesignBlock';
-import { CText } from './page/CText';
+import { CBlock } from './page/CBlock';
+import { CElement } from './page/CElement';
 import { CLayout } from './page/CLayout';
-import { CColumn } from './page/CColumn';
 import { CForm } from './form/CForm';
 import { CInput } from './form/CInput';
 import { CList } from './list/CList';
@@ -38,15 +34,9 @@ export function EditablePage({
         <div className="frmdb-editable-page" style={{ margin: '0 auto', width: '100%' }}>
             <Editor enabled={false}
                 resolver={{
-                    Card,
-                    CButton,
-                    CText,
-                    CPaper,
-                    CDesignBlock,
-                    CardTop,
-                    CardBottom,
+                    CElement,
+                    CBlock,
                     CLayout,
-                    CColumn,
                     CForm,
                     CInput,
                     CList,

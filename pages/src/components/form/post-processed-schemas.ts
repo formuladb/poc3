@@ -1,9 +1,11 @@
 import CListPropsSchema from '../../core-domain/json-schemas/CListProps.json';
 import CInputPropsSchema from '../../core-domain/json-schemas/CInputProps.json';
+import CElementPropsSchema from '../../core-domain/json-schemas/CElementProps.json';
+import CBlockPropsSchema from '../../core-domain/json-schemas/CBlockProps.json';
 
-type AnyOfsType = {"$ref": string}[];
+type AnyOfsType = { "$ref": string }[];
 
-function fixAnyOf(anyOfs: AnyOfsType ) {
+function fixAnyOf(anyOfs: AnyOfsType) {
     for (let anyOf of Object.values(anyOfs)) {
         if (anyOf?.$ref?.indexOf('#/definitions/CInput') === 0) {
             const cInputType = anyOf.$ref.replace('#/definitions/CInput', '').replace(/Props$/, '');
@@ -25,7 +27,12 @@ function fixAnyOfRecursive(obj: object) {
     }
 }
 
-function postProcessSchemas(schema: typeof CListPropsSchema | typeof CInputPropsSchema) {
+function postProcessSchemas(schema:
+    | typeof CListPropsSchema
+    | typeof CInputPropsSchema
+    | typeof CElementPropsSchema
+    | typeof CBlockPropsSchema
+) {
 
     fixAnyOfRecursive(schema);
 
@@ -49,6 +56,18 @@ function postProcessSchemas(schema: typeof CListPropsSchema | typeof CInputProps
             (def.properties.cInputType as any).readOnly = true;
             (def.properties.cInputType as any).const = cInputType;
             (def.properties.cInputType as any).default = cInputType;
+        } else if ("cElementType" in def?.properties) {
+            const cElementType = name.replace(/^CElement/, '').replace(/Props$/, '');
+            def.properties.cElementType.type = "string";
+            (def.properties.cElementType as any).readOnly = true;
+            (def.properties.cElementType as any).const = cElementType;
+            (def.properties.cElementType as any).default = cElementType;
+        } else if ("cBlockType" in def?.properties) {
+            const cBlockType = name.replace(/^CBlock/, '').replace(/Props$/, '');
+            def.properties.cBlockType.type = "string";
+            (def.properties.cBlockType as any).readOnly = true;
+            (def.properties.cBlockType as any).const = cBlockType;
+            (def.properties.cBlockType as any).default = cBlockType;
         }
     }
 
@@ -60,4 +79,10 @@ export function getCInputSchema() {
 }
 export function getCListSchema() {
     return postProcessSchemas(CListPropsSchema);
+}
+export function getCElementSchema() {
+    return postProcessSchemas(CElementPropsSchema);
+}
+export function getCBlockSchema() {
+    return postProcessSchemas(CElementPropsSchema);
 }

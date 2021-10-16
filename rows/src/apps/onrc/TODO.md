@@ -6,6 +6,6 @@ TODOs for internal demo:
 * Remove Resource/Page
 * Editing prw_dictionary
 
-* CDesignBlock component
+* CBlock component
 * Image editor
 * Icon editor
