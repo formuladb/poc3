@@ -17,6 +17,8 @@ export const CElement = (nP: CElementProps) => {
 
   return <Grid item md={nP?.item?.width || 3} className="" ref={connect as (instance: HTMLDivElement | null) => void}>
     <Box {...nP.box?.borders} {...nP.box?.spacing}>
+      {nP.cElementType == 'Text' &&
+        <div dangerouslySetInnerHTML={{__html: nP.content}}></div>}
       {nP.cElementType == 'Action' &&
         <Button size={nP.size} variant={nP.variant} color={nP.color} href={nP.navigateTo}>{nP.title}</Button>}
       {nP.cElementType == 'Icon' && <AppIcon name={nP.name} />}

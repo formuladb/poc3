@@ -427,6 +427,14 @@ interface ButtonProps {
     navigateTo?: string;//TODO: allow only page names, if id or other parameters are required check validity
 }
 
+export interface CElementTextProps extends CElementPropsBase {
+    cElementType: "Text";
+    content: string;
+}
+export interface CElementTextNode extends PageNodeBase, CElementTextProps {
+    _tag: "CElement";
+}
+
 export interface CElementActionProps extends CElementPropsBase, ButtonProps {
     cElementType: "Action";
 }
@@ -451,12 +459,14 @@ export interface CElementImageNode extends PageNodeBase, CElementImageProps {
 }
 
 export type CElementProps =
+    | CElementTextProps
     | CElementActionProps
     | CElementIconProps
     | CElementImageProps
     ;
 
 export type CElementNode =
+    | CElementTextNode
     | CElementActionNode
     | CElementIconNode
     | CElementImageNode

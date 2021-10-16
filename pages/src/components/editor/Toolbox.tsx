@@ -44,6 +44,12 @@ import FieldReferenceIcon from '@material-ui/icons/ArrowRightAlt';
 import FieldLookupIcon from '@material-ui/icons/FindInPage';
 import FieldFormulaIcon from '@material-ui/icons/Build';
 
+import ListTabsIcon from '@material-ui/icons/TableChart';
+import ListTableIcon from '@material-ui/icons/ViewList';
+import ListDatagridIcon from '@material-ui/icons/GridOn';
+import ListFormListIcon from '@material-ui/icons/Ballot';
+import ListBlockListIcon from '@material-ui/icons/ListAlt';
+import ListChartIcon from '@material-ui/icons/Equalizer';
 
 import { CButton } from '../page/CButton';
 import { CBlock } from '../page/CBlock';
@@ -71,7 +77,7 @@ export const Toolbox = () => {
                     </>}>
                         <MuiButton style={{ textTransform: 'none', cursor: 'grab' }}
                             ref={(ref) =>
-                                connectors.create(ref, <CElement cElementType="Action" title="edit me ..." />)
+                                connectors.create(ref, <CElement cElementType="Text" content="edit me ..." />)
                             }
                             variant="contained"
                         >
@@ -99,7 +105,7 @@ export const Toolbox = () => {
                         <div>A Layout defined the placement and spacing of its children.</div>
                     </>}>
                         <MuiButton style={{ textTransform: 'none', cursor: 'grab' }}
-                            ref={(ref) => connectors.create(ref, <Element canvas is={CLayout} ><CElement cElementType="Action" title="Edit me ..." /></Element>)}
+                            ref={(ref) => connectors.create(ref, <Element canvas is={CLayout} ><CElement cElementType="Text" content="Edit me ..." /></Element>)}
                             variant="contained"
                         >
                             <LayoutIcon /> Layout
@@ -149,12 +155,23 @@ export const Toolbox = () => {
                 </Grid>
 
                 <Grid md={6} container direction="column" item>
-                    <MuiButton style={{ textTransform: 'none', cursor: 'grab' }}
-                        ref={(ref) => connectors.create(ref, <Element canvas is={CList} cListType="Datagrid" resource="prw_pages" labelSource="id" children={null} />)}
-                        variant="contained"
-                    >
-                        <ListIcon /> List
-                    </MuiButton>
+                    <Tooltip arrow title={<>
+                        <div>Drag new List onto the page: </div>
+                        <span><ListTabsIcon style={{ fontSize: 12 }} /> Tabs</span>,&nbsp;
+                        <span><ListTableIcon style={{ fontSize: 12 }} /> Table</span>,&nbsp;
+                        <span><ListDatagridIcon style={{ fontSize: 12 }} /> Datagrid</span>,&nbsp;
+                        <span><ListFormListIcon style={{ fontSize: 12 }} /> FormList</span>,&nbsp;
+                        <span><ListBlockListIcon style={{ fontSize: 12 }} /> BlockList</span>,&nbsp;
+                        <span><ListChartIcon style={{ fontSize: 12 }} /> Chart</span>
+                    </>}>
+
+                        <MuiButton style={{ textTransform: 'none', cursor: 'grab' }}
+                            ref={(ref) => connectors.create(ref, <Element canvas is={CList} cListType="Datagrid" resource="prw_pages" labelSource="id" children={null} />)}
+                            variant="contained"
+                        >
+                            <ListIcon /> List
+                        </MuiButton>
+                    </Tooltip>
                 </Grid>
             </Grid>
         </Box>
