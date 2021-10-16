@@ -291,7 +291,7 @@
             },
             "type": "object"
         },
-        "CBlockNode": {
+        "CBlockCardsNode": {
             "additionalProperties": false,
             "properties": {
                 "_id": {
@@ -309,6 +309,12 @@
                 "box": {
                     "$ref": "#/definitions/BoxProps"
                 },
+                "cBlockType": {
+                    "enum": [
+                        "Cards"
+                    ],
+                    "type": "string"
+                },
                 "item": {
                     "$ref": "#/definitions/GridItemProps"
                 },
@@ -321,7 +327,90 @@
             },
             "required": [
                 "_id",
-                "_tag"
+                "_tag",
+                "cBlockType"
+            ],
+            "type": "object"
+        },
+        "CBlockHeadingNode": {
+            "additionalProperties": false,
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "_tag": {
+                    "enum": [
+                        "CBlock"
+                    ],
+                    "type": "string"
+                },
+                "body": {
+                    "type": "string"
+                },
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
+                "cBlockType": {
+                    "enum": [
+                        "Heading"
+                    ],
+                    "type": "string"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                },
+                "subtitle": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "_id",
+                "_tag",
+                "cBlockType"
+            ],
+            "type": "object"
+        },
+        "CBlockMediaNode": {
+            "additionalProperties": false,
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "_tag": {
+                    "enum": [
+                        "CBlock"
+                    ],
+                    "type": "string"
+                },
+                "body": {
+                    "type": "string"
+                },
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
+                "cBlockType": {
+                    "enum": [
+                        "Media"
+                    ],
+                    "type": "string"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                },
+                "subtitle": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "_id",
+                "_tag",
+                "cBlockType"
             ],
             "type": "object"
         },
@@ -346,14 +435,49 @@
                     ],
                     "type": "string"
                 },
+                "color": {
+                    "enum": [
+                        "default",
+                        "inherit",
+                        "primary",
+                        "secondary"
+                    ],
+                    "type": "string"
+                },
                 "item": {
                     "$ref": "#/definitions/GridItemProps"
+                },
+                "navigateTo": {
+                    "type": "string"
+                },
+                "size": {
+                    "enum": [
+                        "large",
+                        "medium",
+                        "small"
+                    ],
+                    "type": "string"
+                },
+                "startIconName": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "variant": {
+                    "enum": [
+                        "contained",
+                        "outlined",
+                        "text"
+                    ],
+                    "type": "string"
                 }
             },
             "required": [
                 "_id",
                 "_tag",
-                "cElementType"
+                "cElementType",
+                "title"
             ],
             "type": "object"
         },
@@ -426,6 +550,42 @@
                 "_tag",
                 "cElementType",
                 "url"
+            ],
+            "type": "object"
+        },
+        "CElementTextNode": {
+            "additionalProperties": false,
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "_tag": {
+                    "enum": [
+                        "CElement"
+                    ],
+                    "type": "string"
+                },
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
+                "cElementType": {
+                    "enum": [
+                        "Text"
+                    ],
+                    "type": "string"
+                },
+                "content": {
+                    "type": "string"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                }
+            },
+            "required": [
+                "_id",
+                "_tag",
+                "cElementType",
+                "content"
             ],
             "type": "object"
         },
@@ -3751,6 +3911,9 @@
                     "$ref": "#/definitions/CFormNode"
                 },
                 {
+                    "$ref": "#/definitions/CElementTextNode"
+                },
+                {
                     "$ref": "#/definitions/CElementActionNode"
                 },
                 {
@@ -3763,7 +3926,13 @@
                     "$ref": "#/definitions/CLayoutNode"
                 },
                 {
-                    "$ref": "#/definitions/CBlockNode"
+                    "$ref": "#/definitions/CBlockHeadingNode"
+                },
+                {
+                    "$ref": "#/definitions/CBlockMediaNode"
+                },
+                {
+                    "$ref": "#/definitions/CBlockCardsNode"
                 }
             ]
         },

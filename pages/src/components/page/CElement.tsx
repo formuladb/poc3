@@ -6,6 +6,10 @@ import CElementPropsSchema from '../../core-domain/json-schemas/CElementProps.js
 import { JSONSchema7 } from 'json-schema';
 import { CmpSettings } from '../editor/CmpSettings';
 import { AppIcon } from '../generic/AppIcon';
+import { getCElementSchema } from '../form/post-processed-schemas';
+import { CmpCraftStatic } from '../utils';
+import { CForm } from '../form/CForm';
+import { CLayout } from './CLayout';
 
 export const CElement = (nP: CElementProps) => {
   const { query } = useEditor();
@@ -28,62 +32,40 @@ export const CElement = (nP: CElementProps) => {
 };
 CElement.displayName = 'CElement';
 
-// export const CElement = ({ text, textAlign, fontWeight }: CElementProps) => {
-//   const {
-//     connectors: { connect, drag },
-//     selected,
-//     actions: { setProp },
-//   } = useNode((state) => ({
-//     selected: state.events.selected,
-//     dragged: state.events.dragged,
-//   }));
-
-//   const [editable, setEditable] = useState(false);
-
-//   useEffect(() => {
-//     if (selected) {
-//       return;
-//     }
-
-//     setEditable(false);
-//   }, [selected]);
-
-//   return (
-//     <Grid item
-//       ref={connect as (instance: HTMLDivElement | null) => void}
-//       onClick={() => selected && setEditable(true)}
-//     >
-//       <ContentEditable
-//         html={text}
-//         disabled={!editable}
-//         onChange={(e) =>
-//           setProp(
-//             (props) =>
-//               (props.text = e.target.value.replace(/<\/?[^>]+(>|$)/g, '')),
-//             500
-//           )
-//         }
-//         tagName="p"
-//         style={{ textAlign, fontWeight }}
-//       />
-//     </Grid>
-//   );
-// };
-
-const CElementSettingSchema = CElementPropsSchema as JSONSchema7;
-console.log('CElementPropsSchema=', CElementPropsSchema);
+const CElementSettingSchema = getCElementSchema() as JSONSchema7;
+const uiSchema = {
+    "ui:title": " ",
+    "ui:order": ["*", "item", "box"],
+    cElementType: {
+        "ui:widget": "hidden",
+    }
+}
 export const CElementSettings = () => {
-  return <CmpSettings schema={CElementSettingSchema} />
+    return <CmpSettings uiSchema={uiSchema} schema={CElementSettingSchema} />
 };
-export const TextDefaultProps = {
-  text: 'Hi',
-  fontSize: 20,
+const CElementDefaultProps: CElementProps = {
+    cElementType: "Text",
+    content: "edit me...",
 };
-
-CElement.craft = {
-  displayName: 'Text',
-  props: TextDefaultProps,
-  related: {
-    settings: CElementSettings,
-  },
+const craft: CmpCraftStatic = {
+    displayName: 'Element',
+    props: CElementDefaultProps,
+    related: {
+        settings: CElementSettings,
+    },
+    rules: {
+        canDrop(dropTarget, self, helpers): boolean {
+            let parents = [dropTarget.data.type];
+            for (let ancestorId of helpers(dropTarget.id).ancestors()) {
+                parents.push(helpers(ancestorId).get().data.type);
+            }
+            console.log('CElement.canDrop', parents);
+            for (let parent of parents) {
+                console.log('CElement.canDrop', parent, parent === CForm || parent === CLayout);
+                if (parent === CForm || parent === CLayout) return true;
+            }
+            return false;
+        }
+    },
 };
+CElement.craft = craft;

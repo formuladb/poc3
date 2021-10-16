@@ -3,6 +3,12 @@ import React from 'react';
 import { RichTextField, TextField } from 'react-admin';
 import { CBlockProps } from '../../core/entity/page';
 import { Grid, Box } from '@material-ui/core';
+import { getCBlockSchema } from '../form/post-processed-schemas';
+import { CmpSettings } from '../editor/CmpSettings';
+import { JSONSchema7 } from 'json-schema';
+import { CmpCraftStatic } from '../utils';
+import { CForm } from '../form/CForm';
+import { CLayout } from './CLayout';
 
 export const CBlock = (nP: CBlockProps) => {
     const {
@@ -244,3 +250,42 @@ export const CBlock = (nP: CBlockProps) => {
 
 //     </>;
 // }
+
+
+const CBlockSettingSchema = getCBlockSchema() as JSONSchema7;
+const uiSchema = {
+    "ui:title": " ",
+    "ui:order": ["*", "item", "box"],
+    cBlockType: {
+        "ui:widget": "hidden",
+    }
+}
+export const CBlockSettings = () => {
+    return <CmpSettings uiSchema={uiSchema} schema={CBlockSettingSchema} />
+};
+const CBlockDefaultProps: CBlockProps = {
+    cBlockType: "Heading",
+    title: "edit me...",
+};
+const craft: CmpCraftStatic = {
+    displayName: 'Block',
+    props: CBlockDefaultProps,
+    related: {
+        settings: CBlockSettings,
+    },
+    rules: {
+        canDrop(dropTarget, self, helpers): boolean {
+            let parents = [dropTarget.data.type];
+            for (let ancestorId of helpers(dropTarget.id).ancestors()) {
+                parents.push(helpers(ancestorId).get().data.type);
+            }
+            console.log('CBlock.canDrop', parents);
+            for (let parent of parents) {
+                console.log('CBlock.canDrop', parent, parent === CForm || parent === CLayout);
+                if (parent === CForm || parent === CLayout) return true;
+            }
+            return false;
+        }
+    },
+};
+CBlock.craft = craft;

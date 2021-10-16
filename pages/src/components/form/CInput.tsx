@@ -88,6 +88,7 @@ CInput.displayName = 'CInput';
 const CInputSettingSchema = getCInputSchema() as JSONSchema7;
 const uiSchema = {
     "ui:title": " ",
+    "ui:order": ["*", "item", "box"],
     cInputType: {
         "ui:widget": "hidden",
     }
@@ -95,8 +96,6 @@ const uiSchema = {
 export const CInputSettings = () => {
     return <CmpSettings uiSchema={uiSchema} schema={CInputSettingSchema} />
 };
-
-
 const CInputDefaultProps: CInputProps = {
     cInputType: "TextField",
     resource: "prw_tables",

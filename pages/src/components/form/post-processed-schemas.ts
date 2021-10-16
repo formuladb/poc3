@@ -16,6 +16,12 @@ function fixAnyOf(anyOfs: AnyOfsType) {
         } else if (anyOf?.$ref?.indexOf('#/definitions/Action') === 0) {
             const actionType = anyOf.$ref.replace('#/definitions/Action', '');
             anyOf["title"] = actionType;
+        } else if (anyOf?.$ref?.indexOf('#/definitions/CElement') === 0) {
+            const cElementType = anyOf.$ref.replace('#/definitions/CElement', '').replace(/Props$/, '');
+            anyOf["title"] = cElementType;
+        } else if (anyOf?.$ref?.indexOf('#/definitions/CBlock') === 0) {
+            const cBlockType = anyOf.$ref.replace('#/definitions/CBlock', '').replace(/Props$/, '');
+            anyOf["title"] = cBlockType;
         }
     }
 }
@@ -27,11 +33,15 @@ function fixAnyOfRecursive(obj: object) {
     }
 }
 
+type CListPropsSchemaType = typeof CListPropsSchema;
+type CInputPropsSchemaType = typeof CInputPropsSchema;
+type CElementPropsSchemaType = typeof CElementPropsSchema;
+type CBlockPropsSchemaType = typeof CBlockPropsSchema;
 function postProcessSchemas(schema:
-    | typeof CListPropsSchema
-    | typeof CInputPropsSchema
-    | typeof CElementPropsSchema
-    | typeof CBlockPropsSchema
+    | CListPropsSchemaType
+    | CInputPropsSchemaType
+    | CElementPropsSchemaType
+    | CBlockPropsSchemaType
 ) {
 
     fixAnyOfRecursive(schema);
@@ -84,5 +94,5 @@ export function getCElementSchema() {
     return postProcessSchemas(CElementPropsSchema);
 }
 export function getCBlockSchema() {
-    return postProcessSchemas(CElementPropsSchema);
+    return postProcessSchemas(CBlockPropsSchema);
 }

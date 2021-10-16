@@ -111,6 +111,7 @@ export const frmdb_resources__id: CPageNode = {
         {
             "_tag": "CBlock",
             "_id": "jW9Z3",
+            "cBlockType": "Heading",
             "title": "Columns",
         },
         {
@@ -131,6 +132,7 @@ export const frmdb_resources__id: CPageNode = {
         {
             "_tag": "CBlock",
             "_id": "jW9Z3",
+            "cBlockType": "Heading",
             "title": "Pages",
         },
         {

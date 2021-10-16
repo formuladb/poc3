@@ -1,6 +1,16 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "additionalProperties": false,
+    "anyOf": [
+        {
+            "$ref": "#/definitions/CBlockHeadingProps"
+        },
+        {
+            "$ref": "#/definitions/CBlockMediaProps"
+        },
+        {
+            "$ref": "#/definitions/CBlockCardsProps"
+        }
+    ],
     "definitions": {
         "Borders": {
             "additionalProperties": false,
@@ -88,6 +98,96 @@
                     "$ref": "#/definitions/Spacing"
                 }
             },
+            "type": "object"
+        },
+        "CBlockCardsProps": {
+            "additionalProperties": false,
+            "properties": {
+                "body": {
+                    "type": "string"
+                },
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
+                "cBlockType": {
+                    "enum": [
+                        "Cards"
+                    ],
+                    "type": "string"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                },
+                "subtitle": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "cBlockType"
+            ],
+            "type": "object"
+        },
+        "CBlockHeadingProps": {
+            "additionalProperties": false,
+            "properties": {
+                "body": {
+                    "type": "string"
+                },
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
+                "cBlockType": {
+                    "enum": [
+                        "Heading"
+                    ],
+                    "type": "string"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                },
+                "subtitle": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "cBlockType"
+            ],
+            "type": "object"
+        },
+        "CBlockMediaProps": {
+            "additionalProperties": false,
+            "properties": {
+                "body": {
+                    "type": "string"
+                },
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
+                "cBlockType": {
+                    "enum": [
+                        "Media"
+                    ],
+                    "type": "string"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                },
+                "subtitle": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "cBlockType"
+            ],
             "type": "object"
         },
         "GridItemProps": {
@@ -282,24 +382,6 @@
             },
             "type": "object"
         }
-    },
-    "properties": {
-        "body": {
-            "type": "string"
-        },
-        "box": {
-            "$ref": "#/definitions/BoxProps"
-        },
-        "item": {
-            "$ref": "#/definitions/GridItemProps"
-        },
-        "subtitle": {
-            "type": "string"
-        },
-        "title": {
-            "type": "string"
-        }
-    },
-    "type": "object"
+    }
 }
 

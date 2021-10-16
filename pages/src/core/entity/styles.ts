@@ -1,9 +1,9 @@
 interface Borders {
-    border?: 1 | 2 | 3 | 4;
-    borderTop?: 1 | 2 | 3 | 4;
-    borderRight?: 1 | 2 | 3 | 4;
-    borderBottom?: 1 | 2 | 3 | 4;
-    borderLeft?: 1 | 2 | 3 | 4;
+    border?: 0 | 1 | 2 | 3 | 4;
+    borderTop?: 0 | 1 | 2 | 3 | 4;
+    borderRight?: 0 | 1 | 2 | 3 | 4;
+    borderBottom?: 0 | 1 | 2 | 3 | 4;
+    borderLeft?: 0 | 1 | 2 | 3 | 4;
     borderColor?:
     | "primary.main"
     | "secondary.main"
@@ -15,7 +15,7 @@ interface Borders {
     | "text.secondary"
     | "text.disabled"
     ;
-    borderRadius?: 5 | 10 | 20 | 30 | 40 | 50;
+    borderRadius?: 0 | 5 | 10 | 20 | 30 | 40 | 50;
 }
 
 interface Spacing {

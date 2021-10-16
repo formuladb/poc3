@@ -104,7 +104,7 @@ export const Toolbox = () => {
                 </Grid>
                 <Grid md={6} container direction="column" item>
                     <Tooltip arrow title={<>
-                        <div>A Layout defined the placement and spacing of its children.</div>
+                        <div>A Layout defines the placement and spacing of its children.</div>
                     </>}>
                         <MuiButton style={{ textTransform: 'none', cursor: 'grab' }}
                             ref={(ref) => connectors.create(ref, <Element canvas is={CLayout} ><CElement cElementType="Text" content="Edit me ..." /></Element>)}
