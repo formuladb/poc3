@@ -84,7 +84,7 @@ export const CmpSettings = ({
     return (
         <ThemeProvider theme={Theme}>
             <Form uiSchema={uiSchema} schema={dynSchema} formData={props}
-                fields={customFields} onChange={debouncedUpdateComponent} 
+                fields={customFields} onChange={debouncedUpdateComponent}
                 customFormats={customFormats}
                 noValidate={true} />
         </ThemeProvider>
@@ -106,7 +106,22 @@ const Theme = createMuiTheme({
     spacing: 2,
     typography: {
         fontSize: 12
-    }
+    },
+    palette: {
+        primary: {
+            main: '#4f3cc9',
+        },
+        secondary: {
+            light: '#5f5fc4',
+            main: '#283593',
+            dark: '#001064',
+            contrastText: '#fff',
+        },
+        background: {
+            default: '#fcfcfe',
+        },
+        type: 'light' as 'light',
+    },
 });
 
 async function configureDynamicEnums(
