@@ -6,6 +6,11 @@ BEGIN
     END IF;
 END$$;
 
+CREATE SEQUENCE IF NOT EXISTS frmdb_put_table_seq;
+CREATE OR REPLACE FUNCTION frmdb_short_uuid() returns text as $$
+    SELECT to_hex(nextval('frmdb_put_table_seq'))
+$$ LANGUAGE SQL IMMUTABLE PARALLEL SAFE SECURITY DEFINER;
+
 --####################################################################################
 DO $migration$
 BEGIN
@@ -33,7 +38,7 @@ BEGIN
         ELSE
             v_stm := format($$ 
                 CREATE TABLE IF NOT EXISTS %I (
-                    id %s NOT NULL,
+                    id %s ,
                     PRIMARY KEY(id)
                 )
             $$, p_table_name, p_id_type);

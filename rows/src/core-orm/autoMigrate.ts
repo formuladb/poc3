@@ -23,7 +23,8 @@ export async function autoMigrate<ENTITY>(
 
     const tenantM = m.columns.find(c => c.databaseName === 'tenant');
 
-    await mng.query(`SELECT frmdb_put_table('${m.tableName}', '${getColType(idM.type)}'${tenantM ? ", true" : ""})`);
+    const defVal = idM.default ? 'DEFAULT ' + idM.default : '';
+    await mng.query(`SELECT frmdb_put_table('${m.tableName}', $ty$ ${getColType(idM.type)} NOT NULL ${defVal} $ty$ ${tenantM ? ", true" : ""})`);
     for (let colM of m.columns) {
         if (colM.databaseName === 'id' || colM.databaseName.startsWith('meta_')) continue;
 

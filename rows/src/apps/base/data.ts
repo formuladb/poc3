@@ -10,7 +10,7 @@ import { PrwDictionary } from "@core/entity/PrwDictionary";
 import { metaColumnsDictionary } from "./metaColumnsDictonary";
 import { PrwUser } from "@core/entity/PrwUser";
 import { PrwTableColumn } from "@core/entity/PrwTableColumn";
-import { frmdb_resources__id } from "./frmdb_resources__id";
+import { prw_tables__id } from "./prw_tables__id";
 import { PrwRole } from "@core/entity/PrwRole";
 import { Currency } from "./entity/Currency";
 import { autoMigrate } from "src/core-orm/autoMigrate";
@@ -34,7 +34,7 @@ export default async () => {
     ]);
 
     await putRows(PrwPage, [
-        { id: "frmdb_resources__id", content: frmdb_resources__id, prwTable: res1 },
+        { id: "prw_tables__id", content: prw_tables__id, prwTable: res1 },
     ]);
 
     await putRows(FrmdbSystemParam, [

@@ -8,7 +8,7 @@ export const isf__id: CPageNode = {
         {
             "_tag": "CForm",
             "_id": "Ek4N5ig9v",
-            "resource": "form11_10_181",
+            "resource": "isf",
             "children": [
                 {
                     "_tag": "CLayout",
@@ -115,7 +115,7 @@ export const isf__id: CPageNode = {
                             "_id": "in2.4",
                             "cInputType": "TextField",
                             "resource": "isf",
-                            "source": "telefon",
+                            "source": "email",
                             "variant": "standard",
                             "disabled": false,
                             item: { width: 5 },

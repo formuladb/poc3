@@ -1,6 +1,6 @@
 import { CPageNode } from '@core/entity/page';
 
-export const frmdb_resources__id: CPageNode = {
+export const prw_tables__id: CPageNode = {
     "_tag": "CPage",
     "_id": "ROOT",
     "cPageType": "Edit",

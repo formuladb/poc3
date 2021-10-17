@@ -5,32 +5,16 @@ import { Playfield } from "./Playfield";
 
 @Entity()
 export class Isf {
-    @PrimaryColumn() id: string;
-    @Column() tribunal: string;
+    @PrimaryColumn({default: `frmdb_short_uuid()`}) id: string;
     
-    @Column() subsemnat_nume: string;
-    @Column() subsemnat_domiciliat_in: string;
-    @Column() subsemnat_str: string;
-    @Column() subsemnat_nr: string;
-    @Column() subsemnat_bloc: string;
-    @Column() subsemnat_scara: string;
-    @Column() subsemnat_etaj: string;
-    @Column() subsemnat_apartament: string;
+    @Column() nume: string;
+    @Column() prenume: string;
+    @Column() telefon: string;
+    @Column() email: string;
 
-    @Column() autorizare: boolean;
-    @Column() prelungire: boolean;
-    @Column() schimbare_denumire: boolean;
-    @Column() schimbare_sediu: boolean;
-    @Column() renuntare: boolean;
-
-    @Column() denumire_1: string;
-    @Column() denumire_2: string;
-    @Column() denumire_3: string;
-
-    @Column() data: string;
-
-    @Column() acord_pers_nume: string;
-    @Column() acord_pers_data: string;
+    @Column() judet_club: string;
+    @Column() localitate_club: string;
+    @Column() denumire_club: string;
 
     @OneToMany(() => Playfield, d => d.isf)
     playfields?: Playfield[];
