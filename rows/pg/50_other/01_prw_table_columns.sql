@@ -56,3 +56,35 @@ CREATE OR REPLACE VIEW prw_table_columns AS
     WHERE a.attnum > 0 
     AND NOT a.attisdropped
 ;
+
+CALL frmdb_internal_migrate_function('prw_table_columns_cud', $MIGR$
+    CREATE OR REPLACE FUNCTION prw_table_columns_cud() RETURNS trigger AS
+    $func$
+    DECLARE
+        v_stm varchar;    
+    BEGIN
+        IF (TG_OP = 'DELETE' ) THEN
+            v_stm := format($$ ALTER TABLE %I DROP COLUMN %I $$, 
+                OLD.prw_table_id, OLD.c_column_name);
+            EXECUTE v_stm;
+            RAISE NOTICE 'prw_table_columns_cud: %', v_stm;    
+        ELSIF (TG_OP = 'INSERT' OR TG_OP = 'UPDATE')  THEN
+            
+            --IF reference_to THEN frmdb_put_column_REFERENCE_TO
+            --frmdb_put_column_ROLLUP
+            --frmdb_put_column_HLOOKUP 
+            --frmdb_put_column_VLOOKUP 
+            --ELSE frmdb_put_column
+
+            RETURN NEW;
+        END IF;
+    END;
+    $func$ LANGUAGE plpgsql;
+$MIGR$);
+
+SELECT frmdb_set_trigger('prw_table_columns_cud_trg', 'prw_table_columns', $MIGR$
+    CREATE TRIGGER prw_table_columns_cud_trg
+    INSTEAD OF INSERT OR UPDATE OR DELETE ON prw_table_columns
+    FOR EACH ROW
+    EXECUTE PROCEDURE prw_table_columns_cud();
+$MIGR$);

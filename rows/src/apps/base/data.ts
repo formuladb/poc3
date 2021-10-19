@@ -15,22 +15,23 @@ import { PrwRole } from "@core/entity/PrwRole";
 import { Currency } from "./entity/Currency";
 import { autoMigrate } from "src/core-orm/autoMigrate";
 import { ExchangeRate } from "./entity/ExchangeRate";
+import permissions from "./permissions";
 
 export default async () => {
 
-    autoMigrate(Currency);
-    autoMigrate(ExchangeRate);
+    await autoMigrate(Currency);
+    await autoMigrate(ExchangeRate);
 
-    const res1 = await putRow(PrwTable, { id: entityMetadata(PrwTable).tableName, parent: "administer", icon: "material-design-icons-table_rows", resource_type: "RESOURCE", menu_order: 1 });
+    const res1 = await putRow(PrwTable, { id: entityMetadata(PrwTable).tableName, idType: "text NOT NULL", parent: "administer", icon: "material-design-icons-table_rows", resource_type: "RESOURCE", menu_order: 1 });
 
     await putRows(PrwTable, [
-        { id: "debug", icon: "material-design-icons-settings_applications", resource_type: "GROUP", menu_order: 1 },
-        { id: entityMetadata(PrwPage).tableName, parent: "debug", icon: "material-design-icons-list_alt", resource_type: "RESOURCE", menu_order: 1 },
-        { id: entityMetadata(PrwTableColumn).tableName, parent: "debug", icon: "material-design-icons-table_rows", resource_type: "RESOURCE", menu_order: 2 },
-        { id: "administer", icon: "material-design-icons-settings", resource_type: "GROUP", menu_order: 2 },
-        { id: entityMetadata(PrwDictionary).tableName, parent: "administer", icon: "material-design-icons-translate", resource_type: "RESOURCE", menu_order: 4 },
-        { id: entityMetadata(FrmdbSystemParam).tableName, parent: "administer", icon: "material-design-icons-edit_attributes", resource_type: "RESOURCE", menu_order: 5 },
-        { id: entityMetadata(PrwUser).tableName, parent: "administer", icon: "material-design-icons-people", resource_type: "RESOURCE", menu_order: 6 },
+        { id: "debug", icon: "material-design-icons-settings_applications", idType: "n/a", resource_type: "GROUP", menu_order: 1 },
+        { id: entityMetadata(PrwPage).tableName, idType: "text NOT NULL", parent: "debug", icon: "material-design-icons-list_alt", resource_type: "RESOURCE", menu_order: 1 },
+        { id: entityMetadata(PrwTableColumn).tableName, idType: "text NOT NULL", parent: "debug", icon: "material-design-icons-table_rows", resource_type: "RESOURCE", menu_order: 2 },
+        { id: "administer", icon: "material-design-icons-settings", idType: "n/a", resource_type: "GROUP", menu_order: 2 },
+        { id: entityMetadata(PrwDictionary).tableName, idType: "text NOT NULL", parent: "administer", icon: "material-design-icons-translate", resource_type: "RESOURCE", menu_order: 4 },
+        { id: entityMetadata(FrmdbSystemParam).tableName, idType: "text NOT NULL", parent: "administer", icon: "material-design-icons-edit_attributes", resource_type: "RESOURCE", menu_order: 5 },
+        { id: entityMetadata(PrwUser).tableName, idType: "text NOT NULL", parent: "administer", icon: "material-design-icons-people", resource_type: "RESOURCE", menu_order: 6 },
     ]);
 
     await putRows(PrwPage, [
@@ -127,4 +128,5 @@ export default async () => {
         { id: "EUR" },
     ]);
     
+    await permissions();
 }

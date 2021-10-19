@@ -30,10 +30,10 @@ export default async () => {
     await autoMigrate(SubSection);
 
     await putRows(PrwTable, [
-        { id: "websites", icon: "material-design-icons/settings", resource_type: "GROUP", menu_order: 1 },
-        { id: entityMetadata(Page).tableName, parent: "websites", icon: "TBD", resource_type: "RESOURCE", menu_order: 1 },
-        { id: entityMetadata(Section).tableName, parent: "websites", icon: "TBD", resource_type: "RESOURCE", menu_order: 2 },
-        { id: entityMetadata(SubSection).tableName, parent: "websites", icon: "material-design-icons/settings", resource_type: "RESOURCE", menu_order: 3 },
+        { id: "websites", idType: "n/a", icon: "material-design-icons/settings", resource_type: "GROUP", menu_order: 1 },
+        { id: entityMetadata(Page).tableName, idType: "text NOT NULL", parent: "websites", icon: "TBD", resource_type: "RESOURCE", menu_order: 1 },
+        { id: entityMetadata(Section).tableName, idType: "text NOT NULL", parent: "websites", icon: "TBD", resource_type: "RESOURCE", menu_order: 2 },
+        { id: entityMetadata(SubSection).tableName, idType: "text NOT NULL", parent: "websites", icon: "material-design-icons/settings", resource_type: "RESOURCE", menu_order: 3 },
     ]);
 
     // await app1();

@@ -14,11 +14,11 @@ export default async () => {
     await autoMigrate(Doc11_10_181);
 
     const res1 = await putRow(PrwTable, 
-        { id: entityMetadata(Form11_10_181).tableName, parent: "onrc", icon: "material-design-icons-dynamic_form", resource_type: "RESOURCE", menu_order: 0 });
+        { id: entityMetadata(Form11_10_181).tableName, idType: "serial NOT NULL", parent: "onrc", icon: "material-design-icons-dynamic_form", resource_type: "RESOURCE", menu_order: 0 });
 
     await putRows(PrwTable, [
-        { id: "onrc", icon: "material-design-icons-list", resource_type: "GROUP", menu_order: 5 },
-        { id: entityMetadata(Doc11_10_181).tableName, parent: "_hidden_", icon: "material-design-icons-dynamic_form", resource_type: "RESOURCE", menu_order: 0 },
+        { id: "onrc", icon: "material-design-icons-list", idType: "n/a", resource_type: "GROUP", menu_order: 5 },
+        { id: entityMetadata(Doc11_10_181).tableName, idType: "serial NOT NULL", parent: "_hidden_", icon: "material-design-icons-dynamic_form", resource_type: "RESOURCE", menu_order: 0 },
     ]);
 
     await putRows(PrwPage, [

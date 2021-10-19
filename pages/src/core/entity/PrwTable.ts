@@ -9,6 +9,7 @@ const FrmdbResourceTypes = {GROUP:0, PAGE:0, RESOURCE:0};
 @Entity({name: "prw_tables"})
 export class PrwTable {
     @PrimaryColumn() id!: string;
+    @Column() idType!: string;
     @Column() parent?: string;
     @Column() icon?: string;
     @Column({type: "enum", enum: Object.keys(FrmdbResourceTypes)}) 

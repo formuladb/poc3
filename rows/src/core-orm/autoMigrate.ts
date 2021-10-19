@@ -5,6 +5,7 @@ function getColType(type: ColumnMetadata['type']): string {
     if (type === String) return 'text';
     if (type === Number) return 'integer';//TODO precision/length/etc
     if (type === Boolean) return 'boolean';
+    if (type === Date) return 'timestamp';
     if (type === 'enum') return 'text';
     return type as string;
 }
