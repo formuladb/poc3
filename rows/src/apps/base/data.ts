@@ -45,7 +45,7 @@ export default async () => {
     const admin = await putRow(PrwRole, {id: 'administrator'});
     const oper = await putRow(PrwRole, {id: 'operator'});
     await putRows(PrwUser, [
-        { id: "100", username: "admin", pass: "admin", prwRole: admin },
+        { id: 1, username: "admin", pass: "admin", prwRole: admin },
     ]);
 
     let tblName = entityMetadata(PrwTable).tableName;

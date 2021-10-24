@@ -1,7 +1,16 @@
 SELECT frmdb_put_table('prw_users');
-SELECT frmdb_put_column('prw_users', 'username', 'character varying', 'is_not_null(username)', null);
+SELECT frmdb_put_column('prw_users', 'username', 'text', 'is_not_null(username)', null);
 SELECT frmdb_put_column('prw_users', 'pass', 'character varying', 'is_not_null(pass)', null);
 SELECT frmdb_put_column('prw_users', 'prw_role_id', 'regrole', 'is_not_null(prw_role_id)', null);
+
+DO $$
+BEGIN
+    IF NOT EXISTS ( SELECT * FROM information_schema.constraint_column_usage
+        WHERE constraint_name = 'prw_users_username' )
+    THEN
+        ALTER TABLE prw_users ADD CONSTRAINT prw_users_username UNIQUE (username);
+    END IF;
+END$$; 
 --------
 DO $migration$
 BEGIN
@@ -115,7 +124,7 @@ begin
 
   result.token = sign(
       json_build_object(
-        'prw_role_id', _user.prw_role_id,
+        'role', _user.prw_role_id,
         'user_id', _user.id,
         'username', _user.username,
         'exp', extract(epoch from now())::integer + 3600
@@ -141,7 +150,7 @@ begin
 
   PERFORM set_config('request.jwt.claim.user_id', NULL, true);
   PERFORM set_config('request.jwt.claim.username', NULL, true);
-  PERFORM set_config('request.jwt.claim.prw_role_id', 'frmdb_anon', true);
+  PERFORM set_config('request.jwt.claim.role', 'frmdb_anon', true);
 end;
 $fun$ language plpgsql;
 
@@ -163,7 +172,7 @@ begin
 
   PERFORM set_config('request.jwt.claim.user_id', _user.id::text, true);
   PERFORM set_config('request.jwt.claim.username', _user.username, true);
-  PERFORM set_config('request.jwt.claim.prw_role_id', _user.prw_role_id::text, true);
+  PERFORM set_config('request.jwt.claim.role', _user.prw_role_id::text, true);
 end;
 $fun$ language plpgsql;
 
@@ -179,7 +188,7 @@ begin
 
   PERFORM set_config('request.jwt.claim.user_id', NULL, true);
   PERFORM set_config('request.jwt.claim.username', NULL, true);
-  PERFORM set_config('request.jwt.claim.prw_role_id', NULL, true);
+  PERFORM set_config('request.jwt.claim.role', NULL, true);
 end;
 $fun$ language plpgsql;
 
@@ -200,7 +209,7 @@ begin
       row_to_json(r), 'asd1238d140dhoicoiqhewodqhed81-312d'
     ) as token
     from (
-      select current_user as prw_role_id, 
+      select current_user as role, 
       (select current_setting('request.jwt.claim.user_id', true)) as user_id,
       (select current_setting('request.jwt.claim.username', true)) as username,
       extract(epoch from now())::integer + 3600 as exp

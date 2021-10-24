@@ -1,11 +1,11 @@
-import {Entity, PrimaryGeneratedColumn, Column, ManyToOne} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, ManyToOne, PrimaryColumn} from "typeorm";
 import { PrwRole } from "./PrwRole";
 
 @Entity({name: "prw_users"})
 export class PrwUser {
 
-    @PrimaryGeneratedColumn()
-    id!: string;
+    @PrimaryColumn()
+    id!: number;
 
     /**@TJS-format tbd-prw */
     @Column({ nullable: false })

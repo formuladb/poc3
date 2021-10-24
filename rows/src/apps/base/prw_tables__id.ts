@@ -25,37 +25,10 @@ export const prw_tables__id: CPageNode = {
                         },
                         {
                             "_tag": "CInput",
-                            "_id": "3Ubmeta_created_at",
-                            "cInputType": "DateTimeField",
-                            "resource": "prw_tables",
-                            "source": "meta_created_at",
-                            "variant": "standard",
-                            "disabled": false
-                        },
-                        {
-                            "_tag": "CInput",
-                            "_id": "3Ubmeta_created_by",
+                            "_id": "3Ubidt",
                             "cInputType": "TextField",
                             "resource": "prw_tables",
-                            "source": "meta_created_by",
-                            "variant": "standard",
-                            "disabled": false
-                        },
-                        {
-                            "_tag": "CInput",
-                            "_id": "3Ubmeta_updated_at",
-                            "cInputType": "DateTimeField",
-                            "resource": "prw_tables",
-                            "source": "meta_updated_at",
-                            "variant": "standard",
-                            "disabled": false
-                        },
-                        {
-                            "_tag": "CInput",
-                            "_id": "3Ubmeta_updated_by",
-                            "cInputType": "TextField",
-                            "resource": "prw_tables",
-                            "source": "meta_updated_by",
+                            "source": "id_type",
                             "variant": "standard",
                             "disabled": false
                         },
@@ -103,6 +76,42 @@ export const prw_tables__id: CPageNode = {
                             "source": "options",
                             "variant": "standard",
                             "disabled": false
+                        },
+                        {
+                            "_tag": "CInput",
+                            "_id": "3Ubmeta_created_at",
+                            "cInputType": "DateTimeField",
+                            "resource": "prw_tables",
+                            "source": "meta_created_at",
+                            "variant": "standard",
+                            "disabled": true
+                        },
+                        {
+                            "_tag": "CInput",
+                            "_id": "3Ubmeta_created_by",
+                            "cInputType": "TextField",
+                            "resource": "prw_tables",
+                            "source": "meta_created_by",
+                            "variant": "standard",
+                            "disabled": true
+                        },
+                        {
+                            "_tag": "CInput",
+                            "_id": "3Ubmeta_updated_at",
+                            "cInputType": "DateTimeField",
+                            "resource": "prw_tables",
+                            "source": "meta_updated_at",
+                            "variant": "standard",
+                            "disabled": true
+                        },
+                        {
+                            "_tag": "CInput",
+                            "_id": "3Ubmeta_updated_by",
+                            "cInputType": "TextField",
+                            "resource": "prw_tables",
+                            "source": "meta_updated_by",
+                            "variant": "standard",
+                            "disabled": true
                         }
                     ]
                 }

@@ -4,7 +4,8 @@ SELECT frmdb_put_column('prw_system_params', 'val', 'text');
 SELECT frmdb_put_table('prw_tables', 'text');
 SELECT frmdb_put_column('prw_tables', 'parent', 'text');
 SELECT frmdb_put_column('prw_tables', 'resource_type', 'text', '_and(is_not_null(resource_type), is_enum(resource_type, ''GROUP'', ''PAGE'', ''RESOURCE''))', '''RESOURCE''');
-SELECT frmdb_put_column('prw_tables', 'icon', 'text', 'is_not_null(icon)');
+SELECT frmdb_put_column('prw_tables', 'id_type', 'text', 'is_not_null(id_type)');
+SELECT frmdb_put_column('prw_tables', 'icon', 'text', null);
 SELECT frmdb_put_column('prw_tables', 'menu_order', 'integer', null, '0');
 SELECT frmdb_put_column('prw_tables', 'options', 'json');
 
