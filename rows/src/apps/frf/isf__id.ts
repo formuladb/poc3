@@ -218,8 +218,166 @@ export const isf__id: CPageNode = {
                             "disabled": false,
                             item: { width: 7 },
                         },
+                        {
+                            "_tag": "CElement",
+                            "_id": "t3.4.1",
+                            "cElementType": "Text",
+                            "content": "4) Care este numărul de identificare sportivă a clubului tău - CIS (din Certificatul de identitate sportivă)? : *",
+                            item: { width: 4 },
+                        },
+                        {
+                            "_tag": "CElement",
+                            "_id": "ic3.4",
+                            "cElementType": "Icon",
+                            "name": "material-design-icons-code",
+                            item: { width: 1 },
+                        },
+                        {
+                            "_tag": "CInput",
+                            "_id": "in3.4",
+                            "cInputType": "TextField",
+                            "resource": "isf",
+                            "source": "nr_identificare_club",
+                            "variant": "standard",
+                            "disabled": false,
+                            item: { width: 7 },
+                        },
                     ]
-                },                                
+                },
+                {
+                    "_tag": "CLayout",
+                    "_id": "Row4",
+                    spacing: 3,
+                    box: {
+                        spacing: {
+                            marginTop: 5,
+                        },
+                        borders: {
+                            borderTop: 1,
+                        }
+                    },
+                    "children": [
+                        {
+                            "_tag": "CElement",
+                            "_id": "t4.1",
+                            "cElementType": "Text",
+                            "content": "10) Adaugă fișierul logo și maxim 5 fotografii reprezentative pentru club.",
+                            item: { width: 12 },
+                        },
+                        {
+                            "_tag": "CElement",
+                            "_id": "t3.4.2",
+                            "cElementType": "Text",
+                            "content": "Încarcă fișierul logo club aici:",
+                            item: { width: 5 },
+                        },
+                        {
+                            "_tag": "CInput",
+                            "_id": "in4.1",
+                            "cInputType": "ImageField",
+                            "resource": "isf",
+                            "source": "logo",
+                            item: { width: 7 },
+                        },
+                        {
+                            "_tag": "CElement",
+                            "_id": "t3.4.3",
+                            "cElementType": "Text",
+                            "content": "Fotografie 1:",
+                            item: { width: 5 },
+                        },
+                        {
+                            "_tag": "CInput",
+                            "_id": "in4.2",
+                            "cInputType": "ImageField",
+                            "resource": "isf",
+                            "source": "imagine1",
+                            item: { width: 7 },
+                        },
+                        {
+                            "_tag": "CElement",
+                            "_id": "t3.4.4",
+                            "cElementType": "Text",
+                            "content": "Fotografie 2:",
+                            item: { width: 5 },
+                        },
+                        {
+                            "_tag": "CInput",
+                            "_id": "in4.4",
+                            "cInputType": "ImageField",
+                            "resource": "isf",
+                            "source": "imagine2",
+                            item: { width: 7 },
+                        },
+                        {
+                            "_tag": "CElement",
+                            "_id": "t3.4.5",
+                            "cElementType": "Text",
+                            "content": "Fotografie 3:",
+                            item: { width: 5 },
+                        },
+                        {
+                            "_tag": "CInput",
+                            "_id": "in4.5",
+                            "cInputType": "ImageField",
+                            "resource": "isf",
+                            "source": "imagine3",
+                            item: { width: 7 },
+                        },
+                        {
+                            "_tag": "CElement",
+                            "_id": "t3.4.6",
+                            "cElementType": "Text",
+                            "content": "Fotografie 4:",
+                            item: { width: 5 },
+                        },
+                        {
+                            "_tag": "CInput",
+                            "_id": "in4.6",
+                            "cInputType": "ImageField",
+                            "resource": "isf",
+                            "source": "imagine4",
+                            item: { width: 7 },
+                        },
+                        {
+                            "_tag": "CElement",
+                            "_id": "t3.4.7",
+                            "cElementType": "Text",
+                            "content": "Fotografie 5:",
+                            item: { width: 5 },
+                        },
+                        {
+                            "_tag": "CInput",
+                            "_id": "in4.7",
+                            "cInputType": "ImageField",
+                            "resource": "isf",
+                            "source": "imagine5",
+                            item: { width: 7 },
+                        },
+                    ]
+                },
+                {
+                    "_tag": "CList",
+                    "_id": "lUQUqX",
+                    "cListType": "Table",
+                    "resource": "playfield",
+                    "labelSource": "id",
+                    "editable": false,
+                    "refToParentListFieldName": "isf_id",
+                    "isSubListOf": "isf",
+                    "enabledActions": [
+                        {
+                            "actionType": "CREATE"
+                        }
+                    ],
+                    fields: [
+                        { cInputType: 'TextField', source: "nume", resource: 'playfield' },
+                        { cInputType: 'TextField', source: "localitate", resource: 'playfield' },
+                        { cInputType: 'TextField', source: "strada", resource: 'playfield' },
+                        { cInputType: 'NumberField', source: "nr_teren", resource: 'playfield' },
+                        { cInputType: 'TextField', source: "cod_postal", resource: 'playfield' },
+                    ]
+                },
             ]
         }
     ]

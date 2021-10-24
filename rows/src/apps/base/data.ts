@@ -52,15 +52,20 @@ export default async () => {
     await putRows(PrwDictionary, [
         { id: `resources.debug.name`,  en: 'Sys Admin', ro: 'Admin Sistem'},
         { id: `resources.administer.name`,  en: 'Administration', ro: 'Administrare'},
-        { id: `resources.${tblName}.name`,  en: 'Resources', ro: 'Resurse'},
+        { id: `resources.${tblName}.name`,  en: 'Tables', ro: 'Tabele'},
         { id: `resources.${tblName}.fields.id`,  en: 'Id', ro: 'Id'},
+        { id: `resources.${tblName}.fields.id_type`,  en: 'Id Column Type', ro: 'Tip Coloană Id'},
+        { id: `resources.${tblName}.fields.parent`,  en: 'Parent', ro: 'Părinte'},
+        { id: `resources.${tblName}.fields.resource_type`,  en: 'Type', ro: 'Tip'},
+        { id: `resources.${tblName}.fields.icon`,  en: 'Icon', ro: 'Icoană'},
+        { id: `resources.${tblName}.fields.menu_order`,  en: 'Menu Order', ro: 'Ordine Meniu'},
         ...metaColumnsDictionary(tblName),
     ]);
 
     //Diacritice (ă â î ș ț) (Ă Â Î Ș Ț)
     tblName = entityMetadata(PrwTableColumn).tableName;
     await putRows(PrwDictionary, [
-        { id: `resources.${tblName}.name`,  en: 'Resource Fields', ro: 'Câmpuri Resursă'},
+        { id: `resources.${tblName}.name`,  en: 'Table Columns', ro: 'Coloane Tabele'},
         { id: `resources.${tblName}.fields.id`,  en: 'Id', ro: 'Id'},
         { id: `resources.${tblName}.fields.c_table_schema`, en: 'c_table_schema', ro: 'c_table_schema'}, 
         { id: `resources.${tblName}.fields.c_column_name`, en: 'c_column_name', ro: 'c_column_name'}, 

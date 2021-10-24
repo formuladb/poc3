@@ -21,6 +21,9 @@ BEGIN;
     SELECT frmdb_put_column_REFERENCE_TO('src_tbl', 'ref', 'dst_tbl', null, null);
     SELECT has_column( 'src_tbl', 'ref' );
 
+    SELECT * FROM information_schema.table_constraints WHERE table_name = 'src_tbl';
+    SELECT * FROM information_schema.REFERENTIAL_CONSTRAINTS WHERE constraint_name = 'src_tbl__ref__fk';
+
     SELECT has_fk( 'src_tbl', 'test_ref_fk' );
     SELECT col_is_fk( 'src_tbl', ARRAY['tenant', 'ref'] );
     SELECT fk_ok( 'public', 'src_tbl', ARRAY['tenant', 'ref'], 'public', 'dst_tbl', ARRAY['tenant', 'id'] );

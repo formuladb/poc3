@@ -13,5 +13,4 @@ export default async () => {
     await setPermission('frmdb_anon', PrwTableColumn, true, false, false, false);
     await setPermission('frmdb_anon', PrwDictionary, true, false, false, false);
     await setPermission('frmdb_anon', FrmdbSystemParam, true, false, false, false);
-
 }

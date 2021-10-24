@@ -1,0 +1,4 @@
+ - autocomplete/select with data from outside system (external tables)
+ - import table from csv/xlsx/tsv
+ - external tables, materialized and not
+ - possibility to define GENERATED tables from external tables many-2-many with internal table

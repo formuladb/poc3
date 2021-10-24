@@ -30,6 +30,6 @@ export interface ResourceFieldDef {
     type: FieldType,
 }
 
-export const DEFAULT_COLS = ['created_at', 'updated_at', 'created_by', 'updated_by'];
+export const DEFAULT_COLS = ['meta_created_at', 'meta_updated_at', 'meta_created_by', 'meta_updated_by'];
 export const DEFAULT_FILTER_COLS = ['name', 'description'];
 export const DEFAULT_FILTER_TREE_COLS = ['category'];

@@ -15,6 +15,14 @@ export class Isf {
     @Column() judet_club: string;
     @Column() localitate_club: string;
     @Column() denumire_club: string;
+    @Column() nr_identificare_club: string;
+
+    @Column({nullable: true}) logo?: string;
+    @Column({nullable: true}) imagine1?: string;
+    @Column({nullable: true}) imagine2?: string;
+    @Column({nullable: true}) imagine3?: string;
+    @Column({nullable: true}) imagine4?: string;
+    @Column({nullable: true}) imagine5?: string;
 
     @OneToMany(() => Playfield, d => d.isf)
     playfields?: Playfield[];

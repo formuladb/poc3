@@ -10,8 +10,11 @@ export class Playfield {
     @ManyToOne(() => Isf, f => f.playfields, )
     isf: Isf;
 
-    @Column() denumirea_actului: string;
-    @Column() nr_file: number;
+    @Column() nume: string;
+    @Column() localitate: string;
+    @Column() strada: string;
+    @Column() nr_teren: number;
+    @Column() cod_postal: string;
 
     @Column(() => Meta) meta: Meta;
 

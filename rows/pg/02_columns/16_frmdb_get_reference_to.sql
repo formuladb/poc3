@@ -24,3 +24,13 @@ CREATE OR REPLACE FUNCTION frmdb_get_reference_to(
         AND kcu.column_name = $2
         -- AND tc.constraint_name =  v_constraint_name
 $$ LANGUAGE SQL;
+
+
+CREATE OR REPLACE FUNCTION frmdb_get_reference_delete_rule(
+    p_table_name regclass,
+    p_col_name varchar
+) RETURNS varchar AS $$
+    SELECT delete_rule FROM 
+        information_schema.REFERENTIAL_CONSTRAINTS 
+    WHERE constraint_name = frmdb_reference_to_constraint_name(p_table_name, p_col_name)
+$$ LANGUAGE SQL;

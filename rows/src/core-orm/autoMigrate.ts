@@ -1,5 +1,8 @@
+import { PrwTable } from "@core/entity/PrwTable";
+import { PrwTableColumn } from "@core/entity/PrwTableColumn";
 import { Connection, getConnection, getManager, ObjectType } from "typeorm";
 import { ColumnMetadata } from "typeorm/metadata/ColumnMetadata";
+import { putRow } from "./putRow";
 
 function getColType(type: ColumnMetadata['type']): string {
     if (type === String) return 'text';
@@ -18,14 +21,17 @@ export async function autoMigrate<ENTITY>(
     const m = conn.getMetadata(entity);
 
     const mng = getManager();
+    await mng.query(`set log_min_messages = notice`);
 
     const idM = m.columns.find(c => c.databaseName === 'id');
     if (!idM) throw new Error(`Cannot find id column for table ${m.tableName}`);
 
-    const tenantM = m.columns.find(c => c.databaseName === 'tenant');
-
     const defVal = idM.default ? 'DEFAULT ' + idM.default : '';
-    await mng.query(`SELECT frmdb_put_table('${m.tableName}', $ty$ ${getColType(idM.type)} NOT NULL ${defVal} $ty$ ${tenantM ? ", true" : ""})`);
+    let tbl = new PrwTable();
+    tbl.id = m.tableName;
+    tbl.idType = `${getColType(idM.type)} NOT NULL ${defVal}`;
+    await putRow(PrwTable, tbl);
+
     for (let colM of m.columns) {
         if (colM.databaseName === 'id' || colM.databaseName.startsWith('meta_')) continue;
 
@@ -44,14 +50,14 @@ export async function autoMigrate<ENTITY>(
             constraintsList.length > 1 ? `_and(${constraintsList.join(', ')})` : 'null'
         );
             
-
-        await mng.query(`SELECT frmdb_put_column(
-            '${m.tableName}', 
-            '${colM.databaseName}', 
-            '${getColType(colM.type)}', 
-            '${constraints}', 
-            null
-        );`)
+        let col = new PrwTableColumn();
+        col.prwTable = tbl;
+        col.c_column_name = colM.databaseName;
+        col.c_data_type = getColType(colM.type);
+        col.c_check = constraints;
+        if (colM.default) col.c_default = `${colM.default}`;
+        if (colM.asExpression) col.c_formula = `${colM.asExpression}`;
+        await putRow(PrwTableColumn, col);
     }
     
     return entity;

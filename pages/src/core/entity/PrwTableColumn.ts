@@ -12,10 +12,11 @@ export class PrwTableColumn {
     @Column() c_default!: string;
     @Column() c_column_description!: string;
     @Column() c_is_updatable!: string;
-    @Column() c_reference_to!: string;
     @Column() c_formula!: string;
     @Column() c_idx!: string;
 
     @ManyToOne(() => PrwTable, resource => resource.columns, )
     prwTable!: PrwTable;    
 };
+
+export interface PrwTableColumnI extends PrwTableColumn {} 
