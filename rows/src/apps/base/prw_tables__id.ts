@@ -119,7 +119,7 @@ export const prw_tables__id: CPageNode = {
         },
         {
             "_tag": "CBlock",
-            "_id": "jW9Z3",
+            "_id": "jW9Z4",
             "cBlockType": "Heading",
             "title": "Columns",
         },
@@ -136,6 +136,26 @@ export const prw_tables__id: CPageNode = {
                 {
                     "actionType": "CREATE"
                 }
+            ],
+            fields: [
+                {
+                    cInputType: "TextField",
+                    resource: "prw_table_columns",
+                    source: "c_column_name",
+                    disabled: false,
+                },
+                {
+                    cInputType: "TextField",
+                    resource: "prw_table_columns",
+                    source: "c_data_type",
+                    disabled: false,
+                },
+                {
+                    cInputType: "TextField",
+                    resource: "prw_table_columns",
+                    source: "c_check",
+                    disabled: false,
+                },
             ]
         },
         {

@@ -25,6 +25,15 @@ CREATE OR REPLACE FUNCTION frmdb_get_reference_to(
         -- AND tc.constraint_name =  v_constraint_name
 $$ LANGUAGE SQL;
 
+--####################################################################################
+--####################################################################################
+CREATE OR REPLACE FUNCTION frmdb_reference_to_constraint_name (
+    p_table_name regclass, 
+    p_col_name varchar
+) RETURNS varchar AS $fun$
+BEGIN
+    RETURN p_table_name || '__' || p_col_name || '__fk';
+END; $fun$ language 'plpgsql';
 
 CREATE OR REPLACE FUNCTION frmdb_get_reference_delete_rule(
     p_table_name regclass,

@@ -137,6 +137,7 @@ async function configureDynamicEnums(
                 )
             ) {
                 v.enum = Object.keys(resourceList);
+                v.title = 'Table (pages are linked to tables/columns)';
             }
             if (v?.type === "string"
                 && (v?.format === "frmdb-resource-field-name"
@@ -144,6 +145,7 @@ async function configureDynamicEnums(
                 )
             ) {
                 v.enum = resourceCols.map(col => col.name);
+                v.title = 'Column (pages are linked to tables/columns)';
             }
             configureDynamicEnums(v, resourceList, resourceCols);
         }
