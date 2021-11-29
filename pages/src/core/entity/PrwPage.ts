@@ -5,7 +5,6 @@ import { PrwTable } from "./PrwTable";
 export class PrwPage {
     @PrimaryColumn() id!: string;
     @Column({type: "json"}) content!: object;
-    @Column({type: "json"}) schema?: object;
     @ManyToOne(() => PrwTable, resource => resource.pages, )
     prwTable!: PrwTable;    
 };
