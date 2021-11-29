@@ -37,6 +37,7 @@ import * as cookieParser from "cookie-parser";
 const mime = require('mime');
 
 import * as jwt from 'jsonwebtoken';
+import { setPermission } from "./core-orm/setPermision";
 
 const app: express.Express = express();
 
@@ -85,6 +86,8 @@ pgFmkInstall()
         await websitesData();
         await onrcData();
         await frfData();
+
+        await setPermission('administrator', 'ALL-TABLES', true, true, true, true);
 
         console.log("#### init done ######################")
     })

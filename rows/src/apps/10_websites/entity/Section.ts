@@ -2,7 +2,7 @@ import { AfterInsert, AfterUpdate, EntitySubscriberInterface, EventSubscriber, I
 import { Column, Entity } from "typeorm";
 import { Meta } from "@core/entity/Meta";
 import { upsertChildren } from "../../../core-orm/upsertChildren";
-import { Page } from "./Page";
+import { StaticPage } from "./StaticPage";
 import { CBlockProps } from "@core/entity/page";
 
 const MediaTypes = {IMAGE:0, ICON:0 };
@@ -24,8 +24,8 @@ class SectionBase {
 const SectionBlockTypes: CBlockProps['cBlockType'][] = ["Heading", "Media", "Cards"];
 @Entity()
 export class Section extends SectionBase {
-    @ManyToOne(() => Page, page => page.sections, )
-    page: Page;
+    @ManyToOne(() => StaticPage, page => page.sections, )
+    page: StaticPage;
 
     @Column({type: "enum", enum: SectionBlockTypes}) 
     blockType: CBlockProps['cBlockType'];

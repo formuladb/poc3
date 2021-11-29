@@ -17,7 +17,7 @@ export class PrwTable {
     @Column() menu_order!: number;
     @Column({type: "json"}) options?: {
         [role: string]: {
-            layoutType: "ONE_PAGE" | "ADMIN";//TODO: | "LANDING_PAGE" | "ARTICLE_PAGE";
+            layoutType: "EMBEDDED_PAGE" | "ADMIN" | "WEBSITE_PAGE";
         }
     };
     @OneToMany(() => PrwPage, page => page.prwTable)

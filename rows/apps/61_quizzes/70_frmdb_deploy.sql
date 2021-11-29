@@ -1,5 +1,5 @@
 INSERT INTO prw_tables (id, parent, icon, resource_type, menu_order, options) VALUES
-    ('frmdb_homepage', '', '', 'PAGE', 0, '{"frmdb_anon": {"layoutType": "ONE_PAGE"}}'),
+    ('frmdb_homepage', '', '', 'PAGE', 0, '{"frmdb_anon": {"layoutType": "EMBEDDED_PAGE"}}'),
     ('prw_tables', 'TBD', 'List', 'RESOURCE', 0, null),
     ('prw_pages', 'TBD', 'List', 'RESOURCE', 0, null),
     ('administer', null, 'material-design-icons/settings', 'GROUP', 1, null),
@@ -11,8 +11,8 @@ INSERT INTO prw_tables (id, parent, icon, resource_type, menu_order, options) VA
     ('quiz_templates', 'operate', 'material-design-icons/live_help', 'RESOURCE', 1, null),
     ('quiz_sessions', 'operate', 'material-design-icons/list_alt', 'RESOURCE', 2, null),
     ('public', null, 'material-design-icons/public', 'GROUP', 3, null),
-    ('quizzes', 'public', 'material-design-icons/contact_support', 'RESOURCE', 0, '{"frmdb_anon": {"layoutType": "ONE_PAGE"}}'),
-    ('quizzes_results', 'public', 'material-design-icons/playlist_add_check', 'RESOURCE', 1, '{"frmdb_anon": {"layoutType": "ONE_PAGE"}}'),
+    ('quizzes', 'public', 'material-design-icons/contact_support', 'RESOURCE', 0, '{"frmdb_anon": {"layoutType": "EMBEDDED_PAGE"}}'),
+    ('quizzes_results', 'public', 'material-design-icons/playlist_add_check', 'RESOURCE', 1, '{"frmdb_anon": {"layoutType": "EMBEDDED_PAGE"}}'),
     ('quizzes__questions', '', '', 'RESOURCE', 0, null),
     ('quiz_questions_frmdbvw', '', '', 'RESOURCE', 0, null),
     ('quiz_sessions_res__frmdbvw', '', '', 'RESOURCE', 0, null),

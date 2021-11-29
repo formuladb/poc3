@@ -44,7 +44,7 @@ export function EditorSidebar(props: any) {
             <Drawer variant="persistent" anchor="right" open={editorOpen}
                 onClose={() => setEditorOpen(false)}
             >
-                {editorOpen && <div style={{ width: '320px' }}>
+                {editorOpen && <div style={{ width: '320px', marginTop: '35px' }}>
                     <Topbar editorEnabled={editorOpen} />
                     <Toolbox />
                     <SettingsPanel />
