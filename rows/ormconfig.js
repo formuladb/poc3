@@ -21,6 +21,7 @@ module.exports = {
    entities: [
       "../pages/src/core/entity/*.ts",
       "src/apps/*/entity/*.ts",
+      "src/apps/*/*/entity/*.ts",
    ],
    "migrations": [
       "src/migration/**/*.ts"

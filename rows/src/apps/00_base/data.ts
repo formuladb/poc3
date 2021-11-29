@@ -22,13 +22,13 @@ export default async () => {
     await autoMigrate(Currency);
     await autoMigrate(ExchangeRate);
 
-    const res1 = await putRow(PrwTable, { id: entityMetadata(PrwTable).tableName, idType: "text NOT NULL", parent: "administer", icon: "material-design-icons-table_rows", resource_type: "RESOURCE", menu_order: 1 });
+    const res1 = await putRow(PrwTable, { id: entityMetadata(PrwTable).tableName, idType: "text NOT NULL", parent: "administer", icon: "material-design-icons-table_rows", resource_type: "RESOURCE", menu_order: 0 });
 
     await putRows(PrwTable, [
-        { id: "debug", icon: "material-design-icons-settings_applications", idType: "n/a", resource_type: "GROUP", menu_order: 1 },
+        { id: "debug", icon: "material-design-icons-settings_applications", idType: "n/a", resource_type: "GROUP", menu_order: 510 },
         { id: entityMetadata(PrwPage).tableName, idType: "text NOT NULL", parent: "debug", icon: "material-design-icons-list_alt", resource_type: "RESOURCE", menu_order: 1 },
         { id: entityMetadata(PrwTableColumn).tableName, idType: "text NOT NULL", parent: "debug", icon: "material-design-icons-table_rows", resource_type: "RESOURCE", menu_order: 2 },
-        { id: "administer", icon: "material-design-icons-settings", idType: "n/a", resource_type: "GROUP", menu_order: 2 },
+        { id: "administer", icon: "material-design-icons-settings", idType: "n/a", resource_type: "GROUP", menu_order: 500 },
         { id: entityMetadata(PrwDictionary).tableName, idType: "text NOT NULL", parent: "administer", icon: "material-design-icons-translate", resource_type: "RESOURCE", menu_order: 4 },
         { id: entityMetadata(FrmdbSystemParam).tableName, idType: "text NOT NULL", parent: "administer", icon: "material-design-icons-edit_attributes", resource_type: "RESOURCE", menu_order: 5 },
         { id: entityMetadata(PrwUser).tableName, idType: "text NOT NULL", parent: "administer", icon: "material-design-icons-people", resource_type: "RESOURCE", menu_order: 6 },

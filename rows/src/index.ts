@@ -14,8 +14,8 @@ import websitesData from './apps/10_websites/data';
 import crmData from './apps/crm/data';
 import inventoryData from './apps/inventory/data';
 import serviceData from './apps/service/data';
-import onrcData from './apps/20_form_builder/onrc/data';
-import frfData from './apps/20_form_builder/frf/data';
+import onrcData from './apps/90_form_builder/onrc/data';
+import frfData from './apps/90_form_builder/frf/data';
 
 
 var client = new Minio.Client({

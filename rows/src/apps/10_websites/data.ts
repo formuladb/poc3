@@ -32,10 +32,10 @@ export default async () => {
     await autoMigrate(SubSection);
 
     await putRows(PrwTable, [
-        { id: "websites", idType: "n/a", icon: "material-design-icons/settings", resource_type: "GROUP", menu_order: 1 },
-        { id: entityMetadata(Page).tableName, idType: "text NOT NULL", parent: "websites", icon: "TBD", resource_type: "RESOURCE", menu_order: 1 },
-        { id: entityMetadata(Section).tableName, idType: "text NOT NULL", parent: "websites", icon: "TBD", resource_type: "RESOURCE", menu_order: 2 },
-        { id: entityMetadata(SubSection).tableName, idType: "text NOT NULL", parent: "websites", icon: "material-design-icons/settings", resource_type: "RESOURCE", menu_order: 3 },
+        { id: "websites", idType: "n/a", icon: "material-design-icons-language", resource_type: "GROUP", menu_order: 10 },
+        { id: entityMetadata(Page).tableName, idType: "text NOT NULL", parent: "websites", icon: "material-design-icons-post_add", resource_type: "RESOURCE", menu_order: 1 },
+        { id: entityMetadata(Section).tableName, idType: "text NOT NULL", parent: "websites", icon: "material-design-icons-view_headline", resource_type: "RESOURCE", menu_order: 2 },
+        { id: entityMetadata(SubSection).tableName, idType: "text NOT NULL", parent: "websites", icon: "material-design-icons-view_module", resource_type: "RESOURCE", menu_order: 3 },
     ]);
 
     let tblName = entityMetadata(Page).tableName;

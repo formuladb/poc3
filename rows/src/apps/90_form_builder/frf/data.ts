@@ -18,8 +18,8 @@ export default async () => {
         { id: entityMetadata(Isf).tableName, idType: "serial NOT NULL", parent: "frf", icon: "material-design-icons-sports_soccer", resource_type: "RESOURCE", menu_order: 0 });//, options: {frmdb_anon: {layoutType: "ONE_PAGE"}}
 
     await putRows(PrwTable, [
-        { id: "frf", icon: "material-design-icons-map", idType: "n/a", resource_type: "GROUP", menu_order: 6 },
-        { id: entityMetadata(Playfield).tableName, idType: "serial NOT NULL", parent: "_hidden_", icon: "tbd", resource_type: "RESOURCE", menu_order: 0 },
+        { id: "frf", icon: "material-design-icons-map", idType: "n/a", resource_type: "GROUP", menu_order: 91 },
+        { id: entityMetadata(Playfield).tableName, idType: "serial NOT NULL", parent: "_hidden_", icon: "tbd", resource_type: "RESOURCE", menu_order: 1 },
     ]);
 
     await putRows(PrwPage, [
