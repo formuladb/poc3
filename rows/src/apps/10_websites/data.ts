@@ -22,6 +22,8 @@ import { putRole } from "src/core-orm/putRole";
 import { putRows } from "src/core-orm/putRow";
 import { PrwTable } from "@core/entity/PrwTable";
 import { entityMetadata } from "src/core-orm/entityMetadata";
+import { PrwDictionary } from "@core/entity/PrwDictionary";
+import { metaColumnsDictionary } from "../00_base/metaColumnsDictonary";
 
 export default async () => {
 
@@ -35,6 +37,30 @@ export default async () => {
         { id: entityMetadata(Section).tableName, idType: "text NOT NULL", parent: "websites", icon: "TBD", resource_type: "RESOURCE", menu_order: 2 },
         { id: entityMetadata(SubSection).tableName, idType: "text NOT NULL", parent: "websites", icon: "material-design-icons/settings", resource_type: "RESOURCE", menu_order: 3 },
     ]);
+
+    let tblName = entityMetadata(Page).tableName;
+    //Diacritice (ă â î ș ț) (Ă Â Î Ș Ț)
+    await putRows(PrwDictionary, [
+        { id: `resources.websites.name`,  en: 'Website', ro: 'Website'},
+        { id: `resources.${tblName}.fields.id`,  en: 'Id', ro: 'Id'},
+        { id: `resources.${tblName}.name`,  en: 'Page', ro: 'Pagină'},
+        { id: `resources.${tblName}.fields.title`, en: 'Title', ro: 'Titlu'},
+        ...metaColumnsDictionary(tblName),
+    ]);   
+    tblName = entityMetadata(Section).tableName; 
+    await putRows(PrwDictionary, [
+        { id: `resources.${tblName}.fields.id`,  en: 'Id', ro: 'Id'},
+        { id: `resources.${tblName}.name`,  en: 'Sections', ro: 'Secțiuni'},
+        { id: `resources.${tblName}.fields.title`, en: 'Title', ro: 'Titlu'},
+        { id: `resources.${tblName}.fields.subtitle`, en: 'Subtitle', ro: 'Subtitle' },
+        { id: `resources.${tblName}.fields.body`, en: 'Body', ro: 'Conținut' },
+        { id: `resources.${tblName}.fields.mediaUrl`, en: 'Media Url', ro: 'Media Url' },
+        { id: `resources.${tblName}.fields.mediaType`, en: 'Media Type', ro: 'Media Type' },
+        { id: `resources.${tblName}.fields.info`, en: 'Info', ro: 'Info' },
+        { id: `resources.${tblName}.fields.action`, en: 'Action', ro: 'Acțiune' },
+        { id: `resources.${tblName}.fields.aside`, en: 'Aside', ro: 'Aside' },
+        ...metaColumnsDictionary(tblName),
+    ]);    
 
     // await app1();
     // await app2();

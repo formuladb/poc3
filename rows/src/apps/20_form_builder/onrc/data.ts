@@ -4,7 +4,7 @@ import { PrwTable } from "@core/entity/PrwTable";
 import { autoMigrate } from "src/core-orm/autoMigrate";
 import { entityMetadata } from "src/core-orm/entityMetadata";
 import { putRow, putRows } from "src/core-orm/putRow";
-import { metaColumnsDictionary } from "../base/metaColumnsDictonary";
+import { metaColumnsDictionary } from "../../00_base/metaColumnsDictonary";
 import { Doc11_10_181 } from "./entity/Doc11_10_181";
 import { Form11_10_181 } from "./entity/Form11_10_181";
 import { form11_10_181__id } from "./form11_10_181__id";

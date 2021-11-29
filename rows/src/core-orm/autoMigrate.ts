@@ -40,7 +40,7 @@ export async function autoMigrate<ENTITY>(
             constraintsList.push(`is_not_null(${colM.databaseName})`);
         }
         if (colM.type === "enum") {
-            constraintsList.push(`is_enum(${colM.databaseName}, ${colM.enum.map(e => "''"+e+"''").join(', ')})`);
+            constraintsList.push(`is_enum(${colM.databaseName}, ${colM.enum.map(e => "'"+e+"'").join(', ')})`);
         }
         const check = m.checks.find(c => c.name === colM.propertyName);
         if (check) {

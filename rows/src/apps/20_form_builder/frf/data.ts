@@ -5,7 +5,7 @@ import { autoMigrate } from "src/core-orm/autoMigrate";
 import { entityMetadata } from "src/core-orm/entityMetadata";
 import { putRow, putRows } from "src/core-orm/putRow";
 import { setPermission } from "src/core-orm/setPermision";
-import { metaColumnsDictionary } from "../base/metaColumnsDictonary";
+import { metaColumnsDictionary } from "../../00_base/metaColumnsDictonary";
 import { Isf } from "./entity/Isf";
 import { Playfield } from "./entity/Playfield";
 import { isf__id } from "./isf__id";

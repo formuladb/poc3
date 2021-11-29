@@ -6,7 +6,6 @@ import { Section, SectionI, SubSectionI } from "./Section";
 
 @Entity()
 export class Page {
-    @PrimaryColumn() tenant: string;
     @PrimaryColumn() id: string;
     @Column() title: string;
     @Column(() => Meta) meta?: Meta;

@@ -37,7 +37,7 @@ const Menu: FC<MenuProps> = ({ onMenuClick, logout, dense = false }) => {
             if (parentRes) {
                 //@ts-ignore
                 childRes = sortBy(childRes, 'menu_order');
-                menuResources.push({ parentRes, childRes, isOpen: true });
+                menuResources.push({ parentRes, childRes, isOpen: false });
             }
         }
         menuResources = sortBy(menuResources, 'parentRes.menu_order');

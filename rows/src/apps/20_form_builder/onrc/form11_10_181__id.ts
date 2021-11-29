@@ -36,6 +36,7 @@ export const form11_10_181__id: CPageNode = {
                         {
                             "_tag": "CBlock",
                             "_id": "jW9ZraEAL2",
+                            "cBlockType": "Heading",
                             "title": "C E R E R E",
                             "subtitle": "de verificare disponibilitate și<br/> rezervare denumire firmă",
                         },
@@ -67,6 +68,7 @@ export const form11_10_181__id: CPageNode = {
                         {
                             "_tag": "CBlock",
                             "_id": "jW9ZraEAL4",
+                            "cBlockType": "Heading",
                             "subtitle": "Rezervarea firmei are caracter administrativ şi prealabil, asupra legalității formale a firmei urmând a se pronunța directorul ORCT/persoana desemnată ORCT, cu ocazia soluționării cererii de înregistrare în registrul comerțului. Denumirea rezervată nu este constitutivă de drepturi în sensul Legii nr.84/1998.",
                             item: {width: 12},
                         },
@@ -98,6 +100,7 @@ export const form11_10_181__id: CPageNode = {
                         {
                             "_tag": "CBlock",
                             "_id": "sec5",
+                            "cBlockType": "Heading",
                             "body": "2. <b>solicit</b> verificare disponibilitate și rezervare firmă(2) pentru",
                             item: { width: 12 }
                         },
@@ -113,6 +116,7 @@ export const form11_10_181__id: CPageNode = {
                 {
                     "_tag": "CBlock",
                     "_id": "sec6",
+                    "cBlockType": "Heading",
                     "title": "Denumiri propuse în ordinea preferințelor solicitantului",
                     box: {
                         spacing: {
@@ -146,6 +150,7 @@ export const form11_10_181__id: CPageNode = {
         {
             "_tag": "CBlock",
             "_id": "jW9ZraEAL3",
+            "cBlockType": "Heading",
             "title": "OPIS DOCUMENTE DEPUSE",
             box: {
                 spacing: {

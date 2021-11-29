@@ -9,13 +9,13 @@ import * as fs from 'fs';
 import * as Minio from 'minio';
 import { spawn } from 'child_process';
 
-import baseData from './apps/base/data';
-import websitesData from './apps/websites/data';
+import baseData from './apps/00_base/data';
+import websitesData from './apps/10_websites/data';
 import crmData from './apps/crm/data';
 import inventoryData from './apps/inventory/data';
 import serviceData from './apps/service/data';
-import onrcData from './apps/onrc/data';
-import frfData from './apps/frf/data';
+import onrcData from './apps/20_form_builder/onrc/data';
+import frfData from './apps/20_form_builder/frf/data';
 
 
 var client = new Minio.Client({
@@ -82,10 +82,11 @@ pgFmkInstall()
         await createConnection();
 
         await baseData();
-        // await websitesData();
-        // await onrcData();
+        await websitesData();
+        await onrcData();
         await frfData();
 
+        console.log("#### init done ######################")
     })
     .then(() => app.listen(8080))
     ;
