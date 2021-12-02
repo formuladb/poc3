@@ -8,6 +8,7 @@ import { JSONSchema7 } from 'json-schema';
 import { CmpCraftStatic } from '../utils';
 import { CForm } from '../form/CForm';
 import { CLayout } from './CLayout';
+import { CPage } from './CPage';
 
 export const CBlock = (nP: CBlockProps) => {
     const {
@@ -280,8 +281,8 @@ const craft: CmpCraftStatic = {
             }
             console.log('CBlock.canDrop', parents);
             for (let parent of parents) {
-                console.log('CBlock.canDrop', parent, parent === CForm || parent === CLayout);
-                if (parent === CForm || parent === CLayout) return true;
+                console.log('CBlock.canDrop', parent, parent === CForm || parent === CLayout || parent === CPage);
+                if (parent === CForm || parent === CLayout || parent === CPage) return true;
             }
             return false;
         }

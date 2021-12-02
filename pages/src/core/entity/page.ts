@@ -495,6 +495,7 @@ interface CBlockPropsBase {
 
 export interface CBlockHeadingProps extends CBlockPropsBase {
     cBlockType: "Heading";
+    variant?: "Simple" | "Page Header" | "Cover Page";
 }
 export interface CBlockHeadingNode extends PageNodeBase, CBlockHeadingProps {
     _tag: "CBlock";

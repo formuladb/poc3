@@ -18,10 +18,9 @@ test('should convert to/from tree', () => {
 //##################################################################################
 
 const TestPageAsTree: PageNode = {
-    _tag: "CPaper",
+    _tag: "CPage",
+    cPageType: "Edit",
     _id: "ROOT",
-    background: "#ffffff",
-    padding: 1,
     children: [
         {
             _tag: "CForm",
@@ -31,7 +30,6 @@ const TestPageAsTree: PageNode = {
                 {
                     _tag: "CLayout",
                     _id: "s0To1_oLI",
-                    padding: 2,
                     children: [
                         {
                             _tag: "CInput",
@@ -56,8 +54,6 @@ const TestPageAsTree: PageNode = {
                 {
                     _tag: "CLayout",
                     _id: "PZDQ-bBtC",
-                    background: "#ffffff",
-                    padding: 2,
                 },
             ],
         },
@@ -72,7 +68,7 @@ const TestPageAsTree: PageNode = {
 const TestPage = {
     ROOT: {
         type: {
-            resolvedName: "CPaper"
+            resolvedName: "CPage"
         },
         isCanvas: true,
         props: {

@@ -2,6 +2,7 @@ import CListPropsSchema from '../../core-domain/json-schemas/CListProps.json';
 import CInputPropsSchema from '../../core-domain/json-schemas/CInputProps.json';
 import CElementPropsSchema from '../../core-domain/json-schemas/CElementProps.json';
 import CBlockPropsSchema from '../../core-domain/json-schemas/CBlockProps.json';
+import CLayoutPropsSchema from '../../core-domain/json-schemas/CLayoutProps.json';
 
 type AnyOfsType = { "$ref": string }[];
 
@@ -37,11 +38,13 @@ type CListPropsSchemaType = typeof CListPropsSchema;
 type CInputPropsSchemaType = typeof CInputPropsSchema;
 type CElementPropsSchemaType = typeof CElementPropsSchema;
 type CBlockPropsSchemaType = typeof CBlockPropsSchema;
+type CLayoutPropsSchemaType = typeof CLayoutPropsSchema;
 function postProcessSchemas(schema:
     | CListPropsSchemaType
     | CInputPropsSchemaType
     | CElementPropsSchemaType
     | CBlockPropsSchemaType
+    | CLayoutPropsSchemaType
 ) {
 
     fixAnyOfRecursive(schema);
@@ -95,4 +98,7 @@ export function getCElementSchema() {
 }
 export function getCBlockSchema() {
     return postProcessSchemas(CBlockPropsSchema);
+}
+export function getCLayoutSchema() {
+    return postProcessSchemas(CLayoutPropsSchema);
 }

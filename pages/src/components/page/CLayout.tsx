@@ -2,15 +2,14 @@ import { JSONSchema7 } from 'json-schema';
 import { Element, useEditor, useNode, Node as CraftJsNode } from '@craftjs/core';
 import React from 'react';
 import { Grid, Box } from '@material-ui/core';
+import { CmpCraftStatic } from '../utils';
 
-import { ContainerDefaultProps, ContainerSettings } from './CPaper';
-import { CColumn } from './CColumn';
-import { CInput } from '../form/CInput';
-import { CElement } from './CElement';
-import { CButton } from './CButton';
 import { isGridContainerNode } from '../utils';
 import { CLayoutProps } from '../../core/entity/page';
-import { CList } from '../list/CList';
+import { CForm } from '../form/CForm';
+import { CPage } from './CPage';
+import { CmpSettings } from '../editor/CmpSettings';
+import { getCLayoutSchema } from '../form/post-processed-schemas';
 
 export function CLayout(nP: CLayoutProps & { children: null | React.ReactNode }) {
 
@@ -38,16 +37,38 @@ export function CLayout(nP: CLayoutProps & { children: null | React.ReactNode })
     );
 };
 
-CLayout.craft = {
-    displayName: 'Layout',
-    props: ContainerDefaultProps,
+
+const CLayoutSettingSchema = getCLayoutSchema() as JSONSchema7;
+const uiSchema = {
+    "ui:title": " ",
+    "ui:order": ["*", "box"],
+}
+export const CLayoutSettings = () => {
+    return <CmpSettings uiSchema={uiSchema} schema={CLayoutSettingSchema} />
+};
+const CLayoutDefaultProps: CLayoutProps = {
+    direction: "row",
+    spacing: 1,
+};
+const craft: CmpCraftStatic = {
+    displayName: 'Block',
+    props: CLayoutDefaultProps,
     related: {
-        settings: ContainerSettings,
+        settings: CLayoutSettings,
     },
     rules: {
-        canMoveIn: (incomingNode) => {
-            console.log(incomingNode.data.type, incomingNode);
-            return [CColumn, CInput, CList, CElement, CButton].includes(incomingNode.data.type);
+        canDrop(dropTarget, self, helpers): boolean {
+            let parents = [dropTarget.data.type];
+            for (let ancestorId of helpers(dropTarget.id).ancestors()) {
+                parents.push(helpers(ancestorId).get().data.type);
+            }
+            console.log('CLayout.canDrop', parents);
+            for (let parent of parents) {
+                console.log('CLayout.canDrop', parent, parent === CForm || parent === CLayout || parent === CPage);
+                if (parent === CForm || parent === CLayout || parent === CPage) return true;
+            }
+            return false;
         }
     },
 };
+CLayout.craft = craft;
