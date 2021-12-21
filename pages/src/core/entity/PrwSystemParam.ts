@@ -6,7 +6,5 @@ export class FrmdbSystemParam {
     @Column() val!: string;
 }
 
-export  interface FrmdbSystemParamI extends FrmdbSystemParam {
-    
-}
+export  interface FrmdbSystemParamI extends FrmdbSystemParam {}
 export const LOCALE = 'LOCALE';

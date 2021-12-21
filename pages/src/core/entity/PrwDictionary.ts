@@ -17,3 +17,4 @@ export class PrwDictionary {
     @Column() no?: string;
     @Column() nl?: string;
 }
+export interface PrwDictionaryI extends PrwDictionary {}

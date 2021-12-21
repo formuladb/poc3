@@ -28,6 +28,7 @@ export class PrwTable {
     permissions?: PrwPermission[];
 }
 
+export interface PrwTableI extends PrwTable {}
 export interface FrmdbResourceI extends PrwTable {
 }
 

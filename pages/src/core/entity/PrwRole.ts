@@ -10,6 +10,4 @@ export class PrwRole {
     permissions?: PrwPermission[];
 }
 
-export interface PrwRoleI extends PrwRole {
-
-}
+export interface PrwRoleI extends PrwRole {}

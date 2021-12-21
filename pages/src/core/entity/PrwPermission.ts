@@ -17,9 +17,6 @@ export class PrwPermission {
     @Column() insertPerm!: "true" | "false" | 'IS-OWNER';
     @Column() updatePerm!: "true" | "false" | 'IS-OWNER';
     @Column() deletePerm!: "true" | "false" | 'IS-OWNER';
-
 }
 
-export interface PrwPermissionI extends PrwPermission {
-
-}
+export interface PrwPermissionI extends PrwPermission {}

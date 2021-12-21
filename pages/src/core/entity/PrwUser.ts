@@ -18,6 +18,5 @@ export class PrwUser {
     prwRole!: PrwRole; 
 }
 
-export interface FrmdbUserI extends PrwUser {
-
-}
+export interface PrwUserI extends PrwUser {}
+export interface FrmdbUserI extends PrwUser {}

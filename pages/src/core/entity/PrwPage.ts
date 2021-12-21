@@ -8,5 +8,6 @@ export class PrwPage {
     @ManyToOne(() => PrwTable, resource => resource.pages, )
     prwTable!: PrwTable;    
 };
+export interface PrwPageI extends PrwPage {}
 
 export const STATIC_PAGES_TABLE = "static_page";
