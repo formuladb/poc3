@@ -63,7 +63,7 @@ BEGIN
             'id',                                --p_src_col_name
             p_table_name::regclass,              --p_dst_table_name
             'id',                        --p_dst_col_name
-            ARRAY[v_col1_name, v_col2_name]              --p_args
+            ARRAY[v_col1_name, v_col2_name] --p_args
         );
 
     END; $fun$ language 'plpgsql';
