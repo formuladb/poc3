@@ -59,7 +59,8 @@ BEGIN
     v_trigger_name := frmdb_get_trigger_prefix('', p_table_name, p_col_name);
 
     SELECT string_agg(action_statement, '^^^') INTO v_complex_formulas
-        FROM information_schema.triggers WHERE trigger_name LIKE '%' || v_trigger_name || '%';
+        FROM information_schema.triggers WHERE trigger_name LIKE '%' || v_trigger_name || '%'
+            AND trigger_schema = current_schema();
 
     RETURN v_complex_formulas;
 END; 

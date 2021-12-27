@@ -22,7 +22,9 @@ DO $migration$ BEGIN
             p_table_name, p_extended_table_name, p_sync_cols;
 
         SELECT data_type::varchar INTO v_col_type FROM information_schema.columns
-            WHERE table_name = p_extended_table_name::name AND column_name = 'id';
+            WHERE table_name = p_extended_table_name::name AND column_name = 'id'
+                AND table_schema = current_schema()
+        ;
         RAISE NOTICE 'frmdb_put_table_EXTENDS: type of o2o column %.id is %.', p_extended_table_name, v_col_type;
 
         --WARN: assuming postgres sequence notation for serial id columns is <table name>_id_seq
@@ -42,7 +44,10 @@ DO $migration$ BEGIN
                     generation_expression
                 INTO v_col_type, v_col_formula
                 FROM information_schema.columns
-                WHERE table_name = p_extended_table_name::name AND column_name = v_sync_col_name;
+                WHERE table_name = p_extended_table_name::name 
+                    AND column_name = v_sync_col_name
+                    AND table_schema = current_schema()
+            ;
             RAISE NOTICE 'frmdb_put_table_EXTENDS: type of %.% is %.', p_extended_table_name, v_sync_col_name, v_col_type;
 
             v_referenced_table := frmdb_get_reference_to(p_extended_table_name, v_sync_col_name);

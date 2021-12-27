@@ -110,7 +110,7 @@ BEGIN
             EXECUTE v_stm;
 
             v_seq_name := p_table_name || '_id_seq';
-            IF EXISTS ( SELECT * FROM information_schema.sequences WHERE sequence_name = v_seq_name) THEN
+            IF EXISTS ( SELECT * FROM information_schema.sequences WHERE sequence_name = v_seq_name AND sequence_schema = current_schema()) THEN
                 v_stm := format($$ GRANT USAGE, SELECT, UPDATE ON %I TO %I $$, 
                     v_seq_name, p_role_name);
                 EXECUTE v_stm;
@@ -129,7 +129,8 @@ BEGIN
 
         SELECT TRUE INTO v_is_view FROM information_schema.tables t
             WHERE t.table_name = p_table_name::information_schema.sql_identifier
-                AND t.table_type = 'VIEW';
+                AND t.table_type = 'VIEW'
+                AND table_schema = current_schema();
 
         IF v_is_view IS NULL THEN
             FOREACH v_perm IN ARRAY ARRAY[

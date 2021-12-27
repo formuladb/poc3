@@ -11,7 +11,7 @@ BEGIN;
     SELECT frmdb_put_column_REFERENCE_TO('dst_tbl', 'dst_ref', 'src_tbl', null, null);
     SELECT has_column( 'dst_tbl', 'dst_ref' );
 
-    select * from information_schema.columns where table_name = 'dst_tbl';
+    select * from information_schema.columns where table_name = 'dst_tbl' AND table_schema = current_schema();
     SELECT * FROM frmdb_sp_table_columns('dst_tbl');
     SELECT c_table_name, c_column_name, c_reference_to FROM frmdb_sp_table_columns('dst_tbl');
 

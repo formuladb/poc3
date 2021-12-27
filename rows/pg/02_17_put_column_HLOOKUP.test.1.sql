@@ -24,13 +24,13 @@ BEGIN;
     SELECT frmdb_put_column_HLOOKUP('dst_tbl', 'dst_col', 'dst_ref', 'src_col');
 
     SELECT trigger_name, action_statement FROM information_schema.triggers 
-        WHERE event_object_table = 'src_tbl';
+        WHERE event_object_table = 'src_tbl' AND trigger_schema = current_schema();
     SELECT has_trigger( 'src_tbl', '__dst_tbl__dst_col__sdt', '' );
     SELECT has_trigger( 'src_tbl', '__dst_tbl__dst_col__sit', '' );
     SELECT has_trigger( 'src_tbl', '__dst_tbl__dst_col__sut', '' );
 
     SELECT trigger_name, action_statement FROM information_schema.triggers 
-        WHERE event_object_table = 'dst_tbl';
+        WHERE event_object_table = 'dst_tbl' AND trigger_schema = current_schema();
 
     SELECT has_trigger( 'dst_tbl', '10__dst_tbl__dst_col__dt', '' );
 
@@ -75,14 +75,14 @@ BEGIN;
     SELECT hasnt_table('src_tbl');
 
     SELECT trigger_name, action_statement FROM information_schema.triggers 
-        WHERE event_object_table = 'src_tbl';
+        WHERE event_object_table = 'src_tbl' AND trigger_schema = current_schema();
     SELECT has_trigger( 'src_tbl2', '__dst_tbl__dst_col__sdt', '' );
     SELECT has_trigger( 'src_tbl2', '__dst_tbl__dst_col__sit', '' );
     SELECT has_trigger( 'src_tbl2', '__dst_tbl__dst_col__sut', '' );
     
 
     SELECT trigger_name, action_statement FROM information_schema.triggers 
-        WHERE event_object_table = 'dst_tbl';
+        WHERE event_object_table = 'dst_tbl' AND trigger_schema = current_schema();
     SELECT has_trigger( 'dst_tbl', '10__dst_tbl__dst_col__dt', '' );
 
     UPDATE src_tbl2 SET src_col = 'bbb' WHERE id = 2;

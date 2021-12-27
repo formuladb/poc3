@@ -1,7 +1,8 @@
-CREATE OR REPLACE PROCEDURE frmdb_set_type(p_name text, p_src text)
-AS $MIGR$
+CREATE OR REPLACE FUNCTION frmdb_set_type(p_name text, p_src text)
+RETURNS boolean AS $MIGR$
 DECLARE
 	v_txt text;
+    v_to_add boolean := false;
 BEGIN
 	IF NOT EXISTS (
         SELECT      n.nspname as schema, t.typname as type 
@@ -15,6 +16,9 @@ BEGIN
     ) THEN
 		--TODO replace type if definition has changed
 	    EXECUTE p_src; 
+        v_to_add := true;
 	END IF;
+
+    RETURN v_to_add;
 END
 $MIGR$ LANGUAGE plpgsql;

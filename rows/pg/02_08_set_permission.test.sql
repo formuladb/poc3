@@ -13,7 +13,7 @@ BEGIN;
     ALTER TABLE test ENABLE ROW LEVEL SECURITY;
     SELECT frmdb_set_permission('testrole', 'test', 'frmdb_is_owner(username)', 'frmdb_is_owner(username)', 'frmdb_is_owner(username)', 'frmdb_is_owner(username)');
 
-    SELECT * FROM information_schema.role_table_grants WHERE table_name = 'test';
+    SELECT * FROM information_schema.role_table_grants WHERE table_name = 'test' AND table_schema = current_schema();
     SELECT * FROM pg_policy WHERE polrelid = 'test'::regclass::oid;
 
     SET ROLE testrole;

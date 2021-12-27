@@ -20,8 +20,8 @@ BEGIN;
         'false'
     );
 
-    SELECT * FROM information_schema.role_table_grants WHERE table_name = 'test';
-    SELECT * FROM pg_policies WHERE tablename = 'test';
+    SELECT * FROM information_schema.role_table_grants WHERE table_name = 'test' AND table_schema = current_schema();
+    SELECT * FROM pg_policies WHERE tablename = 'test' AND schemaname = current_schema();
 
     SELECT * FROM prw_permissions WHERE id = 'testrole/test';
 

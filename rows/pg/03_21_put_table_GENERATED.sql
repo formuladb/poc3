@@ -19,7 +19,7 @@ DO $migration$ BEGIN
             p_table_name, p_base_table, p_base_col_name, p_sync_cols;
 
         SELECT data_type::varchar INTO v_col_type FROM information_schema.columns
-            WHERE table_name = p_base_table::name AND column_name = p_base_col_name;
+            WHERE table_name = p_base_table::name AND column_name = p_base_col_name AND table_schema = current_schema();
         RAISE NOTICE 'frmdb_put_table_GENERATED: type of o2o column %.% is %.', p_base_table, p_base_col_name, v_col_type;
 
         PERFORM frmdb_put_table(p_table_name, v_col_type);
@@ -30,7 +30,7 @@ DO $migration$ BEGIN
 
         FOREACH v_sync_col_name IN ARRAY p_sync_cols LOOP
             SELECT data_type::varchar INTO v_col_type FROM information_schema.columns
-                WHERE table_name = p_base_table::name AND column_name = v_sync_col_name;
+                WHERE table_name = p_base_table::name AND column_name = v_sync_col_name AND table_schema = current_schema();
             RAISE NOTICE 'frmdb_put_table_GENERATED: type of %.% is %.', p_base_table, v_sync_col_name, v_col_type;
 
             PERFORM frmdb_put_column(p_table_name, v_sync_col_name, v_col_type);

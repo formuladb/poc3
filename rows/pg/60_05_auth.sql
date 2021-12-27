@@ -6,7 +6,7 @@ SELECT frmdb_put_column('prw_users', 'prw_role_id', 'regrole', 'is_not_null(prw_
 DO $$
 BEGIN
     IF NOT EXISTS ( SELECT * FROM information_schema.constraint_column_usage
-        WHERE constraint_name = 'prw_users_username' )
+        WHERE constraint_name = 'prw_users_username' AND constraint_schema = current_schema() )
     THEN
         ALTER TABLE prw_users ADD CONSTRAINT prw_users_username UNIQUE (username);
     END IF;
@@ -15,7 +15,7 @@ END$$;
 DO $migration$
 BEGIN
   IF NOT EXISTS(SELECT * FROM information_schema.triggers 
-    WHERE event_object_table = 'prw_users' AND trigger_name = 'users_common_trg')
+    WHERE event_object_table = 'prw_users' AND trigger_name = 'users_common_trg' AND trigger_schema = current_schema())
   THEN
     CREATE TRIGGER users_common_trg 
       BEFORE UPDATE ON prw_users FOR EACH ROW EXECUTE PROCEDURE frmdb_0_set_common_cols_trg();

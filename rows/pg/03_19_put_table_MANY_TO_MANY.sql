@@ -17,12 +17,18 @@ BEGIN
         RAISE NOTICE 'frmdb_put_table_MANY2MANY: p_table_name=%, p_ref_table1_name=%, p_ref_table2_name=%', p_table_name, p_ref_table1_name, p_ref_table2_name;
 
         SELECT data_type::varchar INTO v_col1_type
-            FROM information_schema.columns WHERE 
-                table_name = p_ref_table1_name::name AND column_name = 'id';
+            FROM information_schema.columns 
+                WHERE table_name = p_ref_table1_name::name 
+                    AND column_name = 'id'
+                    AND table_schema = current_schema()
+        ;
         RAISE NOTICE 'frmdb_put_table_MANY2MANY: type of m2m referenced column %.id is %.', p_ref_table1_name, v_col1_type;
         SELECT data_type::varchar INTO v_col2_type
-            FROM information_schema.columns WHERE 
-                table_name = p_ref_table2_name::name AND column_name = 'id';
+            FROM information_schema.columns 
+                WHERE table_name = p_ref_table2_name::name 
+                    AND column_name = 'id' 
+                    AND table_schema = current_schema()
+        ;
         RAISE NOTICE 'frmdb_put_table_MANY2MANY: type of m2m referenced column %.id is %.', p_ref_table2_name, v_col2_type;
 
         v_stm := format($$ 

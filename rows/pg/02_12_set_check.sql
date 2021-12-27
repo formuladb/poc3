@@ -18,7 +18,7 @@ BEGIN
         v_constraint_name := p_table_name || '__' || p_col_name || '__ck';
 
         SELECT check_clause INTO v_existing_check FROM information_schema.check_constraints
-            WHERE constraint_name = v_constraint_name;
+            WHERE constraint_name = v_constraint_name AND constraint_schema = current_schema();
         RAISE NOTICE 'frmdb_set_check: v_existing_check=%, v_constraint_name=%.', v_existing_check, v_constraint_name;
 
         IF v_existing_check IS NOT NULL THEN
@@ -62,7 +62,8 @@ BEGIN
 
         SELECT is_nullable::varchar INTO v_is_nullable FROM information_schema.columns
             WHERE table_name = p_table_name::information_schema.sql_identifier
-                AND column_name = p_col_name::information_schema.sql_identifier;
+                AND column_name = p_col_name::information_schema.sql_identifier
+                AND table_schema = current_schema();
             
         RETURN COALESCE(v_existing_check, 
             CASE v_is_nullable WHEN 'NO' THEN ('is_not_null(' || p_col_name || ')') ELSE NULL END

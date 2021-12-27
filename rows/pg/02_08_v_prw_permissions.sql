@@ -23,7 +23,8 @@ WITH tmp AS (
     FROM information_schema.role_table_grants rtg
         LEFT OUTER JOIN pg_policies pol 
             ON rtg.grantee::name = pol.roles[1] 
-                AND rtg.table_name = pol.tablename
+                AND rtg.table_name::name = pol.tablename
+                AND rtg.table_schema::name = pol.schemaname
                 AND rtg.privilege_type = pol.cmd
     GROUP BY grantee, table_name
 ) 
@@ -62,6 +63,7 @@ BEGIN
     FROM information_schema.triggers
     WHERE event_object_table = 'prw_permissions'
     AND trigger_name = 'view_insert'
+    AND trigger_schema = current_schema()
   )
   THEN
     CREATE TRIGGER view_insert

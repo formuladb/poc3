@@ -21,6 +21,7 @@ CREATE OR REPLACE FUNCTION frmdb_get_reference_to(
     WHERE 
         tc.constraint_type = 'FOREIGN KEY' 
         AND tc.table_name = $1::name
+        AND tc.table_schema = current_schema()
         AND kcu.column_name = $2
         -- AND tc.constraint_name =  v_constraint_name
 $$ LANGUAGE SQL;
@@ -42,4 +43,5 @@ CREATE OR REPLACE FUNCTION frmdb_get_reference_delete_rule(
     SELECT delete_rule FROM 
         information_schema.REFERENTIAL_CONSTRAINTS 
     WHERE constraint_name = frmdb_reference_to_constraint_name(p_table_name, p_col_name)
+        AND constraint_schema = current_schema()
 $$ LANGUAGE SQL;

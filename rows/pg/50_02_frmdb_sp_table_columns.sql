@@ -46,6 +46,7 @@ CALL frmdb_internal_migrate_function('frmdb_sp_table_columns', $MIGR$
                     ordinal_position as c_idx --11
                 FROM information_schema.columns
                 WHERE table_name = p_table_name::information_schema.sql_identifier
+                    AND table_schema = current_schema()
                 
                 UNION ALL
 

@@ -9,7 +9,7 @@ BEGIN;
     SELECT has_column( 'src_tbl'::name, 'ref' );
 
     SELECT table_schema, table_name, column_name, data_type FROM information_schema.columns
-        WHERE table_name = 'src_tbl';
+        WHERE table_name = 'src_tbl' AND table_schema = current_schema();
 
     SELECT frmdb_put_table_extends('dst_tbl', 'src_tbl', '{"ref"}'::varchar[]);
     SELECT has_table( 'dst_tbl'::name );

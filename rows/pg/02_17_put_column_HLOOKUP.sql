@@ -31,6 +31,7 @@ DO $migration$ BEGIN
         WHERE 
             tc.constraint_type = 'FOREIGN KEY' 
             AND tc.constraint_name =  v_constraint_name
+            AND tc.constraint_schema = current_schema()
         ;
 
         IF v_ref_table_name IS NULL THEN
@@ -43,7 +44,9 @@ DO $migration$ BEGIN
                     ELSE data_type::varchar
                 END INTO v_col_type
             FROM information_schema.columns
-                WHERE table_name = v_ref_table_name AND column_name = p_target_col_name	
+                WHERE table_name = v_ref_table_name 
+                    AND column_name = p_target_col_name	
+                    AND table_schema = current_schema()
         ;
         
         IF v_col_type IS NULL THEN

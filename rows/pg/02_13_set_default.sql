@@ -16,7 +16,7 @@ BEGIN
         SELECT current_schema() INTO v_schema_name;
 
         SELECT column_default INTO v_existing_default FROM information_schema.columns
-            WHERE table_name = p_table_name::name AND column_name = p_col_name;
+            WHERE table_name = p_table_name::name AND column_name = p_col_name AND table_schema = current_schema();
         RAISE NOTICE 'frmdb_set_default: v_existing_default=%.', v_existing_default;
 
         IF v_existing_default IS NOT NULL THEN

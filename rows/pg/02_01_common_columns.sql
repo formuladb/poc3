@@ -30,7 +30,7 @@ DECLARE
     v_ret boolean := false;
 BEGIN
     IF NOT EXISTS(SELECT * FROM information_schema.triggers
-        WHERE event_object_table = p_table_name::name AND trigger_name = p_table_name || '_0')
+        WHERE event_object_table = p_table_name::name AND trigger_name = p_table_name || '_0') AND trigger_schema = current_schema()
     THEN
         v_stm := format($$ 
             CREATE TRIGGER %I_0 BEFORE UPDATE ON %I 

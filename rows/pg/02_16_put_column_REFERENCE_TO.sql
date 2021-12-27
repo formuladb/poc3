@@ -26,7 +26,7 @@ BEGIN
 
         SELECT data_type::varchar INTO v_col_type
             FROM information_schema.columns
-                WHERE table_name = p_ref_table_name::name AND column_name = 'id';
+                WHERE table_name = p_ref_table_name::name AND column_name = 'id' AND table_schema = current_schema();
         RAISE NOTICE 'frmdb_put_column_REFERENCE_TO: %.% references column %.id with type %.', p_table_name, p_col_name, p_ref_table_name, v_col_type;
 
         PERFORM frmdb_set_column(p_table_name, p_col_name, v_col_type);
@@ -54,6 +54,7 @@ BEGIN
             tc.constraint_type = 'FOREIGN KEY' 
             --AND tc.table_name = p_table_name
             AND tc.constraint_name =  v_constraint_name
+            AND tc.constraint_schema = current_schema()
             --AND kcu.column_name = p_col_name
         ;
         RAISE NOTICE 'frmdb_put_column_REFERENCE_TO: v_constraint_name=%, v_existing_ref_table_name=%, v_existing_ref_col_name=%, p_ref_table_name=%.', v_constraint_name, v_existing_ref_table_name, v_existing_ref_col_name, p_ref_table_name;

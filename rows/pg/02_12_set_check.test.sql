@@ -12,7 +12,7 @@ BEGIN;
         $$ VALUES (true) $$
     );
     SELECT col_has_check( current_schema(), 'test', 'col', '' );
-    select check_clause from information_schema.check_constraints where constraint_name = 'test__col__ck';
+    select check_clause from information_schema.check_constraints where constraint_name = 'test__col__ck' AND constraint_schema = current_schema();
     SELECT results_eq(
         $$ SELECT check_clause::varchar collate "C" FROM information_schema.check_constraints
             WHERE constraint_schema = current_schema() AND constraint_name = 'test__col__ck' $$,

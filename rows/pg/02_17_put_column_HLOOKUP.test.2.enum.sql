@@ -19,7 +19,8 @@ BEGIN;
 
     SELECT *
         FROM information_schema.columns
-            WHERE table_name = 'src_tbl' AND column_name = 'src_col'	
+            WHERE table_name = 'src_tbl' AND column_name = 'src_col'
+                AND table_schema = current_schema()	
     ;
 
     SELECT frmdb_put_column_HLOOKUP('dst_tbl', 'dst_col', 'dst_ref', 'src_col');

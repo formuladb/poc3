@@ -35,6 +35,7 @@ BEGIN
                      FROM information_schema.triggers
                      WHERE event_object_table = 'talerts'
                      AND trigger_name = 'trg_notify_talerts'
+                     AND trigger_schema = current_schema()
                      ) 
     THEN
         CREATE TRIGGER trg_notify_talerts

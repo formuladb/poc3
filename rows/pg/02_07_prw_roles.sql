@@ -16,6 +16,7 @@ BEGIN
     FROM information_schema.triggers
     WHERE event_object_table = 'prw_roles'
     AND trigger_name = 'view_insert'
+    AND trigger_schema = current_schema()
   )
   THEN
     CREATE TRIGGER view_insert

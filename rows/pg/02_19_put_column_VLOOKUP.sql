@@ -26,7 +26,8 @@ DO $migration$ BEGIN
 
         SELECT data_type::varchar INTO v_col_type
             FROM information_schema.columns
-                WHERE table_name = p_src_table::name AND column_name = p_src_vlookup_col_name	
+                WHERE table_name = p_src_table::name AND column_name = p_src_vlookup_col_name
+                    AND table_schema = current_schema()
         ;
         
         IF v_col_type IS NULL THEN
