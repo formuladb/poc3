@@ -1,6 +1,7 @@
 import "reflect-metadata";
 import { createConnection } from "typeorm";
 import * as fs from 'fs';
+const SnakeNamingStrategy = require('typeorm-naming-strategies').SnakeNamingStrategy;
 
 // In order to use the MinIO JavaScript API to generate the pre-signed URL, begin by instantiating
 // a `Minio.Client` object and pass in the values for your server.
@@ -40,6 +41,31 @@ import { createProxyMiddleware } from 'http-proxy-middleware';
 import * as jwt from 'jsonwebtoken';
 import { setPermission } from "./core-orm/setPermision";
 import { URL } from "url";
+import { SetTenantSubscriber } from "./core-orm/SetTenantSubscriber";
+import { PrwDictionary } from "@core/entity/PrwDictionary";
+import { PrwPage } from "@core/entity/PrwPage";
+import { PrwPermission } from "@core/entity/PrwPermission";
+import { PrwRole } from "@core/entity/PrwRole";
+import { FrmdbSystemParam } from "@core/entity/PrwSystemParam";
+import { PrwTable } from "@core/entity/PrwTable";
+import { PrwTableColumn } from "@core/entity/PrwTableColumn";
+import { PrwUser } from "@core/entity/PrwUser";
+import { Currency } from "./apps/00_base/entity/Currency";
+import { ExchangeRate } from "./apps/00_base/entity/ExchangeRate";
+import { Section, SubSection } from "./apps/10_websites/entity/Section";
+import { StaticPage } from "./apps/10_websites/entity/StaticPage";
+import { Customer } from "./apps/crm/entity/Customer";
+import { InventoryLevel } from "./apps/inventory/entity/InventoryLevel";
+import { InventoryTransaction, InventoryTransactionProduct } from "./apps/inventory/entity/InventoryTransaction";
+import { ProductCategory } from "./apps/inventory/entity/ProductCategory";
+import { ProductType } from "./apps/inventory/entity/ProductType";
+import { Supplier, SupplierBill } from "./apps/inventory/entity/Supplier";
+import { Equipment } from "./apps/service/entity/Equipment";
+import { EquipmentCategory } from "./apps/service/entity/EquipmentCategory";
+import { EquipmentType } from "./apps/service/entity/EquipmentType";
+import { ServiceForm, ServiceFormCode, ServiceFormEquipment } from "./apps/service/entity/ServiceForm";
+import { Technician } from "./apps/service/entity/Technician";
+import { TravelForm, TravelFormProduct, TravelFormLevels } from "./apps/service/entity/TravelForm";
 
 const app: express.Express = express();
 app.use(cookieParser());
@@ -63,7 +89,7 @@ const postgrestProxy = createProxyMiddleware({
     onProxyReqWs: function (proxyReq, req, socket, options, head) {
         const url = new URL(req.url);
         const m = url.hostname.match(/^(-\w+)\.(.+?)$/)
-        
+
         // proxy_set_header Accept-Profile $accept_profile;
         // proxy_set_header Content-Profile $content_profile;
     }
@@ -88,17 +114,70 @@ app.put('/upload/:table/:column/:file', async (req: express.Request, res) => {
     res.status(200).end();
 });
 
+const database = {
+    development: 'dev',
+    production: 'postgres',
+    test: 'test'
+};
+
 pgFmkInstall()
     .then(async () => {
         console.log("################################################");
         console.log("## App data ");
         console.log("################################################");
-        await createConnection();
+        await createConnection({
+            type: "postgres",
+            schema: "t1",
+            username: "postgres",
+            password: "postgres",
+            database: database[process.env.NODE_ENV],
+            host: 'db',
+            port: 5432,
+            namingStrategy: new SnakeNamingStrategy(),
+            logging: true,
+            extra: { max: 10 },
+            entities: [
+                PrwDictionary,
+                PrwPage,
+                PrwPermission,
+                PrwRole,
+                FrmdbSystemParam,
+                PrwTable,
+                PrwTableColumn,
+                PrwUser,
+                Currency,
+                ExchangeRate,
+                Section,
+                SubSection,
+                StaticPage,
+                Customer,
+                InventoryLevel,
+                InventoryTransaction,
+                InventoryTransactionProduct,
+                ProductCategory,
+                ProductType,
+                Supplier,
+                SupplierBill,
+                Equipment,
+                EquipmentCategory,
+                EquipmentType,
+                ServiceForm,
+                ServiceFormCode,
+                ServiceFormEquipment,
+                Technician,
+                TravelForm,
+                TravelFormProduct,
+                TravelFormLevels,
+            ],
+            subscribers: [
+                SetTenantSubscriber,
+            ],
+        });
 
         await baseData();
         await websitesData();
-        await onrcData();
-        await frfData();
+        // await onrcData();
+        // await frfData();
 
         await setPermission('administrator', 'ALL-TABLES', true, true, true, true);
 

@@ -1,8 +1,6 @@
 BEGIN;
     SELECT plan( 12 );
 
-    SELECT set_config('request.jwt.claim.tenant', 'pagerows', true);
-
     SELECT frmdb_put_table('ref_tbl');
 
     SELECT frmdb_put_table('src_tbl');

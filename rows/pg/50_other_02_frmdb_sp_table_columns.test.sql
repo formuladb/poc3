@@ -1,13 +1,11 @@
 BEGIN;
     SELECT plan( 4 );
 
-    SELECT set_config('request.jwt.claim.tenant', 'pagerows', true);
-
-    SELECT frmdb_put_table('src_tbl', 'serial NOT NULL', true);
+    SELECT frmdb_put_table('src_tbl', 'serial NOT NULL');
     ALTER TABLE src_tbl ADD COLUMN some_col varchar;
     SELECT has_table( 'src_tbl'::name );
 
-    SELECT frmdb_put_table('dst_tbl', 'serial NOT NULL', true);
+    SELECT frmdb_put_table('dst_tbl', 'serial NOT NULL');
     SELECT has_table( 'dst_tbl'::name );
 
     SELECT frmdb_put_column_REFERENCE_TO('dst_tbl', 'dst_ref', 'src_tbl', null, null);
@@ -23,7 +21,6 @@ BEGIN;
     SELECT results_eq(
         $$ SELECT c_table_name, c_column_name, c_reference_to FROM frmdb_sp_table_columns('dst_tbl') $$,
         $$ VALUES 
-            ( 'dst_tbl'::regclass, 'tenant'::varchar, 'src_tbl'::varchar ), 
             ( 'dst_tbl'::regclass, 'id'::varchar, null::varchar ), 
             ( 'dst_tbl'::regclass, 'meta_created_at'::varchar, null::varchar ), 
             ( 'dst_tbl'::regclass, 'meta_created_by'::varchar, null::varchar ),

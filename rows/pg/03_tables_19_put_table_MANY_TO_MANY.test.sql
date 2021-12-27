@@ -1,8 +1,6 @@
 BEGIN;
     SELECT plan( 9 );
 
-    SELECT set_config('request.jwt.claim.tenant', 'pagerows', true);
-
     CREATE TABLE test1 (id varchar NOT NULL PRIMARY KEY);
     SELECT has_table( 'test1'::name );
     CREATE TABLE test2 (id serial NOT NULL PRIMARY KEY);
@@ -10,9 +8,9 @@ BEGIN;
 
     SELECT frmdb_put_table_MANY2MANY('test', 'test1', 'test2');
     SELECT has_table( 'test'::name );
-    SELECT fk_ok( 'public', 'test', 'test1__id', 'public', 'test1', 'id' );
+    SELECT fk_ok( current_schema(), 'test', 'test1__id', current_schema(), 'test1', 'id' );
     SELECT has_column( 'test'::name, 'test1__id' );
-    SELECT fk_ok( 'public', 'test', 'test2__id', 'public', 'test2', 'id' );
+    SELECT fk_ok( current_schema(), 'test', 'test2__id', current_schema(), 'test2', 'id' );
     SELECT has_column( 'test'::name, 'meta_created_at', '' );
 
     INSERT INTO test1 (id) VALUES ('a'), ('b');

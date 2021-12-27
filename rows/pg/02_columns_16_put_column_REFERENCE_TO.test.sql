@@ -1,20 +1,16 @@
 BEGIN;
     SELECT plan( 6 );
 
-    SELECT set_config('request.jwt.claim.tenant', 'pagerows', true);
-
     CREATE TABLE IF NOT EXISTS src_tbl (
-        tenant text NOT NULL DEFAULT current_setting('request.jwt.claim.tenant', true),
         id varchar NOT NULL,
-        PRIMARY KEY(tenant, id)
+        PRIMARY KEY(id)
     );
 
     SELECT has_table( 'src_tbl'::name );
 
     CREATE TABLE IF NOT EXISTS dst_tbl (
-        tenant text NOT NULL DEFAULT current_setting('request.jwt.claim.tenant', true),
         id varchar NOT NULL,
-        PRIMARY KEY(tenant, id)
+        PRIMARY KEY(id)
     );
     SELECT has_table( 'dst_tbl'::name );
 
@@ -25,8 +21,8 @@ BEGIN;
     SELECT * FROM information_schema.REFERENTIAL_CONSTRAINTS WHERE constraint_name = 'src_tbl__ref__fk';
 
     SELECT has_fk( 'src_tbl', 'test_ref_fk' );
-    SELECT col_is_fk( 'src_tbl', ARRAY['tenant', 'ref'] );
-    SELECT fk_ok( 'public', 'src_tbl', ARRAY['tenant', 'ref'], 'public', 'dst_tbl', ARRAY['tenant', 'id'] );
+    SELECT col_is_fk( 'src_tbl', ARRAY['ref'] );
+    SELECT fk_ok( current_schema(), 'src_tbl', ARRAY['ref'], current_schema(), 'dst_tbl', ARRAY['id'] );
 
     SELECT * FROM finish();
     SELECT * FROM frmdb_check_nb_failures();

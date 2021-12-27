@@ -1,29 +1,25 @@
 BEGIN;
     SELECT plan( 37 );
 
-    SELECT set_config('request.jwt.claim.tenant', 'pagerows', true);
-
     CREATE TABLE IF NOT EXISTS src_tbl (
-        tenant text NOT NULL DEFAULT current_setting('request.jwt.claim.tenant', true),
         id serial NOT NULL,
         src_col varchar,
-        PRIMARY KEY(tenant, id)
+        PRIMARY KEY(id)
     );
     SELECT has_table( 'src_tbl'::name );
-    SELECT has_column( 'src_tbl', 'tenant' );
+    SELECT has_column( 'src_tbl', 'id' );
 
     CREATE TABLE IF NOT EXISTS dst_tbl (
-        tenant text NOT NULL DEFAULT current_setting('request.jwt.claim.tenant', true),
         id serial NOT NULL,
-        PRIMARY KEY(tenant, id)
+        PRIMARY KEY(id)
     );
     SELECT has_table( 'dst_tbl'::name );
-    SELECT has_column( 'dst_tbl', 'tenant' );
+    SELECT has_column( 'dst_tbl', 'id' );
 
     SELECT frmdb_put_column_REFERENCE_TO('dst_tbl', 'dst_ref', 'src_tbl', null, null);
     SELECT has_column( 'dst_tbl', 'dst_ref' );
     SELECT has_fk( 'dst_tbl', 'dst_tbl__dst_ref__fk' );
-    SELECT fk_ok( 'public', 'dst_tbl', ARRAY['tenant', 'dst_ref'], 'public', 'src_tbl', ARRAY['tenant', 'id'] );
+    SELECT fk_ok( current_schema(), 'dst_tbl', ARRAY['dst_ref'], current_schema(), 'src_tbl', ARRAY['id'] );
 
     SELECT frmdb_put_column_HLOOKUP('dst_tbl', 'dst_col', 'dst_ref', 'src_col');
 

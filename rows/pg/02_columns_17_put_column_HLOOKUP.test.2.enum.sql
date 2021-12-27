@@ -1,23 +1,19 @@
 BEGIN;
     SELECT plan( 2 );
 
-    SELECT set_config('request.jwt.claim.tenant', 'pagerows', true);
-
     CREATE TYPE tenum AS ENUM ('E1', 'E2');
 
     CREATE TABLE IF NOT EXISTS src_tbl (
-        tenant text NOT NULL DEFAULT current_setting('request.jwt.claim.tenant', true),
         id serial NOT NULL,
         src_col tenum,
-        PRIMARY KEY(tenant, id)
+        PRIMARY KEY(id)
     );
     CREATE TABLE IF NOT EXISTS dst_tbl (
-        tenant text NOT NULL DEFAULT current_setting('request.jwt.claim.tenant', true),
         id serial NOT NULL,
-        PRIMARY KEY(tenant, id)
+        PRIMARY KEY(id)
     );
     SELECT frmdb_put_column_REFERENCE_TO('dst_tbl', 'dst_ref', 'src_tbl', null, null);
-    SELECT fk_ok( 'public', 'dst_tbl', ARRAY['tenant', 'dst_ref'], 'public', 'src_tbl', ARRAY['tenant', 'id'] );
+    SELECT fk_ok( current_schema(), 'dst_tbl', ARRAY['dst_ref'], current_schema(), 'src_tbl', ARRAY['id'] );
 
     INSERT INTO src_tbl (id, src_col) VALUES (1, 'E1');
 

@@ -1,8 +1,6 @@
 BEGIN;
     SELECT plan( 11 );
 
-    SELECT set_config('request.jwt.claim.tenant', 'pagerows', true);
-
     SELECT frmdb_put_table('src_tbl');
     ALTER TABLE src_tbl ADD COLUMN some_col varchar;
     ALTER TABLE src_tbl ADD COLUMN src_col varchar GENERATED ALWAYS AS (some_col || 'x') STORED;

@@ -1,5 +1,3 @@
-SELECT set_config('request.jwt.claim.tenant', 'pagerows', true);
-
 --Diacritice (ă â î ș ț) (Ă Â Î Ș Ț)
 --truncate table prw_dictionary
 INSERT INTO prw_dictionary (id, en, ro) VALUES

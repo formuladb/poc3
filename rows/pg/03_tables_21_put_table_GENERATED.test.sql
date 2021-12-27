@@ -1,8 +1,6 @@
 BEGIN;
     SELECT plan( 9 );
 
-    SELECT set_config('request.jwt.claim.tenant', 'pagerows', true);
-
     CREATE TABLE src_tbl (id serial PRIMARY KEY, src_col varchar, src_col2 integer);
     SELECT has_table( 'src_tbl'::name );
     SELECT has_column( 'src_tbl'::name, 'src_col'::name );
