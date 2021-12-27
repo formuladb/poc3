@@ -1,10 +1,8 @@
-DO $$
-BEGIN
-    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'formula_string_type') THEN
-        CREATE DOMAIN formula_string_type AS TEXT
-            CHECK(VALUE ~ '^formula[(]');
-    END IF;
-END$$;
+SELECT frmdb_set_type('formula_string_type', $$
+    CREATE DOMAIN formula_string_type AS TEXT
+        CHECK(VALUE ~ '^formula[(]');
+$$);
+
 
 CREATE SEQUENCE IF NOT EXISTS frmdb_put_table_seq;
 CREATE OR REPLACE FUNCTION frmdb_short_uuid() returns text as $$

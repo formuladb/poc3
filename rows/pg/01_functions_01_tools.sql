@@ -1,10 +1,6 @@
-DO $$
-BEGIN
-    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'frmdb_table_name_t') THEN
-        CREATE TYPE frmdb_table_name_t AS (schname varchar, tblname varchar);
-    END IF;
-END$$;
-
+SELECT frmdb_set_type('frmdb_table_name_t', $$
+    CREATE TYPE frmdb_table_name_t AS (schname varchar, tblname varchar);
+$$);
 
 CREATE OR REPLACE FUNCTION frmdb_parse_table_name(p_table_name varchar) RETURNS frmdb_table_name_t AS 
 $fun$ 

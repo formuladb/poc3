@@ -1,10 +1,8 @@
-DO $$
-BEGIN
-    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'dst_row_trigger_when') THEN
-        CREATE DOMAIN dst_row_trigger_when AS TEXT
-            CHECK(VALUE ~ '^BEFORE|AFTER$');
-    END IF;
-END$$;
+SELECT frmdb_set_type('dst_row_trigger_when', $$
+    CREATE DOMAIN dst_row_trigger_when AS TEXT
+        CHECK(VALUE ~ '^BEFORE|AFTER$');
+$$);
+
 
 CREATE OR REPLACE FUNCTION frmdb_set_formula_row_trigger_on_dst(
     p_prefix varchar,

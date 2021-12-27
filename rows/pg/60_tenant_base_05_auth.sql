@@ -93,13 +93,12 @@ end;
 $$;
 
 -- add type
-DO $$ BEGIN
-    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'frmdb_jwt_token') THEN
-        CREATE TYPE frmdb_jwt_token AS (
-          token text
-        );
-    END IF;
-END$$;
+SELECT frmdb_set_type('frmdb_jwt_token', $$
+    CREATE TYPE frmdb_jwt_token AS (
+      token text
+    );
+$$);
+
 
 CREATE EXTENSION IF NOT EXISTS pgjwt;
 

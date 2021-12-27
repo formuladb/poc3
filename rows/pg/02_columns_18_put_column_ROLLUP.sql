@@ -2,11 +2,9 @@
 --####################################################################################
 --####################################################################################
 --####################################################################################
-DO $$ BEGIN
-    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'frmdb_put_column_rollup_type') THEN
+SELECT frmdb_set_type('frmdb_put_column_rollup_type', $$
         CREATE TYPE frmdb_put_column_ROLLUP_type AS ENUM ('SUM', 'COUNT');
-    END IF;
-END$$;
+$$);
 
 
 DO $migration$ BEGIN

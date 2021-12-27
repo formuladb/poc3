@@ -1,9 +1,6 @@
-DO $$
-BEGIN
-    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'frmdb_permission_t') THEN
-        CREATE DOMAIN frmdb_permission_t AS TEXT CHECK(VALUE ~ '^(true|false|frmdb_is_owner)');
-    END IF;
-END$$;
+SELECT frmdb_set_type('frmdb_permission_t', $$
+    CREATE DOMAIN frmdb_permission_t AS TEXT CHECK(VALUE ~ '^(true|false|frmdb_is_owner)');
+$$);
 
 --#######################################################################################
 --#######################################################################################
