@@ -1,4 +1,4 @@
-import { Connection, getConnection, getManager, ObjectType } from "typeorm";
+import { Connection, ObjectType } from "typeorm";
 import { ColumnMetadata } from "typeorm/metadata/ColumnMetadata";
 
 function getColType(type: ColumnMetadata['type']): string {
@@ -10,11 +10,10 @@ function getColType(type: ColumnMetadata['type']): string {
 }
 
 export function columnMetadata<ENTITY>(
+    conn: Connection,
     entity: ObjectType<ENTITY>,
     colName: keyof ENTITY
 ): ColumnMetadata {
-
-    const conn = getConnection();
     const m = conn.getMetadata(entity);
 
     return m.columns.find(c => c.databaseName === colName);

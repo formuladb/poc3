@@ -1,6 +1,7 @@
-import { Connection, getConnection, getManager, ObjectType } from "typeorm";
+import { Connection, ObjectType } from "typeorm";
 
 export async function setPermission<ENTITY>(
+    conn: Connection,
     role: string,
     entity: 'ALL-TABLES' | ObjectType<ENTITY>,
     selectPerm: boolean | 'IS-OWNER',
@@ -9,9 +10,6 @@ export async function setPermission<ENTITY>(
     deletePerm: boolean | 'IS-OWNER',
 ): Promise<void> {
     
-    const conn = getConnection();
-    const mng = getManager();
-
     let tableArg = '';
     let funcName = 'frmdb_set_permission_on_all_tables';
     if ("ALL-TABLES" !== entity) {
@@ -20,7 +18,7 @@ export async function setPermission<ENTITY>(
         funcName = 'frmdb_set_permission';
     }
 
-    await mng.query(`SELECT ${funcName}(
+    await conn.query(`SELECT ${funcName}(
         '${role}',
         ${tableArg}
         '${selectPerm === "IS-OWNER" ? `frmdb_is_owner(username)` : selectPerm + ''}',

@@ -1,6 +1,6 @@
 import { PrwTable } from "@core/entity/PrwTable";
 import { PrwTableColumn } from "@core/entity/PrwTableColumn";
-import { Connection, getConnection, getManager, ObjectType } from "typeorm";
+import { Connection, ObjectType } from "typeorm";
 import { ColumnMetadata } from "typeorm/metadata/ColumnMetadata";
 import { putRow } from "./putRow";
 
@@ -14,14 +14,13 @@ function getColType(type: ColumnMetadata['type']): string {
 }
 
 export async function autoMigrate<ENTITY>(
+    conn: Connection,
     entity: ObjectType<ENTITY>
 ): Promise<ObjectType<ENTITY>> {
     
-    const conn = getConnection();
     const m = conn.getMetadata(entity);
 
-    const mng = getManager();
-    await mng.query(`set log_min_messages = notice`);
+    await conn.query(`set log_min_messages = notice`);
 
     const idM = m.columns.find(c => c.databaseName === 'id');
     if (!idM) throw new Error(`Cannot find id column for table ${m.tableName}`);
@@ -30,7 +29,7 @@ export async function autoMigrate<ENTITY>(
     let tbl = new PrwTable();
     tbl.id = m.tableName;
     tbl.idType = `${getColType(idM.type)} NOT NULL ${defVal}`;
-    await putRow(PrwTable, tbl);
+    await putRow(conn, PrwTable, tbl);
 
     for (let colM of m.columns) {
         if (colM.databaseName === 'id' || colM.databaseName.startsWith('meta_')) continue;
@@ -57,7 +56,7 @@ export async function autoMigrate<ENTITY>(
         col.c_check = constraints;
         if (colM.default) col.c_default = `${colM.default}`;
         if (colM.asExpression) col.c_formula = `${colM.asExpression}`;
-        await putRow(PrwTableColumn, col);
+        await putRow(conn, PrwTableColumn, col);
     }
     
     return entity;

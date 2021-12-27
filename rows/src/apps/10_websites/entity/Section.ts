@@ -35,20 +35,20 @@ export class Section extends SectionBase {
 }
 export interface SectionI extends Section {}
 
-@EventSubscriber()
-export class SectionSubscriber implements EntitySubscriberInterface<Section> {
+// @EventSubscriber()
+// export class SectionSubscriber implements EntitySubscriberInterface<Section> {
 
-    listenTo() {
-        return Section;
-    }
+//     listenTo() {
+//         return Section;
+//     }
 
-    afterInsert(event: InsertEvent<Section>) {
-        upsertChildren(Section, event.entity);
-    }
-    afterUpdate(event: UpdateEvent<Section>) {
-        upsertChildren(Section, event.entity);
-    }
-}
+//     afterInsert(event: InsertEvent<Section>) {
+//         upsertChildren(Section, event.entity);
+//     }
+//     afterUpdate(event: UpdateEvent<Section>) {
+//         upsertChildren(Section, event.entity);
+//     }
+// }
 
 @Entity()
 export class SubSection extends SectionBase {

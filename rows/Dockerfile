@@ -11,7 +11,6 @@ COPY package.json /package.json
 RUN npm install
 
 COPY tsconfig.json /tsconfig.json
-COPY ormconfig.js /ormconfig.js
 
 ADD scripts /scripts
 RUN chmod +x /scripts/*sh
@@ -21,7 +20,6 @@ ADD src /src
 
 COPY --from=0 /src-core /src/src-core
 RUN sed -i -e 's!../pages/src/core/!./src/src-core/!' tsconfig.json
-RUN sed -i -e 's!../pages/src/core/!./src/src-core/!' ormconfig.js
 RUN cat tsconfig.json
 RUN ls -l /src/src-core/entity
 

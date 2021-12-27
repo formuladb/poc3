@@ -1,4 +1,4 @@
-import { EntityManager, getConnection, getConnectionManager, getManager } from "typeorm";
+import { EntityManager } from "typeorm";
 import { EventSubscriber, EntitySubscriberInterface, InsertEvent, UpdateEvent, RemoveEvent } from "typeorm";
 
 @EventSubscriber()

@@ -11,23 +11,23 @@ import { Playfield } from "./entity/Playfield";
 import { isf__id } from "./isf__id";
 
 export default async () => {
-    await autoMigrate(Isf);
-    await autoMigrate(Playfield);
+    await autoMigrate(conn, Isf);
+    await autoMigrate(conn, Playfield);
 
-    const res1 = await putRow(PrwTable, 
-        { id: entityMetadata(Isf).tableName, idType: "serial NOT NULL", parent: "frf", icon: "material-design-icons-sports_soccer", resource_type: "RESOURCE", menu_order: 0 });//, options: {frmdb_anon: {layoutType: "EMBEDDED_PAGE"}}
+    const res1 = await putRow(conn, PrwTable, 
+        { id: entityMetadata(conn, Isf).tableName, idType: "serial NOT NULL", parent: "frf", icon: "material-design-icons-sports_soccer", resource_type: "RESOURCE", menu_order: 0 });//, options: {frmdb_anon: {layoutType: "EMBEDDED_PAGE"}}
 
-    await putRows(PrwTable, [
+    await putRows(conn, PrwTable, [
         { id: "frf", icon: "material-design-icons-map", idType: "n/a", resource_type: "GROUP", menu_order: 91 },
-        { id: entityMetadata(Playfield).tableName, idType: "serial NOT NULL", parent: "_hidden_", icon: "tbd", resource_type: "RESOURCE", menu_order: 1 },
+        { id: entityMetadata(conn, Playfield).tableName, idType: "serial NOT NULL", parent: "_hidden_", icon: "tbd", resource_type: "RESOURCE", menu_order: 1 },
     ]);
 
-    await putRows(PrwPage, [
+    await putRows(conn, PrwPage, [
         { id: "isf__id", content: isf__id, prwTable: res1 },
     ]);
 
-    let tblName = entityMetadata(Isf).tableName;
-    await putRows(PrwDictionary, [
+    let tblName = entityMetadata(conn, Isf).tableName;
+    await putRows(conn, PrwDictionary, [
         { id: `resources.frf.name`,  en: 'FRF Forms', ro: 'Formulare FRF'},
         { id: `resources.${tblName}.fields.id`,  en: 'Id', ro: 'Id'},
         { id: `resources.${tblName}.name`,  en: 'Soccer Map', ro: 'Harta Fotbalului'},
@@ -49,8 +49,8 @@ export default async () => {
         ...metaColumnsDictionary(tblName),
     ]);
 
-    tblName = entityMetadata(Playfield).tableName;
-    await putRows(PrwDictionary, [
+    tblName = entityMetadata(conn, Playfield).tableName;
+    await putRows(conn, PrwDictionary, [
         { id: `resources.${tblName}.fields.id`,  en: 'Id', ro: 'Id'},
         { id: `resources.${tblName}.name`,  en: 'Playfield', ro: 'Teren'},
         { id: `resources.playfield.fields.nume`, en: "nume", ro: "Nume"},
@@ -62,6 +62,6 @@ export default async () => {
         ...metaColumnsDictionary(tblName),
     ]);
 
-    await setPermission('frmdb_anon', Isf, true, true, true, false);
-    await setPermission('frmdb_anon', Playfield, true, true, true, false);
+    await setPermission(conn, 'frmdb_anon', Isf, true, true, true, false);
+    await setPermission(conn, 'frmdb_anon', Playfield, true, true, true, false);
 }

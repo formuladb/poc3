@@ -10,24 +10,24 @@ import { Form11_10_181 } from "./entity/Form11_10_181";
 import { form11_10_181__id } from "./form11_10_181__id";
 
 export default async () => {
-    await autoMigrate(Form11_10_181);
-    await autoMigrate(Doc11_10_181);
+    await autoMigrate(conn, Form11_10_181);
+    await autoMigrate(conn, Doc11_10_181);
 
-    const res1 = await putRow(PrwTable, 
-        { id: entityMetadata(Form11_10_181).tableName, idType: "serial NOT NULL", parent: "onrc", icon: "material-design-icons-dynamic_form", resource_type: "RESOURCE", menu_order: 0 });
+    const res1 = await putRow(conn, PrwTable, 
+        { id: entityMetadata(conn, Form11_10_181).tableName, idType: "serial NOT NULL", parent: "onrc", icon: "material-design-icons-dynamic_form", resource_type: "RESOURCE", menu_order: 0 });
 
-    await putRows(PrwTable, [
+    await putRows(conn, PrwTable, [
         { id: "onrc", icon: "material-design-icons-list", idType: "n/a", resource_type: "GROUP", menu_order: 92 },
-        { id: entityMetadata(Doc11_10_181).tableName, idType: "serial NOT NULL", parent: "onrc", icon: "material-design-icons-dynamic_form", resource_type: "RESOURCE", menu_order: 0 },
+        { id: entityMetadata(conn, Doc11_10_181).tableName, idType: "serial NOT NULL", parent: "onrc", icon: "material-design-icons-dynamic_form", resource_type: "RESOURCE", menu_order: 0 },
     ]);
 
-    await putRows(PrwPage, [
+    await putRows(conn, PrwPage, [
         { id: "form11_10_181__id", content: form11_10_181__id, prwTable: res1 },
     ]);
 
     // Diacritice (ă â î ș ț) (Ă Â Î Ș Ț)
-    let tblName = entityMetadata(Form11_10_181).tableName;
-    await putRows(PrwDictionary, [
+    let tblName = entityMetadata(conn, Form11_10_181).tableName;
+    await putRows(conn, PrwDictionary, [
         { id: `resources.onrc.name`,  en: 'ONRC Forms', ro: 'Formulare ONRC'},
         { id: `resources.${tblName}.fields.id`,  en: 'Id', ro: 'Id'},
         { id: `resources.${tblName}.name`,  en: 'Form 11-10-181', ro: 'Formular 11-10-181'},
@@ -55,8 +55,8 @@ export default async () => {
         ...metaColumnsDictionary(tblName),
     ]);
 
-    tblName = entityMetadata(Doc11_10_181).tableName;
-    await putRows(PrwDictionary, [
+    tblName = entityMetadata(conn, Doc11_10_181).tableName;
+    await putRows(conn, PrwDictionary, [
         { id: `resources.${tblName}.name`,  en: 'Documents 11-10-181', ro: 'Documente 11-10-181'},
         { id: `resources.${tblName}.fields.id`,  en: 'Id', ro: 'Id'},
         { id: `resources.${tblName}.fields.denumirea_actului`,  en: 'Document Name', ro: 'Denumirea Actului'},

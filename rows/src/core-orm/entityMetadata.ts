@@ -1,9 +1,8 @@
-import { EntityMetadata, getConnection, ObjectType } from "typeorm";
+import { Connection, EntityMetadata, ObjectType } from "typeorm";
 
 export function entityMetadata<ENTITY>(
+    conn: Connection,
     entity: ObjectType<ENTITY>
 ): EntityMetadata {
-    
-    const conn = getConnection();
     return conn.getMetadata(entity);
 }

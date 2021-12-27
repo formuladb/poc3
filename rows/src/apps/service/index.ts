@@ -6,7 +6,7 @@ import { EquipmentCategory } from "./entity/EquipmentCategory";
 import { EquipmentType } from "./entity/EquipmentType";
 
 export default async () => {
-    await autoMigrate(EquipmentType);
-    await autoMigrate(EquipmentCategory);
-    await autoMigrate(Equipment);
+    await autoMigrate(conn, EquipmentType);
+    await autoMigrate(conn, EquipmentCategory);
+    await autoMigrate(conn, Equipment);
 }

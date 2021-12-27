@@ -5,8 +5,8 @@ import { Section, SubSection } from "./entity/Section";
 
 export default async () => {
     
-    await setPermission('frmdb_anon', StaticPage, true, false, false, false);
-    await setPermission('frmdb_anon', Section, true, false, false, false);
-    await setPermission('frmdb_anon', SubSection, true, false, false, false);
+    await setPermission(conn, 'frmdb_anon', StaticPage, true, false, false, false);
+    await setPermission(conn, 'frmdb_anon', Section, true, false, false, false);
+    await setPermission(conn, 'frmdb_anon', SubSection, true, false, false, false);
 
 }

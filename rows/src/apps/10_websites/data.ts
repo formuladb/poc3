@@ -23,19 +23,20 @@ import { PrwTable } from "@core/entity/PrwTable";
 import { entityMetadata } from "src/core-orm/entityMetadata";
 import { PrwDictionary } from "@core/entity/PrwDictionary";
 import { metaColumnsDictionary } from "../00_base/metaColumnsDictonary";
+import { Connection } from "typeorm";
 
-export default async () => {
+export default async (conn: Connection) => {
 
-    await autoMigrate(StaticPage);
+    await autoMigrate(conn, StaticPage);
 
-    await putRows(PrwTable, [
+    await putRows(conn, PrwTable, [
         { id: "websites", idType: "n/a", icon: "material-design-icons-language", resource_type: "GROUP", menu_order: 10 },
-        { id: entityMetadata(StaticPage).tableName, idType: "text NOT NULL", parent: "websites", icon: "material-design-icons-post_add", resource_type: "RESOURCE", menu_order: 1, options: {"frmdb_anon": {layoutType: "WEBSITE_PAGE"}} },
+        { id: entityMetadata(conn, StaticPage).tableName, idType: "text NOT NULL", parent: "websites", icon: "material-design-icons-post_add", resource_type: "RESOURCE", menu_order: 1, options: {"frmdb_anon": {layoutType: "WEBSITE_PAGE"}} },
     ]);
 
-    let tblName = entityMetadata(StaticPage).tableName;
+    let tblName = entityMetadata(conn, StaticPage).tableName;
     //Diacritice (ă â î ș ț) (Ă Â Î Ș Ț)
-    await putRows(PrwDictionary, [
+    await putRows(conn, PrwDictionary, [
         { id: `resources.websites.name`,  en: 'Website', ro: 'Website'},
         { id: `resources.${tblName}.fields.id`,  en: 'Id', ro: 'Id'},
         { id: `resources.${tblName}.name`,  en: 'Page', ro: 'Pagină'},

@@ -1,16 +1,17 @@
-import { Connection, ObjectType, getManager, EntityTarget, BaseEntity, getConnection } from "typeorm";
+import { Connection, ObjectType } from "typeorm";
 
 export async function upsertChildren<ENTITY>(
+    conn: Connection,
     entityClass: ObjectType<ENTITY>,
     entity: ENTITY
 ): Promise<void> {
 
     console.log("upsertChildren", entity);
-    const m = getConnection().getMetadata(entityClass);
+    const m = conn.getMetadata(entityClass);
 
     for (let colM of m.columns) {
         if (colM.isArray) {
-            const childRepo = getConnection().getRepository(
+            const childRepo = conn.getRepository(
                 colM.relationMetadata.entityMetadata.target
             );
             await Promise.all(entity[colM.propertyName].map(async (child) => {
