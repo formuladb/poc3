@@ -111,28 +111,35 @@ app.put('/upload/:table/:column/:file', async (req: express.Request, res) => {
     res.status(200).end();
 });
 
-async function runSchema(tenantId: string, conn?: Connection) {
-    await pgFmkInstall(tenantId);
-    console.log("################################################");
-    console.log("## App data ");
-    console.log("################################################");
-    if (!conn) {
-        conn = await createConnection({
-            ...BASE_CONNECTION,
-            name: tenantId,
-            type: "postgres",
-            schema: "t1",
-        });
+async function runSchema(tenantId: string, inputConn?: Connection) {
+    let conn = inputConn;
+    try {
+        await pgFmkInstall(tenantId);
+        if (!conn) {
+            conn = await createConnection({
+                ...BASE_CONNECTION,
+                name: tenantId,
+                type: "postgres",
+                schema: "tenantId",
+            }).then(async (conn) => {
+                await conn.query(`SET search_path TO ${tenantId};`)
+                return conn;
+            });
+        }
+
+        await baseData(conn);
+        await websitesData(conn);
+        // await onrcData();
+        // await frfData();
+
+        await setPermission(conn, 'administrator', 'ALL-TABLES', true, true, true, true);
+
+        console.log("#### init done ######################")
+    } finally {
+        if (!inputConn) {
+            await conn.close();
+        }
     }
-
-    await baseData(conn);
-    await websitesData(conn);
-    // await onrcData();
-    // await frfData();
-
-    await setPermission(conn, 'administrator', 'ALL-TABLES', true, true, true, true);
-
-    console.log("#### init done ######################")
 }
 
 PRW_CONN_P

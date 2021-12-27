@@ -26,6 +26,9 @@ import { metaColumnsDictionary } from "../00_base/metaColumnsDictonary";
 import { Connection } from "typeorm";
 
 export default async (conn: Connection) => {
+    console.log("################################################");
+    console.log("## websites ");
+    console.log("################################################");
 
     await autoMigrate(conn, StaticPage);
 

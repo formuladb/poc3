@@ -18,8 +18,12 @@ import { ExchangeRate } from "./entity/ExchangeRate";
 import permissions from "./permissions";
 
 export default async (conn: Connection) => {
+    console.log("################################################");
+    console.log("## base ");
+    console.log("################################################");
 
     await autoMigrate(conn, Currency);
+    await conn.query("SHOW search_path");
     await autoMigrate(conn, ExchangeRate);
 
     const res1 = await putRow(conn, PrwTable, { id: entityMetadata(conn, PrwTable).tableName, idType: "text NOT NULL", parent: "administer", icon: "material-design-icons-table_rows", resource_type: "RESOURCE", menu_order: 0 });

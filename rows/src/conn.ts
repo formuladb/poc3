@@ -41,7 +41,7 @@ export const BASE_CONNECTION = {
     port: 5432,
     namingStrategy: new SnakeNamingStrategy(),
     logging: true,
-    extra: { max: 10 },
+    extra: { max: 1, connectionLimit: 1 },
     entities: [
         PrwTenant,
         PrwDictionary,
@@ -77,7 +77,7 @@ export const BASE_CONNECTION = {
         TravelFormLevels,
     ],
     subscribers: [
-        SetTenantSubscriber,
+        // SetTenantSubscriber, -- not needed anymore, doing it after createConnection
     ],
 };
 
