@@ -13,14 +13,15 @@ BEGIN
     ) RETURNS boolean AS $fun$ 
     DECLARE
         v_stm varchar;
-        v_schema_name varchar := 'public';
+        v_schema_name varchar;
         v_existing_col_type varchar;
         v_existing_formula varchar;
         v_new_formula varchar := '';
         v_new_col_type varchar;
         v_to_add boolean := false;
     BEGIN
-        RAISE NOTICE 'frmdb_set_column: p_table_name=%, p_col_name=%, p_col_type=%, p_col_scalar_formula=%', p_table_name, p_col_name, p_col_type, p_col_scalar_formula;
+        SELECT current_schema() INTO v_schema_name;
+        RAISE NOTICE 'frmdb_set_column: v_schema_name=%, p_table_name=%, p_col_name=%, p_col_type=%, p_col_scalar_formula=%', v_schema_name, p_table_name, p_col_name, p_col_type, p_col_scalar_formula;
         v_new_col_type := trim(p_col_type);
         SELECT data_type::varchar, generation_expression::varchar 
         INTO v_existing_col_type, v_existing_formula 

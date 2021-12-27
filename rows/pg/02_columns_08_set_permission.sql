@@ -217,7 +217,7 @@ DECLARE
     v_stm varchar;
 BEGIN
 
-    FOR v_rec IN SELECT table_name from information_schema.tables where table_schema = 'public'
+    FOR v_rec IN SELECT table_name from information_schema.tables where table_schema = current_schema()
     LOOP
         PERFORM frmdb_set_permission(
             p_role_name, 

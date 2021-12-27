@@ -5,8 +5,7 @@ FROM $CORE
 FROM node:lts-alpine
 
 RUN apk add --no-cache postgresql-client git vim openssh curl entr make \
-    netcat-openbsd less net-tools rsync jq bash findutils
-
+    netcat-openbsd less net-tools rsync jq bash findutils grep
 RUN mkdir rows
 COPY package.json /package.json
 RUN npm install

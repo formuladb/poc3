@@ -12,7 +12,7 @@ BEGIN;
     SELECT has_column( 'src_tbl'::name, 'src_col'::name );
 
     SELECT frmdb_put_table_extends('dst_tbl', 'src_tbl', '{"some_col", "src_col"}'::varchar[]);
-    SELECT has_table( 'public'::name, 'dst_tbl'::name );
+    SELECT has_table( 'dst_tbl'::name );
     SELECT has_column( 'dst_tbl'::name, 'some_col', '' );
     SELECT has_column( 'dst_tbl'::name, 'src_col', '' );
     SELECT has_column( 'dst_tbl'::name, 'meta_created_at', '' );

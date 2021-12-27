@@ -4,12 +4,12 @@ BEGIN;
     SELECT set_config('request.jwt.claim.tenant', 'pagerows', true);
 
     CREATE TABLE test1 (id varchar NOT NULL PRIMARY KEY);
-    SELECT has_table( 'public'::name, 'test1'::name );
+    SELECT has_table( 'test1'::name );
     CREATE TABLE test2 (id serial NOT NULL PRIMARY KEY);
-    SELECT has_table( 'public'::name, 'test2'::name );
+    SELECT has_table( 'test2'::name );
 
     SELECT frmdb_put_table_MANY2MANY('test', 'test1', 'test2');
-    SELECT has_table( 'public'::name, 'test'::name );
+    SELECT has_table( 'test'::name );
     SELECT fk_ok( 'public', 'test', 'test1__id', 'public', 'test1', 'id' );
     SELECT has_column( 'test'::name, 'test1__id' );
     SELECT fk_ok( 'public', 'test', 'test2__id', 'public', 'test2', 'id' );

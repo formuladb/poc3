@@ -8,8 +8,8 @@ BEGIN;
     SELECT has_column( 'src_tbl'::name, 'src_col'::name );
 
     SELECT frmdb_put_table_GENERATED('dst_tbl', 'src_tbl', 'src_col', '{}'::varchar[]);
-    SELECT has_table( 'public'::name, 'dst_tbl'::name );
-    SELECT col_type_is( 'public', 'dst_tbl', 'id', 'pg_catalog', 'character varying', 'check-id-type' );
+    SELECT has_table( 'dst_tbl'::name );
+    SELECT col_type_is( current_schema(), 'dst_tbl', 'id', 'pg_catalog', 'character varying', 'check-id-type' );
     SELECT has_column( 'dst_tbl'::name, 'meta_created_at', '' );
 
     INSERT INTO src_tbl (id, src_col) VALUES (1, 'a');

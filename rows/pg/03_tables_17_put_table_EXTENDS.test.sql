@@ -11,7 +11,7 @@ BEGIN;
         WHERE table_name = 'src_tbl';
 
     SELECT frmdb_put_table_extends('dst_tbl', 'src_tbl', '{"src_col"}'::varchar[]);
-    SELECT has_table( 'public'::name, 'dst_tbl'::name );
+    SELECT has_table( 'dst_tbl'::name );
     SELECT has_column( 'dst_tbl'::name, 'src_col', '' );
     SELECT has_column( 'dst_tbl'::name, 'meta_created_at', '' );
 

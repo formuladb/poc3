@@ -4,7 +4,7 @@ BEGIN;
     select frmdb_create_role('testrole');
 
     CREATE TABLE test (id text NOT NULL PRIMARY KEY, username text);
-    SELECT has_table( 'public'::name, 'test'::name );
+    SELECT has_table( 'test'::name );
     GRANT SELECT ON test TO testrole;
 
     INSERT INTO test VALUES ('a', 'user1');

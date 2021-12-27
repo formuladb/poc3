@@ -3,8 +3,8 @@ BEGIN;
 
     SELECT set_config('request.jwt.claim.tenant', 'pagerows', true);
 
-	SELECT has_table( 'public'::name, 'prw_users'::name );
-	SELECT col_type_is( 'public', 'prw_users', 'id', 'pg_catalog', 'integer', '' );
+	SELECT has_table( 'prw_users'::name );
+	SELECT col_type_is( current_schema(), 'prw_users', 'id', 'pg_catalog', 'integer', '' );
 	SELECT has_column( 'prw_users'::name, 'meta_created_at', '' );
 
     SELECT frmdb_create_role('testrole');

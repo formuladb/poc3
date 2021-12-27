@@ -5,10 +5,10 @@ BEGIN;
 
     SELECT frmdb_put_table('src_tbl', 'serial NOT NULL', true);
     ALTER TABLE src_tbl ADD COLUMN some_col varchar;
-    SELECT has_table( 'public'::name, 'src_tbl'::name );
+    SELECT has_table( 'src_tbl'::name );
 
     SELECT frmdb_put_table('dst_tbl', 'serial NOT NULL', true);
-    SELECT has_table( 'public'::name, 'dst_tbl'::name );
+    SELECT has_table( 'dst_tbl'::name );
 
     SELECT frmdb_put_column_REFERENCE_TO('dst_tbl', 'dst_ref', 'src_tbl', null, null);
     SELECT has_column( 'dst_tbl', 'dst_ref' );

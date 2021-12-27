@@ -2,13 +2,13 @@ CREATE OR REPLACE VIEW prw_table_columns AS
 
     WITH info_schema_cols AS (
         SELECT * FROM information_schema.columns
-        WHERE table_schema = 'public' -- this needs fixing for schema based multi-tenancy
+        WHERE table_schema = current_schema()
     ),
     mat_views AS (
         SELECT s.nspname, t.* FROM pg_class t 
             INNER JOIN pg_namespace s ON t.relnamespace = s.oid
             INNER JOIN pg_matviews m ON t.relname::name = m.matviewname
-        WHERE s.nspname = 'public' -- this needs fixing for schema based multi-tenancy
+        WHERE s.nspname = current_schema()
     )
     --Tables and Regular Views
     SELECT

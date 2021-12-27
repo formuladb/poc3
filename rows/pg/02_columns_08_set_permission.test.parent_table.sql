@@ -4,9 +4,9 @@ BEGIN;
     select frmdb_create_role('testrole');
 
     CREATE TABLE testparent (id integer NOT NULL PRIMARY KEY, username text);
-    SELECT has_table( 'public'::name, 'testparent'::name );
+    SELECT has_table( 'testparent'::name );
     CREATE TABLE test (id text NOT NULL PRIMARY KEY, parent integer references testparent(id));
-    SELECT has_table( 'public'::name, 'test'::name );
+    SELECT has_table( 'test'::name );
 
     GRANT SELECT ON test TO testrole;
     GRANT SELECT ON testparent TO testrole;
@@ -23,8 +23,8 @@ BEGIN;
 
     SELECT set_config('request.jwt.claim.username', 'user1', true);
     SELECT results_eq(
-        $$ SELECT * FROM test $$,
-        $$ VALUES ('t1', 1) $$
+        $$ SELECT * FROM test $$::text,
+        $$ VALUES ('t1', 1) $$::text
     );
 
     SELECT set_config('request.jwt.claim.username', 'user2', true);

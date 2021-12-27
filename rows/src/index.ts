@@ -35,12 +35,13 @@ var client = new Minio.Client({
 import * as express from 'express';
 import * as cookieParser from "cookie-parser";
 const mime = require('mime');
+import { createProxyMiddleware } from 'http-proxy-middleware';
 
 import * as jwt from 'jsonwebtoken';
 import { setPermission } from "./core-orm/setPermision";
+import { URL } from "url";
 
 const app: express.Express = express();
-
 app.use(cookieParser());
 app.use((req: express.Request, res, next) => {
     let jwtToken: string | undefined = req.cookies.dbrestauth ||
@@ -56,6 +57,18 @@ app.use((req: express.Request, res, next) => {
         res.status(403); res.end();
     }
 });
+
+const postgrestProxy = createProxyMiddleware({
+    target: 'db:3000',
+    onProxyReqWs: function (proxyReq, req, socket, options, head) {
+        const url = new URL(req.url);
+        const m = url.hostname.match(/^(-\w+)\.(.+?)$/)
+        
+        // proxy_set_header Accept-Profile $accept_profile;
+        // proxy_set_header Content-Profile $content_profile;
+    }
+});
+app.use('/rows-db', postgrestProxy);
 
 app.get('/presignedUrl/:table/:column/:file', (req: express.Request, res) => {
     client.presignedPutObject('frmdb-bucket', `${req.params.table}/${req.params.column}/${req.params.file}`, (err, url) => {
@@ -95,7 +108,7 @@ pgFmkInstall()
     ;
 
 async function pgFmkInstall() {
-    await runCmd('timeout', '300', 'bash', '/scripts/pg-fmk.sh');
+    await runCmd('timeout', '300', 'bash', '-c', 'export PG_SCHEMA=t1 && cd /pg && make');
 }
 
 

@@ -12,7 +12,7 @@ DECLARE
     v_parsed_formula varchar[];
     v_ret frmdb_table_name_t;
 BEGIN 
-    v_ret.schname := 'public';
+    SELECT current_schema() INTO v_ret.schname;
     v_ret.tblname := p_table_name;
 
     IF p_table_name ~ '^(\w+)\.(\w+)$' THEN

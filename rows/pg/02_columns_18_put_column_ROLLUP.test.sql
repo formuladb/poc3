@@ -3,13 +3,13 @@ BEGIN;
 
     CREATE TABLE src_tbl (id integer PRIMARY KEY, src_ref varchar, src_col integer, src_filter boolean);
     CREATE TABLE dst_tbl (id varchar PRIMARY KEY);
-    SELECT has_table( 'public'::name, 'src_tbl'::name );
-    SELECT has_table( 'public'::name, 'dst_tbl'::name );
+    SELECT has_table( 'src_tbl'::name );
+    SELECT has_table( 'dst_tbl'::name );
 
     SELECT frmdb_put_column_ROLLUP('dst_tbl', 'dst_col', 'src_tbl', 'src_col', 
         'SUM', 'src_ref', 'IS_TRUE(src_filter)');
-    SELECT col_type_is( 'public', 'dst_tbl', 'dst_col', 'pg_catalog', 'integer', 'check-type' );
-    SELECT col_default_is( 'public', 'dst_tbl', 'dst_col', 0, '' );
+    SELECT col_type_is( current_schema(), 'dst_tbl', 'dst_col', 'pg_catalog', 'integer', 'check-type' );
+    SELECT col_default_is( current_schema(), 'dst_tbl', 'dst_col', 0, '' );
 
     INSERT INTO src_tbl VALUES (1, 'a', 10, true);
     INSERT INTO dst_tbl VALUES ('a', default);

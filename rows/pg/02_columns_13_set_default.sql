@@ -9,10 +9,11 @@ BEGIN
     ) RETURNS boolean AS $fun$ 
     DECLARE
         v_stm varchar;
-        v_schema_name varchar := 'public';
+        v_schema_name varchar;
         v_existing_default varchar;
         v_to_add boolean := false;
     BEGIN
+        SELECT current_schema() INTO v_schema_name;
 
         SELECT column_default INTO v_existing_default FROM information_schema.columns
             WHERE table_name = p_table_name::name AND column_name = p_col_name;

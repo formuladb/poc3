@@ -71,7 +71,7 @@ CALL frmdb_internal_migrate_function('frmdb_sp_table_columns', $MIGR$
                 WHERE a.attnum > 0 
                 AND NOT a.attisdropped
                 AND t.relname = p_table_name::name
-                AND s.nspname = 'public'
+                AND s.nspname = current_schema()
                 AND (p_table_name::name) in (select matviewname from pg_matviews)
             ) tmp
             ORDER BY c_table_schema, c_table_name, c_idx

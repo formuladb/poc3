@@ -6,28 +6,28 @@ metadata:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/rewrite-target: /$2
     nginx.ingress.kubernetes.io/configuration-snippet: |
-      set_by_lua_block $subdomain {
-        local subdomain = string.match(ngx.var.host, "^(%w+)%..+$");
-        ngx.log(ngx.ERR, "SSSS" .. ngx.var.host .. ", " .. (subdomain or "nil"))
-        return subdomain
-      }
-      set $accept_profile "";
-      set $content_profile "";
-      if ($request_method = GET) {
-        set $accept_profile $subdomain;
-      }
-      if ($request_method = GET) {
-        set $accept_profile $subdomain;
-      }
-      if ($request_method = POST) {
-        set $content_profile $subdomain;
-      }
-      if ($request_method = PATCH) {
-        set $content_profile $subdomain;
-      }
-      if ($request_method = DELETE) {
-        set $content_profile $subdomain;
-      }
+      #set_by_lua_block $subdomain {
+      #  local subdomain = string.match(ngx.var.host, "^(%w+)%..+$");
+      #  ngx.log(ngx.ERR, "SSSS" .. ngx.var.host .. ", " .. (subdomain or "nil"))
+      #  return subdomain
+      #}
+      #set $accept_profile "";
+      #set $content_profile "";
+      #if ($request_method = GET) {
+      #  set $accept_profile $subdomain;
+      #}
+      #if ($request_method = GET) {
+      #  set $accept_profile $subdomain;
+      #}
+      #if ($request_method = POST) {
+      #  set $content_profile $subdomain;
+      #}
+      #if ($request_method = PATCH) {
+      #  set $content_profile $subdomain;
+      #}
+      #if ($request_method = DELETE) {
+      #  set $content_profile $subdomain;
+      #}
 
       if ($cookie_dbrestauth) {
         set $auth "Bearer $cookie_dbrestauth";
@@ -39,8 +39,8 @@ metadata:
         set $auth "";
       } 
       proxy_set_header Authorization $auth;
-      proxy_set_header Accept-Profile $accept_profile;
-      proxy_set_header Content-Profile $content_profile;
+      #proxy_set_header Accept-Profile $accept_profile;
+      #proxy_set_header Content-Profile $content_profile;
 spec:
   rules:
   - http:

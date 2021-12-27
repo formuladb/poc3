@@ -9,7 +9,7 @@ BEGIN;
         src_col varchar,
         PRIMARY KEY(tenant, id)
     );
-    SELECT has_table( 'public'::name, 'src_tbl'::name );
+    SELECT has_table( 'src_tbl'::name );
     SELECT has_column( 'src_tbl', 'tenant' );
 
     CREATE TABLE IF NOT EXISTS dst_tbl (
@@ -17,7 +17,7 @@ BEGIN;
         id serial NOT NULL,
         PRIMARY KEY(tenant, id)
     );
-    SELECT has_table( 'public'::name, 'dst_tbl'::name );
+    SELECT has_table( 'dst_tbl'::name );
     SELECT has_column( 'dst_tbl', 'tenant' );
 
     SELECT frmdb_put_column_REFERENCE_TO('dst_tbl', 'dst_ref', 'src_tbl', null, null);

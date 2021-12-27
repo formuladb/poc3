@@ -9,11 +9,12 @@ BEGIN
     ) RETURNS boolean AS $fun$ 
     DECLARE
         v_stm varchar;
-        v_schema_name varchar := 'public';
+        v_schema_name varchar;
         v_constraint_name varchar;
         v_existing_check varchar;
         v_to_add boolean := false;
     BEGIN
+        SELECT current_schema() INTO v_schema_name;
         v_constraint_name := p_table_name || '__' || p_col_name || '__ck';
 
         SELECT check_clause INTO v_existing_check FROM information_schema.check_constraints

@@ -17,7 +17,7 @@ spec:
       - name: db
         image: {{ .Values.image_for_db }}
         imagePullPolicy: IfNotPresent
-        command: ["docker-entrypoint.sh", "-c", "log_statement=all"]
+        command: ["docker-entrypoint.sh", "-c", "log_statement=all", "-c", "search_path='\"$user\"'"]
         env:
         - name: POSTGRES_PASSWORD
           value: postgres
