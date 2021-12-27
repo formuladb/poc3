@@ -6,13 +6,22 @@ DECLARE
 	v_rec RECORD;
 BEGIN
 	CREATE LOCAL TEMPORARY TABLE existing_func_oids ON COMMIT DROP AS 
-		SELECT oid FROM pg_proc WHERE proname = p_name;
+		SELECT p.oid 
+			FROM pg_catalog.pg_proc p
+			INNER JOIN pg_catalog.pg_namespace n ON n.oid = p.pronamespace
+			WHERE p.proname = p_name
+				AND n.nspname = current_schema()
+	;
 	SELECT count(*) INTO v_prev_count FROM existing_func_oids;
 
     EXECUTE p_src; 
 	
-	SELECT count(*) INTO v_after_count FROM pg_proc
-		WHERE proname = p_name;
+	SELECT count(*) INTO v_after_count 
+		FROM pg_catalog.pg_proc p
+		INNER JOIN pg_catalog.pg_namespace n ON n.oid = p.pronamespace
+		WHERE p.proname = p_name
+				AND n.nspname = current_schema()
+	;
 	
 	IF v_after_count > v_prev_count THEN
 		FOR v_rec IN SELECT oid FROM existing_func_oids

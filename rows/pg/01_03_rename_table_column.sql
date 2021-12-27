@@ -23,7 +23,10 @@ BEGIN
         FROM pg_trigger
             INNER JOIN pg_class ON pg_class.oid = pg_trigger.tgrelid
             INNER JOIN pg_description ON pg_description.objoid = pg_trigger.oid 
-        WHERE (description ~ ('^\[\[FRMDBTRG\]\]') AND description ~ ('[, (]''' || p_old_col_name || '''[, )]'))
+            INNER JOIN pg_catalog.pg_namespace n ON n.oid = pg_class.relnamespace
+        WHERE (description ~ ('^\[\[FRMDBTRG\]\]') 
+            AND description ~ ('[, (]''' || p_old_col_name || '''[, )]'))
+            AND n.nspname = current_schema()
     LOOP
         v_new_trg_statement := regexp_replace(
             regexp_replace(
