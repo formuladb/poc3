@@ -9,11 +9,11 @@ $(SCHEMA).log:
 	@if [ -z "$(SCHEMA)" ]; then echo "SCHEMA not defined"; exit 1; fi
 	@mkdir -p /tenants/logs/$(SCHEMA)
 	@psql -P pager=off -v ON_ERROR_STOP=1 -e -h db -U postgres -d "postgres" \
-		-c "CREATE SCHEMA IF NOT EXISTS $(SCHEMA); GRANT ALL ON SCHEMA $(SCHEMA) TO postgres;" > $(SCHEMA).log 2>&1
+		-c "CREATE SCHEMA IF NOT EXISTS exts; CREATE SCHEMA IF NOT EXISTS $(SCHEMA); GRANT ALL ON SCHEMA $(SCHEMA) TO postgres;" > $(SCHEMA).log 2>&1
 
 /tenants/logs/$(SCHEMA)/%.log: %.sql $(SCHEMA).log
 	@(psql -P pager=off -v ON_ERROR_STOP=1 -e -h db -U postgres -d "postgres" \
-		-c "SET search_path TO $(SCHEMA);" \
+		-c "SET search_path TO $(SCHEMA),exts;" \
 		-f $< >$@ 2>&1) || (cat $@; rm $@; exit 1)
 
 

@@ -24,9 +24,6 @@ END;
 $migration$;
 
 
-create extension if not exists pgcrypto;
-
-
 --#############################################################################
 --#############################################################################
 --#############################################################################
@@ -100,8 +97,6 @@ SELECT frmdb_set_type('frmdb_jwt_token', $$
 $$);
 
 
-CREATE EXTENSION IF NOT EXISTS pgjwt;
-
 --#############################################################################
 --#############################################################################
 --#############################################################################
@@ -121,7 +116,7 @@ begin
     raise invalid_password using message = 'invalid user or password';
   end if;
 
-  result.token = sign(
+  result.token = exts.sign(
       json_build_object(
         'role', _user.prw_role_id,
         'user_id', _user.id,

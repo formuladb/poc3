@@ -144,7 +144,15 @@ async function runSchema(tenantId: string, inputConn?: Connection) {
 
 PRW_CONN_P
     .then(conn => runSchema("prw", conn).then(() => conn))
-    .then(conn => autoMigrate(conn, PrwTenant))
+    .then(conn => autoMigrate(conn, PrwTenant).then(() => conn))
+    .then(conn => {
+        const repo = conn.getRepository(PrwTenant);
+        const prwTenant = repo.create({
+            id: "prw",
+            domainName: "",
+        });
+        repo.save(prwTenant);
+    })
     .then(() => app.listen(8080))
     ;
 

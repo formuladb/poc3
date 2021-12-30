@@ -23,6 +23,8 @@ BEGIN
             SELECT current_schema() INTO v_txt;
             v_stm := format($$ GRANT USAGE ON SCHEMA %I TO %I $$, v_txt, p_role_name);
             EXECUTE v_stm;
+            v_stm := format($$ GRANT USAGE ON SCHEMA exts TO %I $$, p_role_name);
+            EXECUTE v_stm;
 
             RAISE NOTICE 'frmdb_create_role: % created', p_role_name;
         ELSE

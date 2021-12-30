@@ -1,4 +1,5 @@
 BEGIN;
+    SHOW search_path;    
     SELECT plan( 5 );
 
     select frmdb_create_role('testrole');
@@ -37,6 +38,7 @@ BEGIN;
     SELECT is_empty($$ SELECT * FROM test $$);
 
     RESET role;
+    SHOW search_path;
     SELECT * FROM finish();
     SELECT * FROM frmdb_check_nb_failures();
 ROLLBACK;
