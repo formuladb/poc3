@@ -1,0 +1,4454 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionalProperties": false,
+    "definitions": {
+        "ActionCREATE": {
+            "additionalProperties": false,
+            "properties": {
+                "actionType": {
+                    "enum": [
+                        "CREATE"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "actionType"
+            ],
+            "type": "object"
+        },
+        "ActionDELETE": {
+            "additionalProperties": false,
+            "properties": {
+                "actionType": {
+                    "enum": [
+                        "DELETE"
+                    ],
+                    "type": "string"
+                },
+                "disabled": {
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "actionType"
+            ],
+            "type": "object"
+        },
+        "ActionEXPORT": {
+            "additionalProperties": false,
+            "properties": {
+                "actionType": {
+                    "enum": [
+                        "EXPORT"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "actionType"
+            ],
+            "type": "object"
+        },
+        "ActionIMPORTDATA": {
+            "additionalProperties": false,
+            "properties": {
+                "actionType": {
+                    "enum": [
+                        "IMPORTDATA"
+                    ],
+                    "type": "string"
+                },
+                "fieldMappings": {
+                    "items": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "field": {
+                                "type": "string"
+                            },
+                            "importedField": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "field",
+                            "importedField"
+                        ],
+                        "type": "object"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "actionType",
+                "fieldMappings"
+            ],
+            "type": "object"
+        },
+        "ActionPRINT": {
+            "additionalProperties": false,
+            "properties": {
+                "actionType": {
+                    "enum": [
+                        "PRINT"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "actionType"
+            ],
+            "type": "object"
+        },
+        "ActionREDIRECT": {
+            "additionalProperties": false,
+            "properties": {
+                "actionType": {
+                    "enum": [
+                        "REDIRECT"
+                    ],
+                    "type": "string"
+                },
+                "redirectNextSibling": {
+                    "type": "boolean"
+                },
+                "to": {
+                    "anyOf": [
+                        {
+                            "additionalProperties": false,
+                            "properties": {
+                                "referenceField": {
+                                    "type": "string"
+                                },
+                                "resource": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "referenceField",
+                                "resource"
+                            ],
+                            "type": "object"
+                        },
+                        {
+                            "enum": [
+                                "LIST"
+                            ],
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            "required": [
+                "actionType",
+                "to"
+            ],
+            "type": "object"
+        },
+        "ActionSAVE": {
+            "additionalProperties": false,
+            "properties": {
+                "actionType": {
+                    "enum": [
+                        "SAVE"
+                    ],
+                    "type": "string"
+                },
+                "extraActions": {
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/ActionSET"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionREDIRECT"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "label": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "actionType",
+                "extraActions"
+            ],
+            "type": "object"
+        },
+        "ActionSET": {
+            "additionalProperties": false,
+            "properties": {
+                "actionType": {
+                    "enum": [
+                        "SET"
+                    ],
+                    "type": "string"
+                },
+                "source": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": [
+                        "string",
+                        "number"
+                    ]
+                }
+            },
+            "required": [
+                "actionType",
+                "source",
+                "value"
+            ],
+            "type": "object"
+        },
+        "Borders": {
+            "additionalProperties": false,
+            "properties": {
+                "border": {
+                    "enum": [
+                        0,
+                        1,
+                        2,
+                        3,
+                        4
+                    ],
+                    "type": "number"
+                },
+                "borderBottom": {
+                    "enum": [
+                        0,
+                        1,
+                        2,
+                        3,
+                        4
+                    ],
+                    "type": "number"
+                },
+                "borderColor": {
+                    "enum": [
+                        "error.main",
+                        "info.main",
+                        "primary.main",
+                        "secondary.main",
+                        "success.main",
+                        "text.disabled",
+                        "text.primary",
+                        "text.secondary",
+                        "warning.main"
+                    ],
+                    "type": "string"
+                },
+                "borderLeft": {
+                    "enum": [
+                        0,
+                        1,
+                        2,
+                        3,
+                        4
+                    ],
+                    "type": "number"
+                },
+                "borderRadius": {
+                    "enum": [
+                        0,
+                        10,
+                        20,
+                        30,
+                        40,
+                        5,
+                        50
+                    ],
+                    "type": "number"
+                },
+                "borderRight": {
+                    "enum": [
+                        0,
+                        1,
+                        2,
+                        3,
+                        4
+                    ],
+                    "type": "number"
+                },
+                "borderTop": {
+                    "enum": [
+                        0,
+                        1,
+                        2,
+                        3,
+                        4
+                    ],
+                    "type": "number"
+                }
+            },
+            "type": "object"
+        },
+        "BoxProps": {
+            "additionalProperties": false,
+            "properties": {
+                "borders": {
+                    "$ref": "#/definitions/Borders"
+                },
+                "spacing": {
+                    "$ref": "#/definitions/Spacing"
+                }
+            },
+            "type": "object"
+        },
+        "CBlockCardsNode": {
+            "additionalProperties": false,
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "_tag": {
+                    "enum": [
+                        "CBlock"
+                    ],
+                    "type": "string"
+                },
+                "body": {
+                    "type": "string"
+                },
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
+                "cBlockType": {
+                    "enum": [
+                        "Cards"
+                    ],
+                    "type": "string"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                },
+                "subtitle": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "_id",
+                "_tag",
+                "cBlockType"
+            ],
+            "type": "object"
+        },
+        "CBlockHeadingNode": {
+            "additionalProperties": false,
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "_tag": {
+                    "enum": [
+                        "CBlock"
+                    ],
+                    "type": "string"
+                },
+                "body": {
+                    "type": "string"
+                },
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
+                "cBlockType": {
+                    "enum": [
+                        "Heading"
+                    ],
+                    "type": "string"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                },
+                "subtitle": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "variant": {
+                    "enum": [
+                        "Cover Page",
+                        "Page Header",
+                        "Simple"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "_id",
+                "_tag",
+                "cBlockType"
+            ],
+            "type": "object"
+        },
+        "CBlockMediaNode": {
+            "additionalProperties": false,
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "_tag": {
+                    "enum": [
+                        "CBlock"
+                    ],
+                    "type": "string"
+                },
+                "body": {
+                    "type": "string"
+                },
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
+                "cBlockType": {
+                    "enum": [
+                        "Media"
+                    ],
+                    "type": "string"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                },
+                "subtitle": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "_id",
+                "_tag",
+                "cBlockType"
+            ],
+            "type": "object"
+        },
+        "CElementActionNode": {
+            "additionalProperties": false,
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "_tag": {
+                    "enum": [
+                        "CElement"
+                    ],
+                    "type": "string"
+                },
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
+                "cElementType": {
+                    "enum": [
+                        "Action"
+                    ],
+                    "type": "string"
+                },
+                "color": {
+                    "enum": [
+                        "default",
+                        "inherit",
+                        "primary",
+                        "secondary"
+                    ],
+                    "type": "string"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                },
+                "navigateTo": {
+                    "type": "string"
+                },
+                "size": {
+                    "enum": [
+                        "large",
+                        "medium",
+                        "small"
+                    ],
+                    "type": "string"
+                },
+                "startIconName": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "variant": {
+                    "enum": [
+                        "contained",
+                        "outlined",
+                        "text"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "_id",
+                "_tag",
+                "cElementType",
+                "title"
+            ],
+            "type": "object"
+        },
+        "CElementIconNode": {
+            "additionalProperties": false,
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "_tag": {
+                    "enum": [
+                        "CElement"
+                    ],
+                    "type": "string"
+                },
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
+                "cElementType": {
+                    "enum": [
+                        "Icon"
+                    ],
+                    "type": "string"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                },
+                "name": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "_id",
+                "_tag",
+                "cElementType",
+                "name"
+            ],
+            "type": "object"
+        },
+        "CElementImageNode": {
+            "additionalProperties": false,
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "_tag": {
+                    "enum": [
+                        "CElement"
+                    ],
+                    "type": "string"
+                },
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
+                "cElementType": {
+                    "enum": [
+                        "Image"
+                    ],
+                    "type": "string"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                },
+                "url": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "_id",
+                "_tag",
+                "cElementType",
+                "url"
+            ],
+            "type": "object"
+        },
+        "CElementTextNode": {
+            "additionalProperties": false,
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "_tag": {
+                    "enum": [
+                        "CElement"
+                    ],
+                    "type": "string"
+                },
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
+                "cElementType": {
+                    "enum": [
+                        "Text"
+                    ],
+                    "type": "string"
+                },
+                "content": {
+                    "type": "string"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                },
+                "typography": {
+                    "$ref": "#/definitions/TypographyProps"
+                }
+            },
+            "required": [
+                "_id",
+                "_tag",
+                "cElementType",
+                "content"
+            ],
+            "type": "object"
+        },
+        "CFormNode": {
+            "additionalProperties": false,
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "_tag": {
+                    "enum": [
+                        "CForm"
+                    ],
+                    "type": "string"
+                },
+                "children": {
+                    "items": {
+                        "$ref": "#/definitions/PageNode"
+                    },
+                    "type": "array"
+                },
+                "disabled": {
+                    "type": "boolean"
+                },
+                "enabledActions": {
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/ActionPRINT"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionSAVE"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionDELETE"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "resource": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "resourceId": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "_id",
+                "_tag",
+                "resource"
+            ],
+            "type": "object"
+        },
+        "CInputBooleanFieldNode": {
+            "additionalProperties": false,
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "_tag": {
+                    "enum": [
+                        "CInput"
+                    ],
+                    "type": "string"
+                },
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
+                "cInputType": {
+                    "enum": [
+                        "BooleanField"
+                    ],
+                    "type": "string"
+                },
+                "disabled": {
+                    "type": "boolean"
+                },
+                "initialValue": {
+                    "type": "boolean"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                },
+                "resource": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "size": {
+                    "enum": [
+                        "small"
+                    ],
+                    "type": "string"
+                },
+                "source": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "variant": {
+                    "enum": [
+                        "filled",
+                        "outlined",
+                        "standard"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "_id",
+                "_tag",
+                "cInputType",
+                "resource",
+                "source"
+            ],
+            "type": "object"
+        },
+        "CInputBooleanFieldProps": {
+            "additionalProperties": false,
+            "properties": {
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
+                "cInputType": {
+                    "enum": [
+                        "BooleanField"
+                    ],
+                    "type": "string"
+                },
+                "disabled": {
+                    "type": "boolean"
+                },
+                "initialValue": {
+                    "type": "boolean"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                },
+                "resource": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "size": {
+                    "enum": [
+                        "small"
+                    ],
+                    "type": "string"
+                },
+                "source": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "variant": {
+                    "enum": [
+                        "filled",
+                        "outlined",
+                        "standard"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "cInputType",
+                "resource",
+                "source"
+            ],
+            "type": "object"
+        },
+        "CInputChipFieldNode": {
+            "additionalProperties": false,
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "_tag": {
+                    "enum": [
+                        "CInput"
+                    ],
+                    "type": "string"
+                },
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
+                "cInputType": {
+                    "enum": [
+                        "ChipField"
+                    ],
+                    "type": "string"
+                },
+                "disabled": {
+                    "type": "boolean"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                },
+                "resource": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "size": {
+                    "enum": [
+                        "small"
+                    ],
+                    "type": "string"
+                },
+                "source": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "variant": {
+                    "enum": [
+                        "filled",
+                        "outlined",
+                        "standard"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "_id",
+                "_tag",
+                "cInputType",
+                "resource",
+                "source"
+            ],
+            "type": "object"
+        },
+        "CInputChipFieldProps": {
+            "additionalProperties": false,
+            "properties": {
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
+                "cInputType": {
+                    "enum": [
+                        "ChipField"
+                    ],
+                    "type": "string"
+                },
+                "disabled": {
+                    "type": "boolean"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                },
+                "resource": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "size": {
+                    "enum": [
+                        "small"
+                    ],
+                    "type": "string"
+                },
+                "source": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "variant": {
+                    "enum": [
+                        "filled",
+                        "outlined",
+                        "standard"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "cInputType",
+                "resource",
+                "source"
+            ],
+            "type": "object"
+        },
+        "CInputDateFieldNode": {
+            "additionalProperties": false,
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "_tag": {
+                    "enum": [
+                        "CInput"
+                    ],
+                    "type": "string"
+                },
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
+                "cInputType": {
+                    "enum": [
+                        "DateField"
+                    ],
+                    "type": "string"
+                },
+                "disabled": {
+                    "type": "boolean"
+                },
+                "initialValue": {
+                    "anyOf": [
+                        {
+                            "description": "Enables basic storage and retrieval of dates and times.",
+                            "format": "date-time",
+                            "type": "string"
+                        },
+                        {
+                            "enum": [
+                                "CURRENT_DATE"
+                            ],
+                            "type": "string"
+                        }
+                    ]
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                },
+                "resource": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "size": {
+                    "enum": [
+                        "small"
+                    ],
+                    "type": "string"
+                },
+                "source": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "variant": {
+                    "enum": [
+                        "filled",
+                        "outlined",
+                        "standard"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "_id",
+                "_tag",
+                "cInputType",
+                "resource",
+                "source"
+            ],
+            "type": "object"
+        },
+        "CInputDateFieldProps": {
+            "additionalProperties": false,
+            "properties": {
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
+                "cInputType": {
+                    "enum": [
+                        "DateField"
+                    ],
+                    "type": "string"
+                },
+                "disabled": {
+                    "type": "boolean"
+                },
+                "initialValue": {
+                    "anyOf": [
+                        {
+                            "description": "Enables basic storage and retrieval of dates and times.",
+                            "format": "date-time",
+                            "type": "string"
+                        },
+                        {
+                            "enum": [
+                                "CURRENT_DATE"
+                            ],
+                            "type": "string"
+                        }
+                    ]
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                },
+                "resource": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "size": {
+                    "enum": [
+                        "small"
+                    ],
+                    "type": "string"
+                },
+                "source": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "variant": {
+                    "enum": [
+                        "filled",
+                        "outlined",
+                        "standard"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "cInputType",
+                "resource",
+                "source"
+            ],
+            "type": "object"
+        },
+        "CInputDateTimeFieldNode": {
+            "additionalProperties": false,
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "_tag": {
+                    "enum": [
+                        "CInput"
+                    ],
+                    "type": "string"
+                },
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
+                "cInputType": {
+                    "enum": [
+                        "DateTimeField"
+                    ],
+                    "type": "string"
+                },
+                "disabled": {
+                    "type": "boolean"
+                },
+                "initialValue": {
+                    "anyOf": [
+                        {
+                            "description": "Enables basic storage and retrieval of dates and times.",
+                            "format": "date-time",
+                            "type": "string"
+                        },
+                        {
+                            "enum": [
+                                "CURRENT_DATE_TIME"
+                            ],
+                            "type": "string"
+                        }
+                    ]
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                },
+                "resource": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "size": {
+                    "enum": [
+                        "small"
+                    ],
+                    "type": "string"
+                },
+                "source": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "variant": {
+                    "enum": [
+                        "filled",
+                        "outlined",
+                        "standard"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "_id",
+                "_tag",
+                "cInputType",
+                "resource",
+                "source"
+            ],
+            "type": "object"
+        },
+        "CInputDateTimeFieldProps": {
+            "additionalProperties": false,
+            "properties": {
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
+                "cInputType": {
+                    "enum": [
+                        "DateTimeField"
+                    ],
+                    "type": "string"
+                },
+                "disabled": {
+                    "type": "boolean"
+                },
+                "initialValue": {
+                    "anyOf": [
+                        {
+                            "description": "Enables basic storage and retrieval of dates and times.",
+                            "format": "date-time",
+                            "type": "string"
+                        },
+                        {
+                            "enum": [
+                                "CURRENT_DATE_TIME"
+                            ],
+                            "type": "string"
+                        }
+                    ]
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                },
+                "resource": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "size": {
+                    "enum": [
+                        "small"
+                    ],
+                    "type": "string"
+                },
+                "source": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "variant": {
+                    "enum": [
+                        "filled",
+                        "outlined",
+                        "standard"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "cInputType",
+                "resource",
+                "source"
+            ],
+            "type": "object"
+        },
+        "CInputEmailFieldNode": {
+            "additionalProperties": false,
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "_tag": {
+                    "enum": [
+                        "CInput"
+                    ],
+                    "type": "string"
+                },
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
+                "cInputType": {
+                    "enum": [
+                        "EmailField"
+                    ],
+                    "type": "string"
+                },
+                "disabled": {
+                    "type": "boolean"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                },
+                "resource": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "size": {
+                    "enum": [
+                        "small"
+                    ],
+                    "type": "string"
+                },
+                "source": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "variant": {
+                    "enum": [
+                        "filled",
+                        "outlined",
+                        "standard"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "_id",
+                "_tag",
+                "cInputType",
+                "resource",
+                "source"
+            ],
+            "type": "object"
+        },
+        "CInputEmailFieldProps": {
+            "additionalProperties": false,
+            "properties": {
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
+                "cInputType": {
+                    "enum": [
+                        "EmailField"
+                    ],
+                    "type": "string"
+                },
+                "disabled": {
+                    "type": "boolean"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                },
+                "resource": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "size": {
+                    "enum": [
+                        "small"
+                    ],
+                    "type": "string"
+                },
+                "source": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "variant": {
+                    "enum": [
+                        "filled",
+                        "outlined",
+                        "standard"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "cInputType",
+                "resource",
+                "source"
+            ],
+            "type": "object"
+        },
+        "CInputFileFieldNode": {
+            "additionalProperties": false,
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "_tag": {
+                    "enum": [
+                        "CInput"
+                    ],
+                    "type": "string"
+                },
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
+                "cInputType": {
+                    "enum": [
+                        "FileField"
+                    ],
+                    "type": "string"
+                },
+                "disabled": {
+                    "type": "boolean"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                },
+                "resource": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "size": {
+                    "enum": [
+                        "small"
+                    ],
+                    "type": "string"
+                },
+                "source": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "variant": {
+                    "enum": [
+                        "filled",
+                        "outlined",
+                        "standard"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "_id",
+                "_tag",
+                "cInputType",
+                "resource",
+                "source"
+            ],
+            "type": "object"
+        },
+        "CInputFileFieldProps": {
+            "additionalProperties": false,
+            "properties": {
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
+                "cInputType": {
+                    "enum": [
+                        "FileField"
+                    ],
+                    "type": "string"
+                },
+                "disabled": {
+                    "type": "boolean"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                },
+                "resource": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "size": {
+                    "enum": [
+                        "small"
+                    ],
+                    "type": "string"
+                },
+                "source": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "variant": {
+                    "enum": [
+                        "filled",
+                        "outlined",
+                        "standard"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "cInputType",
+                "resource",
+                "source"
+            ],
+            "type": "object"
+        },
+        "CInputFormulaNode": {
+            "additionalProperties": false,
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "_tag": {
+                    "enum": [
+                        "CInput"
+                    ],
+                    "type": "string"
+                },
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
+                "cInputType": {
+                    "enum": [
+                        "Formula"
+                    ],
+                    "type": "string"
+                },
+                "disabled": {
+                    "type": "boolean"
+                },
+                "field": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/CInputTextFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputBooleanFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputChipFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputDateFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputDateTimeFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputEmailFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputImageFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputFileFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputNumberFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputRichTextFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputUrlFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputIntervalFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputJsonProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputSelectProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputReferenceProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputLookupProps"
+                        }
+                    ]
+                },
+                "formula": {
+                    "type": "string"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                },
+                "resource": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "size": {
+                    "enum": [
+                        "small"
+                    ],
+                    "type": "string"
+                },
+                "source": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "variant": {
+                    "enum": [
+                        "filled",
+                        "outlined",
+                        "standard"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "_id",
+                "_tag",
+                "cInputType",
+                "field",
+                "formula",
+                "resource",
+                "source"
+            ],
+            "type": "object"
+        },
+        "CInputFormulaProps": {
+            "additionalProperties": false,
+            "properties": {
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
+                "cInputType": {
+                    "enum": [
+                        "Formula"
+                    ],
+                    "type": "string"
+                },
+                "disabled": {
+                    "type": "boolean"
+                },
+                "field": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/CInputTextFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputBooleanFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputChipFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputDateFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputDateTimeFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputEmailFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputImageFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputFileFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputNumberFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputRichTextFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputUrlFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputIntervalFieldProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputJsonProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputSelectProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputReferenceProps"
+                        },
+                        {
+                            "$ref": "#/definitions/CInputLookupProps"
+                        }
+                    ]
+                },
+                "formula": {
+                    "type": "string"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                },
+                "resource": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "size": {
+                    "enum": [
+                        "small"
+                    ],
+                    "type": "string"
+                },
+                "source": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "variant": {
+                    "enum": [
+                        "filled",
+                        "outlined",
+                        "standard"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "cInputType",
+                "field",
+                "formula",
+                "resource",
+                "source"
+            ],
+            "type": "object"
+        },
+        "CInputImageFieldNode": {
+            "additionalProperties": false,
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "_tag": {
+                    "enum": [
+                        "CInput"
+                    ],
+                    "type": "string"
+                },
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
+                "cInputType": {
+                    "enum": [
+                        "ImageField"
+                    ],
+                    "type": "string"
+                },
+                "disabled": {
+                    "type": "boolean"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                },
+                "resource": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "size": {
+                    "enum": [
+                        "small"
+                    ],
+                    "type": "string"
+                },
+                "source": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "variant": {
+                    "enum": [
+                        "filled",
+                        "outlined",
+                        "standard"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "_id",
+                "_tag",
+                "cInputType",
+                "resource",
+                "source"
+            ],
+            "type": "object"
+        },
+        "CInputImageFieldProps": {
+            "additionalProperties": false,
+            "properties": {
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
+                "cInputType": {
+                    "enum": [
+                        "ImageField"
+                    ],
+                    "type": "string"
+                },
+                "disabled": {
+                    "type": "boolean"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                },
+                "resource": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "size": {
+                    "enum": [
+                        "small"
+                    ],
+                    "type": "string"
+                },
+                "source": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "variant": {
+                    "enum": [
+                        "filled",
+                        "outlined",
+                        "standard"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "cInputType",
+                "resource",
+                "source"
+            ],
+            "type": "object"
+        },
+        "CInputIntervalFieldNode": {
+            "additionalProperties": false,
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "_tag": {
+                    "enum": [
+                        "CInput"
+                    ],
+                    "type": "string"
+                },
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
+                "cInputType": {
+                    "enum": [
+                        "IntervalField"
+                    ],
+                    "type": "string"
+                },
+                "disabled": {
+                    "type": "boolean"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                },
+                "resource": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "size": {
+                    "enum": [
+                        "small"
+                    ],
+                    "type": "string"
+                },
+                "source": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "variant": {
+                    "enum": [
+                        "filled",
+                        "outlined",
+                        "standard"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "_id",
+                "_tag",
+                "cInputType",
+                "resource",
+                "source"
+            ],
+            "type": "object"
+        },
+        "CInputIntervalFieldProps": {
+            "additionalProperties": false,
+            "properties": {
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
+                "cInputType": {
+                    "enum": [
+                        "IntervalField"
+                    ],
+                    "type": "string"
+                },
+                "disabled": {
+                    "type": "boolean"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                },
+                "resource": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "size": {
+                    "enum": [
+                        "small"
+                    ],
+                    "type": "string"
+                },
+                "source": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "variant": {
+                    "enum": [
+                        "filled",
+                        "outlined",
+                        "standard"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "cInputType",
+                "resource",
+                "source"
+            ],
+            "type": "object"
+        },
+        "CInputJsonNode": {
+            "additionalProperties": false,
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "_tag": {
+                    "enum": [
+                        "CInput"
+                    ],
+                    "type": "string"
+                },
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
+                "cInputType": {
+                    "enum": [
+                        "Json"
+                    ],
+                    "type": "string"
+                },
+                "disabled": {
+                    "type": "boolean"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                },
+                "resource": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "size": {
+                    "enum": [
+                        "small"
+                    ],
+                    "type": "string"
+                },
+                "source": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "variant": {
+                    "enum": [
+                        "filled",
+                        "outlined",
+                        "standard"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "_id",
+                "_tag",
+                "cInputType",
+                "resource",
+                "source"
+            ],
+            "type": "object"
+        },
+        "CInputJsonProps": {
+            "additionalProperties": false,
+            "properties": {
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
+                "cInputType": {
+                    "enum": [
+                        "Json"
+                    ],
+                    "type": "string"
+                },
+                "disabled": {
+                    "type": "boolean"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                },
+                "resource": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "size": {
+                    "enum": [
+                        "small"
+                    ],
+                    "type": "string"
+                },
+                "source": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "variant": {
+                    "enum": [
+                        "filled",
+                        "outlined",
+                        "standard"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "cInputType",
+                "resource",
+                "source"
+            ],
+            "type": "object"
+        },
+        "CInputLookupNode": {
+            "additionalProperties": false,
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "_tag": {
+                    "enum": [
+                        "CInput"
+                    ],
+                    "type": "string"
+                },
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
+                "cInputType": {
+                    "enum": [
+                        "Lookup"
+                    ],
+                    "type": "string"
+                },
+                "disabled": {
+                    "type": "boolean"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                },
+                "referenceField": {
+                    "type": "string"
+                },
+                "referenceText": {
+                    "type": "string"
+                },
+                "resource": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "size": {
+                    "enum": [
+                        "small"
+                    ],
+                    "type": "string"
+                },
+                "source": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "variant": {
+                    "enum": [
+                        "filled",
+                        "outlined",
+                        "standard"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "_id",
+                "_tag",
+                "cInputType",
+                "referenceField",
+                "referenceText",
+                "resource",
+                "source"
+            ],
+            "type": "object"
+        },
+        "CInputLookupProps": {
+            "additionalProperties": false,
+            "properties": {
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
+                "cInputType": {
+                    "enum": [
+                        "Lookup"
+                    ],
+                    "type": "string"
+                },
+                "disabled": {
+                    "type": "boolean"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                },
+                "referenceField": {
+                    "type": "string"
+                },
+                "referenceText": {
+                    "type": "string"
+                },
+                "resource": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "size": {
+                    "enum": [
+                        "small"
+                    ],
+                    "type": "string"
+                },
+                "source": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "variant": {
+                    "enum": [
+                        "filled",
+                        "outlined",
+                        "standard"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "cInputType",
+                "referenceField",
+                "referenceText",
+                "resource",
+                "source"
+            ],
+            "type": "object"
+        },
+        "CInputNumberFieldNode": {
+            "additionalProperties": false,
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "_tag": {
+                    "enum": [
+                        "CInput"
+                    ],
+                    "type": "string"
+                },
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
+                "cInputType": {
+                    "enum": [
+                        "NumberField"
+                    ],
+                    "type": "string"
+                },
+                "disabled": {
+                    "type": "boolean"
+                },
+                "initialValue": {
+                    "type": "number"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                },
+                "resource": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "size": {
+                    "enum": [
+                        "small"
+                    ],
+                    "type": "string"
+                },
+                "source": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "variant": {
+                    "enum": [
+                        "filled",
+                        "outlined",
+                        "standard"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "_id",
+                "_tag",
+                "cInputType",
+                "resource",
+                "source"
+            ],
+            "type": "object"
+        },
+        "CInputNumberFieldProps": {
+            "additionalProperties": false,
+            "properties": {
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
+                "cInputType": {
+                    "enum": [
+                        "NumberField"
+                    ],
+                    "type": "string"
+                },
+                "disabled": {
+                    "type": "boolean"
+                },
+                "initialValue": {
+                    "type": "number"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                },
+                "resource": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "size": {
+                    "enum": [
+                        "small"
+                    ],
+                    "type": "string"
+                },
+                "source": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "variant": {
+                    "enum": [
+                        "filled",
+                        "outlined",
+                        "standard"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "cInputType",
+                "resource",
+                "source"
+            ],
+            "type": "object"
+        },
+        "CInputReferenceNode": {
+            "additionalProperties": false,
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "_tag": {
+                    "enum": [
+                        "CInput"
+                    ],
+                    "type": "string"
+                },
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
+                "cInputType": {
+                    "enum": [
+                        "Reference"
+                    ],
+                    "type": "string"
+                },
+                "disabled": {
+                    "type": "boolean"
+                },
+                "initialValue": {
+                    "enum": [
+                        "CURRENT_ROLE_ID",
+                        "CURRENT_USER_ID"
+                    ],
+                    "type": "string"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                },
+                "layout": {
+                    "enum": [
+                        "single_row"
+                    ],
+                    "type": "string"
+                },
+                "matchingColumn": {
+                    "format": "frmdb-reference-matching-field-name",
+                    "type": "string"
+                },
+                "reference": {
+                    "format": "frmdb-reference-resource-name",
+                    "type": "string"
+                },
+                "referenceInputType": {
+                    "enum": [
+                        "autocomplete",
+                        "radio_button"
+                    ],
+                    "type": "string"
+                },
+                "referenceText": {
+                    "format": "frmdb-reference-field-name",
+                    "type": "string"
+                },
+                "resource": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "size": {
+                    "enum": [
+                        "small"
+                    ],
+                    "type": "string"
+                },
+                "sortField": {
+                    "format": "frmdb-reference-field-name",
+                    "type": "string"
+                },
+                "sortOrder": {
+                    "enum": [
+                        "ASC",
+                        "DESC"
+                    ],
+                    "type": "string"
+                },
+                "source": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "variant": {
+                    "enum": [
+                        "filled",
+                        "outlined",
+                        "standard"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "_id",
+                "_tag",
+                "cInputType",
+                "reference",
+                "resource",
+                "source"
+            ],
+            "type": "object"
+        },
+        "CInputReferenceProps": {
+            "additionalProperties": false,
+            "properties": {
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
+                "cInputType": {
+                    "enum": [
+                        "Reference"
+                    ],
+                    "type": "string"
+                },
+                "disabled": {
+                    "type": "boolean"
+                },
+                "initialValue": {
+                    "enum": [
+                        "CURRENT_ROLE_ID",
+                        "CURRENT_USER_ID"
+                    ],
+                    "type": "string"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                },
+                "layout": {
+                    "enum": [
+                        "single_row"
+                    ],
+                    "type": "string"
+                },
+                "matchingColumn": {
+                    "format": "frmdb-reference-matching-field-name",
+                    "type": "string"
+                },
+                "reference": {
+                    "format": "frmdb-reference-resource-name",
+                    "type": "string"
+                },
+                "referenceInputType": {
+                    "enum": [
+                        "autocomplete",
+                        "radio_button"
+                    ],
+                    "type": "string"
+                },
+                "referenceText": {
+                    "format": "frmdb-reference-field-name",
+                    "type": "string"
+                },
+                "resource": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "size": {
+                    "enum": [
+                        "small"
+                    ],
+                    "type": "string"
+                },
+                "sortField": {
+                    "format": "frmdb-reference-field-name",
+                    "type": "string"
+                },
+                "sortOrder": {
+                    "enum": [
+                        "ASC",
+                        "DESC"
+                    ],
+                    "type": "string"
+                },
+                "source": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "variant": {
+                    "enum": [
+                        "filled",
+                        "outlined",
+                        "standard"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "cInputType",
+                "reference",
+                "resource",
+                "source"
+            ],
+            "type": "object"
+        },
+        "CInputRichTextFieldNode": {
+            "additionalProperties": false,
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "_tag": {
+                    "enum": [
+                        "CInput"
+                    ],
+                    "type": "string"
+                },
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
+                "cInputType": {
+                    "enum": [
+                        "RichTextField"
+                    ],
+                    "type": "string"
+                },
+                "disabled": {
+                    "type": "boolean"
+                },
+                "initialValue": {
+                    "type": "string"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                },
+                "resource": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "size": {
+                    "enum": [
+                        "small"
+                    ],
+                    "type": "string"
+                },
+                "source": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "variant": {
+                    "enum": [
+                        "filled",
+                        "outlined",
+                        "standard"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "_id",
+                "_tag",
+                "cInputType",
+                "resource",
+                "source"
+            ],
+            "type": "object"
+        },
+        "CInputRichTextFieldProps": {
+            "additionalProperties": false,
+            "properties": {
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
+                "cInputType": {
+                    "enum": [
+                        "RichTextField"
+                    ],
+                    "type": "string"
+                },
+                "disabled": {
+                    "type": "boolean"
+                },
+                "initialValue": {
+                    "type": "string"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                },
+                "resource": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "size": {
+                    "enum": [
+                        "small"
+                    ],
+                    "type": "string"
+                },
+                "source": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "variant": {
+                    "enum": [
+                        "filled",
+                        "outlined",
+                        "standard"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "cInputType",
+                "resource",
+                "source"
+            ],
+            "type": "object"
+        },
+        "CInputSelectNode": {
+            "additionalProperties": false,
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "_tag": {
+                    "enum": [
+                        "CInput"
+                    ],
+                    "type": "string"
+                },
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
+                "cInputType": {
+                    "enum": [
+                        "Select"
+                    ],
+                    "type": "string"
+                },
+                "choices": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "disabled": {
+                    "type": "boolean"
+                },
+                "initialValue": {
+                    "type": "string"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                },
+                "resource": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "size": {
+                    "enum": [
+                        "small"
+                    ],
+                    "type": "string"
+                },
+                "source": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "translate": {
+                    "enum": [
+                        "no",
+                        "yes"
+                    ],
+                    "type": "string"
+                },
+                "variant": {
+                    "enum": [
+                        "filled",
+                        "outlined",
+                        "standard"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "_id",
+                "_tag",
+                "cInputType",
+                "choices",
+                "resource",
+                "source"
+            ],
+            "type": "object"
+        },
+        "CInputSelectProps": {
+            "additionalProperties": false,
+            "properties": {
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
+                "cInputType": {
+                    "enum": [
+                        "Select"
+                    ],
+                    "type": "string"
+                },
+                "choices": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "disabled": {
+                    "type": "boolean"
+                },
+                "initialValue": {
+                    "type": "string"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                },
+                "resource": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "size": {
+                    "enum": [
+                        "small"
+                    ],
+                    "type": "string"
+                },
+                "source": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "translate": {
+                    "enum": [
+                        "no",
+                        "yes"
+                    ],
+                    "type": "string"
+                },
+                "variant": {
+                    "enum": [
+                        "filled",
+                        "outlined",
+                        "standard"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "cInputType",
+                "choices",
+                "resource",
+                "source"
+            ],
+            "type": "object"
+        },
+        "CInputTextFieldNode": {
+            "additionalProperties": false,
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "_tag": {
+                    "enum": [
+                        "CInput"
+                    ],
+                    "type": "string"
+                },
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
+                "cInputType": {
+                    "enum": [
+                        "TextField"
+                    ],
+                    "type": "string"
+                },
+                "disabled": {
+                    "type": "boolean"
+                },
+                "initialValue": {
+                    "type": "string"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                },
+                "multiline": {
+                    "type": "boolean"
+                },
+                "resource": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "size": {
+                    "enum": [
+                        "small"
+                    ],
+                    "type": "string"
+                },
+                "source": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "variant": {
+                    "enum": [
+                        "filled",
+                        "outlined",
+                        "standard"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "_id",
+                "_tag",
+                "cInputType",
+                "resource",
+                "source"
+            ],
+            "type": "object"
+        },
+        "CInputTextFieldProps": {
+            "additionalProperties": false,
+            "properties": {
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
+                "cInputType": {
+                    "enum": [
+                        "TextField"
+                    ],
+                    "type": "string"
+                },
+                "disabled": {
+                    "type": "boolean"
+                },
+                "initialValue": {
+                    "type": "string"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                },
+                "multiline": {
+                    "type": "boolean"
+                },
+                "resource": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "size": {
+                    "enum": [
+                        "small"
+                    ],
+                    "type": "string"
+                },
+                "source": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "variant": {
+                    "enum": [
+                        "filled",
+                        "outlined",
+                        "standard"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "cInputType",
+                "resource",
+                "source"
+            ],
+            "type": "object"
+        },
+        "CInputUrlFieldNode": {
+            "additionalProperties": false,
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "_tag": {
+                    "enum": [
+                        "CInput"
+                    ],
+                    "type": "string"
+                },
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
+                "cInputType": {
+                    "enum": [
+                        "UrlField"
+                    ],
+                    "type": "string"
+                },
+                "disabled": {
+                    "type": "boolean"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                },
+                "resource": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "size": {
+                    "enum": [
+                        "small"
+                    ],
+                    "type": "string"
+                },
+                "source": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "variant": {
+                    "enum": [
+                        "filled",
+                        "outlined",
+                        "standard"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "_id",
+                "_tag",
+                "cInputType",
+                "resource",
+                "source"
+            ],
+            "type": "object"
+        },
+        "CInputUrlFieldProps": {
+            "additionalProperties": false,
+            "properties": {
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
+                "cInputType": {
+                    "enum": [
+                        "UrlField"
+                    ],
+                    "type": "string"
+                },
+                "disabled": {
+                    "type": "boolean"
+                },
+                "item": {
+                    "$ref": "#/definitions/GridItemProps"
+                },
+                "resource": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "size": {
+                    "enum": [
+                        "small"
+                    ],
+                    "type": "string"
+                },
+                "source": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "variant": {
+                    "enum": [
+                        "filled",
+                        "outlined",
+                        "standard"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "cInputType",
+                "resource",
+                "source"
+            ],
+            "type": "object"
+        },
+        "CLayoutNode": {
+            "additionalProperties": false,
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "_tag": {
+                    "enum": [
+                        "CLayout"
+                    ],
+                    "type": "string"
+                },
+                "box": {
+                    "$ref": "#/definitions/BoxProps"
+                },
+                "children": {
+                    "items": {
+                        "$ref": "#/definitions/PageNode"
+                    },
+                    "type": "array"
+                },
+                "direction": {
+                    "enum": [
+                        "column",
+                        "row"
+                    ],
+                    "type": "string"
+                },
+                "spacing": {
+                    "enum": [
+                        1,
+                        2,
+                        3,
+                        4
+                    ],
+                    "type": "number"
+                }
+            },
+            "required": [
+                "_id",
+                "_tag"
+            ],
+            "type": "object"
+        },
+        "CListChartNode": {
+            "additionalProperties": false,
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "_tag": {
+                    "enum": [
+                        "CList"
+                    ],
+                    "type": "string"
+                },
+                "cListType": {
+                    "enum": [
+                        "Chart"
+                    ],
+                    "type": "string"
+                },
+                "chartType": {
+                    "enum": [
+                        "Bar",
+                        "Line",
+                        "Pie"
+                    ],
+                    "type": "string"
+                },
+                "children": {
+                    "items": {
+                        "$ref": "#/definitions/PageNode"
+                    },
+                    "type": "array"
+                },
+                "editable": {
+                    "type": "boolean"
+                },
+                "enabledActions": {
+                    "format": "frmdb-multiple-choice",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/ActionCREATE"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionEXPORT"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionIMPORTDATA"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionPRINT"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "fields": {
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/CInputTextFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputBooleanFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputChipFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputDateFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputDateTimeFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputEmailFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputImageFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputFileFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputNumberFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputRichTextFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputUrlFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputIntervalFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputJsonProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputSelectProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputReferenceProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputLookupProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputFormulaProps"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "formActions": {
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/ActionPRINT"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionSAVE"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionDELETE"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "isSubListOf": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "labelSource": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "pivotYAxisSource": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "refToParentListFieldName": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "resource": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "sortField": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "sortOrder": {
+                    "enum": [
+                        "ASC",
+                        "DESC"
+                    ],
+                    "type": "string"
+                },
+                "xAxisSource": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "yAxisSource": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "yAxisSource2": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "yAxisSource3": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "yAxisSource4": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "_id",
+                "_tag",
+                "cListType",
+                "chartType",
+                "labelSource",
+                "resource",
+                "xAxisSource",
+                "yAxisSource"
+            ],
+            "type": "object"
+        },
+        "CListDatagridNode": {
+            "additionalProperties": false,
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "_tag": {
+                    "enum": [
+                        "CList"
+                    ],
+                    "type": "string"
+                },
+                "cListType": {
+                    "enum": [
+                        "Datagrid"
+                    ],
+                    "type": "string"
+                },
+                "children": {
+                    "items": {
+                        "$ref": "#/definitions/PageNode"
+                    },
+                    "type": "array"
+                },
+                "editable": {
+                    "type": "boolean"
+                },
+                "enabledActions": {
+                    "format": "frmdb-multiple-choice",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/ActionCREATE"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionEXPORT"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionIMPORTDATA"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionPRINT"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "fields": {
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/CInputTextFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputBooleanFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputChipFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputDateFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputDateTimeFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputEmailFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputImageFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputFileFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputNumberFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputRichTextFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputUrlFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputIntervalFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputJsonProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputSelectProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputReferenceProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputLookupProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputFormulaProps"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "formActions": {
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/ActionPRINT"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionSAVE"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionDELETE"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "isSubListOf": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "labelSource": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "refToParentListFieldName": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "resource": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "sortField": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "sortOrder": {
+                    "enum": [
+                        "ASC",
+                        "DESC"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "_id",
+                "_tag",
+                "cListType",
+                "labelSource",
+                "resource"
+            ],
+            "type": "object"
+        },
+        "CListFormListNode": {
+            "additionalProperties": false,
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "_tag": {
+                    "enum": [
+                        "CList"
+                    ],
+                    "type": "string"
+                },
+                "cListType": {
+                    "enum": [
+                        "FormList"
+                    ],
+                    "type": "string"
+                },
+                "children": {
+                    "items": {
+                        "$ref": "#/definitions/PageNode"
+                    },
+                    "type": "array"
+                },
+                "editable": {
+                    "type": "boolean"
+                },
+                "enabledActions": {
+                    "format": "frmdb-multiple-choice",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/ActionCREATE"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionEXPORT"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionIMPORTDATA"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionPRINT"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "fields": {
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/CInputTextFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputBooleanFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputChipFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputDateFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputDateTimeFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputEmailFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputImageFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputFileFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputNumberFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputRichTextFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputUrlFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputIntervalFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputJsonProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputSelectProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputReferenceProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputLookupProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputFormulaProps"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "formActions": {
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/ActionPRINT"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionSAVE"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionDELETE"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "isSubListOf": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "labelSource": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "refToParentListFieldName": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "resource": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "sortField": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "sortOrder": {
+                    "enum": [
+                        "ASC",
+                        "DESC"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "_id",
+                "_tag",
+                "cListType",
+                "labelSource",
+                "resource"
+            ],
+            "type": "object"
+        },
+        "CListTableNode": {
+            "additionalProperties": false,
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "_tag": {
+                    "enum": [
+                        "CList"
+                    ],
+                    "type": "string"
+                },
+                "cListType": {
+                    "enum": [
+                        "Table"
+                    ],
+                    "type": "string"
+                },
+                "children": {
+                    "items": {
+                        "$ref": "#/definitions/PageNode"
+                    },
+                    "type": "array"
+                },
+                "editable": {
+                    "type": "boolean"
+                },
+                "enabledActions": {
+                    "format": "frmdb-multiple-choice",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/ActionCREATE"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionEXPORT"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionIMPORTDATA"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionPRINT"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "fields": {
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/CInputTextFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputBooleanFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputChipFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputDateFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputDateTimeFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputEmailFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputImageFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputFileFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputNumberFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputRichTextFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputUrlFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputIntervalFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputJsonProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputSelectProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputReferenceProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputLookupProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputFormulaProps"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "formActions": {
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/ActionPRINT"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionSAVE"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionDELETE"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "isSubListOf": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "labelSource": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "refToParentListFieldName": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "resource": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "sortField": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "sortOrder": {
+                    "enum": [
+                        "ASC",
+                        "DESC"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "_id",
+                "_tag",
+                "cListType",
+                "labelSource",
+                "resource"
+            ],
+            "type": "object"
+        },
+        "CListTabsNode": {
+            "additionalProperties": false,
+            "properties": {
+                "_id": {
+                    "type": "string"
+                },
+                "_tag": {
+                    "enum": [
+                        "CList"
+                    ],
+                    "type": "string"
+                },
+                "cListType": {
+                    "enum": [
+                        "Tabs"
+                    ],
+                    "type": "string"
+                },
+                "children": {
+                    "items": {
+                        "$ref": "#/definitions/PageNode"
+                    },
+                    "type": "array"
+                },
+                "editable": {
+                    "type": "boolean"
+                },
+                "enabledActions": {
+                    "format": "frmdb-multiple-choice",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/ActionCREATE"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionEXPORT"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionIMPORTDATA"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionPRINT"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "fields": {
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/CInputTextFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputBooleanFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputChipFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputDateFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputDateTimeFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputEmailFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputImageFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputFileFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputNumberFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputRichTextFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputUrlFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputIntervalFieldProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputJsonProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputSelectProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputReferenceProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputLookupProps"
+                            },
+                            {
+                                "$ref": "#/definitions/CInputFormulaProps"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "formActions": {
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/ActionPRINT"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionSAVE"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionDELETE"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "isSubListOf": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "labelSource": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "refToParentListFieldName": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "resource": {
+                    "format": "frmdb-resource-name",
+                    "type": "string"
+                },
+                "sortField": {
+                    "format": "frmdb-resource-field-name",
+                    "type": "string"
+                },
+                "sortOrder": {
+                    "enum": [
+                        "ASC",
+                        "DESC"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "_id",
+                "_tag",
+                "cListType",
+                "labelSource",
+                "resource"
+            ],
+            "type": "object"
+        },
+        "CPageCreateNode": {
+            "additionalProperties": false,
+            "properties": {
+                "$schema": {
+                    "type": "string"
+                },
+                "_id": {
+                    "type": "string"
+                },
+                "_tag": {
+                    "enum": [
+                        "CPage"
+                    ],
+                    "type": "string"
+                },
+                "cPageType": {
+                    "enum": [
+                        "Edit"
+                    ],
+                    "type": "string"
+                },
+                "children": {
+                    "items": {
+                        "$ref": "#/definitions/PageNode"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "_id",
+                "_tag",
+                "cPageType"
+            ],
+            "type": "object"
+        },
+        "CPageEditNode": {
+            "additionalProperties": false,
+            "properties": {
+                "$schema": {
+                    "type": "string"
+                },
+                "_id": {
+                    "type": "string"
+                },
+                "_tag": {
+                    "enum": [
+                        "CPage"
+                    ],
+                    "type": "string"
+                },
+                "cPageType": {
+                    "enum": [
+                        "Edit"
+                    ],
+                    "type": "string"
+                },
+                "children": {
+                    "items": {
+                        "$ref": "#/definitions/PageNode"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "_id",
+                "_tag",
+                "cPageType"
+            ],
+            "type": "object"
+        },
+        "CPageListNode": {
+            "additionalProperties": false,
+            "properties": {
+                "$schema": {
+                    "type": "string"
+                },
+                "_id": {
+                    "type": "string"
+                },
+                "_tag": {
+                    "enum": [
+                        "CPage"
+                    ],
+                    "type": "string"
+                },
+                "cPageType": {
+                    "enum": [
+                        "List"
+                    ],
+                    "type": "string"
+                },
+                "children": {
+                    "items": {
+                        "$ref": "#/definitions/PageNode"
+                    },
+                    "type": "array"
+                },
+                "enabledActions": {
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/ActionCREATE"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionEXPORT"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionIMPORTDATA"
+                            },
+                            {
+                                "$ref": "#/definitions/ActionPRINT"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "filterTreeField": {
+                    "format": "frmdb-category-field-name",
+                    "type": "string"
+                },
+                "filterTreeResource": {
+                    "format": "frmdb-category-resource-name",
+                    "type": "string"
+                },
+                "largePages": {
+                    "type": "boolean"
+                },
+                "noFilters": {
+                    "type": "boolean"
+                },
+                "noPagination": {
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "_id",
+                "_tag",
+                "cPageType"
+            ],
+            "type": "object"
+        },
+        "GridItemProps": {
+            "additionalProperties": false,
+            "properties": {
+                "width": {
+                    "enum": [
+                        1,
+                        10,
+                        11,
+                        12,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7,
+                        8,
+                        9
+                    ],
+                    "type": "number"
+                }
+            },
+            "type": "object"
+        },
+        "PageNode": {
+            "anyOf": [
+                {
+                    "$ref": "#/definitions/CPageEditNode"
+                },
+                {
+                    "$ref": "#/definitions/CPageCreateNode"
+                },
+                {
+                    "$ref": "#/definitions/CPageListNode"
+                },
+                {
+                    "$ref": "#/definitions/CListTabsNode"
+                },
+                {
+                    "$ref": "#/definitions/CListTableNode"
+                },
+                {
+                    "$ref": "#/definitions/CListDatagridNode"
+                },
+                {
+                    "$ref": "#/definitions/CListFormListNode"
+                },
+                {
+                    "$ref": "#/definitions/CListChartNode"
+                },
+                {
+                    "$ref": "#/definitions/CInputTextFieldNode"
+                },
+                {
+                    "$ref": "#/definitions/CInputBooleanFieldNode"
+                },
+                {
+                    "$ref": "#/definitions/CInputChipFieldNode"
+                },
+                {
+                    "$ref": "#/definitions/CInputDateFieldNode"
+                },
+                {
+                    "$ref": "#/definitions/CInputDateTimeFieldNode"
+                },
+                {
+                    "$ref": "#/definitions/CInputEmailFieldNode"
+                },
+                {
+                    "$ref": "#/definitions/CInputImageFieldNode"
+                },
+                {
+                    "$ref": "#/definitions/CInputFileFieldNode"
+                },
+                {
+                    "$ref": "#/definitions/CInputNumberFieldNode"
+                },
+                {
+                    "$ref": "#/definitions/CInputRichTextFieldNode"
+                },
+                {
+                    "$ref": "#/definitions/CInputUrlFieldNode"
+                },
+                {
+                    "$ref": "#/definitions/CInputIntervalFieldNode"
+                },
+                {
+                    "$ref": "#/definitions/CInputJsonNode"
+                },
+                {
+                    "$ref": "#/definitions/CInputSelectNode"
+                },
+                {
+                    "$ref": "#/definitions/CInputReferenceNode"
+                },
+                {
+                    "$ref": "#/definitions/CInputLookupNode"
+                },
+                {
+                    "$ref": "#/definitions/CInputFormulaNode"
+                },
+                {
+                    "$ref": "#/definitions/CFormNode"
+                },
+                {
+                    "$ref": "#/definitions/CElementTextNode"
+                },
+                {
+                    "$ref": "#/definitions/CElementActionNode"
+                },
+                {
+                    "$ref": "#/definitions/CElementIconNode"
+                },
+                {
+                    "$ref": "#/definitions/CElementImageNode"
+                },
+                {
+                    "$ref": "#/definitions/CLayoutNode"
+                },
+                {
+                    "$ref": "#/definitions/CBlockHeadingNode"
+                },
+                {
+                    "$ref": "#/definitions/CBlockMediaNode"
+                },
+                {
+                    "$ref": "#/definitions/CBlockCardsNode"
+                }
+            ]
+        },
+        "PrwPage": {
+            "additionalProperties": false,
+            "properties": {
+                "content": {
+                    "$ref": "#/definitions/PageNode"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "prwTable": {
+                    "$ref": "#/definitions/PrwTable"
+                }
+            },
+            "required": [
+                "content",
+                "id",
+                "prwTable"
+            ],
+            "type": "object"
+        },
+        "PrwPermission": {
+            "additionalProperties": false,
+            "properties": {
+                "deletePerm": {
+                    "enum": [
+                        "IS-OWNER",
+                        "false",
+                        "true"
+                    ],
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "insertPerm": {
+                    "enum": [
+                        "IS-OWNER",
+                        "false",
+                        "true"
+                    ],
+                    "type": "string"
+                },
+                "prwRole": {
+                    "$ref": "#/definitions/PrwRole"
+                },
+                "prwTable": {
+                    "$ref": "#/definitions/PrwTable"
+                },
+                "selectPerm": {
+                    "enum": [
+                        "IS-OWNER",
+                        "false",
+                        "true"
+                    ],
+                    "type": "string"
+                },
+                "updatePerm": {
+                    "enum": [
+                        "IS-OWNER",
+                        "false",
+                        "true"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "deletePerm",
+                "id",
+                "insertPerm",
+                "prwRole",
+                "prwTable",
+                "selectPerm",
+                "updatePerm"
+            ],
+            "type": "object"
+        },
+        "PrwRole": {
+            "additionalProperties": false,
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "permissions": {
+                    "items": {
+                        "$ref": "#/definitions/PrwPermission"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "type": "object"
+        },
+        "PrwTable": {
+            "additionalProperties": false,
+            "properties": {
+                "columns": {
+                    "items": {
+                        "$ref": "#/definitions/PrwTableColumn"
+                    },
+                    "type": "array"
+                },
+                "icon": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "idType": {
+                    "type": "string"
+                },
+                "menu_order": {
+                    "type": "number"
+                },
+                "options": {
+                    "additionalProperties": {
+                        "additionalProperties": false,
+                        "properties": {
+                            "layoutType": {
+                                "enum": [
+                                    "ADMIN",
+                                    "EMBEDDED_PAGE",
+                                    "WEBSITE_PAGE"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "layoutType"
+                        ],
+                        "type": "object"
+                    },
+                    "type": "object"
+                },
+                "pages": {
+                    "items": {
+                        "$ref": "#/definitions/PrwPage"
+                    },
+                    "type": "array"
+                },
+                "parent": {
+                    "type": "string"
+                },
+                "permissions": {
+                    "items": {
+                        "$ref": "#/definitions/PrwPermission"
+                    },
+                    "type": "array"
+                },
+                "resource_type": {
+                    "enum": [
+                        "GROUP",
+                        "PAGE",
+                        "RESOURCE"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "id",
+                "idType",
+                "menu_order",
+                "resource_type"
+            ],
+            "type": "object"
+        },
+        "PrwTableColumn": {
+            "additionalProperties": false,
+            "properties": {
+                "c_check": {
+                    "type": "string"
+                },
+                "c_column_description": {
+                    "type": "string"
+                },
+                "c_column_name": {
+                    "type": "string"
+                },
+                "c_data_type": {
+                    "type": "string"
+                },
+                "c_default": {
+                    "type": "string"
+                },
+                "c_formula": {
+                    "type": "string"
+                },
+                "c_idx": {
+                    "type": "string"
+                },
+                "c_is_updatable": {
+                    "type": "string"
+                },
+                "c_table_schema": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "prwTable": {
+                    "$ref": "#/definitions/PrwTable"
+                }
+            },
+            "required": [
+                "c_check",
+                "c_column_description",
+                "c_column_name",
+                "c_data_type",
+                "c_default",
+                "c_formula",
+                "c_idx",
+                "c_is_updatable",
+                "c_table_schema",
+                "id",
+                "prwTable"
+            ],
+            "type": "object"
+        },
+        "Spacing": {
+            "additionalProperties": false,
+            "properties": {
+                "margin": {
+                    "enum": [
+                        0,
+                        0.5,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                    ],
+                    "type": "number"
+                },
+                "marginBottom": {
+                    "enum": [
+                        0,
+                        0.5,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                    ],
+                    "type": "number"
+                },
+                "marginLeft": {
+                    "enum": [
+                        0,
+                        0.5,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                    ],
+                    "type": "number"
+                },
+                "marginRight": {
+                    "enum": [
+                        0,
+                        0.5,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                    ],
+                    "type": "number"
+                },
+                "marginTop": {
+                    "enum": [
+                        0,
+                        0.5,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                    ],
+                    "type": "number"
+                },
+                "marginX": {
+                    "enum": [
+                        0,
+                        0.5,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                    ],
+                    "type": "number"
+                },
+                "marginY": {
+                    "enum": [
+                        0,
+                        0.5,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                    ],
+                    "type": "number"
+                },
+                "padding": {
+                    "enum": [
+                        0,
+                        0.5,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                    ],
+                    "type": "number"
+                },
+                "paddingBottom": {
+                    "enum": [
+                        0,
+                        0.5,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                    ],
+                    "type": "number"
+                },
+                "paddingLeft": {
+                    "enum": [
+                        0,
+                        0.5,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                    ],
+                    "type": "number"
+                },
+                "paddingRight": {
+                    "enum": [
+                        0,
+                        0.5,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                    ],
+                    "type": "number"
+                },
+                "paddingTop": {
+                    "enum": [
+                        0,
+                        0.5,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                    ],
+                    "type": "number"
+                },
+                "paddingX": {
+                    "enum": [
+                        0,
+                        0.5,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                    ],
+                    "type": "number"
+                },
+                "paddingY": {
+                    "enum": [
+                        0,
+                        0.5,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5
+                    ],
+                    "type": "number"
+                }
+            },
+            "type": "object"
+        },
+        "TypographyProps": {
+            "additionalProperties": false,
+            "properties": {
+                "fontStyle": {
+                    "enum": [
+                        "italic",
+                        "normal",
+                        "oblique"
+                    ],
+                    "type": "string"
+                },
+                "fontWeight": {
+                    "enum": [
+                        "",
+                        "500",
+                        "Bold",
+                        "Light",
+                        "Medium",
+                        "Regular"
+                    ],
+                    "type": "string"
+                },
+                "letterSpacing": {
+                    "enum": [
+                        0,
+                        1,
+                        10,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7,
+                        8,
+                        9
+                    ],
+                    "type": "number"
+                },
+                "lineHeight": {
+                    "enum": [
+                        0,
+                        1,
+                        10,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7,
+                        8,
+                        9,
+                        "normal"
+                    ]
+                },
+                "textAlign": {
+                    "enum": [
+                        "center",
+                        "left",
+                        "right"
+                    ],
+                    "type": "string"
+                },
+                "variant": {
+                    "enum": [
+                        "body1",
+                        "body2",
+                        "button",
+                        "caption",
+                        "h1",
+                        "h2",
+                        "h3",
+                        "h4",
+                        "h5",
+                        "h6",
+                        "overline",
+                        "subtitle1",
+                        "subtitle2"
+                    ],
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "properties": {
+        "id": {
+            "type": "string"
+        },
+        "permissions": {
+            "items": {
+                "$ref": "#/definitions/PrwPermission"
+            },
+            "type": "array"
+        }
+    },
+    "required": [
+        "id"
+    ],
+    "type": "object"
+}
+

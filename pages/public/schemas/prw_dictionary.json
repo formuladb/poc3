@@ -1,0 +1,53 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionalProperties": false,
+    "properties": {
+        "bg": {
+            "type": "string"
+        },
+        "da": {
+            "type": "string"
+        },
+        "de": {
+            "type": "string"
+        },
+        "el": {
+            "type": "string"
+        },
+        "en": {
+            "type": "string"
+        },
+        "es": {
+            "type": "string"
+        },
+        "fr": {
+            "type": "string"
+        },
+        "id": {
+            "type": "string"
+        },
+        "it": {
+            "type": "string"
+        },
+        "nl": {
+            "type": "string"
+        },
+        "no": {
+            "type": "string"
+        },
+        "pl": {
+            "type": "string"
+        },
+        "ro": {
+            "type": "string"
+        },
+        "sv": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "id"
+    ],
+    "type": "object"
+}
+
