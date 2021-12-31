@@ -39,11 +39,18 @@ import { setupTenant } from "./setupTenant";
 const app: express.Express = express();
 app.use(cookieParser());
 app.use((req: express.Request, res, next) => {
-    let jwtToken: string | undefined = req.cookies.dbrestauth ||
-        req.header['Authorization']?.replace(/^Bearer /, '');
+    let jwtToken: string | undefined = req.header['Authorization']?.replace(/^Bearer /, '') || 
+        req.cookies.dbrestauth;
+    let auth = `Bearer ${jwtToken}`
+
+    if (req.path == "/rows-db/rpc/frmdb_login") {
+        auth = "";
+    } 
+
     if (jwtToken) {
         try {
             let claims = jwt.verify(jwtToken, process.env.JWT_SECRET);
+            req.header['Authorization'] = auth;
             next();
         } catch (err) {
             res.status(401); res.end();
@@ -55,6 +62,7 @@ app.use((req: express.Request, res, next) => {
 
 app.use((req: express.Request, res, next) => {
     (async () => {
+        console.log(req.url);
         const m = req.hostname.match(/^(-\w+)\.(.+?)$/);
         const subdomain = m ? m[1] : null;
         const conn = await PRW_CONN_P;
@@ -86,11 +94,13 @@ app.use((req: express.Request, res, next) => {
 const postgrestProxy = createProxyMiddleware({
     target: 'http://db:3000',
     protocolRewrite: 'http',
-    pathRewrite: {'^/rows-db' : ''} ,
+    pathRewrite: {'^/rows-db' : ''},
+    // onProxyReq: (proxyReq, req) => {
+    //     console.log(req.url, proxyReq.path);
+    // },
     onProxyRes: (proxyRes, req, res) => {
         // log original request and proxied request info
-        const exchange = `[${req.method}] [${proxyRes.statusCode}] ${req.url}`;
-        console.log(exchange, proxyRes); // [GET] [200] / -> http://www.example.com
+        console.log(`[${req.method}] [${proxyRes.statusCode}] ${req.url}`, req.headers);
     },
     onError: (err, req, res, target) => {
         console.error(err);
@@ -120,14 +130,6 @@ app.put('/rows-obj/upload/:table/:column/:file', async (req: express.Request, re
 PRW_CONN_P
     .then(conn => setupTenant("prw", conn).then(() => conn))
     .then(conn => prwApp(conn).then(() => conn))
-    .then(conn => {
-        const repo = conn.getRepository(PrwTenant);
-        const prwTenant = repo.create({
-            id: "prw",
-            domainName: "demo",
-        });
-        repo.save(prwTenant);
-    })
     .then(() => app.listen(8080))
     ;
 

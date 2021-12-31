@@ -199,7 +199,7 @@ declare
   result frmdb_jwt_token;
 begin
 
-  select sign(
+  select exts.sign(
       row_to_json(r), 'asd1238d140dhoicoiqhewodqhed81-312d'
     ) as token
     from (
