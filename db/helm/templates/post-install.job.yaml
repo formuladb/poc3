@@ -1,0 +1,41 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: "{{ .Release.Name }}-post-install"
+  labels:
+    app.kubernetes.io/managed-by: {{ .Release.Service | quote }}
+    app.kubernetes.io/instance: {{ .Release.Name | quote }}
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    helm.sh/chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+  annotations:
+    "helm.sh/hook": post-install,post-upgrade
+    "helm.sh/hook-delete-policy": before-hook-creation
+spec:
+  template:
+    metadata:
+      name: "{{ .Release.Name }}"
+      labels:
+        app.kubernetes.io/managed-by: {{ .Release.Service | quote }}
+        app.kubernetes.io/instance: {{ .Release.Name | quote }}
+        helm.sh/chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: post-install-job
+        image: {{ .Values.image_for_db }}
+        command:
+        - sh
+        - -c
+        - |-
+          until pg_isready -h db -p 5432 -t 1; do echo waiting for db; sleep 2; done; \
+          psql -P pager=off -v ON_ERROR_STOP=1 -e -h db -U postgres -d "postgres" -f /init-db-scripts/pre-request.sql
+        env:
+        - { name: PGPASSWORD,  value: postgres }
+        volumeMounts:
+        - name: cm-vol
+          mountPath: /init-db-scripts
+          readOnly: true
+      volumes:
+      - name: cm-vol
+        configMap:
+          name: "{{ .Release.Name }}-post-install"
