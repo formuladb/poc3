@@ -2,6 +2,8 @@ import "reflect-metadata";
 import * as fs from 'fs';
 import prwApp from './apps/11_prw';
 
+import { Proxy } from './proxy';
+
 // In order to use the MinIO JavaScript API to generate the pre-signed URL, begin by instantiating
 // a `Minio.Client` object and pass in the values for your server.
 // The example below uses values for play.min.io:9000
@@ -26,26 +28,27 @@ var client = new Minio.Client({
 import * as express from 'express';
 import * as cookieParser from "cookie-parser";
 const mime = require('mime');
-import { createProxyMiddleware } from 'http-proxy-middleware';
 
 import * as jwt from 'jsonwebtoken';
-import { setPermission } from "./core-orm/setPermision";
-import { URL } from "url";
-import { BASE_CONNECTION, PRW_CONN_P } from "./conn";
-import { autoMigrate } from "./core-orm/autoMigrate";
+import { PRW_CONN, PRW_CONN_P } from "./conn";
 import { PrwTenant } from "@core/entity/PrwTenant";
 import { setupTenant } from "./setupTenant";
 
 const app: express.Express = express();
+app.use((req: express.Request, res, next) => {
+    console.log(new Date(), "== req ", req.url, " =======================================");
+    next();
+});
 app.use(cookieParser());
 app.use((req: express.Request, res, next) => {
-    let jwtToken: string | undefined = req.header['Authorization']?.replace(/^Bearer /, '') || 
+    console.log(new Date(), "auth ", req.url);
+    let jwtToken: string | undefined = req.header['Authorization']?.replace(/^Bearer /, '') ||
         req.cookies.dbrestauth;
     let auth = `Bearer ${jwtToken}`
 
     if (req.path == "/rows-db/rpc/frmdb_login") {
         auth = "";
-    } 
+    }
 
     if (jwtToken) {
         try {
@@ -60,53 +63,45 @@ app.use((req: express.Request, res, next) => {
     next();
 });
 
-app.use((req: express.Request, res, next) => {
-    (async () => {
-        console.log(req.url);
-        const m = req.hostname.match(/^(-\w+)\.(.+?)$/);
-        const subdomain = m ? m[1] : null;
-        const conn = await PRW_CONN_P;
-        let tenantSchema: string | null = null;
-        if (subdomain) {
-            const tenantRepo = conn.getRepository(PrwTenant);
-            const tenants = await tenantRepo.find({ where: { domainName: subdomain } });
-            if (tenants[0]) {
-                const schemaName = tenants[0].id;
-                tenantSchema = schemaName;
-            } else {
-                res.status(403).end("tenant not found");
-            }
+async function tenantHandler(req: express.Request, res: express.Response, next: express.NextFunction) {
+    console.log(new Date(), "tenant ", req.url, next);
+    const m = req.hostname.match(/^(-\w+)\.(.+?)$/);
+    const subdomain = m ? m[1] : null;
+    let tenantSchema: string | null = null;
+    let conn = PRW_CONN;
+    if (subdomain) {
+        const tenantRepo = conn.getRepository(PrwTenant);
+        const tenants = await tenantRepo.find({ where: { domainName: subdomain } });
+        if (tenants[0]) {
+            const schemaName = tenants[0].id;
+            tenantSchema = schemaName;
+        } else {
+            res.status(403).end("tenant not found");
         }
-        if (!tenantSchema) {
-            tenantSchema = "prw";
-        }
-
-        if (req.method === "GET" || req.method === "HEAD") {
-            req.headers["Accept-Profile"] = tenantSchema;
-        } else if (req.method === "POST" || req.method === "PUT" || req.method === "DELETE" || req.method === "PATCH") {
-            req.headers["Content-Profile"] = tenantSchema;
-        }
-        next();
-
-    })();
-});
-
-const postgrestProxy = createProxyMiddleware({
-    target: 'http://db:3000',
-    protocolRewrite: 'http',
-    pathRewrite: {'^/rows-db' : ''},
-    // onProxyReq: (proxyReq, req) => {
-    //     console.log(req.url, proxyReq.path);
-    // },
-    onProxyRes: (proxyRes, req, res) => {
-        // log original request and proxied request info
-        console.log(`[${req.method}] [${proxyRes.statusCode}] ${req.url}`, req.headers);
-    },
-    onError: (err, req, res, target) => {
-        console.error(err);
     }
+    if (!tenantSchema) {
+        tenantSchema = "prw";
+    }
+
+    if (req.method === "GET" || req.method === "HEAD") {
+        req.headers["Accept-Profile"] = tenantSchema;
+    } else if (req.method === "POST" || req.method === "PUT" || req.method === "DELETE" || req.method === "PATCH") {
+        req.headers["Content-Profile"] = tenantSchema;
+    }
+    console.log(new Date(), "tenant ", req.url, req.headers["Accept-Profile"], "|", req.headers["Content-Profile"]);
+    next();
+}
+app.use(tenantHandler);
+
+app.use('/rows-db', (req: express.Request, res, next) => {
+    Proxy.web(req, res);
 });
-app.use('/rows-db', postgrestProxy);
+app.use('/rows-db', (req: express.Request, res, next) => {
+    console.log(new Date(), "after proxy stop", req.url);
+});
+app.use('/rows-db', (req: express.Request, res, next) => {
+    console.log(new Date(), "after after proxy should never happen", req.url);
+});
 
 app.get('/rows-obj/presignedUrl/:table/:column/:file', (req: express.Request, res) => {
     client.presignedPutObject('frmdb-bucket', `${req.params.table}/${req.params.column}/${req.params.file}`, (err, url) => {

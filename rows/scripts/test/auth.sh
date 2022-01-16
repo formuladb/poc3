@@ -5,10 +5,10 @@ set -ex
 
 fctCurl() {
     { set +x; } 2>/dev/null
-    STATUSCODE=$(curl -s -o /tmp/$$ -w "%{http_code}" "$@")
+    STATUSCODE=$(curl -v -o /tmp/$$ -w "%{http_code}" "$@")
     cat /tmp/$$
     echo
-    if [ $STATUSCODE -ne 200 ]; then echo "ERROR"; exit 1; fi
+    if [ $STATUSCODE -ne 200 ]; then echo "ERROR $STATUSCODE"; exit 1; fi
     set -x
 }
 
@@ -28,9 +28,11 @@ fctCurl -c mycookie -XPOST -H "Content-Type: application/json" \
     'http://localhost/rows-db/rpc/frmdb_login' \
     --data-binary '{ "username": "prw", "pass": "prw" }'
 
+_l "# basic API access dbrest ===================================#"
+fctCurl -b mycookie -H "accept-profile: prw" 'http://localhost/dbrest/prw_tenants'
 _l "# basic API access ===================================#"
-fctCurl -b mycookie -H "Accept-Profile: prw" 'http://localhost/dbrest/prw_tenants'
-fctCurl -b mycookie 'http://localhost/rows-db/prw_tenants/das'
+fctCurl -b mycookie 'http://localhost/rows-db/prw_tenants'
+sleep 2
 
 # _l "# refresh token ===================================#"
 # curl --fail -vvL -c mycookie -b 1 \

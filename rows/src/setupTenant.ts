@@ -1,5 +1,5 @@
 import { Connection, createConnection } from "typeorm";
-import { BASE_CONNECTION, PRW_CONN_P } from "./conn";
+import { BASE_CONNECTION } from "./conn";
 import { setPermission } from "./core-orm/setPermision";
 import { runCmd } from "./runCmd";
 import baseApp from './apps/00_base';

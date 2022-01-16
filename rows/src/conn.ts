@@ -81,12 +81,15 @@ export const BASE_CONNECTION = {
     ],
 };
 
+export var PRW_CONN: Connection | null = null;
 export const PRW_CONN_P = createConnection({
     ...BASE_CONNECTION,
     name: "prw",
     type: "postgres",
     schema: "prw",
 }).then(async (conn) => {
-    await conn.query(`SET search_path TO prw;`)
+    console.log(new Date(), "here conn", conn.isConnected);
+    await conn.query(`SET search_path TO prw;`);
+    PRW_CONN = conn;
     return conn;
 });
