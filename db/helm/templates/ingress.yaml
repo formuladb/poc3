@@ -14,7 +14,7 @@ metadata:
       }
       if ($request_uri ~ /rpc/frmdb_login) {
         set $auth "";
-      } 
+      }
       proxy_set_header Authorization $auth;    
 spec:
   rules:

@@ -41,7 +41,6 @@ app.use((req: express.Request, res, next) => {
 });
 app.use(cookieParser());
 app.use((req: express.Request, res, next) => {
-    console.log(new Date(), "auth ", req.url);
     let jwtToken: string | undefined = req.header['Authorization']?.replace(/^Bearer /, '') ||
         req.cookies.dbrestauth;
     let auth = `Bearer ${jwtToken}`
@@ -53,13 +52,15 @@ app.use((req: express.Request, res, next) => {
     if (jwtToken) {
         try {
             let claims = jwt.verify(jwtToken, process.env.JWT_SECRET);
-            req.header['Authorization'] = auth;
+            req.headers['Authorization'] = auth;
+            console.log(new Date(), "auth ", req.url, req.headers['Authorization']);
             next();
         } catch (err) {
             res.status(401); res.end();
         }
     }
     res.locals.jwtToken = jwtToken;
+    console.log(new Date(), "auth ", req.url);
     next();
 });
 

@@ -3,9 +3,9 @@ create or replace function public.prw_pre_request() returns void
   as $$
 declare
 	
-	_request_id text := coalesce(current_setting('request.header.x-request-id', true),'');
-	_role text := coalesce(current_setting('request.jwt.claim.role', true),'');
-	_user_id text := coalesce(current_setting('request.jwt.claim.id', true),'');
+	_request_id text := coalesce(current_setting('request.headers', true)::json->>'authorization','');
+	_role text := coalesce(current_setting('request.jwt.claims', true)::json->>'role','');
+	_user_id text := coalesce(current_setting('request.jwt.claims', true)::json->>'user_id','');
 	_resource text := coalesce(current_setting('request.header.x-path', true),'');
 	_verb text := coalesce(current_setting('request.header.x-verb', true),'');
 	_qs_id text := coalesce(current_setting('request.header.x-qs-id', true),'not-set');

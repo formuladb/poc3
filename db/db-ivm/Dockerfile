@@ -106,14 +106,6 @@ RUN set -eux; \
 	make install-world; \
 	make -C contrib install; \
 	\
-	git clone https://github.com/michelp/pgjwt.git; \
-	cd pgjwt && make install; \
-	cd ../ && rm -rf pgjwt; \
-	\
-	git clone https://github.com/theory/pgtap.git; \
-	cd pgtap && make && make install; \
-	cd ../ && rm -rf pgtap; \
-	\
 	runDeps="$( \
 		scanelf --needed --nobanner --format '%n#p' --recursive /usr/local \
 			| tr ',' '\n' \
