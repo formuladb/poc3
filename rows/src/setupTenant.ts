@@ -35,7 +35,7 @@ export async function setupTenant(schemaName: string, inputConn?: Connection) {
 }
 
 async function pgFmkInstall(schema: string) {
-    await runCmd('timeout', '300', 'bash', '-c', `cd /pg && make SCHEMA=${schema}`);
+    await runCmd('timeout', '300', 'bash', '-c', `cd /pg && bash migrate.sh "${schema}"`);
 }
 
 async function runSchema(tenantId: string, conn: Connection) {

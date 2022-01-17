@@ -32,7 +32,6 @@ _l "# basic API access dbrest ===================================#"
 fctCurl -b mycookie -H "accept-profile: prw" 'http://localhost/dbrest/prw_tenants'
 _l "# basic API access ===================================#"
 fctCurl -b mycookie 'http://localhost/rows-db/prw_tenants'
-sleep 2
 
 # _l "# refresh token ===================================#"
 # curl --fail -vvL -c mycookie -b 1 \
