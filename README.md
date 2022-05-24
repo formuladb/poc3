@@ -1,3 +1,7 @@
+Third PoC for formuladb no-code/low-code platform. **abandoned**
+
+Similar goals as https://github.com/formuladb/poc2, but using postgresl and triggers as the base technology for the formula engine. For the front-end using https://github.com/marmelab/react-admin as the base technology.
+
 # TODOs
 
 * [ ] RLS based multi-tenancy
